@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!--
+//
+// Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+//
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>WebViewerStreamingSample</title>
+    <style type="text/css">
+        #viewer {
+            width: 1024px;
+            height: 768px;
+            border: 1px solid grey;
+        }
+    </style>
+    <script type="text/javascript" src="WebViewer/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="WebViewer/WebViewer.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var viewerElement = document.getElementById('viewer');
+
+            function initStreaming() {
+                myWebViewer = new PDFTron.WebViewer({
+                    path: "WebViewer", //path to WebViewer directory
+                    initialDoc: "ConvertAndStream.php?file=newsletter.pdf",
+                    streaming: true
+                }, viewerElement);
+            }
+
+            function initPreconverted() {
+                myWebViewer = new PDFTron.WebViewer({
+                    path: "WebViewer",
+                    initialDoc: "Samples/TestFiles/newsletter.xod",
+                    streaming: "false"
+                }, viewerElement);
+            }
+
+            function radioValueChanged() {
+                $(viewerElement).empty();
+                radioValue = $(this).val();
+
+                if (radioValue === "Streaming") {
+                    initStreaming();
+                } else {
+                    initPreconverted();
+                }
+            }
+
+            $("input[name='RadioGroup']").change(radioValueChanged);
+            initPreconverted();
+        });
+    </script>
+</head>
+<body>
+    <p style="width:1024px">
+        This webpage demonstrates viewing of a pre-converted XOD file as well as conversion and streaming of a document for WebViewer.  If Pre-converted
+        is selected then a XOD file is requested that was converted ahead of time.  This is the recommended way to view documents with WebViewer because
+        they can begin being displayed immediately, ie there is no need to wait for the conversion.  Also note that parts of pre-converted files are
+        requested as needed which results in better performance than converting and streaming.
+    </p>
+
+    <p style="width:1024px">
+        If streaming is selected then the document is requested from "ConvertAndStream.php".  "ConvertAndStream.php" will stream back the XOD file which
+        will then be rendered by the WebViewer below. It may take a few moments before the document starts displaying because it will be converted on the fly.
+        This could be useful for dynamically generated documents.
+    </p>
+
+    <p>
+        <input type="radio" name="RadioGroup" value="Pre-converted" checked="checked"/>Pre-converted<br />
+        <input type="radio" name="RadioGroup" value="Streaming"/>Streaming<br />
+    </p>
+
+    <div id="viewer"></div>
+    <p>Copyright &copy; 2001-2014 by PDFTron Systems Inc. All Rights Reserved.</p>
+</body>
+</html>
