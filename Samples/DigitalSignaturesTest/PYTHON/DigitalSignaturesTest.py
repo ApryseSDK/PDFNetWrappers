@@ -33,10 +33,6 @@ import site, sys
 site.addsitedir('../../../PDFNetC/Lib')
 
 from PDFNetPython import *
-    from PDFNetPython2 import *
-else:
-    from PDFNetPython3 import *
-# end if sys.version_info.major < 3
 
 #
 # This functions add an approval signature to the PDF document. The original PDF document contains a blank form field

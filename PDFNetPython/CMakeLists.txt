@@ -6,19 +6,18 @@
 project(PDFNetPython CXX)
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-find_package(PythonInterp)
 find_package(PythonLibs)
 
-if (PYTHONINTERP_FOUND AND PYTHONLIBS_FOUND)
-    if ("${PYTHON_VERSION_MAJOR}" STREQUAL "2")
+if (PYTHONLIBS_FOUND)
+    if ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^[2]+[\\.0-9]*$")
         set(PYTHON_2 ON)
-    elseif ("${PYTHON_VERSION_MAJOR}" STREQUAL "3")
+    elseif ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^[3]+[\\.0-9]*$")
         set(PYTHON_3 ON)
     else ()
-        message(FATAL_ERROR "Unsupported Python version. Please install either Python 2 or Python 3.")
+        message(FATAL_ERROR "Unsupported Python version (Detected: ${PYTHONLIBS_VERSION_STRING}). Please install either Python 2 or Python 3.")
     endif ()
 
-    message(STATUS "Using Python ${PYTHON_VERSION_STRING}")
+    message(STATUS "Using Python: ${PYTHONLIBS_VERSION_STRING}")
     message(STATUS "Python include directory: ${PYTHON_INCLUDE_DIRS}")
     message(STATUS "Python library: ${PYTHON_LIBRARY}")
 else ()
@@ -69,10 +68,21 @@ include_directories(
 
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+    set(PYTHON_LINK_LIB ${PYTHON_LIBRARY})
+elseif (MINGW OR MSYS)
+    set(PYTHON_LINK_LIB ${PYTHON_LIBRARY})
+elseif (UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
+    if (APPLE)
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/PDFNetRuby.bundle -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/loca/lib -Wl,-rpath,.")
+    else ()
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
+    endif ()
 endif ()
 
 add_library(PDFNetPython MODULE ${PDFNetPython_Sources})
-target_link_libraries(PDFNetPython ${PDFNetC_Library} ${PYTHON_LIBRARY})
+target_link_libraries(PDFNetPython ${PDFNetC_Library} ${PYTHON_LINK_LIB})
 
 # Python extension naming conventions are:
 # - _PDFNetPython.so

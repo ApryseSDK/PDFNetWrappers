@@ -80,10 +80,7 @@ def main():
         count = 0
         while count < 3:
             print("A password required to open the document.")
-            from PDFNetPython import *
-                password = raw_input("Please enter the password:")
-            else:
-                password = input("Please enter the password:")
+            password = raw_input("Please enter the password: ")
                 
             if doc.InitStdSecurityHandler(password, len(password)):
                 success = True

@@ -6,9 +6,9 @@
 project(PDFNetLanguageBindings CXX)
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-set(BUILD_PDFNetPython ON CACHE BOOL "Build PDFNet language bindings for Python.")
-set(BUILD_PDFNetRuby ON CACHE BOOL "Build PDFNet language bindings for Ruby.")
-set(BUILD_PDFNetPHP ON CACHE BOOL "Build PDFNet language bindings for PHP.")
+set(BUILD_PDFNetPython OFF CACHE BOOL "Build PDFNet language bindings for Python.")
+set(BUILD_PDFNetRuby OFF CACHE BOOL "Build PDFNet language bindings for Ruby.")
+set(BUILD_PDFNetPHP OFF CACHE BOOL "Build PDFNet language bindings for PHP.")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/PDFNetC" CACHE PATH "CMAKE_INSTALL_PREFIX" FORCE)
 
 if ("${CMAKE_INSTALL_PREFIX}" STREQUAL "${CMAKE_SOURCE_DIR}/PDFNetC")

@@ -52,9 +52,29 @@ include_directories(
     ${RUBY_INCLUDE_DIRS}
 )
 
+# Platform specific compiler and linker settings
+if (MSVC)
+    add_definitions(-D_XKEYCHECK_H -DUNICODE -D_UNICODE)
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+    set(CMAKE_CXX_FLAGS_MINSIZEREL "${CMAKE_CXX_FLAGS_MINSIZEREL} /MT")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /MT")
+    set(RUBY_LINK_LIB ${RUBY_LIBRARY} ws2_32.lib imagehlp.lib shlwapi.lib)
+elseif (MINGW OR MSYS)
+    set(RUBY_LINK_LIB ${RUBY_LIBRARY} ws2_32 imagehlp shlwapi)
+elseif (UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+    set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
+    if (APPLE)
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/PDFNetRuby.bundle -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/loca/lib -Wl,-rpath,.")
+    else ()
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
+    endif ()
+endif ()
+
 # The PDFNetRuby project.
 add_library(PDFNetRuby MODULE ${PDFNetRuby_Sources})
-target_link_libraries(PDFNetRuby ${PDFNetC_Library} ${RUBY_LIBRARY})
+target_link_libraries(PDFNetRuby ${PDFNetC_Library} ${RUBY_LINK_LIB})
 
 # Ruby extension naming conventions are:
 # - PDFNetRuby.so

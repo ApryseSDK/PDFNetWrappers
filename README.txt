@@ -53,6 +53,22 @@ Running the samples:
 2. Navigate to the Samples/ folder and either run the runall scripts, or go into the individual samples folder and run the runtest scripts.
 
 --------------------------------------------------------------------------------
+Pre-built Binaries:
+--------------------------------------------------------------------------------
+You can download pre-built binaries from the following links:
+
+Windows: Python 2.7.x
+http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
+http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
+
+Linux: Python 2.7.x and Ruby 2.0.0
+http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
+http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
+
+Mac OS: Python 2.7.x and Ruby 2.0.0
+http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
+
+--------------------------------------------------------------------------------
 Common Questions:
 --------------------------------------------------------------------------------
 * Which versions of the interpreters are supported by this project?
