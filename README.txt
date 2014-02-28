@@ -1,6 +1,3 @@
-Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
-Consult LICENSE.txt for licensing information.
-
 --------------------------------------------------------------------------------
 About:
 --------------------------------------------------------------------------------
