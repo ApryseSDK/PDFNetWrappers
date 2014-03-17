@@ -1084,6 +1084,12 @@ public:
     void SetPreferJPG(bool prefer_jpg);
 
     /**
+     * Specifies the compression quality to use when generating JPEG images.
+     * @param quality the JPEG compression quality, from 0(highest compression) to 100(best quality).
+     */
+    void SetJPGQuality(pdftron::UInt32 quality);
+
+    /**
      * The output resolution, from 1 to 1000, in Dots Per Inch (DPI) at which to render elements which cannot be directly converted. 
      * the default value is 150 Dots Per Inch
      * @param dpi the resolution in Dots Per Inch
