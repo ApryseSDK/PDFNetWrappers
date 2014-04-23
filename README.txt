@@ -39,6 +39,8 @@ The following steps describe how to build a language binding for PDFNetC using t
 4. Run make or the IDE's build command
     > make
 
+NOTE: To rebuild the bindings, you may need to delete the files in Build and re-run cmake.  This is because the CMake script itself compiles the SWIG bindings.
+
 --------------------------------------------------------------------------------
 Running the samples:
 --------------------------------------------------------------------------------
