@@ -901,7 +901,7 @@ public:
      * the default value is 150 Dots Per Inch
      * @param dpi the resolution in Dots Per Inch
      */
-    void SetDPI(UInt32 dpi);
+    void SetDPI(pdftron::UInt32 dpi);
 
     /**
      * Sets whether rendering of pages should be permitted when necessary to guarantee output
