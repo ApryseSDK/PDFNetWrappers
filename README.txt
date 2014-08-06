@@ -30,11 +30,19 @@ The following steps describe how to build a language binding for PDFNetC using t
 2. Create an out-of-source build tree directory (i.e. Build)
     > mkdir Build
 
-3. Go into the build directory and invoke CMake. At this step you can include other CMake options.
-    > cd Build
-    > cmake ..
+3. Go into the build directory and invoke CMake. At this step you can include other CMake options. (Alternatively, you may be able to use ccmake or cmake-gui which can show you which options you can set and change to modify the project file generation.)
 
-* Alternatively, you may be able to use ccmake or cmake-gui which can show you which options you can set and change to modify the project file generation.
+  a. Python
+    > cd Build
+    > cmake -D BUILD_PDFNetPython=ON ..
+
+  b. Ruby
+    > cd Build
+    > cmake -D BUILD_PDFNetRuby=ON ..
+
+  c. PHP
+    > cd Build
+    > cmake -D BUILD_PDFNetPHP=ON ..
 
 4. Run make or the IDE's build command
     > make
@@ -50,6 +58,29 @@ Running the samples:
 * This should place the bridge files to the PDFNetC/Lib folder (where the PDFNetC library was extracted from the previous section).
 
 2. Navigate to the Samples/ folder and either run the runall scripts, or go into the individual samples folder and run the runtest scripts.
+
+--------------------------------------------------------------------------------
+Example:
+--------------------------------------------------------------------------------
+
+Suppose you wanted to build and run the 64-bit PHP wrappers.  You could run the following set of commands:
+
+> mkdir wrappers_build # Make a directory to build the wrappers in.
+> cd wrappers_build # Move to that directory.
+> git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+> cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
+> wget http://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
+> tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
+> mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
+> mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
+> cd .. # Go back up.
+> mkdir Build # Create a directory to create the Makefiles in.
+> cd Build # Move to that directory.
+> cmake -D BUILD_PDFNetPHP=ON .. # Create the Makefiles with CMake.
+> make # Build the PHP wrappers with SWIG.
+> make install # Copy the PHP wrappers to where the samples can find them.
+> cd ../Samples # Move to the Samples directory.
+> ./runall_php.sh # Run all PHP code samples, using the new wrappers.
 
 --------------------------------------------------------------------------------
 Pre-built Binaries:
