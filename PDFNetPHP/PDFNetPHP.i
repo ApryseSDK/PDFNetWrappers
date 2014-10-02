@@ -837,6 +837,19 @@ public:
     void SetFlattenThreshold(enum pdftron::PDF::Convert::FlattenThresholdFlag threshold);
 
     /**
+    * The output resolution, from 1 to 1000, in Dots Per Inch (DPI) at which to render elements which cannot be directly converted.
+    * Default is 150.
+    * @param dpi the resolution in Dots Per Inch
+    */
+    void SetFlattenDPI(pdftron::UInt32 dpi);
+
+    /**
+    * Specifies the maximum image size in pixels. Default is 2000000.
+    * @param max_pixels the maximum number of pixels an image can have
+    */
+    void SetFlattenMaximumImagePixels(pdftron::UInt32 max_pixels);
+
+    /**
      * Compress output SVG files using SVGZ.
      * @param svgz if true, SVG files are written in compressed format. Default is false.
      */
