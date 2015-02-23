@@ -18,7 +18,7 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 In order to generate project files, CMake version 2.8 or above is required.
 
-Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: http://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architure of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
+Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: http://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
 
 --------------------------------------------------------------------------------
 Building:
