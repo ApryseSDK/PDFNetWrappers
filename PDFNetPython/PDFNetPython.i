@@ -1081,12 +1081,6 @@ public:
     void SetPreferJPG(bool prefer_jpg);
 
     /**
-     * Specifies the compression quality to use when generating JPEG images.
-     * @param quality the JPEG compression quality, from 0(highest compression) to 100(best quality).
-     */
-    void SetJPGQuality(pdftron::UInt32 quality);
-
-    /**
      * The output resolution, from 1 to 1000, in Dots Per Inch (DPI) at which to render elements which cannot be directly converted. 
      * the default value is 150 Dots Per Inch
      * @param dpi the resolution in Dots Per Inch
@@ -1128,6 +1122,13 @@ public:
      * @param enable If true, converter will try to reduce DOM complexity at the expense of text placement accuracy.
      */
     void SetSimplifyText(bool enable);
+
+    /**
+     * Specifies the compression quality to use when generating JPEG images.
+     * @param quality the JPEG compression quality, from 0(highest compression) to 100(best quality).
+     */
+    void SetJPGQuality(pdftron::UInt32 quality);
+
 protected:
     TRN_Obj m_obj;
     friend class Convert;
@@ -1753,6 +1754,15 @@ public:
      * @param force if true all image changes will be kept.
      */
     void ForceChanges(bool force);
+
+    /**
+     * Sets the quality for lossy compression modes
+     * from 1 to 10 where 10 is lossless (if possible).
+     * The default value for JBIG2 is 8.5.  The setting is
+     * ignored for FLATE.
+     */
+    void SetJBIG2Threshold(double jbig2_threshold);
+
 };
 
 /** 
