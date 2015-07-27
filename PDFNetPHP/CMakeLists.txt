@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 if (WIN32)
     message(STATUS "Windows host platform detected.")
     if (PHP_INCLUDE_DIRS AND PHP_LIBRARY)
-        include_directories(PHP_INCLUDE_DIRS)
+        include_directories(${PHP_INCLUDE_DIRS})
     else ()
         message(FATAL_ERROR "Cannot find PHP include directories and library, please set the variable PHP_INCLUDE_DIRS and PHP_LIBRARY then try again.")
         return ()
@@ -73,6 +73,16 @@ add_definitions(
     -DClone=CloneHandler
     -DEval=EvalFunction
 )
+
+if (WIN32)
+    add_definitions(
+        -DPHP_WIN32
+        -D_USE_32BIT_TIME_T=1
+        -DZEND_WIN32
+        -DZEND_WIN32_FORCE_INLINE
+        -DZEND_DEBUG=0
+    )
+endif ()
 
 include_directories(
     ${PDFNetC_Include_Dir}
