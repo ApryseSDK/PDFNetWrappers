@@ -24,12 +24,13 @@
 %exception {
     try {
         $action
-    } catch(pdftron::Common::Exception e) {
-        zend_error(E_ERROR, "PDFNet: %s", e.GetMessage());
-    } catch (...) {
-        zend_error(E_ERROR, "Exception");
-    } 
-
+    } catch(pdftron::Common::Exception& e) {
+        SWIG_exception(SWIG_RuntimeError, e.GetMessage());
+    } catch(std::exception& e) {
+        SWIG_exception(SWIG_RuntimeError, e.what());
+    } catch(...) {
+        SWIG_exception(SWIG_RuntimeError, "Unknown error");
+    }
 }
 
 /**
