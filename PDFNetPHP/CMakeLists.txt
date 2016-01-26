@@ -37,6 +37,21 @@ else ()
     endif ()
     
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PHP_CONFIG_INCLUDES}")
+
+    execute_process(
+        COMMAND ${PHP_CONFIG} --extension-dir
+        RESULT_VARIABLE PHP_CONFIG_EXT_DIR_RESULT
+        OUTPUT_VARIABLE PHP_CONFIG_EXT_DIR
+        ERROR_VARIABLE PHP_CONFIG_EXT_DIR_ERR
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+    )
+
+    if ("${PHP_CONFIG_EXT_DIR_RESULT}" STREQUAL "0")
+        message(STATUS "Using PHP extension directory: ${PHP_CONFIG_EXT_DIR}")
+    else ()
+        message(FATAL_ERROR "An error has occurred while getting PHP extension directory. Error: ${PHP_CONFIG_EXT_DIR_ERR}")
+        return ()
+    endif ()
 endif ()
 
 message(STATUS "Generating sources for PHP bindings using swig...")
@@ -111,3 +126,9 @@ install(
     TARGETS PDFNetPHP
     LIBRARY DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
+if (NOT WIN32)
+    install(
+        FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.so
+        DESTINATION ${PHP_CONFIG_EXT_DIR}
+    )
+endif ()
