@@ -984,6 +984,13 @@ public:
      * @param pass the encryption password
      */
     void SetEncryptPassword(const char* pass);
+    
+    /**
+     * Force converter to use an older XOD format
+     * By default this option is false
+     * @param compatible if true will use the older XOD format
+     */
+    void UseSilverlightFlashCompatible(bool compatible);
 };
 
 /**

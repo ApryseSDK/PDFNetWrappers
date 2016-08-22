@@ -82,6 +82,10 @@ Suppose you wanted to build and run the 64-bit PHP wrappers.  You could run the 
 > cd ../Samples # Move to the Samples directory.
 > ./runall_php.sh # Run all PHP code samples, using the new wrappers.
 
+Please note that you may need to register PDFNetPHP.so as an extension to your PHP by adding the following line in your php.ini:
+
+    extension=/full/path/to/PDFNetPHP.so
+
 --------------------------------------------------------------------------------
 Pre-built Binaries:
 --------------------------------------------------------------------------------
