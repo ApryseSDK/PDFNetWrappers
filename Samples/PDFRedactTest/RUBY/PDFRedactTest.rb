@@ -49,9 +49,6 @@ end
 	output_path = "../../TestFiles/Output/"
 	
 	PDFNet.Initialize
-
-	doc = PDFDoc.new(input_path + "newsletter.pdf")
-	doc.InitSecurityHandler
 	
 	vec = [Redaction.new(1, Rect.new(0, 0, 600, 600), false, "Top Secret"),
 		Redaction.new(2, Rect.new(0, 0, 100, 100), false, "foo"),

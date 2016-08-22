@@ -51,9 +51,6 @@ def main():
     output_path = "../../TestFiles/Output/"
     
     PDFNet.Initialize()
-
-    doc = PDFDoc(input_path + "newsletter.pdf")
-    doc.InitSecurityHandler()
     
     vec = VectorRedaction()
     vec.append(Redaction(1, Rect(0, 0, 600, 600), False, "Top Secret"))
