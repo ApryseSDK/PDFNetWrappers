@@ -146,7 +146,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	echo nl2br("Extract XFDF as a string. \n");
 	
 	$fdoc_new = $in_doc->FDFExtract(PDFDoc::e_both);
-	$XFDF_str = fdoc_new->SaveAsXFDF();
+	$XFDF_str = $fdoc_new->SaveAsXFDF();
 	echo nl2br("Extracted XFDF: \n");
 	echo nl2br($XFDF_str);
 	$in_doc->Close();
