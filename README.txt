@@ -12,6 +12,7 @@ Requirements:
 --------------------------------------------------------------------------------
 This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build enviroment is necessary for compiling and producing the bridge file. We have tested this project on the following environments:
 
+    - SWIG 2.0.4 - 2.0.12. SWIG 3.x will generate a wrapper, but C++ nested classes will not work.
     - Linux: GCC 4.6 and above
     - Windows: Visual Studio 2012 and above
     - Mac OS: XCode 5.0 and above
@@ -132,7 +133,7 @@ Make sure that your interpreter can find the PDFNetC library. The following info
 
 * I am having issues with SWIG.
 
-Please obtain the latest official builds of SWIG at: http://www.swig.org/.
+Please use a SWIG version in this range (inclusive) [2.0.4, 2.0.12], available at: http://www.swig.org/.
 
 * How can I change the install location?
 
