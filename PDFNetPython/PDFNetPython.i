@@ -2218,6 +2218,7 @@ private:
 %include "SDF/Obj.h"
 %include "SDF/ObjSet.h"
 %include "SDF/SecurityHandler.h"
+%include "PDF/ViewChangeCollection.h"
 %include "PDF/Point.h"
 %include "PDF/Function.h"
 %include "PDF/ColorSpace.h"
