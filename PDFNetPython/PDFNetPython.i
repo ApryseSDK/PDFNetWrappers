@@ -117,6 +117,7 @@
     #include "PDF/Struct/STree.h"
 
     // header files in /PDFNetC/Headers/PDF
+    #include "PDF/ViewChangeCollection.h"
     #include "PDF/Action.h"
     #include "PDF/Annot.h"
     #include "PDF/Annots.h"
@@ -243,6 +244,7 @@ namespace pdftron {
         class Font;
         class ColorPt;
         class Field;
+	class ViewChangeCollection;
         namespace Struct {
             class SElement;
         }
