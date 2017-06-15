@@ -25,7 +25,7 @@
         $action
     }
     catch (pdftron::Common::Exception& e) {
-        rb_raise(rb_eStandardError, "PDFNet Exception: %s", e.ToString());
+        rb_raise(rb_eStandardError, "PDFNet Exception: %s", e.GetMessage());
     }
     catch (...) {
         rb_raise(rb_eStandardError, "Non-PDFNet Exception");

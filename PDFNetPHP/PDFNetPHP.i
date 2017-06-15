@@ -25,7 +25,7 @@
     try {
         $action
     } catch(pdftron::Common::Exception& e) {
-        SWIG_exception(SWIG_RuntimeError, e.what());
+        SWIG_exception(SWIG_RuntimeError, e.GetMessage());
     } catch(std::exception& e) {
         SWIG_exception(SWIG_RuntimeError, e.what());
     } catch(...) {

@@ -30,7 +30,7 @@
     try {
         $action
     } catch(pdftron::Common::Exception e) {
-        PyErr_SetString(PyExc_Exception, e.what());
+        PyErr_SetString(PyExc_Exception, e.GetMessage());
         return NULL;
     } catch(Swig::DirectorException e) {
         PyErr_SetString(PyExc_Exception, e.getMessage());
