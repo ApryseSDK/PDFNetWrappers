@@ -68,6 +68,7 @@
     #include "Filters/FilterWriter.h"
     #include "Filters/FlateEncode.h"
     #include "Filters/MappedFile.h"
+    #include "Filters/MemoryFilter.h"
 
     // header files in /PDFNetC/Headers/PDF/Annots
     #include "PDF/Annots/Caret.h"
@@ -2211,6 +2212,7 @@ private:
 %include "Filters/FilterWriter.h"
 %include "Filters/FlateEncode.h"
 %include "Filters/MappedFile.h"
+%include "Filters/MemoryFilter.h"
 %include "SDF/DictIterator.h"
 %include "SDF/SDFDoc.h"
 %include "SDF/NameTree.h"
