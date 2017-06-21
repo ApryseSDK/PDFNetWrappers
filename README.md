@@ -1,3 +1,7 @@
+# PDF Tron - PDFNetWrappers
+
+[![Build Status](https://travis-ci.org/Claymm/PDFNetWrappers.svg?branch=master)](https://travis-ci.org/Claymm/PDFNetWrappers)
+
 --------------------------------------------------------------------------------
 About:
 --------------------------------------------------------------------------------
