@@ -1,0 +1,20 @@
+os: linux
+dist: trusty
+sudo: required
+language: php
+php:
+  - '5.6'
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y gcc wget swig cmake
+compiler:
+  - gcc
+install:
+  - cd PDFNetC
+  - wget http://www.pdftron.com/downloads/PDFNetC64.tar.gz && tar xzvf PDFNetC64.tar.gz
+  - mv PDFNetC64/Headers/ . && mv PDFNetC64/Lib/ .
+  - cd .. && mkdir Build && cd Build
+script:
+  - cmake -D BUILD_PDFNetPHP=ON .. && make && make install
+  - echo "extension=PDFNetPHP.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - php -r "extension_loaded('PDFNetPHP');"
