@@ -30,7 +30,7 @@
     try {
         $action
     } catch(pdftron::Common::Exception e) {
-        PyErr_SetString(PyExc_Exception, e.what());
+        PyErr_SetString(PyExc_Exception, e.GetMessage());
         return NULL;
     } catch(Swig::DirectorException e) {
         PyErr_SetString(PyExc_Exception, e.getMessage());
@@ -68,6 +68,7 @@
     #include "Filters/FilterWriter.h"
     #include "Filters/FlateEncode.h"
     #include "Filters/MappedFile.h"
+    #include "Filters/MemoryFilter.h"
 
     // header files in /PDFNetC/Headers/PDF/Annots
     #include "PDF/Annots/Caret.h"
@@ -117,6 +118,7 @@
     #include "PDF/Struct/STree.h"
 
     // header files in /PDFNetC/Headers/PDF
+    #include "PDF/ViewChangeCollection.h"
     #include "PDF/Action.h"
     #include "PDF/Annot.h"
     #include "PDF/Annots.h"
@@ -243,6 +245,7 @@ namespace pdftron {
         class Font;
         class ColorPt;
         class Field;
+	class ViewChangeCollection;
         namespace Struct {
             class SElement;
         }
@@ -2209,6 +2212,7 @@ private:
 %include "Filters/FilterWriter.h"
 %include "Filters/FlateEncode.h"
 %include "Filters/MappedFile.h"
+%include "Filters/MemoryFilter.h"
 %include "SDF/DictIterator.h"
 %include "SDF/SDFDoc.h"
 %include "SDF/NameTree.h"
@@ -2216,6 +2220,7 @@ private:
 %include "SDF/Obj.h"
 %include "SDF/ObjSet.h"
 %include "SDF/SecurityHandler.h"
+%include "PDF/ViewChangeCollection.h"
 %include "PDF/Point.h"
 %include "PDF/Function.h"
 %include "PDF/ColorSpace.h"

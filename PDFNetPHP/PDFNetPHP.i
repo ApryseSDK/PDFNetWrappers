@@ -25,9 +25,9 @@
     try {
         $action
     } catch(pdftron::Common::Exception& e) {
-        SWIG_exception(SWIG_RuntimeError, e.what());
+        SWIG_exception(SWIG_RuntimeError, e.GetMessage());
     } catch(std::exception& e) {
-        SWIG_exception(SWIG_RuntimeError, e.what());
+        SWIG_exception(SWIG_RuntimeError, e.GetMessage());
     } catch(...) {
         SWIG_exception(SWIG_RuntimeError, "Unknown error");
     }
@@ -68,6 +68,7 @@
     #include "Filters/FilterWriter.h"
     #include "Filters/FlateEncode.h"
     #include "Filters/MappedFile.h"
+    #include "Filters/MemoryFilter.h"
 
     // header files in /PDFNetC/Headers/PDF/Annots
     #include "PDF/Annots/Caret.h"
@@ -2226,6 +2227,7 @@ private:
 %include "Filters/FilterWriter.h"
 %include "Filters/FlateEncode.h"
 %include "Filters/MappedFile.h"
+%include "Filters/MemoryFilter.h"
 %include "SDF/DictIterator.h"
 %include "SDF/SDFDoc.h"
 %include "SDF/NameTree.h"

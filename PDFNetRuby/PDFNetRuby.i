@@ -25,7 +25,7 @@
         $action
     }
     catch (pdftron::Common::Exception& e) {
-        rb_raise(rb_eStandardError, "PDFNet Exception: %s", e.ToString());
+        rb_raise(rb_eStandardError, "PDFNet Exception: %s", e.GetMessage());
     }
     catch (...) {
         rb_raise(rb_eStandardError, "Non-PDFNet Exception");
@@ -58,6 +58,7 @@
     #include "Filters/FilterWriter.h"
     #include "Filters/FlateEncode.h"
     #include "Filters/MappedFile.h"
+    #include "Filters/MemoryFilter.h"
 
     // header files in /PDFNetC/Headers/PDF/Annots
     #include "PDF/Annots/Caret.h"
@@ -2104,6 +2105,7 @@ private:
 %include "Filters/FilterWriter.h"
 %include "Filters/FlateEncode.h"
 %include "Filters/MappedFile.h"
+%include "Filters/MemoryFilter.h"
 %include "SDF/DictIterator.h"
 %include "SDF/SDFDoc.h"
 %include "SDF/NameTree.h"
