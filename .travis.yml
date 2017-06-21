@@ -8,14 +8,12 @@ compiler:
   - gcc
 before_install:
   - sudo apt-get -qq update
-  - sudo apt-get install -y gcc wget swig cmake
+  - sudo apt-get install -y gcc wget swig cmake  
 install:
   - cd PDFNetC
   - wget http://www.pdftron.com/downloads/PDFNetC64.tar.gz && tar xzvf PDFNetC64.tar.gz
   - mv PDFNetC64/Headers/ . && mv PDFNetC64/Lib/ .
   - cd .. && mkdir Build && cd Build
-before_script:
-  - phpenv config-rm xdebug.ini
 script:
   - cmake -D BUILD_PDFNetPHP=ON .. && make && make install
   - echo "extension=PDFNetPHP.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
