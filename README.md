@@ -1,4 +1,4 @@
-#About
+# About
 
 This project demonstrates how to bind PDFNetC with other languages. This project provides the necessary files to generate language bindings between PDFNetC and the following:
 
@@ -6,7 +6,7 @@ This project demonstrates how to bind PDFNetC with other languages. This project
     Python
     Ruby
 
-#Requirements
+# Requirements
 
 This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build enviroment is necessary for compiling and producing the bridge file. We have tested this project on the following environments:
 
@@ -18,7 +18,7 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: http://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
 
-#Building
+# Building
 
 The following steps describe how to build a language binding for PDFNetC using this source package. This guide assumes you are familiar with CMake project generation. For more information, please visit http://www.cmake.org/
 
@@ -40,7 +40,7 @@ The following steps describe how to build a language binding for PDFNetC using t
 
 NOTE: To rebuild the bindings, you may need to delete the files in Build and re-run cmake.  This is because the CMake script itself compiles the SWIG bindings.
 
-#Running the samples
+# Running the samples
 
 1. In order to run the samples, you will need to run the install command first (or build the install projects from within the IDEs).
         `make install`
@@ -49,7 +49,7 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
 
 2. Navigate to the Samples/ folder and either run the runall scripts, or go into the individual samples folder and run the runtest scripts.
 
-#Example
+# Example
 
 Suppose you wanted to build and run the 64-bit PHP wrappers.  You could run the following set of commands:
 
@@ -74,22 +74,22 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
-#Pre-built Binaries
+# Pre-built Binaries
 
 You can download pre-built binaries from the following links:
 
-Windows: Python 2.7.x
+## Windows: Python 2.7.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
 
-Linux: Python 2.7.x and Ruby 2.0.0
+## Linux: Python 2.7.x and Ruby 2.0.0
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
 
-Mac OS: Python 2.7.x and Ruby 2.0.0
+## Mac OS: Python 2.7.x and Ruby 2.0.0
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
 
-#Common Questions
+# Common Questions
 
 ## I am having issues with SWIG.
 
