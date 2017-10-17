@@ -82,11 +82,11 @@ You can download pre-built binaries from the following links:
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
 
-## Linux: Python 2.7.x and Ruby 2.0.0
+## Linux: Python 2.7.x and Ruby 2.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
 
-## Mac OS: Python 2.7.x and Ruby 2.0.0
+## Mac OS: Python 2.7.x and Ruby 2.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
 
 # Common Questions
@@ -104,7 +104,7 @@ Within PDFTron, we have successfully built language bindings for the following v
     
     - PHP 5.3.x to 5.5.x
     - Python 2.7.x to 3.3.x
-    - Ruby 1.8.5 to 2.0.0
+    - Ruby 2.x
 
 ## Does this project support UCS4 builds of Python?
 
