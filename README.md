@@ -89,6 +89,9 @@ http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
 ## Mac OS: Python 2.7.x and Ruby 2.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
 
+## Docker images
+[php5.6-cli](https://hub.docker.com/r/swarajgiri/pdftron-php5.6/)
+
 # Common Questions
 
 ## I am having issues with SWIG.
