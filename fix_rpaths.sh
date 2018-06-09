@@ -1,7 +1,8 @@
 #! /bin/sh
 
 if [ ! -f ./PDFNetC/Lib/libPDFNetC.dylib -o ! -f ./PDFNetC/Lib/_PDFNetPython.so ]; then
-	echo ""
+	echo "Libraries not found."
+	exit 1
 fi
 
 install_name_tool -rpath . "$(pwd)/PDFNetC/Lib/" ./PDFNetC/Lib/_PDFNetPython.so
