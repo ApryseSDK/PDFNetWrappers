@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -27,10 +27,11 @@ def AnnotationHighLevelAPI(doc):
             print("Annot Type: " + annot.GetSDFObj().Get("Subtype").Value().GetName())
             
             bbox = annot.GetRect()
-            print("  Position: " + str(bbox.x1) + 
-                  ", " + str(bbox.y1) +
-                  ", " + str(bbox.x2) + 
-                  ", " + str(bbox.y2))
+            formatter = '{0:g}'
+            print("  Position: " + formatter.format(bbox.x1) + 
+                  ", " + formatter.format(bbox.y1) +
+                  ", " + formatter.format(bbox.x2) + 
+                  ", " + formatter.format(bbox.y2))
             
             type = annot.GetType()
             
@@ -45,10 +46,10 @@ def AnnotationHighLevelAPI(doc):
                         print("  Destination is not valid.")
                     else:
                         page_n = dest.GetPage().GetIndex()
-                        print("  Links to: page number " + str(page_n) + " in this document.")
+                        print("  Links to: page number " + str(page_n) + " in this document")
                 elif action.GetType() == Action.e_URI:
                     uri = action.GetSDFObj().Get("URI").Value().GetAsPDFText()
-                    print("  Links to " + str(uri))
+                    print("  Links to: " + str(uri))
             elif type == Annot.e_Widget:
                 pass
             elif type == Annot.e_FileAttachment:
@@ -563,6 +564,9 @@ if __name__ == '__main__':
     
     output_path = "../../TestFiles/Output/"
     input_path = "../../TestFiles/"
+
+    print("-------------------------------------------------")
+    print("Opening the input file...")
     
     doc = PDFDoc(input_path + "numbered.pdf")
     doc.InitSecurityHandler()
@@ -570,18 +574,20 @@ if __name__ == '__main__':
     # An example of using SDF/Cos API to add any type of annotations.
     AnnotationLowLevelAPI(doc)
     doc.Save(output_path + "annotation_test1.pdf", SDFDoc.e_remove_unused)
+    print("Done. Results saved in annotation_test1.pdf")
     
     # An example of using the high-level PDFNet API to read existing annotations,
     # to edit existing annotations, and to create new annotation from scratch.
     AnnotationHighLevelAPI(doc)
     doc.Save((output_path + "annotation_test2.pdf"), SDFDoc.e_linearized)
     doc.Close()
+    print("Done. Results saved in annotation_test2.pdf")
     
     doc1 = PDFDoc()
     CreateTestAnnots(doc1)
     outfname = output_path + "new_annot_test_api.pdf"
     doc1.Save(outfname, SDFDoc.e_linearized)
-    print("Saved " + outfname)
+    print("Saved new_annot_test_api.pdf")
 
 
 

@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #-----------------------------------------------------------------------------------------
 # The sample code illustrates how to read and edit existing outline items and create 
@@ -29,9 +31,9 @@ def PrintOutlineTree (item)
 	while item.IsValid() do
 		PrintIndent(item)
 		if item.IsOpen()
-			puts "- " + item.GetTitle() + " ACTION -> "
+			print( "- " + item.GetTitle() + " ACTION -> ")
 		else
-			puts "+ " + item.GetTitle() + " ACTION -> "
+			print("+ " + item.GetTitle() + " ACTION -> ")
 		end
 	
 		# Print Action
@@ -59,7 +61,9 @@ def PrintOutlineTree (item)
 end
 
 	PDFNet.Initialize()
-	
+
+	puts "Opening the input file..."
+
 	# The following example illustrates how to create and edit the outline tree
 	# using high-level Bookmark methods.
 	
@@ -137,6 +141,7 @@ end
 	
 	doc.Save(output_path + "bookmark.pdf", 0)
 	doc.Close()
+	puts "Done. Result saved in bookmark.pdf"
 
 	# The following example illustrates how to traverse the outline tree using 
 	# Bookmark navigation methods: Bookmark.GetNext(), Bookmark.GetPrev(), 
@@ -191,3 +196,4 @@ end
 	
 	doc.Save(output_path + "bookmark_remote.pdf", SDFDoc::E_linearized)
 	doc.Close()
+	puts "Done. Result saved in bookmark_remote.pdf"

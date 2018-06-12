@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 $output_path = "../../TestFiles/Output/"
 $input_path = "../../TestFiles/"
@@ -202,7 +204,7 @@ def CreateTestAnnots(doc)
 	txtannot.SetContents( "\n\nSome swift brown fox snatched a gray hare out " +
 						  "of the air by freezing it with an angry glare." +
 						  "\n\nAha!\n\nAnd there was much rejoicing!"	)
-	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), true )
+	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), false )
 	txtannot.SetQuaddingFormat(0)
 	first_page.AnnotPushBack(txtannot)
 	txtannot.RefreshAppearance()
@@ -213,7 +215,7 @@ def CreateTestAnnots(doc)
 				"by freezing it with an angry glare." +
 				"\n\nAha!\n\nAnd there was much rejoicing!")
 	txtannot.SetCalloutLinePoints( Point.new(200,300), Point.new(150,290), Point.new(110,110) )
-	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), true )
+	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), false )
 	txtannot.SetEndingStyle( LineAnnot::E_ClosedArrow )
 	txtannot.SetColor( ColorPt.new( 0, 1, 0 ) )
 	txtannot.SetQuaddingFormat(1)
@@ -224,7 +226,7 @@ def CreateTestAnnots(doc)
 	txtannot.SetContents( "\n\nSome swift brown fox snatched a gray hare out of the air " +
 				"by freezing it with an angry glare." +
 				"\n\nAha!\n\nAnd there was much rejoicing!")
-	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), true )
+	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), false )
 	txtannot.SetColor( ColorPt.new( 0, 0, 1 ) )
 	txtannot.SetOpacity( 0.2 )
 	txtannot.SetQuaddingFormat(2)
@@ -573,6 +575,9 @@ def CreateTestAnnots(doc)
 end
 
 	PDFNet.Initialize()
+
+	puts "-------------------------------------------------"
+	puts "Opening the input file..."
 	
 	doc = PDFDoc.new($input_path + "numbered.pdf")
 	doc.InitSecurityHandler()
@@ -580,18 +585,18 @@ end
 	# An example of using SDF/Cos API to add any type of annotations.
 	AnnotationLowLevelAPI(doc)
 	doc.Save($output_path + "annotation_test1.pdf", SDFDoc::E_remove_unused)
-	puts "Saved " + $output_path + "annotation_test1.pdf"
+	puts "Done. Results saved in annotation_test1.pdf"
 	
 	# An example of using the high-level PDFNet API to read existing annotations,
 	# to edit existing annotations, and to create new annotation from scratch.
 	AnnotationHighLevelAPI(doc)
 	doc.Save(($output_path + "annotation_test2.pdf"), SDFDoc::E_linearized)
 	doc.Close()
-	puts "Saved " + $output_path + "annotation_test2.pdf"
+	puts "Done. Results saved in annotation_test2.pdf"
 	
 	doc1 = PDFDoc.new()
 	CreateTestAnnots(doc1)
 	outfname = $output_path + "new_annot_test_api.pdf"
 	doc1.Save(outfname, SDFDoc::E_linearized)
 	doc1.Close()
-	puts "Saved " + outfname
+	puts "Saved new_annot_test_api.pdf"

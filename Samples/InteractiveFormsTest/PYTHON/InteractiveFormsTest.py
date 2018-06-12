@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -185,12 +185,12 @@ def main():
         elif type == Field.e_radio:
             print(" Radio button: Value = " + str_val)
         elif type == Field.e_check:
-            itr.Current().SetValue(True)
             print("Check box: Value = " + str_val)
+            sv = itr.Current().SetValue(True)
         elif type == Field.e_text:
             print("Text")
             # Edit all variable text in the document
-            itr.Current().SetValue("This is a new value. The old one was: " + str_val)
+            sv = itr.Current().SetValue("This is a new value. The old one was: " + str_val)
         elif type == Field.e_choice:
             print("Choice")
         elif type == Field.e_signature:

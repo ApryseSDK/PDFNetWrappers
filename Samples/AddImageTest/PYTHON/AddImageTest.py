@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -47,10 +47,9 @@ def main():
     
     # ----------------------------------------------------------
     # Add a GIF image to the output file
-    if sys.platform == 'win32':
-        img = Image.Create(doc.GetSDFDoc(), input_path + "pdfnet.gif")
-        element = f.CreateImage(img, Matrix2D(img.GetImageWidth(), 0, 0, img.GetImageHeight(), 50, 350))
-        writer.WritePlacedElement(element)
+    img = Image.Create(doc.GetSDFDoc(), input_path + "pdfnet.gif")
+    element = f.CreateImage(img, Matrix2D(img.GetImageWidth(), 0, 0, img.GetImageHeight(), 50, 350))
+    writer.WritePlacedElement(element)
     
     # ----------------------------------------------------------
     # Add a TIFF image to the output file

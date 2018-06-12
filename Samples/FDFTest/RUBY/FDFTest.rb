@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #---------------------------------------------------------------------------------------
 # PDFNet includes a full support for FDF (Forms Data Format) and capability to merge/extract 
@@ -103,7 +105,7 @@ include PDFNetRuby
 	doc_fields.Save(output_path + "form1_filled_data.fdf")
 	
 	# annotations only
-	puts "Extract annotations data to FDF."
+	puts "Extract annotations to FDF."
 	
 	doc_annots = in_doc.FDFExtract(PDFDoc::E_annots_only)
 	doc_annots.SetPDFFileName("../form1_filled_with_annots.pdf")

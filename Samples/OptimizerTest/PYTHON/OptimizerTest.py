@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ def main():
     fl.Process(doc, Flattener.e_fast)
     doc.Save(output_path + "TigerText_flatten.pdf", SDFDoc.e_linearized)
     doc.Close()
-	
+    print("Done.")
     
 if __name__ == '__main__':
     main()

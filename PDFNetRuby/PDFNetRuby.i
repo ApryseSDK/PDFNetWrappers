@@ -216,7 +216,7 @@ namespace std {
    %template(VectorChar) vector<char>;
    %template(VectorInt) vector<int>;
    %template(VectorString) vector<std::string>;
-   %template(VectorRedaction) vector<pdftron::PDF::Redactor::Redaction>;
+   %template(VectorRedaction) vector<Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
 };
 

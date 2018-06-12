@@ -1,5 +1,5 @@
 @echo off
 setlocal
 set TEST_NAME=StamperTest
-python.exe %TEST_NAME%.py
+python.exe -u %TEST_NAME%.py
 endlocal
