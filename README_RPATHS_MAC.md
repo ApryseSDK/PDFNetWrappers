@@ -23,5 +23,5 @@ cd ./PDFNetC/Lib
 If you get an error message similar to the ones above in your own project, the do the following **whenever you intend to move the library files to a different filesystem path:**
 
 1. Download PDFNetC SDK again, or just extract again, so that you have *fresh* PDFNetC libraries.
-2. Copy "fix_rpaths.sh" and the libraries you need (i.e. "libPDFNetC.dylib" and one or both of "_PDFNetPython.so", "PDFNetRuby.bundle") from "<package path>/PDFNetC/Lib" to the destination directory in your project.
-3. Run "fix_rpaths.sh" from the destination directory from step (2) above.
+2. Copy `fix_rpaths.sh` and the libraries you need (i.e. `libPDFNetC.dylib` and one or both of `_PDFNetPython.so`, `PDFNetRuby.bundle`) from `<package path>/PDFNetC/Lib` to the destination directory in your project.
+3. Run `./fix_rpaths.sh` with the working directory set to the destination directory from step (2) above.
