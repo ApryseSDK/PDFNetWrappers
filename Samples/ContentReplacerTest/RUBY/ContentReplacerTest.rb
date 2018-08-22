@@ -22,8 +22,6 @@ output_path = "../../TestFiles/Output/"
 # 'template' pdf documents easier.
 #-----------------------------------------------------------------------------------------
 	PDFNet.Initialize()
-
-	puts "Opening the input file..."
 	
 	# Example 1) Update a business card template with personalized info
 	

@@ -21,8 +21,6 @@ $stdout.sync = true
 	# Relative path to the folder containing test files.
 	input_path = "../../TestFiles/"
 	output_path = "../../TestFiles/Output/"
-    
-	puts "-------------------------------------------------"
 
 	doc = PDFDoc.new()
 	f = ElementBuilder.new()            # Used to build new Element objects

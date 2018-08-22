@@ -19,8 +19,6 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
 
-	echo nl2br("-------------------------------------------------\n");
-
 	$doc = new PDFDoc();
 	$builder = new ElementBuilder();	// Used to build new Element objects
 	$writer = new ElementWriter();		// Used to write Elements to the page

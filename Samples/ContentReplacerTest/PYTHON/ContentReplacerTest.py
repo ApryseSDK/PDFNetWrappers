@@ -19,8 +19,6 @@ output_path = "../../TestFiles/Output/"
 def main():
 	PDFNet.Initialize()
 
-	print("Opening the input file...")
-
 	# Example 1) Update a business card template with personalized info
 
 	doc = PDFDoc(input_path + "BusinessCardTemplate.pdf")

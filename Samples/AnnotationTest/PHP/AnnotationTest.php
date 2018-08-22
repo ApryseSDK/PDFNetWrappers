@@ -590,18 +590,20 @@ function CreateTestAnnots($doc) {
 	// An example of using SDF/Cos API to add any type of annotations.
 	AnnotationLowLevelAPI($doc);
 	$doc->Save($output_path."annotation_test1.pdf", SDFDoc::e_remove_unused);
+	echo nl2br("Done. Results saved in annotation_test1.pdf\n");
 
 	// An example of using the high-level PDFNet API to read existing annotations,
 	// to edit existing annotations, and to create new annotation from scratch.
 	AnnotationHighLevelAPI($doc);
 	$doc->Save($output_path."annotation_test2.pdf", SDFDoc::e_linearized);
+	echo nl2br("Done. Results saved in annotation_test2.pdf\n");
 
 	// an example of creating various annotations in a brand new document
 	$doc1 = new PDFDoc();
 	CreateTestAnnots( $doc1 );
 	$outfname = $output_path."new_annot_test_api.pdf";
 	$doc1->Save($outfname, SDFDoc::e_linearized);
-	echo nl2br("Saved ".$outfname."\n");
+	echo nl2br("Saved new_annot_test_api.pdf\n");
 	
     	$doc->Close();
 ?>

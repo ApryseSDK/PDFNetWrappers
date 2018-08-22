@@ -564,9 +564,6 @@ if __name__ == '__main__':
     
     output_path = "../../TestFiles/Output/"
     input_path = "../../TestFiles/"
-
-    print("-------------------------------------------------")
-    print("Opening the input file...")
     
     doc = PDFDoc(input_path + "numbered.pdf")
     doc.InitSecurityHandler()

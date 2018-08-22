@@ -23,8 +23,6 @@ def main():
     input_path = "../../TestFiles/"
     output_path = "../../TestFiles/Output/"
     
-    print("-------------------------------------------------")
-    
     doc = PDFDoc()
     
     f = ElementBuilder()            # Used to build new Element objects

@@ -40,6 +40,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$replacer->Process($page);
 	
 	$doc->Save($output_path."BusinessCard.pdf", 0);
+	echo nl2br("Done. Result saved in BusinessCard.pdf\n");
 
 	//--------------------------------------------------------------------------------
 	// Example 2) Replace text in a region with new text
@@ -53,4 +54,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$replacer->Process($page);
 
 	$doc->Save($output_path."ContentReplaced.pdf", 0);
+	echo nl2br("Done. Result saved in ContentReplaced.pdf\n");
+
+	echo nl2br("Done.\n");
 ?>

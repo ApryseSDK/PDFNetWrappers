@@ -62,7 +62,6 @@ end
 
 	PDFNet.Initialize()
 
-	puts "Opening the input file..."
 
 	# The following example illustrates how to create and edit the outline tree
 	# using high-level Bookmark methods.

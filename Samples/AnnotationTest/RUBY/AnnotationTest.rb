@@ -575,9 +575,6 @@ def CreateTestAnnots(doc)
 end
 
 	PDFNet.Initialize()
-
-	puts "-------------------------------------------------"
-	puts "Opening the input file..."
 	
 	doc = PDFDoc.new($input_path + "numbered.pdf")
 	doc.InitSecurityHandler()
