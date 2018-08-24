@@ -11,6 +11,14 @@ $stdout.sync = true
 $output_path = "../../TestFiles/Output/"
 $input_path = "../../TestFiles/"
 
+def FloatToStr(float)
+	if float.to_i() == float.to_f()
+		return float.to_i().to_s()
+	else
+		return float.to_f().to_s()
+	end
+end
+
 def AnnotationHighLevelAPI(doc)
 	# The following code snippet traverses all annotations in the document
 	puts "Traversing all annotations in the document..."
@@ -32,10 +40,10 @@ def AnnotationHighLevelAPI(doc)
 			puts "Annot Type: " + annot.GetSDFObj().Get("Subtype").Value().GetName()
 			
 			bbox = annot.GetRect()
-			puts "  Position: " + bbox.x1.to_s() + 
-				  ", " + bbox.y1.to_s() +
-				  ", " + bbox.x2.to_s() + 
-				  ", " + bbox.y2.to_s()
+			puts "  Position: " + FloatToStr(bbox.x1.to_s()) + 
+				  ", " + FloatToStr(bbox.y1.to_s()) +
+				  ", " + FloatToStr(bbox.x2.to_s()) + 
+				  ", " + FloatToStr(bbox.y2.to_s())
 			
 			type = annot.GetType()			
 			case type
@@ -52,11 +60,11 @@ def AnnotationHighLevelAPI(doc)
 						puts "  Destination is not valid."
 					else
 						page_n = dest.GetPage().GetIndex()
-						puts "  Links to: page number " + page_n.to_s() + " in this document."
+						puts "  Links to: page number " + page_n.to_s() + " in this document"
 					end
 				elsif action.GetType() == Action::E_URI
 					uri = action.GetSDFObj().Get("URI").Value().GetAsPDFText()
-					puts "  Links to " + uri.to_s()
+					puts "  Links to: " + uri.to_s()
 				end
 			when Annot::E_Widget
 			when Annot::E_FileAttachment
