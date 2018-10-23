@@ -1583,6 +1583,32 @@ public:
     * a PDFNet printer.
     */
     static bool IsInstalled(const pdftron::UString & in_printerName = "PDFTron PDFNet");
+    
+    enum Mode {
+        /**
+        * By default PDFNet will pick the best means of converting the target document.
+        */
+        e_auto,
+        /**
+        * For Office file conversions, force COM Interop to be used, regardless if this virtual printer is installed or not.
+        */
+        e_interop_only,
+        /**
+        * For Office file conversions, do not check for Office COM Interop availability, and use the printer path instead.
+        */
+        e_printer_only,
+        /**
+        * For Office file conversions, use the built in converter if it is available for the converted file type.
+        */
+        e_prefer_builtin_converter
+    };
+
+    /**
+     * Configure how PDFNet prints documents.
+     *
+     * @param mode set the print mode. Default is e_auto.
+     */
+    static void SetMode(enum Mode mode);
 };
 
 class TextSettings : public TRN_OptimizerTextSettings
