@@ -140,6 +140,3 @@ $stdout.sync = true
 	fl.Process(doc, Flattener::E_fast)
 	doc.Save(output_path + "TigerText_flatten.pdf", SDFDoc::E_linearized)
 	doc.Close
-	
-	puts "Done."
-

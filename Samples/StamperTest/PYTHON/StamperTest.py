@@ -22,7 +22,7 @@ from PDFNetPython import *
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
-input_filename = "newsletter.pdf"
+input_filename = "newsletter"
 
 def main():
     # Initialize PDFNet
@@ -30,8 +30,7 @@ def main():
     
     #--------------------------------------------------------------------------------
     # Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 
-    print("Example 1...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     s = Stamper(Stamper.e_relative_scale, 0.5, 0.5)
     
@@ -44,13 +43,11 @@ def main():
     
     doc.Save(output_path + input_filename + ".ex1.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
 
     #--------------------------------------------------------------------------------
     # Example 2) Add Image stamp to first 2 pages. 
     
-    print("Example 2...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     s = Stamper(Stamper.e_relative_scale, 0.05, 0.05)
     img = Image.Create(doc.GetSDFDoc(), input_path + "peppers.jpg")
@@ -68,13 +65,11 @@ def main():
     
     doc.Save(output_path + input_filename + ".ex2.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
     #--------------------------------------------------------------------------------
     # Example 3) Add Page stamp to all pages. 
     
-    print("Example 3...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     
     fish_doc = PDFDoc(input_path + "fish.pdf")
@@ -92,13 +87,11 @@ def main():
     s.StampPage(doc, src_page, ps)
     doc.Save(output_path + input_filename + ".ex3.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
     #--------------------------------------------------------------------------------
     # Example 4) Add Image stamp to first 20 odd pages.
     
-    print("Example 4...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     
     s = Stamper(Stamper.e_absolute_size, 20, 20)
@@ -112,13 +105,11 @@ def main():
     
     doc.Save(output_path + input_filename + ".ex4.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
     #--------------------------------------------------------------------------------
     # Example 5) Add text stamp to first 20 even pages
     
-    print("Example 5...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     s = Stamper(Stamper.e_relative_scale, 0.05, 0.05)
     s.SetPosition(0, 0)
@@ -131,13 +122,11 @@ def main():
     
     doc.Save(output_path + input_filename + ".ex5.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
     #--------------------------------------------------------------------------------
     # Example 6) Add first page as stamp to all even pages
     
-    print("Example 6...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     
     fish_doc = PDFDoc(input_path + "fish.pdf");
@@ -155,13 +144,11 @@ def main():
     
     doc.Save(output_path + input_filename + ".ex6.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
     #--------------------------------------------------------------------------------
     # Example 7) Add image stamp at top left corner in every pages
     
-    print("Example 7...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     
     s = Stamper(Stamper.e_relative_scale, 0.1, 0.1)
@@ -176,15 +163,13 @@ def main():
     s.StampImage(doc, img, ps)
     doc.Save(output_path + input_filename + ".ex7.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
     #--------------------------------------------------------------------------------
     # Example 8) Add Text stamp to first 2 pages, and image stamp to first page.
     #          Because text stamp is set as background, the image is top of the text
     #          stamp. Text stamp on the first page is not visible.
     
-    print("Example 8...")
-    doc = PDFDoc(input_path + input_filename)
+    doc = PDFDoc(input_path + input_filename + ".pdf")
     doc.InitSecurityHandler()
     
     s = Stamper(Stamper.e_relative_scale, 0.07, -0.1)
@@ -205,7 +190,6 @@ def main():
 
     doc.Save(output_path + input_filename + ".ex8.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
 
 if __name__ == '__main__':
     main()

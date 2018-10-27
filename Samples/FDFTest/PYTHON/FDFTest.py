@@ -188,7 +188,7 @@ def main():
     
     doc.Save(output_path + "sample_output.fdf")
     doc.Close()
-    print("Done.")
+    print("Done. Results saved in sample_output.fdf")
 
 if __name__ == '__main__':
     main()

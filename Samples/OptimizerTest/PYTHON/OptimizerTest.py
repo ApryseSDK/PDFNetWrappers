@@ -142,7 +142,6 @@ def main():
     fl.Process(doc, Flattener.e_fast)
     doc.Save(output_path + "TigerText_flatten.pdf", SDFDoc.e_linearized)
     doc.Close()
-    print("Done.")
     
 if __name__ == '__main__':
     main()

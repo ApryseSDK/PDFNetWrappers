@@ -188,5 +188,5 @@ $stdout.sync = true
 	
 	doc.Save(output_path + "sample_output.fdf")
 	doc.Close()
-	puts "Done."
+	puts "Done. Results saved in sample_output.fdf"
 
