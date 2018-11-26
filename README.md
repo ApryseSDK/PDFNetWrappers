@@ -8,9 +8,9 @@ This project demonstrates how to bind PDFNetC with other languages. This project
 
 # Requirements
 
-This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build enviroment is necessary for compiling and producing the bridge file. We have tested this project on the following environments:
+This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build environment is necessary for compiling and producing the bridge file. We have tested this project on the following environments:
 
-* **SWIG** 2.0.4 - 2.0.12. There are **issues** with **SWIG 3.x** versions.
+* **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.x
 * **CMake** version 2.8+
 * **Linux**: GCC 4.6 and above
 * **Windows**: Visual Studio 2012 and above
@@ -91,18 +91,12 @@ http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
 
 # Common Questions
 
-## I am having issues with SWIG.
-
-Please use a SWIG version in this range (inclusive) [2.0.4, 2.0.12], available at: http://www.swig.org/.
-
-Using 3.0.x versions has issues, for example [this](https://github.com/swig/swig/issues/769).
-
 ## Which versions of the interpreters are supported by this project?
 
 Technically, any versions can be supported provided that some minor changes to the SWIG interface file must be made.
 Within PDFTron, we have successfully built language bindings for the following versions of the interpreter:
     
-    - PHP 5.3.x to 5.5.x
+    - PHP 5.3.x to 5.5.x, PHP 7.x
     - Python 2.7.x to 3.3.x
     - Ruby 2.x
 
