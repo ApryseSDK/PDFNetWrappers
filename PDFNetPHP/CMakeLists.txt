@@ -77,21 +77,25 @@ if (PHP_CONFIG_EXECUTABLE)
       OUTPUT_VARIABLE PHP_MINOR_VERSION
     )
 
-    message(STATUS "PHP_MAJOR_VERSION = ${PHP_MAJOR_VERSION}")
-    message(STATUS "PHP_MINOR_VERSION = ${PHP_MINOR_VERSION}")
+    if(DEFINED PHP_MAJOR_VERSION)
+        if (PHP_MAJOR_VERSION LESS 7)
+            set(php_version "php")
+        else()
+            set(php_version "php7")
+        endif()
+	    set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
+    else()
+        message(FATAL_ERROR "Cannot verify PHP_MAJOR_VERSION!")
+        return ()
+    endif()
+
+else()
+    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
+    return ()
 endif()
 
-if(DEFINED PHP_MAJOR_VERSION)
-   if (PHP_MAJOR_VERSION LESS 7)
-       set(php_version "php")
-   else()
-       set(php_version "php7")
-   endif()
-   set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
-else()
-   set(php_version "php")
-   set(swig_php_major_arg "PHP_MAJOR_VERSION=5")
-endif()
+message(STATUS "PHP_MAJOR_VERSION = ${PHP_MAJOR_VERSION}")
+message(STATUS "PHP_MINOR_VERSION = ${PHP_MINOR_VERSION}")
 message(STATUS "${SWIG_EXECUTABLE} -c++ -${php_version} -D${swig_php_major_arg}...")    
 
 execute_process(
@@ -150,13 +154,20 @@ target_link_libraries(PDFNetPHP ${PDFNetC_Library} ${PHP_LIBRARY})
 set_property(TARGET PDFNetPHP PROPERTY PREFIX "")
 
 # Copy the bridge file
-
 configure_file(${PDFNetPHP_SourcesDir}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php COPYONLY)
+
+# Rename PDFNetPHP.php to PDFNetPHP_core.php and wrap it inside PDFNetPHP.php in the destination library
+configure_file(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php)
 
 # Installation rules
 
+# wrapper
 install(
-    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php
+    FILES  ${CMAKE_SOURCE_DIR}/PDFNetPHP/PDFNetPHP.php 
+    DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
+)
+install(
+    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
 install(
