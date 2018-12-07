@@ -192,7 +192,7 @@ namespace std {
    %template(VectorChar) vector<char>;
    %template(VectorInt) vector<int>;
    %template(VectorString) vector<std::string>;
-   %template(VectorRedaction) vector<Redaction>;
+   %template(VectorRedaction) vector<pdftron::PDF::Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
 };
 
