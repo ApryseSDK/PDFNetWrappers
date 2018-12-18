@@ -7,7 +7,6 @@ import site
 site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
-import unicodedata
 
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
@@ -15,17 +14,13 @@ input_path = "../../TestFiles/"
 def ProcessElements(reader):
     element = reader.Next()
     while element != None:		# Read page contents
-        if element.GetType() == Element.e_path:		# Process path data...
+        if element.GetType() == Element.e_path:  	    # Process path data...
             data = element.GetPathData()
             points = data.GetPoints()
         elif element.GetType() == Element.e_text:		# Process text strings...
             data = element.GetTextString()
             if sys.version_info.major >= 3:
                 data = ascii(data)
-            else:
-                reload(sys)
-                sys.setdefaultencoding("utf-8")
-		data = unicodedata.normalize('NFKC', unicode(data)).encode('ascii','replace')
             print(data)
         elif element.GetType() == Element.e_form:		# Process form XObjects
             reader.FormBegin()

@@ -19,7 +19,6 @@ def ProcessElements(reader)
 			points = data.GetPoints()
 		elsif element.GetType() == Element::E_text	# Process text strings...
 			data = element.GetTextString()
-            data = data.encode(Encoding.find('ASCII'), {invalid: :replace, undef: :replace, replace: '?'})
 			puts data
 		elsif element.GetType() == Element::E_form	# Process form XObjects
 			reader.FormBegin()
