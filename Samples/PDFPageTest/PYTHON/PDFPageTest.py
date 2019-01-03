@@ -52,7 +52,7 @@ def main():
         i = i + 1
         
     new_doc.Save(output_path + "newsletter_merge_pages.pdf", SDFDoc.e_remove_unused)
-    print("Done. Result saved in newsletter_merge_pages.pdf...");
+    print("Done. Result saved in newsletter_merge_pages.pdf");
 	
     # Close the open document to free up document memory sooner than waiting for the
     # garbage collector   
