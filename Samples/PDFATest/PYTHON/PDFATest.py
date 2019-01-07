@@ -16,25 +16,26 @@ from PDFNetPython import *
 def PrintResults(pdf_a, filename):
     err_cnt = pdf_a.GetErrorCount()
     if err_cnt == 0:
-        print(filename + "OK.")
+        print(filename + ": OK.")
     else:
         print(filename + " is NOT a valid PDFA.")
-    i = 0
-    while i < err_cnt:
-        c = pdf_a.GetError(i)
-        str1 = " - e_PDFA " + str(c) + ": " + PDFACompliance.GetPDFAErrorMessage(c) + "."
-        if True:
-            num_refs = pdf_a.GetRefObjCount(c)
-            if num_refs > 0:
-                str1 = str1 + "   Objects:\n"
-                j = 0
-                while j < num_refs:
-                    str1 = str1 + str(pdf_a.GetRefObj(c, j))
-                    if j < num_refs-1:
-                        str1 = str1 + ", "
-                    j = j + 1
-        print(str1)
-        i = i + 1
+        i = 0
+        while i < err_cnt:
+            c = pdf_a.GetError(i)
+            str1 = " - e_PDFA " + str(c) + ": " + PDFACompliance.GetPDFAErrorMessage(c) + "."
+            if True:
+                num_refs = pdf_a.GetRefObjCount(c)
+                if num_refs > 0:
+                    str1 = str1 + "\n   Objects: "
+                    j = 0
+                    while j < num_refs:
+                        str1 = str1 + str(pdf_a.GetRefObj(c, j))
+                        if j < num_refs-1:
+                            str1 = str1 + ", "
+                        j = j + 1
+            print(str1)
+            i = i + 1
+        print('')	
 
 def main():
     # Relative path to the folder containing the test files.
@@ -57,14 +58,16 @@ def main():
     #-----------------------------------------------------------
     filename = "fish.pdf"
     pdf_a = PDFACompliance(True, input_path + filename, None, PDFACompliance.e_Level1B, 0, 10)
-    filename = output_path + "pdfa.pdf"
-    pdf_a.SaveAs(filename, True)
+    filename = "pdfa.pdf"
+    pdf_a.SaveAs(output_path + filename, True)
     pdf_a.Destroy()
     
     # Re-validate the document after the conversion...
-    pdf_a = PDFACompliance(False, filename, None, PDFACompliance.e_Level1B, 0, 10)
+    pdf_a = PDFACompliance(False, output_path + filename, None, PDFACompliance.e_Level1B, 0, 10)
     PrintResults(pdf_a, filename)
     pdf_a.Destroy()
+	
+    print("PDFACompliance test completed.")
 
 if __name__ == '__main__':
     main()

@@ -20,32 +20,31 @@ output_path = "../../TestFiles/Output/"
 def PrintResults(pdf_a, filename)
 	err_cnt = pdf_a.GetErrorCount
 	if err_cnt == 0
-		puts filename + "OK."
+		puts filename + ": OK."
 	else
-		puts filename + " is NOT a valid PDFA."
-	end
-
-	i = 0
-
-	while i < err_cnt do
-		c = pdf_a.GetError(i)
-		str1 = " - e_PDFA " + c.to_s + ": " + PDFACompliance.GetPDFAErrorMessage(c) + "."
-		if true
-			num_refs = pdf_a.GetRefObjCount(c)
-			if num_refs > 0
-				str1 = str1 + "   Objects:\n"
-				j = 0
-				while j < num_refs do
-					str1 = str1 + pdf_a.GetRefObj(c, j).to_s
-					if j < num_refs-1
-						str1 = str1 + ", "
+		puts filename + " is NOT a valid PDFA."	
+		i = 0
+		while i < err_cnt do
+			c = pdf_a.GetError(i)
+			str1 = " - e_PDFA " + c.to_s + ": " + PDFACompliance.GetPDFAErrorMessage(c) + "."
+			if true
+				num_refs = pdf_a.GetRefObjCount(c)
+				if num_refs > 0
+					str1 = str1 + "\n   Objects: "
+					j = 0
+					while j < num_refs do
+						str1 = str1 + pdf_a.GetRefObj(c, j).to_s
+						if j < num_refs-1
+							str1 = str1 + ", "
+						end
+						j = j + 1
 					end
-					j = j + 1
 				end
 			end
+			puts str1
+			i = i + 1
 		end
-		puts str1
-		i = i + 1
+		puts "\n"
 	end
 end
 	
@@ -65,12 +64,12 @@ end
 	#-----------------------------------------------------------
 	filename = "fish.pdf"
 	pdf_a = PDFACompliance.new(true, input_path + filename, nil, PDFACompliance::E_Level1B, 0, 10)
-	filename = output_path + "pdfa.pdf"
-	pdf_a.SaveAs(filename, true)
+	filename = "pdfa.pdf"
+	pdf_a.SaveAs(output_path + filename, true)
 	pdf_a.Destroy
 	
 	# Re-validate the document after the conversion...
-	pdf_a = PDFACompliance.new(false, filename, nil, PDFACompliance::E_Level1B, 0, 10)
+	pdf_a = PDFACompliance.new(false, output_path + filename, nil, PDFACompliance::E_Level1B, 0, 10)
 	PrintResults(pdf_a, filename)
 	pdf_a.Destroy
-	
+	puts "PDFACompliance test completed."
