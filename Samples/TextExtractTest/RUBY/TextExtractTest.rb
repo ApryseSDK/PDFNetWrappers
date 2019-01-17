@@ -9,9 +9,14 @@ include PDFNetRuby
 $stdout.sync = true
 
 def PrintStyle (style)
-	puts " style=\"font-family:" + style.GetFontName + "; font-size:" +
-		  style.GetFontSize.to_s + "; sans-serif: " + style.IsSerif.to_s +
-		  "; color:" + style.GetColor.to_s + "\""
+    sans_serif_str = ""
+    if style.IsSerif()
+		sans_serif_str = " sans-serif;"
+	end 
+    rgb = style.GetColor
+    rgb_hex =  "%02X%02X%02X;" % [rgb[0], rgb[1], rgb[2]]
+    font_str = '%g' % style.GetFontSize
+	print " style=\"font-family:" + style.GetFontName + "; font-size:" + font_str + ";" + sans_serif_str + " color:#" + rgb_hex + "\""
 end
 
 def DumpAllText (reader)
@@ -77,11 +82,11 @@ end
 	
 	# Relative path to the folder containing test files.
 	input_path =  "../../TestFiles/newsletter.pdf"
-	example1_basic = true
-	example2_xml = true
-	example3_wordlist = true
+	example1_basic = false
+	example2_xml = false
+	example3_wordlist = false
 	example4_advanced = true
-	example5_low_level = true
+	example5_low_level = false
    
 	# Sample code showing how to use high-level text extraction APIs.
 	doc = PDFDoc.new(input_path)
@@ -109,9 +114,10 @@ end
 					TextExtractor::E_output_bbox | 
 					TextExtractor::E_output_style_info)	   
 		puts "- GetAsXML  --------------------------" + text
+		puts "-----------------------------------------------------------"
 	end
 		
-	puts "-----------------------------------------------------------"
+	
 	
 	# Example 3. Extract words one by one.
 	if example3_wordlist
@@ -125,10 +131,9 @@ end
 			end
 			line = line.GetNextLine
 		end
+		puts "-----------------------------------------------------------"
 	end
 			
-	puts "-----------------------------------------------------------"
-	puts "Example 4"
 
 	# Example 4. A more advanced text extraction example. 
 	# The output is XML structure containing paragraphs, lines, words, 
@@ -138,6 +143,7 @@ end
 		cur_flow_id = -1
 		cur_para_id = -1
 		
+		puts "<PDFText>"
 		# For each line on the page...
 		line = txt.GetFirstLine
 		while line.IsValid do
@@ -150,7 +156,7 @@ end
 				if cur_flow_id != -1
 					if cur_para_id != -1
 						cur_para_id = -1
-						print("</Para>")
+						puts "</Para>"
 					end
 					puts "</Flow>"
 				end
@@ -168,17 +174,17 @@ end
 				
 			bbox = line.GetBBox
 			line_style = line.GetStyle
-			print "<Line box=\"" + bbox.GetX1.to_s + ", " + bbox.GetY1.to_s + ", " + bbox.GetX2.to_s + ", " + bbox.GetY2.to_s + "\""
+			print "<Line box=\"%.2f, %.2f, %.2f, %.2f\""% [bbox.GetX1(), bbox.GetY1(), bbox.GetX2(), bbox.GetY2()]
 			PrintStyle (line_style)
-			print ">"
+			print " cur_num=\"" + "%d" % line.GetCurrentNum + "\"" + ">\n"
 			
 			# For each word in the line...
 			word = line.GetFirstWord
 			while word.IsValid do
 				# Output the bounding box for the word
 				bbox = word.GetBBox
-				print "<Word box=\"" + bbox.GetX1.to_s + ", " + bbox.GetY1.to_s + ", " + bbox.GetX2.to_s + ", " + bbox.GetY2.to_s + "\""
-				
+				print "<Word box=\"%.2f, %.2f, %.2f, %.2f\""% [bbox.GetX1(), bbox.GetY1(), bbox.GetX2(), bbox.GetY2()]
+				print " cur_num=\"" + "%d" % word.GetCurrentNum + "\"";
 				sz = word.GetStringLen
 				if sz == 0
 					next
@@ -190,21 +196,22 @@ end
 				end
 				print ">" + word.GetString + "</Word>\n"
 				word = word.GetNextWord
-			end				
+			end
+			puts "</Line>"
 			line = line.GetNextLine
 		end
 			
 		if cur_flow_id != -1
 			if cur_para_id != -1
 				cur_para_id = -1
-				print "</Para>\n"
+				puts "</Para>"
 			end
-			print"</Flow>\n"
+			puts "</Flow>"
 		end
 		
 		txt.Destroy
 		doc.Close			
-		puts "Done."
+		puts "</PDFText>"
 	end
 
 	# Sample code showing how to use low-level text extraction APIs.
