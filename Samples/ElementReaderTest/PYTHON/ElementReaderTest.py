@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -25,7 +25,7 @@ def ProcessElements(reader):
             else:
                 reload(sys)
                 sys.setdefaultencoding("utf-8")
-		data = unicodedata.normalize('NFKC', unicode(data)).encode('ascii','replace')
+                data = unicodedata.normalize('NFKC', unicode(data)).encode('ascii','replace')
             print(data)
         elif element.GetType() == Element.e_form:		# Process form XObjects
             reader.FormBegin()
