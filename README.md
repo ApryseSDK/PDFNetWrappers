@@ -124,7 +124,7 @@ Make sure that your interpreter can find the PDFNetC library. The following info
 
 In order to change the install location, modify the top level CMakelists.txt. Remove the forced setting of the `CMAKE_INSTALL_PREFIX` variable.
 
-## How can I build wrappers for PDFNet 6.9?
+## How can I build wrappers for PDFNet 6.9 and under?
 
 The master branch supports PDFNet 6.10. In order to build wrappers using PDFNet 6.9 and under, please use the following command to clone 6.9.0 branch instead: 
 
