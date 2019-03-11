@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -38,10 +38,10 @@ $stdout.sync = true
 # document, including XML Forms Architecture (XFA) content and Extensible Metadata 
 # Platform (XMP) content.
 
-def Redact(input, output, vec)
+def Redact(input, output, vec, app)
 	doc = PDFDoc.new(input)
 	if doc.InitSecurityHandler
-		Redactor.Redact(doc, vec)
+		Redactor.Redact(doc, vec, app, false, true)
 		doc.Save(output, SDFDoc::E_linearized)
 	end
 end
@@ -52,14 +52,20 @@ end
 	
 	PDFNet.Initialize
 	
-	vec = [Redaction.new(1, Rect.new(0, 0, 600, 600), false, "Top Secret"),
-		Redaction.new(2, Rect.new(0, 0, 100, 100), false, "foo"),
-		Redaction.new(2, Rect.new(100, 100, 200, 200), false, "bar"),
+	vec = [Redaction.new(1, Rect.new(100, 100, 550, 600), false, "Top Secret"),
+		Redaction.new(2, Rect.new(30, 30, 450, 450), true, "Negative Redaction"),
+		Redaction.new(2, Rect.new(0, 0, 100, 100), false, "Positive"),
+		Redaction.new(2, Rect.new(100, 100, 200, 200), false, "Positive"),
 		Redaction.new(2, Rect.new(300, 300, 400, 400), false, ""),
 		Redaction.new(2, Rect.new(500, 500, 600, 600), false, ""),
-		Redaction.new(3, Rect.new(0, 0, 700, 20), false, "")]
+        Redaction.new(3, Rect.new(0, 0, 700, 20), false, "")]
 
-	Redact(input_path + "newsletter.pdf", output_path + "redacted.pdf", vec)
+    app = Appearance.new
+    app.RedactionOverlay = true
+    app.Border = false
+    app.ShowRedactedContentRegions = true
 	
-	puts "Done."
+    Redact(input_path + "newsletter.pdf", output_path + "redacted.pdf", vec, app)
+	
+	puts "Done..."
 

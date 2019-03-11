@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2018 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ $stdout.sync = true
 	end
 		
 	new_doc.Save(output_path + "newsletter_merge_pages.pdf", SDFDoc::E_remove_unused)
-	puts "Done. Result saved in newsletter_merge_pages.pdf..."
+	puts "Done. Result saved in newsletter_merge_pages.pdf"
 
 	# Close the open document to free up document memory sooner than waiting for the
 	# garbage collector
