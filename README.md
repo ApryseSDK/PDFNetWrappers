@@ -126,7 +126,7 @@ In order to change the install location, modify the top level CMakelists.txt. Re
 
 ## How can I build wrappers for PDFNet 6.9?
 
-The master branch supports PDFNet 6.10. In order to build wrappers using PDFNet 6.9, please use the following command to clone 6.9.0 branch instead: 
+The master branch supports PDFNet 6.10. In order to build wrappers using PDFNet 6.9 and under, please use the following command to clone 6.9.0 branch instead: 
 
     git clone -b 6.9.0 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
