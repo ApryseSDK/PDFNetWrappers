@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -18,8 +18,6 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	// Relative path to the folder containing the test files.
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
-
-	echo nl2br("-------------------------------------------------\n");
 
 	$doc = new PDFDoc();
 	$builder = new ElementBuilder();	// Used to build new Element objects

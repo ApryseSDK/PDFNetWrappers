@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -45,6 +45,8 @@ def main():
 	doc.Save(output_path + "BusinessCard.pdf", SDFDoc.e_linearized)
 	doc.Close()
 
+	print("Done. Result saved in BusinessCard.pdf")
+
 	# Example 2) Replace text in a region with new text
 
 	doc = PDFDoc(input_path + "newsletter.pdf")
@@ -57,6 +59,10 @@ def main():
 
 	doc.Save(output_path + "ContentReplaced.pdf", SDFDoc.e_linearized)
 	doc.Close()
-    
+
+	print("Done. Result saved in ContentReplaced.pdf")
+	
+	print("Done.")
+
 if __name__ == '__main__':
     main()

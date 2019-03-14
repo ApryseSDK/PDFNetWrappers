@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -56,6 +56,9 @@ function PrintResults($pdf_a, $filename)
 	//-----------------------------------------------------------
 	echo nl2br("Performing PDF/A validation on newsletter.pdf\n");
 	$input_filename = $input_path."newsletter.pdf";
+	// The max_ref_objs parameter to the PDFACompliance constructor controls the maximum number 
+	// of object numbers that are collected for particular error codes. The default value is 10 
+	// in order to prevent spam. If you need all the object numbers, pass 0 for max_ref_objs.
 	$pdf_a = new PDFACompliance(false, $input_filename, "0", PDFACompliance::e_Level1B, 0, 10);
 	PrintResults($pdf_a, "newsletter.pdf");
 	$pdf_a->Destroy();

@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -188,7 +188,7 @@ def main():
     
     doc.Save(output_path + "sample_output.fdf")
     doc.Close()
-    print("Done.")
+    print("Done. Results saved in sample_output.fdf")
 
 if __name__ == '__main__':
     main()

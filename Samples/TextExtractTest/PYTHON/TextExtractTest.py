@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -8,10 +8,16 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+ 
 def printStyle (style):
-    print(" style=\"font-family:" + style.GetFontName() + "; font-size:" 
-          + str(style.GetFontSize()) + "; sans-serif: " + str(style.IsSerif()) 
-          + "; color:" + str(style.GetColor())+ "\"")
+    sans_serif_str = ""
+    if style.IsSerif():
+        sans_serif_str = " sans-serif;"
+    rgb = style.GetColor()
+    rgb_hex = "%02X%02X%02X;" % (rgb[0], rgb[1], rgb[2])
+    font_str = '%g' % style.GetFontSize()
+    sys.stdout.write(" style=\"font-family:" + style.GetFontName() + "; font-size:" 
+          + font_str + ";" + sans_serif_str + " color:#" + rgb_hex + "\"")
 
 def dumpAllText (reader):
     element = reader.Next()
@@ -74,11 +80,11 @@ def main():
     
     # Relative path to the folder containing test files.
     input_path =  "../../TestFiles/newsletter.pdf"
-    example1_basic = True
-    example2_xml = True
-    example3_wordlist = True
+    example1_basic = False
+    example2_xml = False
+    example3_wordlist = False
     example4_advanced = True
-    example5_low_level = True
+    example5_low_level = False
    
     # Sample code showing how to use high-level text extraction APIs.
     doc = PDFDoc(input_path)
@@ -107,8 +113,7 @@ def main():
                             TextExtractor.e_output_bbox | 
                             TextExtractor.e_output_style_info)       
         print("- GetAsXML  --------------------------" + text)
-        
-    print("-----------------------------------------------------------")
+        print("-----------------------------------------------------------")
     
     # Example 3. Extract words one by one.
     if example3_wordlist:
@@ -123,10 +128,8 @@ def main():
                 print(wordString)
                 word = word.GetNextWord()
             line = line.GetNextLine()
-            
-    print("-----------------------------------------------------------")
-    print("Example 4")
-    
+        print("-----------------------------------------------------------")
+ 
     # Example 4. A more advanced text extraction example. 
     # The output is XML structure containing paragraphs, lines, words, 
     # as well as style and positioning information.
@@ -135,6 +138,7 @@ def main():
         cur_flow_id = -1
         cur_para_id = -1
         
+        print("<PDFText>")
         # For each line on the page...
         line = txt.GetFirstLine()
         while line.IsValid():
@@ -158,17 +162,17 @@ def main():
                 
             bbox = line.GetBBox()
             line_style = line.GetStyle()
-            sys.stdout.write("<Line box=\"" + str(bbox.GetX1()) + ", " + str(bbox.GetY1()) + ", " + str(bbox.GetX2()) + ", " + str(bbox.GetY2()) + "\"")
+            sys.stdout.write("<Line box=\"%.2f, %.2f, %.2f, %.2f\"" % ( bbox.GetX1(), bbox.GetY1(), bbox.GetX2(), bbox.GetY2()))
             printStyle (line_style)
-            sys.stdout.write(">")
+            sys.stdout.write(" cur_num=\"" + str(line.GetCurrentNum()) + "\"" + ">\n")
             
             # For each word in the line...
             word = line.GetFirstWord()
             while word.IsValid():
                 # Output the bounding box for the word
                 bbox = word.GetBBox()
-                sys.stdout.write("<Word box=\"" + str(bbox.GetX1()) + ", " + str(bbox.GetY1()) + ", " + str(bbox.GetX2()) + ", " + str(bbox.GetY2()) + "\"")
-                
+                sys.stdout.write("<Word box=\"%.2f, %.2f, %.2f, %.2f\"" % ( bbox.GetX1(), bbox.GetY1(), bbox.GetX2(), bbox.GetY2()))
+                sys.stdout.write(" cur_num=\"" + str(word.GetCurrentNum()) + "\"");
                 sz = word.GetStringLen()
                 if sz == 0:
                     continue
@@ -180,7 +184,8 @@ def main():
                 if sys.version_info.major >= 3:
                     wordString = ascii(wordString)
                 sys.stdout.write(">" + wordString + "</Word>\n")
-                word = word.GetNextWord()                
+                word = word.GetNextWord()
+            sys.stdout.write("</Line>\n")                
             line = line.GetNextLine()
             
         if cur_flow_id != -1:
@@ -191,7 +196,7 @@ def main():
         
         txt.Destroy()
         doc.Close()            
-        print("Done.")
+        print("</PDFText>")
     
     # Sample code showing how to use low-level text extraction APIs.
     if example5_low_level:

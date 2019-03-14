@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------------------------------------------------------
-// Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt for licensing information.
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -19,15 +19,24 @@ namespace pdftron {
 	 */
 	%typemap(in) UString, const UString
 	{  
+#if PHP_MAJOR_VERSION >= 7
+		convert_to_string_ex(&$input);
+		char* temp$argnum = Z_STRVAL_P(&$input);
+#else
 		convert_to_string_ex($input);
 		char* temp$argnum = Z_STRVAL_PP($input);
+#endif
 		$1 = UString(temp$argnum);
 	}
 
 	%typemap(out) UString, const UString
 	{  
 		std::string temp$argnum = $1.ConvertToUtf8();
+#if PHP_MAJOR_VERSION >= 7
+		ZVAL_STRINGL($result, const_cast<char*>(temp$argnum.data()), temp$argnum.size());
+#else
 		ZVAL_STRINGL($result, const_cast<char*>(temp$argnum.data()), temp$argnum.size(), 1);
+#endif
 	}
 
 	/**
@@ -35,8 +44,13 @@ namespace pdftron {
 	 */	
 	%typemap(in) UString const &
 	{  		
+#if PHP_MAJOR_VERSION >= 7	
+		convert_to_string_ex(&$input);
+		char* temp$argnum = Z_STRVAL_P(&$input);
+#else
 		convert_to_string_ex($input);
 		char* temp$argnum = Z_STRVAL_PP($input);
+#endif
 		$1 = new UString(temp$argnum);
 	}
 	
@@ -45,7 +59,11 @@ namespace pdftron {
 	 */
 	%typemap(typecheck,precedence=SWIG_TYPECHECK_UNISTRING) UString, const UString, UString const &
 	%{
+#if PHP_MAJOR_VERSION >= 7	
+		$1 = ( Z_TYPE_P(&$input) == IS_STRING ) ? 1 : 0;
+#else
 		$1 = ( Z_TYPE_PP($input) == IS_STRING ) ? 1 : 0;
+#endif
 	%}
 	
 	/**
@@ -63,14 +81,23 @@ namespace pdftron {
 	%typemap(directorin) UString, const UString
 	%{
         std::string temp$argnum = $input.ConvertToUtf8();
+#if PHP_MAJOR_VERSION >= 7
+		ZVAL_STRINGL($1, const_cast<char*>(temp$argnum.data()), temp$argnum.size());
+#else
 		ZVAL_STRINGL($1, const_cast<char*>(temp$argnum.data()), temp$argnum.size(), 1);
+#endif
 	%}
     
     /* PHP string -> UString */
 	%typemap(directorout) UString, const UString
 	{
+#if PHP_MAJOR_VERSION >= 7
+		convert_to_string_ex($1);
+		char* temp$argnum = Z_STRVAL_P($1);
+#else
 		convert_to_string_ex(&$1);
 		char* temp$argnum = Z_STRVAL_PP(&$1);
+#endif
 		$result = UString(temp$argnum);
 	}
 }

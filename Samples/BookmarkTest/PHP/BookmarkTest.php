@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 
@@ -54,7 +54,6 @@ function PrintOutlineTree($item) {
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
 
-	
 	$doc = new PDFDoc($input_path."numbered.pdf");
 	$doc->InitSecurityHandler();
 
@@ -138,6 +137,7 @@ function PrintOutlineTree($item) {
 	$blue->SetFlags(3);			// set bold and italic
 
 	$doc->Save($output_path."bookmark.pdf", 0);
+	echo nl2br("Done. Result saved in bookmark.pdf\n");
 
 	// The following example illustrates how to traverse the outline tree using 
 	// Bookmark navigation methods: Bookmark.GetNext(), Bookmark.GetPrev(), 
@@ -149,8 +149,7 @@ function PrintOutlineTree($item) {
 
 	$root = $doc->GetFirstBookmark();
 	PrintOutlineTree($root);
-
-	echo "Done.";
+	echo nl2br("Done.\n");
 
 	// The following example illustrates how to create a Bookmark to a page 
 	// in a remote document. A remote go-to action is similar to an ordinary 
@@ -191,5 +190,7 @@ function PrintOutlineTree($item) {
 	$dest->PushBackNumber(9); 
 	$dest->PushBackName("Fit");
 
-	$doc->Save($output_path."bookmark_remote.pdf", SDFDoc::e_linearized);	
+	$doc->Save($output_path."bookmark_remote.pdf", SDFDoc::e_linearized);
+
+	echo nl2br("Done. Result saved in bookmark_remote.pdf\n");
 ?>

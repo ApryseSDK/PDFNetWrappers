@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -54,7 +54,7 @@ def PrintOutlineTree (item):
 
 def main():
     PDFNet.Initialize()
-    
+
     # The following example illustrates how to create and edit the outline tree
     # using high-level Bookmark methods.
     
@@ -130,6 +130,7 @@ def main():
     
     doc.Save(output_path + "bookmark.pdf", 0)
     doc.Close()
+    print("Done. Result saved in bookmark.pdf")
 
     # The following example illustrates how to traverse the outline tree using 
     # Bookmark navigation methods: Bookmark.GetNext(), Bookmark.GetPrev(), 
@@ -184,6 +185,7 @@ def main():
     
     doc.Save(output_path + "bookmark_remote.pdf", SDFDoc.e_linearized)
     doc.Close()
+    print("Done. Result saved in bookmark_remote.pdf")
     
 if __name__ == '__main__':
     main()

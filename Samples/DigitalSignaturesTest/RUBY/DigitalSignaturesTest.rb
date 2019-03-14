@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -30,6 +30,8 @@
 require '../../../PDFNetC/Lib/PDFNetRuby'
 
 include PDFNetRuby
+
+$stdout.sync = true
 
 ##
 ## This functions add an approval signature to the PDF document. The original PDF document contains a blank form field

@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -59,7 +59,7 @@ $output_path = $input_path."Output/";
 	// C) Rasterize the first page in the document and save the result as PNG.
 	$draw->Export($doc->GetPageIterator()->Current(), $output_path."tiger_92dpi.png");
 
-	echo nl2br("Example 1: ".$output_path."tiger_92dpi.png".". Done.\n");
+	echo nl2br("Example 1: tiger_92dpi.png\n");
 
 	// Export the same page as TIFF
 	$draw->Export($doc->GetPageIterator()->Current(), $output_path."tiger_92dpi.tif", "TIFF");
@@ -105,9 +105,9 @@ $output_path = $input_path."Output/";
 	$bmp = $draw->GetBitmap($page, PDFDraw::e_rgb);
 
 	// Save the raw RGB data to disk.
-    file_put_contents($output_path."tiger_100dpi_rot90.raw", $bmp->GetBuffer());
+	file_put_contents($output_path."tiger_100dpi_rot90.raw", $bmp->GetBuffer());
 
-	echo nl2br("Example 3: ".$output_path."tiger_100dpi_rot90.raw. Done.\n");
+	echo nl2br("Example 3: tiger_100dpi_rot90.raw\n");
 	$draw->SetRotate(Page::e_0);  // Disable image rotation for remaining samples.
 
 	//--------------------------------------------------------------------------------
@@ -125,7 +125,7 @@ $output_path = $input_path."Output/";
 	// dynamically so that given image fits into a buffer of given dimensions.
 	$draw->SetImageSize(1000, 1000);		// Set the output image to be 1000 wide and 1000 pixels tall
 	$draw->Export($page, $output_path."tiger_1000x1000.png", "PNG", $mono_hint);
-	echo nl2br("Example 4: ".$output_path."tiger_1000x1000.png. Done.\n");
+	echo nl2br("Example 4: tiger_1000x1000.png\n");
 
 	$draw->SetImageSize(200, 400);	    // Set the output image to be 200 wide and 300 pixels tall
 	$draw->SetRotate(Page::e_180);  // Rotate all pages 90 degrees clockwise.
@@ -135,12 +135,12 @@ $output_path = $input_path."Output/";
 	$gray_hint->PutName("ColorSpace", "Gray");
 
 	$draw->Export($page, $output_path."tiger_200x400_rot180.png", "PNG", $gray_hint);
-	echo nl2br("Example 4: ".$output_path."tiger_200x400_rot180.png. Done.\n");
+	echo nl2br("Example 4: tiger_200x400_rot180.png\n");
 
 	$draw->SetImageSize(400, 200, false);  // The third parameter sets 'preserve-aspect-ratio' to false.
 	$draw->SetRotate(Page::e_0);    // Disable image rotation.
 	$draw->Export($page, $output_path."tiger_400x200_stretch.jpg", "JPEG");
-	echo nl2br("Example 4: ".$output_path."tiger_400x200_stretch.jpg. Done.\n");
+	echo nl2br("Example 4: tiger_400x200_stretch.jpg\n");
 
 	//--------------------------------------------------------------------------------
 	// Example 5) Zoom into a specific region of the page and rasterize the 
@@ -152,20 +152,21 @@ $output_path = $input_path."Output/";
 	$draw->SetPageBox(Page::e_crop); 
 	$draw->SetDPI(900);  // Set the output image resolution to 900 DPI.
 	$draw->Export($page, $output_path."tiger_zoom_900dpi.png", "PNG");
-	echo nl2br("Example 5: ".$output_path."tiger_zoom_900dpi.png. Done.\n");
+	echo nl2br("Example 5: tiger_zoom_900dpi.png\n");
 
+
+	// -------------------------------------------------------------------------------
+	// Example 6)
 	$draw->SetImageSize(50, 50);	   // Set the thumbnail to be 50x50 pixel image.
 	$draw->Export($page, $output_path."tiger_zoom_50x50.png", "PNG");
-	echo nl2br("Example 5: ".$output_path."tiger_zoom_50x50.png. Done.\n");
+	echo nl2br("Example 6: tiger_zoom_50x50.png\n");
 
 	$cmyk_hint = $hint_set->CreateDict();
 	$cmyk_hint->PutName("ColorSpace", "CMYK");
 	
 	//--------------------------------------------------------------------------------
-	// Example 6) Convert the first PDF page to CMYK TIFF at 92 DPI.
+	// Example 7) Convert the first PDF page to CMYK TIFF at 92 DPI.
 	// A three step tutorial to convert PDF page to an image
-	echo nl2br("Example 6:\n");
-
 	// A) Open the PDF document.
 	$doc = new PDFDoc($input_path."tiger.pdf");
 	// Initialize the security handler, in case the PDF is encrypted.
@@ -177,9 +178,87 @@ $output_path = $input_path."Output/";
 	// C) Rasterize the first page in the document and save the result as TIFF.
 	$pg = $doc->GetPage(1);
 	$draw->Export($pg, $output_path."out1.tif", "TIFF", $cmyk_hint);
-	echo nl2br("Example 6: Result saved in ".$output_path."out1.tif\n");
+	echo nl2br("Example 7: out1.tif\n");
 
 	$doc->Close();
-	
-	echo "Done.";
+
+	//--------------------------------------------------------------------------------
+	// Example 8) PDFRasterizer can be used for more complex rendering tasks, such as 
+	// strip by strip or tiled document rendering. In particular, it is useful for 
+	// cases where you cannot simply modify the page crop box (interactive viewing,
+	// parallel rendering).  This example shows how you can rasterize the south-west
+	// quadrant of a page.
+	// A) Open the PDF document.
+	$doc = new PDFDoc($input_path."tiger.pdf");
+	// Initialize the security handler, in case the PDF is encrypted.
+	$doc.InitSecurityHandler();  
+
+	// B) Get the page matrix 
+	$pg = $doc.GetPage(1);
+	$box = Page::e_crop;
+	$mtx = $pg.GetDefaultMatrix(true, box);
+	// We want to render a quadrant, so use half of width and height
+	$pg_w = $pg.GetPageWidth(box) / 2;
+	$pg_h = $pg.GetPageHeight(box) / 2;
+
+	// C) Scale matrix from PDF space to buffer space
+	$dpi = 96.0;
+	$scale = $dpi / 72.0; // PDF space is 72 dpi
+	$buf_w = (int)($scale * $pg_w);
+	$buf_h = (int)($scale * $pg_h);
+	$bytes_per_pixel = 4; // BGRA buffer
+	$buf_size = $buf_w * $buf_h * $bytes_per_pixel;
+	$mtx.Translate(0, -pg_h); // translate by '-pg_h' since we want south-west quadrant
+	$mtx = new Matrix2D($scale, 0, 0, $scale, 0, 0) * $mtx;
+
+	// D) Rasterize page into memory buffer, according to our parameters
+	std::vector<unsigned char> buf;
+	$rast = new PDFRasterizer();
+	$buf = $rast.Rasterize($pg, $buf_w, $buf_h, $buf_w * $bytes_per_pixel, $bytes_per_pixel, true, mtx);
+
+	// buf now contains raw BGRA bitmap.
+	echo nl2br("Example 8: Successfully rasterized into memory buffer.\n");
+
+	//--------------------------------------------------------------------------------
+	// Example 9) Export raster content to PNG using different image smoothing settings. 
+	$text_doc = new PDFDoc($input_path."lorem_ipsum.pdf");
+	$text_doc.InitSecurityHandler();
+
+	$draw.SetImageSmoothing(false, false);
+	$filename = "raster_text_no_smoothing.png";
+	$draw.Export(text_doc.GetPageIterator().Current(), $output_path.$filename);
+	echo nl2br("Example 9 a): ".$filename.". Done.\n");
+
+	$filename = "raster_text_smoothed.png";
+	$draw.SetImageSmoothing(true, false /*default quality bilinear resampling*/);
+	$draw.Export(text_doc.GetPageIterator().Current(), $output_path.$filename);
+	echo nl2br("Example 9 b): ".$filename.". Done.\n");
+
+	$filename = "raster_text_high_quality.png";
+	$draw.SetImageSmoothing(true, true /*high quality area resampling*/);
+	$draw.Export(text_doc.GetPageIterator().Current(), $output_path.$filename);
+	echo nl2br("Example 9 c): ".filename.". Done.\n");
+
+	//--------------------------------------------------------------------------------
+	// Example 10) Export separations directly, without conversion to an output colorspace
+	$separation_doc = new PDFDoc($input_path."op_blend_test.pdf");
+	$separation_doc.InitSecurityHandler();
+	$separation_hint = $hint_set.CreateDict();
+	$separation_hint.PutName("ColorSpace", "Separation");
+	$draw.SetDPI(96);
+	$draw.SetImageSmoothing(true, true);
+	$draw.SetOverprint(PDFRasterizer::e_op_on);
+
+	$filename = "merged_separations.png";
+	$draw.Export(separation_doc.GetPageIterator().Current(), output_path.filename, "PNG");
+	echo nl2br("Example 10 a): ".filename.". Done.\n");
+
+	$filename = "separation";
+	$draw.Export(separation_doc.GetPageIterator().Current(), output_path.filename, "PNG", separation_hint);
+	echo nl2br("Example 10 b): ".filename."_[ink].png. Done.\n");
+
+	$filename = "separation_NChannel.tif";
+	$draw.Export(separation_doc.GetPageIterator().Current(), output_path.filename, "TIFF", separation_hint);
+	echo nl2br("Example 10 c): ".filename.". Done.\n");
+
 ?>

@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #---------------------------------------------------------------------------------------
 # The following sample shows how to add new content (or watermark) PDF pages
@@ -20,7 +22,7 @@ include PDFNetRuby
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
-input_filename = "newsletter.pdf"
+input_filename = "newsletter"
 
 	# Initialize PDFNet
 	PDFNet.Initialize
@@ -28,8 +30,7 @@ input_filename = "newsletter.pdf"
 	#--------------------------------------------------------------------------------
 	# Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 
 	
-	puts "Example 1..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	s = Stamper.new(Stamper::E_relative_scale, 0.5, 0.5)
 	
@@ -42,13 +43,11 @@ input_filename = "newsletter.pdf"
 	
 	doc.Save(output_path + input_filename + ".ex1.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 2) Add Image stamp to first 2 pages. 
 	
-	puts "Example 2..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	s = Stamper.new(Stamper::E_relative_scale, 0.05, 0.05)
 	img = Image.Create(doc.GetSDFDoc, input_path + "peppers.jpg")
@@ -66,13 +65,11 @@ input_filename = "newsletter.pdf"
 	
 	doc.Save(output_path + input_filename + ".ex2.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 3) Add Page stamp to all pages. 
 	
-	puts "Example 3..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	
 	fish_doc = PDFDoc.new(input_path + "fish.pdf")
@@ -90,13 +87,11 @@ input_filename = "newsletter.pdf"
 	s.StampPage(doc, src_page, ps)
 	doc.Save(output_path + input_filename + ".ex3.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 4) Add Image stamp to first 20 odd pages.
 	
-	puts "Example 4..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	
 	s = Stamper.new(Stamper::E_absolute_size, 20, 20)
@@ -110,13 +105,11 @@ input_filename = "newsletter.pdf"
 	
 	doc.Save(output_path + input_filename + ".ex4.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 5) Add text stamp to first 20 even pages
 	
-	puts "Example 5..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	s = Stamper.new(Stamper::E_relative_scale, 0.05, 0.05)
 	s.SetPosition(0, 0)
@@ -129,13 +122,11 @@ input_filename = "newsletter.pdf"
 	
 	doc.Save(output_path + input_filename + ".ex5.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 6) Add first page as stamp to all even pages
 	
-	puts "Example 6..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	
 	fish_doc = PDFDoc.new(input_path + "fish.pdf");
@@ -153,13 +144,11 @@ input_filename = "newsletter.pdf"
 	
 	doc.Save(output_path + input_filename + ".ex6.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 7) Add image stamp at top left corner in every pages
 	
-	puts "Example 7..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	
 	s = Stamper.new(Stamper::E_relative_scale, 0.1, 0.1)
@@ -174,15 +163,13 @@ input_filename = "newsletter.pdf"
 	s.StampImage(doc, img, ps)
 	doc.Save(output_path + input_filename + ".ex7.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
-	
+
 	#--------------------------------------------------------------------------------
 	# Example 8) Add Text stamp to first 2 pages, and image stamp to first page.
 	#          Because text stamp is set as background, the image is top of the text
 	#          stamp. Text stamp on the first page is not visible.
 	
-	puts "Example 8..."
-	doc = PDFDoc.new(input_path + input_filename)
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
 	doc.InitSecurityHandler
 	
 	s = Stamper.new(Stamper::E_relative_scale, 0.07, -0.1)
@@ -203,4 +190,3 @@ input_filename = "newsletter.pdf"
 
 	doc.Save(output_path + input_filename + ".ex8.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."

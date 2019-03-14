@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -9,9 +9,9 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 find_package(PythonLibs)
 
 if (PYTHONLIBS_FOUND)
-    if ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^[2]+[\\.0-9]*$")
+    if ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^[2]+[\\.0-9]*[a-zA-Z0-9]*$")
         set(PYTHON_2 ON)
-    elseif ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^[3]+[\\.0-9]*$")
+    elseif ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^[3]+[\\.0-9]*[a-zA-Z0-9]*$")
         set(PYTHON_3 ON)
     else ()
         message(FATAL_ERROR "Unsupported Python version (Detected: ${PYTHONLIBS_VERSION_STRING}). Please install either Python 2 or Python 3.")
@@ -75,7 +75,7 @@ elseif (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
     if (APPLE)
-        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/PDFNetRuby.bundle -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/loca/lib -Wl,-rpath,.")
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/_PDFNetPython.so -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/local/lib -Wl,-rpath,.")
     else ()
         set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
     endif ()

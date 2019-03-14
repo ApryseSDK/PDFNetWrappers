@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to use the PDF.Convert utility class to convert 
@@ -62,37 +64,37 @@ def ConvertSpecificFormats()
 	puts "Saved " + outputFile
 	
 	# Convert the two page PDF document to SVG
-	print("Converting pdfdoc to SVG")
+	puts "Converting pdfdoc to SVG"
 	outputFile = $outputPath + "pdfdoc2svg.svg"
 	Convert.ToSvg(pdfdoc, outputFile)
 	puts "Saved " + outputFile
 	
 	# Convert the PDF document to XPS
-	print("Converting pdfdoc to XPS")
+	puts "Converting pdfdoc to XPS"
 	outputFile = $outputPath + "pdfdoc2xps.xps"
 	Convert.ToXps(pdfdoc, outputFile)
 	puts "Saved " + outputFile
 	
 	# Convert the PNG image to XPS
-	print("Converting PNG to XPS")
+	puts "Converting PNG to XPS"
 	outputFile = $outputPath + "png2xps.xps"
 	Convert.ToXps($inputPath + "butterfly.png", outputFile)
 	puts "Saved " + outputFile
 	
 	# Convert PDF document to XPS
-	print("Converting PDF to XPS")
+	puts "Converting PDF to XPS"
 	outputFile = $outputPath + "pdf2xps.xps"
 	Convert.ToXps($inputPath + "newsletter.pdf", outputFile)
 	puts "Saved " + outputFile
 
 	# Convert PDF document to HTML
-	print("Converting PDF to HTML")
+	puts "Converting PDF to HTML"
 	outputFile = $outputPath + "pdf2html"
 	Convert.ToHtml($inputPath + "newsletter.pdf", outputFile)
 	puts "Saved " + outputFile
 
 	# Convert PDF document to EPUB
-	print("Converting PDF to EPUB")
+	puts "Converting PDF to EPUB"
 	outputFile = $outputPath + "pdf2epub.epub"
 	Convert.ToEpub($inputPath + "newsletter.pdf", outputFile)
 	puts "Saved " + outputFile

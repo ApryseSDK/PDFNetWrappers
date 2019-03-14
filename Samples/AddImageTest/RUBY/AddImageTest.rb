@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #-----------------------------------------------------------------------------------
 # This sample illustrates how to embed various raster image formats
@@ -19,8 +21,6 @@ include PDFNetRuby
 	# Relative path to the folder containing test files.
 	input_path = "../../TestFiles/"
 	output_path = "../../TestFiles/Output/"
-    
-	puts "-------------------------------------------------"
 
 	doc = PDFDoc.new()
 	f = ElementBuilder.new()            # Used to build new Element objects
@@ -43,11 +43,9 @@ include PDFNetRuby
     
 	# ----------------------------------------------------------
 	# Add a GIF image to the output file (This section is not supported on Linux)
-	if ENV['OS'] == 'Windows_NT'
-		img = Image.Create(doc.GetSDFDoc(), input_path + "pdfnet.gif")
-		element = f.CreateImage(img, Matrix2D.new(img.GetImageWidth(), 0, 0, img.GetImageHeight(), 50, 350))
-		writer.WritePlacedElement(element)
-	end
+	img = Image.Create(doc.GetSDFDoc(), input_path + "pdfnet.gif")
+	element = f.CreateImage(img, Matrix2D.new(img.GetImageWidth(), 0, 0, img.GetImageHeight(), 50, 350))
+	writer.WritePlacedElement(element)
     
 	# ----------------------------------------------------------
 	# Add a TIFF image to the output file

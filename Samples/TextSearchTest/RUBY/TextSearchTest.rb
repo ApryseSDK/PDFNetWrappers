@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 # This sample illustrates the basic text search capabilities of PDFNet.
 
@@ -37,7 +39,7 @@ output_path = "../../TestFiles/Output/"
 				# note that, here, 'ambient_string' and 'hlts' are not written to, 
 				# as 'e_ambient_string' and 'e_highlight' are not set.
 				
-				puts searchResult.GetMatch + "'s credit card number is:"
+				puts searchResult.GetMatch + "'s credit card number is: "
 				
 				# now switch to using regular expressions to find John's credit card number
 				mode = txt_search.GetMode
@@ -66,7 +68,7 @@ output_path = "../../TestFiles/Output/"
 				step = step + 1
 			when 2
 				# found an AMEX card number
-				puts "There is an AMEX card number: " + searchResult.GetMatch
+				puts "\nThere is an AMEX card number:\n  " + searchResult.GetMatch
 				
 				# change mode to find the owner of the credit card; supposedly, the owner's
 				# name proceeds the number
@@ -78,7 +80,7 @@ output_path = "../../TestFiles/Output/"
 				step = step + 1
 			when 3
 				# found the owner's name of the AMEX card
-				puts "Is the owner's name: " + searchResult.GetMatch + "?"
+				puts "Is the owner's name:\n  " + searchResult.GetMatch + "?"
 				
 				# add a link annotation based on the location of the found instance
 				hlts = searchResult.GetHighlights

@@ -1,5 +1,5 @@
 @echo off
 setlocal
 set TEST_NAME=PDFLayersTest
-python.exe %TEST_NAME%.py
+python.exe -u %TEST_NAME%.py
 endlocal

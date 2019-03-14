@@ -1,13 +1,23 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
 
+$stdout.sync = true
+
 $output_path = "../../TestFiles/Output/"
 $input_path = "../../TestFiles/"
+
+def FloatToStr(float)
+	if float.to_i() == float.to_f()
+		return float.to_i().to_s()
+	else
+		return float.to_f().to_s()
+	end
+end
 
 def AnnotationHighLevelAPI(doc)
 	# The following code snippet traverses all annotations in the document
@@ -30,10 +40,10 @@ def AnnotationHighLevelAPI(doc)
 			puts "Annot Type: " + annot.GetSDFObj().Get("Subtype").Value().GetName()
 			
 			bbox = annot.GetRect()
-			puts "  Position: " + bbox.x1.to_s() + 
-				  ", " + bbox.y1.to_s() +
-				  ", " + bbox.x2.to_s() + 
-				  ", " + bbox.y2.to_s()
+			puts "  Position: " + FloatToStr(bbox.x1.to_s()) + 
+				  ", " + FloatToStr(bbox.y1.to_s()) +
+				  ", " + FloatToStr(bbox.x2.to_s()) + 
+				  ", " + FloatToStr(bbox.y2.to_s())
 			
 			type = annot.GetType()			
 			case type
@@ -50,11 +60,11 @@ def AnnotationHighLevelAPI(doc)
 						puts "  Destination is not valid."
 					else
 						page_n = dest.GetPage().GetIndex()
-						puts "  Links to: page number " + page_n.to_s() + " in this document."
+						puts "  Links to: page number " + page_n.to_s() + " in this document"
 					end
 				elsif action.GetType() == Action::E_URI
 					uri = action.GetSDFObj().Get("URI").Value().GetAsPDFText()
-					puts "  Links to " + uri.to_s()
+					puts "  Links to: " + uri.to_s()
 				end
 			when Annot::E_Widget
 			when Annot::E_FileAttachment
@@ -202,7 +212,7 @@ def CreateTestAnnots(doc)
 	txtannot.SetContents( "\n\nSome swift brown fox snatched a gray hare out " +
 						  "of the air by freezing it with an angry glare." +
 						  "\n\nAha!\n\nAnd there was much rejoicing!"	)
-	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), true )
+	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), false )
 	txtannot.SetQuaddingFormat(0)
 	first_page.AnnotPushBack(txtannot)
 	txtannot.RefreshAppearance()
@@ -213,7 +223,7 @@ def CreateTestAnnots(doc)
 				"by freezing it with an angry glare." +
 				"\n\nAha!\n\nAnd there was much rejoicing!")
 	txtannot.SetCalloutLinePoints( Point.new(200,300), Point.new(150,290), Point.new(110,110) )
-	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), true )
+	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), false )
 	txtannot.SetEndingStyle( LineAnnot::E_ClosedArrow )
 	txtannot.SetColor( ColorPt.new( 0, 1, 0 ) )
 	txtannot.SetQuaddingFormat(1)
@@ -224,7 +234,7 @@ def CreateTestAnnots(doc)
 	txtannot.SetContents( "\n\nSome swift brown fox snatched a gray hare out of the air " +
 				"by freezing it with an angry glare." +
 				"\n\nAha!\n\nAnd there was much rejoicing!")
-	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), true )
+	txtannot.SetBorderStyle( BorderStyle.new( BorderStyle::E_solid, 1, 10, 20 ), false )
 	txtannot.SetColor( ColorPt.new( 0, 0, 1 ) )
 	txtannot.SetOpacity( 0.2 )
 	txtannot.SetQuaddingFormat(2)
@@ -580,18 +590,18 @@ end
 	# An example of using SDF/Cos API to add any type of annotations.
 	AnnotationLowLevelAPI(doc)
 	doc.Save($output_path + "annotation_test1.pdf", SDFDoc::E_remove_unused)
-	puts "Saved " + $output_path + "annotation_test1.pdf"
+	puts "Done. Results saved in annotation_test1.pdf"
 	
 	# An example of using the high-level PDFNet API to read existing annotations,
 	# to edit existing annotations, and to create new annotation from scratch.
 	AnnotationHighLevelAPI(doc)
 	doc.Save(($output_path + "annotation_test2.pdf"), SDFDoc::E_linearized)
 	doc.Close()
-	puts "Saved " + $output_path + "annotation_test2.pdf"
+	puts "Done. Results saved in annotation_test2.pdf"
 	
 	doc1 = PDFDoc.new()
 	CreateTestAnnots(doc1)
 	outfname = $output_path + "new_annot_test_api.pdf"
 	doc1.Save(outfname, SDFDoc::E_linearized)
 	doc1.Close()
-	puts "Saved " + outfname
+	puts "Saved new_annot_test_api.pdf"

@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
@@ -30,7 +32,7 @@ end
 	PDFNet.Initialize()
 	
 	# Extract text data from all pages in the document
-	puts "__________________________________________________"
+	puts "-------------------------------------------------"
 	puts "Sample 1 - Extract text data from all pages in the document."
 	puts "Opening the input pdf..."
 	

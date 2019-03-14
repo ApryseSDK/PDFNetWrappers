@@ -1,4 +1,4 @@
-This is a simple text file written in ascii.  It has long lines and explicit line breaks.  Which font did it convert to?  Are there any headers or footers?
+This is a simple ascii text file.  It has long lines and explicit line breaks.
 
 http://www.fleurdelis.com/desiderata.htm
 

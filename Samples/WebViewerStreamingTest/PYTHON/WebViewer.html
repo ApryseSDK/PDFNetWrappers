@@ -15,14 +15,14 @@
         }
     </style>
     <script type="text/javascript" src="WebViewer/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="WebViewer/WebViewer.min.js"></script>
+    <script type="text/javascript" src="WebViewer/lib/WebViewer.min.js"></script>
     <script type="text/javascript">
         $(function () {
             var viewerElement = document.getElementById('viewer');
 
             function initStreaming() {
                 myWebViewer = new PDFTron.WebViewer({
-                    path: "WebViewer", //path to the WebViewer directory
+                    path: "WebViewer/lib", //path to the WebViewer directory
                     initialDoc: "ConvertAndStream?file=newsletter.pdf",
                     streaming: true
                 }, viewerElement);
@@ -30,7 +30,7 @@
 
             function initPreconverted() {
                 myWebViewer = new PDFTron.WebViewer({
-                    path: "WebViewer",
+                    path: "WebViewer/lib",
                     initialDoc: "newsletter.xod",
                     streaming: "false"
                 }, viewerElement);

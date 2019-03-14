@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #-----------------------------------------------------------------------------------------
 # The sample code illustrates how to read and edit existing outline items and create 
@@ -46,6 +48,7 @@ output_path = "../../TestFiles/Output/"
 	
 	doc.Save(output_path + "BusinessCard.pdf", 0)
 	doc.Close()
+	puts "Done. Result saved in BusinessCard.pdf"
 
 	# Example 2) Replace text in a region with new text
 	
@@ -59,3 +62,6 @@ output_path = "../../TestFiles/Output/"
 	
 	doc.Save(output_path + "ContentReplaced.pdf", SDFDoc::E_linearized)
 	doc.Close()
+	puts "Done. Result saved in ContentReplaced.pdf"
+
+	puts "Done."

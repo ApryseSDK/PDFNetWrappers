@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -39,7 +39,7 @@ def main():
                 # note that, here, 'ambient_string' and 'hlts' are not written to, 
                 # as 'e_ambient_string' and 'e_highlight' are not set.
                 
-                print(str(searchResult.GetMatch()) + "'s credit card number is:")
+                print(str(searchResult.GetMatch()) + "'s credit card number is: ")
                 
                 # now switch to using regular expressions to find John's credit card number
                 mode = txt_search.GetMode()
@@ -67,7 +67,7 @@ def main():
                 step = step + 1
             elif step == 2:
                 # found an AMEX card number
-                print("There is an AMEX card number: " + searchResult.GetMatch())
+                print("\nThere is an AMEX card number:\n  " + searchResult.GetMatch())
                 
                 # change mode to find the owner of the credit card; supposedly, the owner's
                 # name proceeds the number
@@ -79,7 +79,7 @@ def main():
                 step = step + 1
             elif step == 3:
                 # found the owner's name of the AMEX card
-                print("Is the owner's name: " + searchResult.GetMatch() + "?")
+                print("Is the owner's name:\n  " + searchResult.GetMatch() + "?")
                 
                 # add a link annotation based on the location of the found instance
                 hlts = searchResult.GetHighlights()

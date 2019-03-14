@@ -1,10 +1,12 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+
+$stdout.sync = true
 
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to reduce PDF file size using 'pdftron.PDF.Optimizer'.
@@ -138,6 +140,3 @@ include PDFNetRuby
 	fl.Process(doc, Flattener::E_fast)
 	doc.Save(output_path + "TigerText_flatten.pdf", SDFDoc::E_linearized)
 	doc.Close
-	
-	puts "Done."
-

@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -57,8 +57,49 @@ endif ()
 message(STATUS "Generating sources for PHP bindings using swig...")
 set(PDFNetPHP_SourcesDir ${PROJECT_BINARY_DIR})
 
+#configure PHP version
+find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
+if (PHP_CONFIG_EXECUTABLE)
+
+    execute_process(
+    COMMAND
+      ${PHP_CONFIG_EXECUTABLE} --vernum
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND sed -ne "s/....$//p"
+      OUTPUT_VARIABLE PHP_MAJOR_VERSION
+    )
+    execute_process(
+    COMMAND
+      ${PHP_CONFIG_EXECUTABLE} --vernum
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND sed -ne "s/..$//p"
+    COMMAND sed -ne "s/^.0\\?//p"
+      OUTPUT_VARIABLE PHP_MINOR_VERSION
+    )
+
+    if(DEFINED PHP_MAJOR_VERSION)
+        if (PHP_MAJOR_VERSION LESS 7)
+            set(php_version "php")
+        else()
+            set(php_version "php7")
+        endif()
+	    set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
+    else()
+        message(FATAL_ERROR "Cannot verify PHP_MAJOR_VERSION!")
+        return ()
+    endif()
+
+else()
+    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
+    return ()
+endif()
+
+message(STATUS "PHP_MAJOR_VERSION = ${PHP_MAJOR_VERSION}")
+message(STATUS "PHP_MINOR_VERSION = ${PHP_MINOR_VERSION}")
+message(STATUS "${SWIG_EXECUTABLE} -c++ -${php_version} -D${swig_php_major_arg}...")    
+
 execute_process(
-    COMMAND ${SWIG_EXECUTABLE} -c++ -php -DNTS -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPHP_SourcesDir} -o ${PDFNetPHP_SourcesDir}/PDFNetPHP.cpp -oh ${PDFNetPHP_SourcesDir}/PDFNetPHP.hpp PDFNetPHP.i
+    COMMAND ${SWIG_EXECUTABLE} -c++ -${php_version} -DNTS -DSWIGHIDDEN_SIG -D${swig_php_major_arg} -I${PDFNetC_Include_Dir} -outdir ${PDFNetPHP_SourcesDir} -o ${PDFNetPHP_SourcesDir}/PDFNetPHP.cpp -oh ${PDFNetPHP_SourcesDir}/PDFNetPHP.hpp PDFNetPHP.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
     OUTPUT_FILE ${PROJECT_BINARY_DIR}/swig.log
     ERROR_FILE ${PROJECT_BINARY_DIR}/swig.err.log
@@ -113,13 +154,20 @@ target_link_libraries(PDFNetPHP ${PDFNetC_Library} ${PHP_LIBRARY})
 set_property(TARGET PDFNetPHP PROPERTY PREFIX "")
 
 # Copy the bridge file
-
 configure_file(${PDFNetPHP_SourcesDir}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php COPYONLY)
+
+# Rename PDFNetPHP.php to PDFNetPHP_core.php and wrap it inside PDFNetPHP.php in the destination library
+configure_file(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php)
 
 # Installation rules
 
+# wrapper
 install(
-    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php
+    FILES  ${CMAKE_SOURCE_DIR}/PDFNetPHP/PDFNetPHP.php 
+    DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
+)
+install(
+    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
 install(

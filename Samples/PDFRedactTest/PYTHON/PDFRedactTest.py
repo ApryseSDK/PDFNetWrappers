@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2014 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2019 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -38,10 +38,10 @@ from PDFNetPython import *
 # document, including XML Forms Architecture (XFA) content and Extensible Metadata 
 # Platform (XMP) content.
 
-def Redact(input, output, vec):
+def Redact(input, output, vec, app):
     doc = PDFDoc(input)
     if doc.InitSecurityHandler():
-        Redactor.Redact(doc, vec)
+        Redactor.Redact(doc, vec, app, False, True)
         doc.Save(output, SDFDoc.e_linearized)
                                   
 
@@ -53,16 +53,21 @@ def main():
     PDFNet.Initialize()
     
     vec = VectorRedaction()
-    vec.append(Redaction(1, Rect(0, 0, 600, 600), False, "Top Secret"))
-    vec.append(Redaction(2, Rect(0, 0, 100, 100), False, "foo"))
-    vec.append(Redaction(2, Rect(100, 100, 200, 200), False, "bar"))
+    vec.append(Redaction(1, Rect(100, 100, 550, 600), False, "Top Secret"))
+    vec.append(Redaction(2, Rect(30, 30, 450, 450), True, "Negative Redaction"))
+    vec.append(Redaction(2, Rect(0, 0, 100, 100), False, "Positive"))
+    vec.append(Redaction(2, Rect(100, 100, 200, 200), False, "Positive"))
     vec.append(Redaction(2, Rect(300, 300, 400, 400), False, ""))
     vec.append(Redaction(2, Rect(500, 500, 600, 600), False, ""))
     vec.append(Redaction(3, Rect(0, 0, 700, 20), False, ""))
-
-    Redact(input_path + "newsletter.pdf", output_path + "redacted.pdf", vec)
+	
+    app = Appearance() 
+    app.RedactionOverlay = True
+    app.Border = False
+    app.ShowRedactedContentRegions = True
+    Redact(input_path + "newsletter.pdf", output_path + "redacted.pdf", vec, app)
     
-    print("Done.")
+    print("Done...")
 
 if __name__ == '__main__':
     main()
