@@ -175,6 +175,9 @@
     #include "SDF/ObjSet.h"
     #include "SDF/SDFDoc.h"
     #include "SDF/SecurityHandler.h"
+    #include "SDF/UndoManager.h"
+    #include "SDF/ResultSnapshot.h"
+    #include "SDF/DocSnapshot.h"
     
     using namespace pdftron;
     using namespace FDF;
@@ -636,6 +639,9 @@ namespace pdftron {
 %include "SDF/Obj.h"
 %include "SDF/ObjSet.h"
 %include "SDF/SecurityHandler.h"
+%include "SDF/UndoManager.h"
+%include "SDF/ResultSnapshot.h"
+%include "SDF/DocSnapshot.h"
 %include "PDF/ViewChangeCollection.h"
 %include "PDF/Point.h"
 %include "PDF/Function.h"
