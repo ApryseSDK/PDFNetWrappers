@@ -49,9 +49,10 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
 
 2. Navigate to the Samples/ folder and either run the runall scripts, or go into the individual samples folder and run the runtest scripts.
 
-# Example
+# Example 
 
-Suppose you wanted to build and run the 64-bit PHP wrappers.  You could run the following set of commands:
+## Linux 
+Suppose you wanted to build and run the 64-bit PHP wrappers on Linux.  You could run the following set of commands:
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
@@ -74,6 +75,26 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
+## macOS 
+Suppose you wanted to build and run the Ruby wrappers on macOS.  You could run the following set of commands:
+
+    mkdir wrappers_build # Make a directory to build the wrappers in.
+    cd wrappers_build # Move to that directory.
+    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
+    wget http://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
+    tar xzvf PDFNetCMac.zip # Unpack PDFNet.
+    mv PDFNetCMac/Headers/ . # Move PDFNet Headers/ into place.
+    mv PDFNetCMac/Lib/ . # Move PDFNet Lib/ into place.
+    cd .. # Go back up.
+    mkdir Build # Create a directory to create the Makefiles in.
+    cd Build # Move to that directory.
+    cmake -D BUILD_PDFNetRuby=ON .. # Create the Makefiles with CMake.
+    make # Build the Ruby wrappers with SWIG.
+    make install # Copy the Ruby wrappers to where the samples can find them.
+    cd ../Samples # Move to the Samples directory.
+    ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
+	
 # Pre-built Binaries
 
 You can download pre-built binaries from the following links:
