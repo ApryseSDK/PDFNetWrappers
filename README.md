@@ -52,7 +52,7 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
 # Example 
 
 ## Linux 
-Suppose you wanted to build and run the 64-bit PHP wrappers on Linux.  You could run the following set of commands:
+Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You could run the following set of commands:
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
@@ -76,7 +76,7 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
     extension=/full/path/to/PDFNetPHP.so
 
 ## macOS 
-Suppose you wanted to build and run the Ruby wrappers on macOS.  You could run the following set of commands:
+Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could run the following set of commands:
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
@@ -91,10 +91,10 @@ Suppose you wanted to build and run the Ruby wrappers on macOS.  You could run t
     cd Build # Move to that directory.
     cmake -D BUILD_PDFNetRuby=ON .. # Create the Makefiles with CMake.
     make # Build the Ruby wrappers with SWIG.
-    make install # Copy the Ruby wrappers to where the samples can find them.
+    sudo make install # Copy the Ruby wrappers to where the samples can find them.
     cp ../fix_rpaths.sh ../PDFNetC/Lib/  # fix rpath issue on Mac
     cd ../PDFNetC/Lib/
-    sh ./fix_rpaths.sh 
+    sudo sh ./fix_rpaths.sh 
     cd ../../Samples # Move to the Samples directory.
     ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
 	
