@@ -82,8 +82,8 @@ Suppose you wanted to build and run the Ruby wrappers on macOS.  You could run t
     cd wrappers_build # Move to that directory.
     git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    wget http://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
-    tar xzvf PDFNetCMac.zip # Unpack PDFNet.
+    curl -L -O http://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
+    unzip PDFNetCMac.zip # Unpack PDFNet.
     mv PDFNetCMac/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetCMac/Lib/ . # Move PDFNet Lib/ into place.
     cd .. # Go back up.
@@ -92,7 +92,10 @@ Suppose you wanted to build and run the Ruby wrappers on macOS.  You could run t
     cmake -D BUILD_PDFNetRuby=ON .. # Create the Makefiles with CMake.
     make # Build the Ruby wrappers with SWIG.
     make install # Copy the Ruby wrappers to where the samples can find them.
-    cd ../Samples # Move to the Samples directory.
+    cp ../fix_rpaths.sh ../PDFNetC/Lib/  # fix rpath issue on Mac
+    cd ../PDFNetC/Lib/
+    sh ./fix_rpaths.sh 
+    cd ../../Samples # Move to the Samples directory.
     ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
 	
 # Pre-built Binaries
