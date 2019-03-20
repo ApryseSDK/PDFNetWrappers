@@ -67,7 +67,7 @@ Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You c
     cd Build # Move to that directory.
     cmake -D BUILD_PDFNetPHP=ON .. # Create the Makefiles with CMake.
     make # Build the PHP wrappers with SWIG.
-    make install # Copy the PHP wrappers to where the samples can find them.
+    sudo make install # Copy the PHP wrappers to where the samples can find them.
     cd ../Samples # Move to the Samples directory.
     ./runall_php.sh # Run all PHP code samples, using the new wrappers.
 
