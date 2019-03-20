@@ -130,9 +130,9 @@ Within PDFTron, we have successfully built language bindings for the following v
 
 Yes. It is important to keep in mind however, that you use the include directories and the configuration header file of this Python build.
 
-## I cannot build PHP bindings for MAC OS
+## I cannot build PHP bindings for macOS
 
-In order to build PHP bindings for MAC OS, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with Mac OS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file.
+In order to build PHP bindings for macOS, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with macOS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file. We recommend using PHP7/SWIG3 to build PHP bindings for macOS.
 
 ## Running the samples seems fine, but when I try to use it on my project, I am starting to get issues.
 
@@ -156,4 +156,4 @@ The master branch supports PDFNet 6.10. In order to build wrappers using PDFNet 
 
     git clone -b 6.9.0 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
-(line 3 in `Example`)
+(line 3 in `Example` commands)
