@@ -104,10 +104,12 @@ You can download pre-built binaries from the following links:
 
 ## Windows: Python 2.7.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
+
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
 
 ## Linux: Python 2.7.x and Ruby 2.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
+
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
 
 ## Mac OS: Python 2.7.x and Ruby 2.x
