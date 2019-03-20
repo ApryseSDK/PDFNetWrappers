@@ -45,10 +45,10 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
 1. In order to run the samples, you will need to run the install command first (or build the install projects from within the IDEs).
         `make install`
     
-* This should place the bridge files to the PDFNetC/Lib folder (where the PDFNetC library was extracted from the previous section).
+* This should place the bridge files to the `PDFNetC/Lib` folder (where the PDFNetC library was extracted from the previous section).
 
-2. Navigate to the Samples/ folder and either run the runall scripts, or go into the individual samples folder and run the runtest scripts.
-
+2. Navigate to `Samples` folder and either run the `runall` scripts, or go into the individual samples folder and run the `RunTest` scripts.
+3. Navigate to `Samples/TestFiles/Output` for outputs.
 # Example 
 
 ## Linux 
@@ -132,7 +132,7 @@ Yes. It is important to keep in mind however, that you use the include directori
 
 ## I cannot build PHP bindings for macOS
 
-In order to build PHP bindings for macOS, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with macOS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file. We recommend using PHP7/SWIG3 to build PHP bindings for macOS.
+In order to build `PHP` bindings for `macOS`, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with macOS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file. We recommend using `PHP7/SWIG3` to build PHP bindings for macOS.
 
 ## Running the samples seems fine, but when I try to use it on my project, I am starting to get issues.
 
