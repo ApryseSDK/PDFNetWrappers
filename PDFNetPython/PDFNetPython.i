@@ -106,7 +106,7 @@
     #include "PDF/OCG/Group.h"
     #include "PDF/OCG/OCMD.h"
 
-    // header files in /PDFNetC/Headers/PDF/PDfA
+    // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
@@ -282,8 +282,26 @@ namespace pdftron {
 
 //----------------------------------------------------------------------------------------------
 
+/**
+ * Typemapping for ResultSnapshots
+ */
+
+%typemap(out) ResultSnapshot
+%{
+    $result = SWIG_NewPointerObj((new pdftron::SDF::ResultSnapshot(static_cast< const pdftron::SDF::ResultSnapshot& >(result))), SWIGTYPE_p_pdftron__SDF__ResultSnapshot, SWIG_POINTER_OWN);
+    return $result;
+%}
+
+%typemap(out) DocSnapshot
+%{
+    $result = SWIG_NewPointerObj((new pdftron::SDF::DocSnapshot(static_cast< const pdftron::SDF::DocSnapshot& >(result))), SWIGTYPE_p_pdftron__SDF__DocSnapshot, SWIG_POINTER_OWN);
+    return $result;
+%}
+
+//----------------------------------------------------------------------------------------------
+
 /** 
- * Tyemapping for enums
+ * Typemapping for enums
  * Python can takes in an integer which is then converted to an enum
  * in the wrapper. The following mapping is needed because ErrorCode is
  * passed in as a pointer
