@@ -40,11 +40,8 @@ def main():
 	# Start a new page
 	page = doc.PageCreate()
 
-	
 	bld = ElementBuilder()			# Used to build new Element objects
 	writer = ElementWriter()		# Used to write Elements to the page
-	
-	page = doc.PageCreate()			# Start a new page
 	writer.Begin(page)				# Begin writing to this page
 
 	# ----------------------------------------------------------
