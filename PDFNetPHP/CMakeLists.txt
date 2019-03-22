@@ -149,6 +149,10 @@ include_directories(
 add_library(PDFNetPHP MODULE ${PDFNetPHP_Sources})
 target_link_libraries(PDFNetPHP ${PDFNetC_Library} ${PHP_LIBRARY})
 
+if(APPLE)
+    set_target_properties(PDFNetPHP PROPERTIES LINK_FLAGS "-undefined dynamic_lookup")  
+endif()
+
 # PHP extension naming conventions are:
 # - PDFNetPHP.so/.dll
 set_property(TARGET PDFNetPHP PROPERTY PREFIX "")
