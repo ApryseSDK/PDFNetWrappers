@@ -292,6 +292,10 @@ namespace pdftron {
     return $result;
 %}
 
+/**
+ * Typemapping for DocSnapshots
+ */
+ 
 %typemap(out) DocSnapshot
 %{
     $result = SWIG_NewPointerObj((new pdftron::SDF::DocSnapshot(static_cast< const pdftron::SDF::DocSnapshot& >(result))), SWIGTYPE_p_pdftron__SDF__DocSnapshot, SWIG_POINTER_OWN);
