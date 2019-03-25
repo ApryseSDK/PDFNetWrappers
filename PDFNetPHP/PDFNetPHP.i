@@ -174,6 +174,9 @@
     #include "SDF/ObjSet.h"
     #include "SDF/SDFDoc.h"
     #include "SDF/SecurityHandler.h"
+    #include "SDF/UndoManager.h"
+    #include "SDF/ResultSnapshot.h"
+    #include "SDF/DocSnapshot.h"
 
     using namespace pdftron;
     using namespace FDF;
@@ -760,6 +763,9 @@ namespace pdftron {
 %include "SDF/NumberTree.h"
 %include "SDF/Obj.h"
 %include "SDF/ObjSet.h"
+%include "SDF/UndoManager.h"
+%include "SDF/ResultSnapshot.h"
+%include "SDF/DocSnapshot.h"
 #define Clone CloneHandler
 %include "SDF/SecurityHandler.h"
 #undef
