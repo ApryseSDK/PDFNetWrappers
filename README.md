@@ -45,13 +45,14 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
 1. In order to run the samples, you will need to run the install command first (or build the install projects from within the IDEs).
         `make install`
     
-* This should place the bridge files to the PDFNetC/Lib folder (where the PDFNetC library was extracted from the previous section).
+* This should place the bridge files to the `PDFNetC/Lib` folder (where the PDFNetC library was extracted from the previous section).
 
-2. Navigate to the Samples/ folder and either run the runall scripts, or go into the individual samples folder and run the runtest scripts.
+2. Navigate to `Samples` folder and either run the `runall` scripts, or go into the individual samples folder and run the `RunTest` scripts.
+3. Navigate to `Samples/TestFiles/Output` for outputs.
+# Example 
 
-# Example
-
-Suppose you wanted to build and run the 64-bit PHP wrappers.  You could run the following set of commands:
+## Linux 
+Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You could run the following set of commands:
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
@@ -66,7 +67,7 @@ Suppose you wanted to build and run the 64-bit PHP wrappers.  You could run the 
     cd Build # Move to that directory.
     cmake -D BUILD_PDFNetPHP=ON .. # Create the Makefiles with CMake.
     make # Build the PHP wrappers with SWIG.
-    make install # Copy the PHP wrappers to where the samples can find them.
+    sudo make install # Copy the PHP wrappers to where the samples can find them.
     cd ../Samples # Move to the Samples directory.
     ./runall_php.sh # Run all PHP code samples, using the new wrappers.
 
@@ -74,16 +75,41 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
+## macOS 
+Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could run the following set of commands:
+
+    mkdir wrappers_build # Make a directory to build the wrappers in.
+    cd wrappers_build # Move to that directory.
+    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
+    curl -L -O http://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
+    unzip PDFNetCMac.zip # Unpack PDFNet.
+    mv PDFNetCMac/Headers/ . # Move PDFNet Headers/ into place.
+    mv PDFNetCMac/Lib/ . # Move PDFNet Lib/ into place.
+    cd .. # Go back up.
+    mkdir Build # Create a directory to create the Makefiles in.
+    cd Build # Move to that directory.
+    cmake -D BUILD_PDFNetRuby=ON .. # Create the Makefiles with CMake.
+    make # Build the Ruby wrappers with SWIG.
+    sudo make install # Copy the Ruby wrappers to where the samples can find them.
+    cp ../fix_rpaths.sh ../PDFNetC/Lib/  # fix rpath issue on Mac
+    cd ../PDFNetC/Lib/
+    sudo sh ./fix_rpaths.sh 
+    cd ../../Samples # Move to the Samples directory.
+    ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
+	
 # Pre-built Binaries
 
 You can download pre-built binaries from the following links:
 
 ## Windows: Python 2.7.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
+
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
 
 ## Linux: Python 2.7.x and Ruby 2.x
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
+
 http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
 
 ## Mac OS: Python 2.7.x and Ruby 2.x
@@ -104,9 +130,9 @@ Within PDFTron, we have successfully built language bindings for the following v
 
 Yes. It is important to keep in mind however, that you use the include directories and the configuration header file of this Python build.
 
-## I cannot build PHP bindings for MAC OS
+## I cannot build PHP bindings for macOS
 
-In order to build PHP bindings for MAC OS, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with Mac OS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file.
+In order to build `PHP` bindings for `macOS`, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with macOS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file. We recommend using `PHP7/SWIG3` to build PHP bindings for macOS.
 
 ## Running the samples seems fine, but when I try to use it on my project, I am starting to get issues.
 
@@ -130,4 +156,4 @@ The master branch supports PDFNet 6.10. In order to build wrappers using PDFNet 
 
     git clone -b 6.9.0 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
-(line 3 in `Example`)
+(line 3 in `Example` commands)
