@@ -160,16 +160,19 @@ set_property(TARGET PDFNetPHP PROPERTY PREFIX "")
 # Copy the bridge file
 configure_file(${PDFNetPHP_SourcesDir}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php COPYONLY)
 
-# Rename PDFNetPHP.php to PDFNetPHP_core.php and wrap it inside PDFNetPHP.php in the destination library
-configure_file(${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php)
+# Rename /Build/lib/PDFNetPHP.php to /Build/lib/PDFNetPHP_core.php and wrap it inside github/PDFNetPHP/PDFNetPHP.php in the destination library (Lib)
+file(RENAME ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php)
 
 # Installation rules
 
-# wrapper
+# in PDFNetC/Lib/
+# using github/PDFNetPHP/PDFNetPHP.php 
 install(
     FILES  ${CMAKE_SOURCE_DIR}/PDFNetPHP/PDFNetPHP.php 
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
+
+# using /Build/lib/PDFNetPHP_core.php
 install(
     FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
