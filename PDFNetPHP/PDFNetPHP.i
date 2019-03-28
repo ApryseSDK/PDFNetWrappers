@@ -763,9 +763,10 @@ namespace pdftron {
 %include "SDF/NumberTree.h"
 %include "SDF/Obj.h"
 %include "SDF/ObjSet.h"
-%include "SDF/UndoManager.h"
+%include "SDF/DocSnapshot.h"
 %include "SDF/ResultSnapshot.h"
 %include "SDF/DocSnapshot.h"
+%include "SDF/UndoManager.h"
 #define Clone CloneHandler
 %include "SDF/SecurityHandler.h"
 #undef
