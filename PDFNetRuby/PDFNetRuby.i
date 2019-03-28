@@ -563,7 +563,6 @@ namespace pdftron {
 %include "SDF/SecurityHandler.h"
 %include "SDF/DocSnapshot.h"
 %include "SDF/ResultSnapshot.h"
-%include "SDF/DocSnapshot.h"
 %include "SDF/UndoManager.h"
 %include "PDF/Point.h"
 %include "PDF/Function.h"
