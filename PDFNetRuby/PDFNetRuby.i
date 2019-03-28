@@ -264,26 +264,6 @@ namespace pdftron {
 
 //----------------------------------------------------------------------------------------------
 
-/**
- * Typemapping for ResultSnapshots
- */
-
-%typemap(out) ResultSnapshot
-%{
-	vresult = SWIG_NewPointerObj((new pdftron::SDF::ResultSnapshot(static_cast< const pdftron::SDF::ResultSnapshot& >(result))), SWIGTYPE_p_pdftron__SDF__ResultSnapshot, SWIG_POINTER_OWN);
-%}
-
-/**
- * Typemapping for DocSnapshots
- */
- 
-%typemap(out) DocSnapshot
-%{
-	vresult = SWIG_NewPointerObj((new pdftron::SDF::DocSnapshot(static_cast< const pdftron::SDF::DocSnapshot& >(result))), SWIGTYPE_p_pdftron__SDF__DocSnapshot, SWIG_POINTER_OWN);
-%}
-
-//----------------------------------------------------------------------------------------------
-
 /** 
  * Tyemapping for enums
  * Ruby can takes in an integer which is then converted to an enum
