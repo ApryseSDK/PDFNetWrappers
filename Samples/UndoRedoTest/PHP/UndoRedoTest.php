@@ -21,13 +21,9 @@ $output_path = $input_path."Output/";
 	// Open the PDF document.
 	$doc = new PDFDoc($input_path."newsletter.pdf");
 	
-	// Save to a different file, so that we don't modify the original, 
-	// and so that we can have the same backing file throughout (and 
-	// thus not destroy the undoredo state by saving to a different filename).
-	$doc->Save($output_path."newsletter_tmp.pdf", SDFDoc::e_incremental);
-	
 	$undo_manager = $doc->GetUndoManager();
 
+	// Take a snapshot to which we can undo after making changes.
 	$snap0 = $undo_manager->TakeSnapshot();
 
 	$snap0_state = $snap0->CurrentState();
@@ -50,8 +46,9 @@ $output_path = $input_path."Output/";
 	
 	// Finish writing to the page
 	$writer->End();
-	$doc->PagePushBack($page);
+	$doc->PagePushFront($page);
 	
+	// Take a snapshot after making changes, so that we can redo later (after undoing first).
 	$snap1 = $undo_manager->TakeSnapshot();
 	
 	if ($snap1->PreviousState()->Equals($snap0_state))
@@ -61,36 +58,47 @@ $output_path = $input_path."Output/";
 
 	$snap1_state = $snap1->CurrentState();
 
-	$doc->Save($output_path."newsletter_tmp.pdf", SDFDoc::e_incremental);
-	copy($output_path."newsletter_tmp.pdf", $output_path."addimage.pdf");
+	$doc->Save($output_path."addimage.pdf", SDFDoc::e_incremental);
 
-	$undo_snap = $undo_manager->Undo();
-
-	$doc->Save($output_path."newsletter_tmp.pdf", SDFDoc::e_incremental);
-	copy($output_path."newsletter_tmp.pdf", $output_path."addimage_undone.pdf");
-
-	$undo_snap_state = $undo_snap->CurrentState();
-
-	if ($undo_snap_state->Equals($snap0_state))
+	if ($undo_manager->CanUndo())
 	{
-		echo(nl2br("undo_snap_state equals snap0_state; undo was successful\n"));
-	}
+		$undo_snap = $undo_manager->Undo();
+
+		$doc->Save($output_path."addimage_undone.pdf", SDFDoc::e_incremental);
+
+		$undo_snap_state = $undo_snap->CurrentState();
+
+		if ($undo_snap_state->Equals($snap0_state))
+		{
+			echo(nl2br("undo_snap_state equals snap0_state; undo was successful\n"));
+		}
 		
-	$redo_snap = $undo_manager->Redo();
+		if ($undo_manager->CanRedo())
+		{
+			$redo_snap = $undo_manager->Redo();
 
-	$doc->Save($output_path."newsletter_tmp.pdf", SDFDoc::e_incremental);
-	copy($output_path."newsletter_tmp.pdf", $output_path."addimage_redone.pdf");
+			$doc->Save($output_path."addimage_redone.pdf", SDFDoc::e_incremental);
 
-	if ($redo_snap->PreviousState()->Equals($undo_snap_state))
-	{
-		echo(nl2br("redo_snap previous state equals undo_snap_state; previous state is correct\n"));
+			if ($redo_snap->PreviousState()->Equals($undo_snap_state))
+			{
+				echo(nl2br("redo_snap previous state equals undo_snap_state; previous state is correct\n"));
+			}
+			
+			$redo_snap_state = $redo_snap->CurrentState();
+			
+			if ($redo_snap_state->Equals($snap1_state))
+			{
+				echo(nl2br("Snap1 and redo_snap are equal; redo was successful\n"));
+			}
+		}
+		else
+		{
+			echo(nl2br("Problem encountered - cannot redo.\n"));
+		}
 	}
-	
-	$redo_snap_state = $redo_snap->CurrentState();
-	
-	if ($redo_snap_state->Equals($snap1_state))
+	else
 	{
-		echo(nl2br("Snap1 and redo_snap are equal; redo was successful\n"));
+		echo(nl2br("Problem encountered - cannot undo.\n"));
 	}
 
 ?>

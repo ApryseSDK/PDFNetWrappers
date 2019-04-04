@@ -24,13 +24,9 @@ $stdout.sync = true
 	# Open the PDF document.
 	doc = PDFDoc.new(input_path + "newsletter.pdf")
 	
-	# Save to a different file, so that we don't modify the original, 
-	# and so that we can have the same backing file throughout (and 
-	# thus not destroy the undoredo state by saving to a different filename).
-	doc.Save(output_path + "newsletter_tmp.pdf", SDFDoc::E_incremental)
-	
 	undo_manager = doc.GetUndoManager()
-	
+
+	# Take a snapshot to which we can undo after making changes.
 	snap0 = undo_manager.TakeSnapshot()
 
 	snap0_state = snap0.CurrentState()
@@ -51,8 +47,9 @@ $stdout.sync = true
 	
 	# Finish writing to the page
 	writer.End()    
-	doc.PagePushBack(page)
+	doc.PagePushFront(page)
 	
+	# Take a snapshot after making changes, so that we can redo later (after undoing first).
 	snap1 = undo_manager.TakeSnapshot()
 	
 	if snap1.PreviousState().Equals(snap0_state)
@@ -61,33 +58,37 @@ $stdout.sync = true
 	
 	snap1_state = snap1.CurrentState()
 
-	doc.Save(output_path + "newsletter_tmp.pdf", SDFDoc::E_incremental)
-	File.write(output_path + "addimage.pdf", File.read(output_path + "newsletter_tmp.pdf"))
+	doc.Save(output_path + "addimage.pdf", SDFDoc::E_incremental)
 
-	undo_snap = undo_manager.Undo()
+	if undo_manager.CanUndo()
+		undo_snap = undo_manager.Undo()
 
-	doc.Save(output_path + "newsletter_tmp.pdf", SDFDoc::E_incremental)
-	File.write(output_path + "addimage_undone.pdf", File.read(output_path + "newsletter_tmp.pdf"))
+		doc.Save(output_path + "addimage_undone.pdf", SDFDoc::E_incremental)
 
-	undo_snap_state = undo_snap.CurrentState()
+		undo_snap_state = undo_snap.CurrentState()
 
-	if undo_snap_state.Equals(snap0_state)
-		puts "undo_snap_state equals snap0_state; undo was successful"
-	end
+		if undo_snap_state.Equals(snap0_state)
+			puts "undo_snap_state equals snap0_state; undo was successful"
+		end
 
-	redo_snap = undo_manager.Redo()
+		if undo_manager.CanRedo()
+			redo_snap = undo_manager.Redo()
 
-	doc.Save(output_path + "newsletter_tmp.pdf", SDFDoc::E_incremental)
-	File.write(output_path + "addimage_redone.pdf", File.read(output_path + "newsletter_tmp.pdf"))
-	
+			doc.Save(output_path + "addimage_redone.pdf", SDFDoc::E_incremental)
 
-	if redo_snap.PreviousState().Equals(undo_snap_state)
-		puts "redo_snap previous state equals undo_snap_state; previous state is correct"
-	end
-	
-	redo_snap_state = redo_snap.CurrentState()
-	
-	if redo_snap_state.Equals(snap1_state)
-		puts "Snap1 and redo_snap are equal; redo was successful"
+			if redo_snap.PreviousState().Equals(undo_snap_state)
+				puts "redo_snap previous state equals undo_snap_state; previous state is correct"
+			end
+			
+			redo_snap_state = redo_snap.CurrentState()
+			
+			if redo_snap_state.Equals(snap1_state)
+				puts "Snap1 and redo_snap are equal; redo was successful"
+			end
+		else
+			puts "Problem encountered - cannot redo."
+		end
+	else
+		puts "Problem encountered - cannot undo."
 	end
 
