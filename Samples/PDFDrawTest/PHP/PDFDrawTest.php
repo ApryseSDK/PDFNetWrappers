@@ -191,15 +191,15 @@ $output_path = $input_path."Output/";
 	// A) Open the PDF document.
 	$doc = new PDFDoc($input_path."tiger.pdf");
 	// Initialize the security handler, in case the PDF is encrypted.
-	$doc.InitSecurityHandler();  
+	$doc->InitSecurityHandler();  
 
 	// B) Get the page matrix 
-	$pg = $doc.GetPage(1);
+	$pg = $doc->GetPage(1);
 	$box = Page::e_crop;
-	$mtx = $pg.GetDefaultMatrix(true, box);
+	$mtx = $pg->GetDefaultMatrix(true, $box);
 	// We want to render a quadrant, so use half of width and height
-	$pg_w = $pg.GetPageWidth(box) / 2;
-	$pg_h = $pg.GetPageHeight(box) / 2;
+	$pg_w = $pg->GetPageWidth($box) / 2;
+	$pg_h = $pg->GetPageHeight($box) / 2;
 
 	// C) Scale matrix from PDF space to buffer space
 	$dpi = 96.0;
@@ -208,13 +208,13 @@ $output_path = $input_path."Output/";
 	$buf_h = (int)($scale * $pg_h);
 	$bytes_per_pixel = 4; // BGRA buffer
 	$buf_size = $buf_w * $buf_h * $bytes_per_pixel;
-	$mtx.Translate(0, -pg_h); // translate by '-pg_h' since we want south-west quadrant
-	$mtx = new Matrix2D($scale, 0, 0, $scale, 0, 0) * $mtx;
+	$mtx->Translate(0, -$pg_h); // translate by '-pg_h' since we want south-west quadrant
+	$mtx = new Matrix2D($scale, 0.0, 0.0, $scale, 0.0, 0.0); 
+	$mtx->Multiply($mtx);
 
 	// D) Rasterize page into memory buffer, according to our parameters
-	std::vector<unsigned char> buf;
 	$rast = new PDFRasterizer();
-	$buf = $rast.Rasterize($pg, $buf_w, $buf_h, $buf_w * $bytes_per_pixel, $bytes_per_pixel, true, mtx);
+	$buf = $rast->Rasterize($pg, $buf_w, $buf_h, $buf_w * $bytes_per_pixel, $bytes_per_pixel, true, $mtx);
 
 	// buf now contains raw BGRA bitmap.
 	echo nl2br("Example 8: Successfully rasterized into memory buffer.\n");
@@ -222,43 +222,43 @@ $output_path = $input_path."Output/";
 	//--------------------------------------------------------------------------------
 	// Example 9) Export raster content to PNG using different image smoothing settings. 
 	$text_doc = new PDFDoc($input_path."lorem_ipsum.pdf");
-	$text_doc.InitSecurityHandler();
+	$text_doc->InitSecurityHandler();
 
-	$draw.SetImageSmoothing(false, false);
+	$draw->SetImageSmoothing(false, false);
 	$filename = "raster_text_no_smoothing.png";
-	$draw.Export(text_doc.GetPageIterator().Current(), $output_path.$filename);
+	$draw->Export($text_doc->GetPageIterator()->Current(), $output_path.$filename);
 	echo nl2br("Example 9 a): ".$filename.". Done.\n");
 
 	$filename = "raster_text_smoothed.png";
-	$draw.SetImageSmoothing(true, false /*default quality bilinear resampling*/);
-	$draw.Export(text_doc.GetPageIterator().Current(), $output_path.$filename);
+	$draw->SetImageSmoothing(true, false /*default quality bilinear resampling*/);
+	$draw->Export($text_doc->GetPageIterator()->Current(), $output_path.$filename);
 	echo nl2br("Example 9 b): ".$filename.". Done.\n");
 
 	$filename = "raster_text_high_quality.png";
-	$draw.SetImageSmoothing(true, true /*high quality area resampling*/);
-	$draw.Export(text_doc.GetPageIterator().Current(), $output_path.$filename);
-	echo nl2br("Example 9 c): ".filename.". Done.\n");
+	$draw->SetImageSmoothing(true, true /*high quality area resampling*/);
+	$draw->Export($text_doc->GetPageIterator()->Current(), $output_path.$filename);
+	echo nl2br("Example 9 c): ".$filename.". Done.\n");
 
 	//--------------------------------------------------------------------------------
 	// Example 10) Export separations directly, without conversion to an output colorspace
 	$separation_doc = new PDFDoc($input_path."op_blend_test.pdf");
-	$separation_doc.InitSecurityHandler();
-	$separation_hint = $hint_set.CreateDict();
-	$separation_hint.PutName("ColorSpace", "Separation");
-	$draw.SetDPI(96);
-	$draw.SetImageSmoothing(true, true);
-	$draw.SetOverprint(PDFRasterizer::e_op_on);
+	$separation_doc->InitSecurityHandler();
+	$separation_hint = $hint_set->CreateDict();
+	$separation_hint->PutName("ColorSpace", "Separation");
+	$draw->SetDPI(96);
+	$draw->SetImageSmoothing(true, true);
+	$draw->SetOverprint(PDFRasterizer::e_op_on);
 
 	$filename = "merged_separations.png";
-	$draw.Export(separation_doc.GetPageIterator().Current(), output_path.filename, "PNG");
-	echo nl2br("Example 10 a): ".filename.". Done.\n");
+	$draw->Export($separation_doc->GetPageIterator()->Current(), $output_path.$filename, "PNG");
+	echo nl2br("Example 10 a): ".$filename.". Done.\n");
 
 	$filename = "separation";
-	$draw.Export(separation_doc.GetPageIterator().Current(), output_path.filename, "PNG", separation_hint);
-	echo nl2br("Example 10 b): ".filename."_[ink].png. Done.\n");
+	$draw->Export($separation_doc->GetPageIterator()->Current(), $output_path.$filename, "PNG", $separation_hint);
+	echo nl2br("Example 10 b): ".$filename."_[ink].png. Done.\n");
 
 	$filename = "separation_NChannel.tif";
-	$draw.Export(separation_doc.GetPageIterator().Current(), output_path.filename, "TIFF", separation_hint);
-	echo nl2br("Example 10 c): ".filename.". Done.\n");
+	$draw->Export($separation_doc->GetPageIterator()->Current(), $output_path.$filename, "TIFF", $separation_hint);
+	echo nl2br("Example 10 c): ".$filename.". Done.\n");
 
 ?>
