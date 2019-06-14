@@ -157,3 +157,17 @@ The master branch supports PDFNet 6.10. In order to build wrappers using PDFNet 
     git clone -b 6.9.0 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
 (line 3 in `Example` commands)
+
+## I'm seeing a line-ending (control character) issue.
+
+Example: `bad interpreter: /bin/sh^M: no such file or directory`
+
+Using dos2unix to convert line endings can help with this issue
+
+### Linux or macOS
+
+```
+brew install dos2unix
+dos2unix **/*.sh
+```
+
