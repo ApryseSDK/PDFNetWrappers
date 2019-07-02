@@ -95,6 +95,7 @@
     #include "PDF/Annots/Underline.h"
     #include "PDF/Annots/Watermark.h"
     #include "PDF/Annots/Widget.h"
+    #include "PDF/Annots/SignatureWidget.h"
 
     // header files in /PDFNetC/Headers/PDF/Image
     #include "PDF/Image/Image2RGB.h"
@@ -134,6 +135,7 @@
     #include "PDF/ElementReader.h"
     #include "PDF/ElementWriter.h"
     #include "PDF/Field.h"
+    #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
     #include "PDF/PathData.h"
@@ -619,7 +621,8 @@ namespace pdftron {
 %template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>; 
 %template (FDFFieldIterator) pdftron::Common::Iterator<pdftron::FDF::FDFField>;
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
-%template (CharIterator) pdftron::Common::Iterator<TRN_CharData>; 
+%template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
+%template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
 
 //----------------------------------------------------------------------------------------------
 
@@ -651,6 +654,7 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
+%include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
 %include "PDF/Annot.h"
@@ -684,6 +688,7 @@ namespace pdftron {
 %include "PDF/Annots/Underline.h"
 %include "PDF/Annots/Watermark.h"
 %include "PDF/Annots/Widget.h"
+%include "PDF/Annots/SignatureWidget.h"
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
