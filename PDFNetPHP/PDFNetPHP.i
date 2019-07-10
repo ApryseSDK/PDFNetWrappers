@@ -107,7 +107,7 @@
     #include "PDF/OCG/Group.h"
     #include "PDF/OCG/OCMD.h"
 
-    // header files in /PDFNetC/Headers/PDF/PDfA
+    // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
@@ -300,7 +300,7 @@ namespace pdftron {
 //----------------------------------------------------------------------------------------------
 
 /** 
- * Tyemapping for enums
+ * Typemapping for enums
  * PHP can takes in an integer which is then converted to an enum
  * in the wrapper. The following mapping is needed because ErrorCode is
  * passed in as a pointer
@@ -743,7 +743,7 @@ namespace pdftron {
 %template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>; 
 %template (FDFFieldIterator) pdftron::Common::Iterator<pdftron::FDF::FDFField>;
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
-%template (CharIterator) pdftron::Common::Iterator<TRN_CharData>; 
+%template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
 %template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
 
 //----------------------------------------------------------------------------------------------
@@ -795,27 +795,9 @@ namespace pdftron {
 %include "PDF/Action.h"
 %include "FDF/FDFField.h"
 %include "FDF/FDFDoc.h"
-%include "PDF/Annots/Caret.h"
-%include "PDF/Annots/Circle.h"
-%include "PDF/Annots/Highlight.h"
-%include "PDF/Annots/Line.h"
-%include "PDF/Annots/FreeText.h"
-%include "PDF/Annots/Link.h"
-%include "PDF/Annots/Movie.h"
-%include "PDF/Annots/PolyLine.h"
-%include "PDF/Annots/Redaction.h"
 
-%include "PDF/Annots/RubberStamp.h"
-%include "PDF/Annots/Screen.h"
-%include "PDF/Annots/Sound.h"
-%include "PDF/Annots/Square.h"
-%include "PDF/Annots/Squiggly.h"
-%include "PDF/Annots/StrikeOut.h"
-%include "PDF/Annots/Text.h"
-%include "PDF/Annots/Underline.h"
-%include "PDF/Annots/Watermark.h"
-%include "PDF/Annots/Widget.h"
-%include "PDF/Annots/SignatureWidget.h"
+%include "PDF/PDFDoc.h"
+
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
@@ -838,6 +820,27 @@ namespace pdftron {
 %include "PDF/PatternColor.h"
 %include "PDF/GState.h"
 %include "PDF/Image.h"
+
+%include "PDF/Annots/Caret.h"
+%include "PDF/Annots/Circle.h"
+%include "PDF/Annots/Highlight.h"
+%include "PDF/Annots/Line.h"
+%include "PDF/Annots/FreeText.h"
+%include "PDF/Annots/Link.h"
+%include "PDF/Annots/Movie.h"
+%include "PDF/Annots/PolyLine.h"
+%include "PDF/Annots/Redaction.h"
+%include "PDF/Annots/RubberStamp.h"
+%include "PDF/Annots/Screen.h"
+%include "PDF/Annots/Sound.h"
+%include "PDF/Annots/Square.h"
+%include "PDF/Annots/Squiggly.h"
+%include "PDF/Annots/StrikeOut.h"
+%include "PDF/Annots/Text.h"
+%include "PDF/Annots/Underline.h"
+%include "PDF/Annots/Watermark.h"
+%include "PDF/Annots/Widget.h"
+%include "PDF/Annots/SignatureWidget.h"
 %include "PDF/Element.h"
 %include "PDF/ElementBuilder.h"
 %include "PDF/ElementReader.h"
@@ -854,7 +857,6 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDocViewPrefs.h"
-%include "PDF/PDFDoc.h"
 %include "PDF/PDFRasterizer.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/PDFNet.h"
