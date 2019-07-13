@@ -358,7 +358,7 @@ function CreateCustomButtonAppearance($doc, $button_down)
 	$doc->InitSecurityHandler();
 
 	// Traverse all pages
-	if (true) {
+	if (false) {
 		$doc->FlattenAnnotations();
 	}
 	else // Manual flattening
@@ -369,10 +369,10 @@ function CreateCustomButtonAppearance($doc, $button_down)
 			$page = $pitr->Current();
 			for ($i = (int)($page->GetNumAnnots())-1; $i>=0; --$i)
 			{
-				$annot = $page->GetAnnot(i);
-				if (annot.GetType() == Annot::e_Widget)
+				$annot = $page->GetAnnot($i);
+				if ($annot->GetType() == Annot::e_Widget)
 				{
-					$annots->Flatten($page); 
+					$annot->Flatten($page); 
 				}
 			}
 		}

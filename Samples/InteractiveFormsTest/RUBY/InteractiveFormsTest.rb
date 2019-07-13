@@ -324,7 +324,7 @@ end
 	doc.InitSecurityHandler
 	 
 	# Traverse all pages
-	if true
+	if false
 		doc.FlattenAnnotations
 	else # Manual flattening
 		pitr = doc.GetPageIterator
@@ -332,8 +332,8 @@ end
 			page = pitr.Current
 			i = page.GetNumAnnots - 1
 			while i >= 0
-				annot = page.GetAnnots(i)
-				if annot.GetType == Annot::e_Widget
+				annot = page.GetAnnot(i)
+				if annot.GetType == Annot::E_Widget
 					annot.Flatten(page)
 				end
 				i = i - 1
