@@ -7,16 +7,40 @@
 //----------------------------------------------------------------------------------------------------------------------
 // This sample demonstrates the basic usage of high-level digital signature API in PDFNet.
 //
-// The following steps are typically used to add a digital signature to a PDF:
+// The following steps reflect typical intended usage of the digital signature API:
 //
-//     1. Extend and implement a new SignatureHandler. The SignatureHandler will be used to add or validate/check a
-//        digital signature.
-//     2. Create an instance of the implemented SignatureHandler and register it with PDFDoc with
-//        pdfdoc.AddSignatureHandler(). The method returns an ID that can be used later to associate a SignatureHandler
-//        with a field.
-//     3. Find the required 'e_signature' field in the existing document or create a new field.
-//     4. Call field.UseSignatureHandler() with the ID of your handler.
-//     5. Call pdfdoc.Save()
+//	0.	Start with a PDF with or without form fields in it that one would like to lock (or, one can add a field, see (1)).
+//	
+//	1.	EITHER: 
+//		(a) Call doc.CreateDigitalSignatureField, optionally providing a name. You receive a DigitalSignatureField.
+//		-OR-
+//		(b) If you didn't just create the digital signature field that you want to sign/certify, find the existing one within the 
+//		document by using PDFDoc.DigitalSignatureFieldIterator or by using PDFDoc.GetField to get it by its fully qualified name.
+//	
+//	2.	Create a signature widget annotation, and pass the DigitalSignatureField that you just created or found. 
+//		If you want it to be visible, provide a Rect argument with a non-zero width or height, and don't set the
+//		NoView and Hidden flags. [Optionally, add an appearance to the annotation when you wish to sign/certify.]
+//		
+//	[3. (OPTIONAL) Add digital signature restrictions to the document using the field modification permissions (SetFieldPermissions) 
+//		or document modification permissions functions (SetDocumentPermissions) of DigitalSignatureField. These features disallow 
+//		certain types of changes to be made to the document without invalidating the cryptographic digital signature's hash once it
+//		is signed.]
+//		
+//	4. 	Call either CertifyOnNextSave or SignOnNextSave. There are three overloads for each one (six total):
+//		a.	Taking a PKCS #12 keyfile path and its password
+//		b.	Taking a buffer containing a PKCS #12 private keyfile and its password
+//		c.	Taking a unique identifier of a signature handler registered with the PDFDoc. This overload is to be used
+//			in the following fashion: 
+//			i)		Extend and implement a new SignatureHandler. The SignatureHandler will be used to add or 
+//					validate/check a digital signature.
+//			ii)		Create an instance of the implemented SignatureHandler and register it with PDFDoc with 
+//					pdfdoc.AddSignatureHandler(). The method returns a SignatureHandlerId.
+//			iii)	Call SignOnNextSaveWithCustomHandler/CertifyOnNextSaveWithCustomHandler with the SignatureHandlerId.
+//		NOTE: It is only possible to sign/certify one signature per call to the Save function.
+//	
+//	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic hash to it.
+//		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
+//		so as to not invalidate the other signature's('s) cryptographic hashes. 
 //
 // Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 // of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
@@ -28,169 +52,343 @@
 
 include('../../../PDFNetC/Lib/PDFNetPHP.php');
 
-//
-// This functions add an approval signature to the PDF document. The original PDF document contains a blank form field
-// that is prepared for a user to sign. The following code demonstrate how to sign this document using PDFNet.
-//
-function SignPDF()
+function CertifyPDF($in_docpath,
+	$in_cert_field_name,
+	$in_private_key_file_path,
+	$in_keyfile_password,
+	$in_appearance_image_path,
+	$in_outpath)
 {
-    $infile = '../../TestFiles/doc_to_sign.pdf';
-    $outfile = '../../TestFiles/Output/signed_doc.pdf';
-    $certfile = '../../TestFiles/pdftron.pfx';
-    $imagefile = '../../TestFiles/signature.jpg';
-    $result = true;
-    try {
-        echo(nl2br('Signing PDF document: "'.$infile.'".'.PHP_EOL));
-        
-        // Open an existing PDF
-        $doc = new PDFDoc($infile);
-        
-        // Add an StdSignatureHandler instance to PDFDoc, making sure to keep track of it using the ID returned.
-        $sigHandlerId = $doc->AddStdSignatureHandler($certfile, "password");
-        
-        // Obtain the signature form field from the PDFDoc via Annotation.
-        $sigField = $doc->GetField('Signature1');
-        $widgetAnnot = new Widget($sigField->GetSDFObj());
-        
-        # Tell PDFNetC to use the SignatureHandler created to sign the new signature form field.
-        $sigDict = $sigField->UseSignatureHandler($sigHandlerId);
-        
-        // Add more information to the signature dictionary.
-        $sigDict->PutName('SubFilter', 'adbe.pkcs7.detached');
-        $sigDict->PutString('Name', 'PDFTron');
-        $sigDict->PutString('Location', 'Vancouver, BC');
-        $sigDict->PutString('Reason', 'Document verification.');
-        
-        // Create a signature appearance
-        $apWriter = new ElementWriter();
-        $apBuilder = new ElementBuilder();
-        $apWriter->Begin($doc->GetSDFDoc());
-        $sigImg = Image::Create($doc->GetSDFDoc(), $imagefile);
-        $w = floatval($sigImg->GetImageWidth());
-        $h = floatval($sigImg->GetImageHeight());
-        $apElement = $apBuilder->CreateImage($sigImg, 0.0, 0.0, $w, $h);
-        $apWriter->WritePlacedElement($apElement);
-        $apObj = $apWriter->End();
-        $apObj->PutRect('BBox', 0.0, 0.0, $w, $h);
-        $apObj->PutName('Subtype', 'Form');
-        $apObj->PutName('Type', 'XObject');
-        $apWriter->Begin($doc->GetSDFDoc());
-        $apElement = $apBuilder->CreateForm($apObj);
-        $apWriter->WritePlacedElement($apElement);
-        $apObj = $apWriter->End();
-        $apObj->PutRect('BBox', 0.0, 0.0, $w, $h);
-        $apObj->PutName('Subtype', 'Form');
-        $apObj->PutName('Type', 'XObject');
-        $widgetAnnot->SetAppearance($apObj);
-        $widgetAnnot->RefreshAppearance();
+	
+	echo(nl2br('================================================================================'.PHP_EOL));
+	echo(nl2br('Certifying PDF document'.PHP_EOL));
 
-        // Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information
-        // provided.
-        $doc->Save($outfile, 0);
+	// Open an existing PDF
+	$doc = new PDFDoc($in_docpath);
 
-        echo(nl2br('Finished signing PDF document'.PHP_EOL));
-        
-        $doc->Close();
-    }
-    catch (Exception $e) {
-        echo(nl2br($e->getMessage().PHP_EOL));
-        echo(nl2br($e->getTraceAsString().PHP_EOL));
-        $result = false;
-    }
-    
-    return $result;
+	if ($doc->HasSignatures())
+	{
+		echo(nl2br('PDFDoc has signatures'.PHP_EOL));
+	}
+	else
+	{
+		echo(nl2br('PDFDoc has no signatures'.PHP_EOL));
+	}
+
+	$page1 = $doc->GetPage(1);
+
+	// Create a random text field that we can lock using the field permissions feature.
+	$asdf_test_field = $doc->FieldCreate("asdf_test_field", Field::e_text);
+	$annot1 = Widget::Create($doc->GetSDFDoc(), new Rect(50.0, 550.0, 350.0, 600.0), $asdf_test_field);
+	$page1->AnnotPushBack($annot1);
+	$annot1->SetPage($page1);
+
+	// Create new signature form field in the PDFDoc. The name argument is optional;
+	// leaving it empty causes it to be auto-generated. However, you may need the name for later.
+	// Acrobat doesn't show digsigfield in side panel if it's without a widget. Using a
+	// Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
+	$certification_sig_field = $doc->CreateDigitalSignatureField($in_cert_field_name);
+	$widgetAnnot = SignatureWidget::Create($doc, new Rect(0.0, 100.0, 200.0, 150.0), $certification_sig_field);
+	$page1->AnnotPushBack($widgetAnnot);
+	$widgetObj = $widgetAnnot->GetSDFObj();
+
+	// (OPTIONAL) Add an appearance.
+
+	// Widget AP from image
+	$img = Image::Create($doc->GetSDFDoc(), $in_appearance_image_path);
+	$widgetAnnot->CreateSignatureAppearance($img);
+	// End of optional appearance-adding code.
+
+	// Add permissions. Lock the random text field.
+	echo(nl2br('Adding document permissions.'.PHP_EOL));
+	$certification_sig_field->SetDocumentPermissions(DigitalSignatureField::e_annotating_formfilling_signing_allowed);
+	echo(nl2br('Adding field permissions.'.PHP_EOL));
+	$locked_fields_list = new VectorString();
+	$locked_fields_list->push('asdf_test_field');
+	$certification_sig_field->SetFieldPermissions(DigitalSignatureField::e_include, $locked_fields_list);
+
+	$certification_sig_field->CertifyOnNextSave($in_private_key_file_path, $in_keyfile_password);
+
+	///// (OPTIONAL) Add more information to the signature dictionary.
+	$certification_sig_field->SetLocation('Vancouver, BC');
+	$certification_sig_field->SetReason('Document certification.');
+	$certification_sig_field->SetContactInfo('www.pdftron.com');
+	///// End of optional sig info code.
+
+	// Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information provided.
+	$doc->Save($in_outpath, 0);
+
+	echo(nl2br('================================================================================'.PHP_EOL));
 }
 
-function CertifyPDF()
+function SignPDF($in_docpath,	
+	$in_approval_field_name,	
+	$in_private_key_file_path, 
+	$in_keyfile_password, 
+	$in_appearance_img_path, 
+	$in_outpath)
 {
-    $infile = '../../TestFiles/newsletter.pdf';
-    $outfile = '../../TestFiles/Output/newsletter_certified.pdf';
-    $certfile = '../../TestFiles/pdftron.pfx';
-    $result = true;
-    try {
-        echo(nl2br('Certifying PDF document: "'.$infile.'".'.PHP_EOL));
-        
-        // Open an existing PDF
-        $doc = new PDFDoc($infile);
-        
-        // Add an StdSignatureHandler instance to PDFDoc, making sure to keep track of it using the ID returned.
-        $sigHandlerId = $doc->AddStdSignatureHandler($certfile, "password");
-        
-        // Create a new signature form field in the PDFDoc.
-        $sigField = $doc->FieldCreate('Signature1', Field::e_signature);
-        
-        // Assign the form field as an annotation widget to the PDFDoc so that a signature appearance can be added.
-        $page1 = $doc->GetPage(1);
-        $widgetAnnot = Widget::Create($doc->GetSDFDoc(), new Rect(0.0, 0.0, 0.0, 0.0), $sigField);
-        $page1->AnnotPushBack($widgetAnnot);
-        $widgetAnnot->SetPage($page1);
-        $widgetObj = $widgetAnnot->GetSDFObj();
-        $widgetObj->PutNumber('F', 132.0);
-        $widgetObj->PutName('Type', 'Annot');
-        
-        // Tell PDFNetC to use the SignatureHandler created to sign the new signature form field.
-        $sigDict = $sigField->UseSignatureHandler($sigHandlerId);
-        
-        // Add more information to the signature dictionary.
-        $sigDict->PutName('SubFilter', 'adbe.pkcs7.detached');
-        $sigDict->PutString('Name', 'PDFTron');
-        $sigDict->PutString('Location', 'Vancouver, BC');
-        $sigDict->PutString('Reason', 'Document verification.');
+	echo(nl2br('================================================================================'.PHP_EOL));
+	echo(nl2br('Signing PDF document'.PHP_EOL));
 
-        // Appearance can be added to the widget annotation. Please see the "SignPDF()" function for details.
+	// Open an existing PDF
+	$doc = new PDFDoc($in_docpath);
 
-        // Add this sigDict as DocMDP in Perms dictionary from root
-        $root = $doc->GetRoot();
-        $perms = $root->PutDict('Perms');
-        // add the sigDict as DocMDP (indirect) in Perms
-        $perms->Put('DocMDP', $sigDict);
-        
-        // add the additional DocMDP transform params
-        $refObj = $sigDict->PutArray("Reference");
-        $transform = $refObj->PushBackDict();
-        $transform->PutName("TransformMethod", "DocMDP");
-        $transform->PutName("Type", "SigRef");
-        $transformParams = $transform->PutDict("TransformParams");
-        $transformParams->PutNumber("P", 1); // Set permissions as necessary.
-        $transformParams->PutName("Type", "TransformParams");
-        $transformParams->PutName("V", "1.2");
+	// Sign the approval signatures.
+	$found_approval_field = $doc->GetField($in_approval_field_name);
+	$found_approval_signature_digsig_field = new DigitalSignatureField($found_approval_field);
+	$img2 = Image::Create($doc->GetSDFDoc(), $in_appearance_img_path);
+	$found_approval_signature_widget = new SignatureWidget($found_approval_field->GetSDFObj());
+	$found_approval_signature_widget->CreateSignatureAppearance($img2);
 
-        // Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information
-        // provided.
-        $doc->Save($outfile, 0);
+	$found_approval_signature_digsig_field->SignOnNextSave($in_private_key_file_path, $in_keyfile_password);
 
-        echo(nl2br('Finished certifying PDF document'.PHP_EOL));
-        
-        $doc->Close();
-    }
-    catch (Exception $e) {
-        echo(nl2br($e->getMessage().PHP_EOL));
-        echo(nl2br($e->getTraceAsString().PHP_EOL));
-        $result = false;
-    }
-    
-    return $result;
+	$doc->Save($in_outpath, SDFDoc::e_incremental);
+
+	echo(nl2br('================================================================================'.PHP_EOL));
+}
+
+function ClearSignature($in_docpath,
+	$in_digsig_field_name,
+	$in_outpath)
+{
+	echo(nl2br('================================================================================'.PHP_EOL));
+	echo(nl2br('Clearing certification signature'.PHP_EOL));
+
+	$doc = new PDFDoc($in_docpath);
+
+	$digsig = new DigitalSignatureField($doc->GetField($in_digsig_field_name));
+	
+	echo(nl2br('Clearing signature: '.$in_digsig_field_name.PHP_EOL));
+	$digsig->ClearSignature();
+
+	if ($digsig->HasCryptographicSignature())
+	{
+		echo(nl2br('Cryptographic signature cleared properly.'.PHP_EOL));
+	}
+
+	// Save incrementally so as to not invalidate other signatures' hashes from previous saves.
+	$doc->Save($in_outpath, SDFDoc::e_incremental);
+
+	echo(nl2br('================================================================================'.PHP_EOL));
+}
+
+function PrintSignaturesInfo($in_docpath)
+{
+	echo(nl2br('================================================================================'.PHP_EOL));
+	echo(nl2br('Reading and printing digital signature information'.PHP_EOL));
+
+	$doc = new PDFDoc($in_docpath);
+	if (!$doc->HasSignatures())
+	{
+		echo(nl2br('Doc has no signatures.'.PHP_EOL));
+		echo(nl2br('================================================================================'.PHP_EOL));
+		return;
+	}
+	else
+	{
+		echo(nl2br('Doc has signatures.'.PHP_EOL));
+	}
+
+	$fitr = $doc->GetFieldIterator();
+	while ($fitr->HasNext())
+	{
+		$current = $fitr->Current();
+		if ($current->IsLockedByDigitalSignature())
+		{
+			echo(nl2br("==========\nField locked by a digital signature".PHP_EOL));
+		}
+		else
+		{
+			echo(nl2br("==========\nField not locked by a digital signature".PHP_EOL));
+		}
+
+		echo(nl2br('Field name: '.$current->GetName().PHP_EOL));
+		echo(nl2br('=========='.PHP_EOL));
+		
+		$fitr->Next();
+	}
+
+	echo(nl2br("====================\nNow iterating over digital signatures only.\n====================".PHP_EOL));
+
+	$digsig_fitr = $doc->GetDigitalSignatureFieldIterator();
+	while ($digsig_fitr->HasNext())
+	{
+		$current = $digsig_fitr->Current();
+		echo(nl2br('=========='.PHP_EOL));
+		$fld = new Field($current->GetSDFObj());
+		$fname = $fld->GetName();
+		echo(nl2br('Field name of digital signature: '.$fname.PHP_EOL));
+
+		$digsigfield = $current;
+		if (!$digsigfield->HasCryptographicSignature())
+		{
+			echo(nl2br("Either digital signature field lacks a digital signature dictionary, ".
+				"or digital signature dictionary lacks a cryptographic hash entry. ".
+				"Digital signature field is not presently considered signed.\n".
+				"==========".PHP_EOL));
+			$digsig_fitr->Next();
+			continue;
+		}
+
+		$cert_count = $digsigfield->GetCertCount();
+		echo(nl2br('Cert count: '.strval($cert_count).PHP_EOL));
+		for ($i = 0; $i<$cert_count; ++$i) 
+		{
+			$cert = $digsigfield->GetCert(i);
+			echo(nl2br('Cert #'.i.' size: '.$cert.length.PHP_EOL));
+		}
+
+		$subfilter = $digsigfield->GetSubFilter();
+
+		echo(nl2br('Subfilter type: '.strval($subfilter).PHP_EOL));
+
+		if ($subfilter !== DigitalSignatureField::e_ETSI_RFC3161)
+		{
+			echo(nl2br('Signature\'s signer: '.$digsigfield->GetSignatureName().PHP_EOL));
+
+			$signing_time = $digsigfield->GetSigningTime();
+			if ($signing_time->IsValid())
+			{
+				echo(nl2br('Signing day: '.$signing_time->GetDay().PHP_EOL));
+			}
+
+			echo(nl2br('Location: '.$digsigfield->GetLocation().PHP_EOL));
+			echo(nl2br('Reason: '.$digsigfield->GetReason().PHP_EOL));
+			echo(nl2br('Contact info: '.$digsigfield->GetContactInfo().PHP_EOL));
+		}
+		else
+		{
+			echo(nl2br('SubFilter == e_ETSI_RFC3161 (DocTimeStamp; no signing info)'.PHP_EOL));
+		}
+
+		if ($digsigfield->HasVisibleAppearance())
+		{
+			echo(nl2br('Visible'.PHP_EOL));
+		}
+		else
+		{
+			echo(nl2br('Not visible'.PHP_EOL));
+		}
+
+		$digsig_doc_perms = $digsigfield->GetDocumentPermissions();
+		$locked_fields = $digsigfield->GetLockedFields();
+		for ($i = 0; $i < $locked_fields->size(); $i++)
+		{
+			echo(nl2br('This digital signature locks a field named: '.$locked_fields->Get($i).PHP_EOL));
+		}
+
+		switch ($digsig_doc_perms)
+		{
+			case DigitalSignatureField::e_no_changes_allowed:
+				echo(nl2br('No changes to the document can be made without invalidating this digital signature.'.PHP_EOL));
+				break;
+			case DigitalSignatureField::e_formfilling_signing_allowed:
+				echo(nl2br('Page template instantiation, form filling, and signing digital signatures are allowed without invalidating this digital signature.'.PHP_EOL));
+				break;
+			case DigitalSignatureField::e_annotating_formfilling_signing_allowed:
+				echo(nl2br('Annotating, page template instantiation, form filling, and signing digital signatures are allowed without invalidating this digital signature.'.PHP_EOL));
+				break;
+			case DigitalSignatureField::e_unrestricted:
+				echo(nl2br('Document not restricted by this digital signature.'.PHP_EOL));
+				break;
+			default:
+				echo(nl2br('Unrecognized digital signature document permission level.'.PHP_EOL));
+				assert(false);
+		}
+		
+		echo(nl2br('=========='.PHP_EOL));
+		$digsig_fitr->Next();
+	}
+
+	echo(nl2br('================================================================================'.PHP_EOL));
 }
 
 function main()
 {
-    // Initialize PDFNetC
-    PDFNet::Initialize();
-
-    $result = true;
-    
-    if (!SignPDF())
+	// Initialize PDFNet
+	PDFNet::Initialize();
+	
+	$result = true;
+	$input_path = '../../TestFiles/';
+	$output_path = '../../TestFiles/Output/';
+	
+	//////////////////// TEST 0:
+	// Create an approval signature field that we can sign after certifying.
+	// (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
+	// Open an existing PDF
+	try
+	{
+		$doc = new PDFDoc($input_path.'tiger.pdf');
+		
+		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
+		$page1 = $doc->GetPage(1);
+		$page1->AnnotPushBack($widgetAnnotApproval);
+		$doc->Save($output_path.'tiger_withApprovalField.pdf', SDFDoc::e_remove_unused);
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
         $result = false;
-
-    if (!CertifyPDF())
-        $result = false;
-
-    if (!$result) {
-        echo(nl2br('Tests failed.'.PHP_EOL));
-        return;
     }
+	//////////////////// TEST 1: certify a PDF.
+	try
+	{
+		CertifyPDF($input_path.'tiger_withApprovalField.pdf',
+			'PDFTronCertificationSig',
+			$input_path.'pdftron.pfx',
+			'password',
+			$input_path.'pdftron.bmp',
+			$output_path.'tiger_withApprovalField_certified.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified.pdf');
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+	//////////////////// TEST 2: sign a PDF with a certification and an unsigned signature field in it.
+	try
+	{
+		SignPDF($input_path.'tiger_withApprovalField_certified.pdf',
+			'PDFTronApprovalSig',
+			$input_path.'pdftron.pfx',
+			'password',
+			$input_path.'signature.jpg',
+			$output_path.'tiger_withApprovalField_certified_approved.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved.pdf');
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+	//////////////////// TEST 3: Clear a certification from a document that is certified and has two approval signatures.
+	try
+	{
+		ClearSignature($input_path.'tiger_withApprovalField_certified_approved.pdf',
+			'PDFTronCertificationSig',
+			$output_path.'tiger_withApprovalField_certified_approved_certcleared.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared.pdf');
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+	//////////////////// End of tests. ////////////////////
 
-    echo(nl2br('All tests passed.'.PHP_EOL));
+	if (!$result)
+	{
+		echo(nl2br("Tests FAILED!!!\n==========".PHP_EOL));
+		return;
+	}
+	
+	echo(nl2br("Tests successful.\n==========".PHP_EOL));
 }
 
 main();
