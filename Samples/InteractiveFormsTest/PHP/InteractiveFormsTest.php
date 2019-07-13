@@ -14,12 +14,14 @@ $output_path = $input_path."Output/";
 // forms (also known as AcroForms). 
 //---------------------------------------------------------------------------------------
 
-function RenameAllFields($doc, $name)
+function RenameAllFields($doc, $name, $field_nums = 1)
 {
 	$itr = $doc->GetFieldIterator($name);
-	for ($counter = 0; $itr->HasNext(); $itr = $doc->GetFieldIterator($name), ++$counter) {
+	for ($counter = 1; $itr->HasNext(); $itr = $doc->GetFieldIterator($name), ++$counter) {
 		$f = $itr->Current();
-		$f->Rename($name.$counter);
+		$tmp = (int)ceil($counter*1.0/$field_nums);
+		$f->Rename($name."-".$tmp);
+
 	}
 }
 
@@ -52,7 +54,7 @@ function CreateCheckmarkAppearance($doc)
 	return $stm;
 }
 
-function CreateButtonAppearance($doc, $button_down) 
+function CreateCustomButtonAppearance($doc, $button_down) 
 {
 	// Create a button appearance stream ------------------------------------
 	$build = new ElementBuilder();
@@ -97,44 +99,133 @@ function CreateButtonAppearance($doc, $button_down)
 	//----------------------------------------------------------------------------------
 
 	$doc = new PDFDoc();
-	$blank_page = $doc->PageCreate(); // Create a blank new page and add some form fields.
 
-	// Create new fields.
-	$emp_first_name = $doc->FieldCreate("employee.name.first", Field::e_text, "John", "");
-	$emp_last_name = $doc->FieldCreate("employee.name.last", Field::e_text, "Doe", "");
-	$emp_last_check1 = $doc->FieldCreate("employee.name.check1", Field::e_check, "Yes", "");
+	// Create a blank new page and add some form fields.
+	$blank_page = $doc->PageCreate();
 
-	$submit = $doc->FieldCreate("submit", Field::e_button);
+	// Text Widget Creation 
+	// Create an empty text widget with black text.
+	$text1 = TextWidget::Create($doc, new Rect(110.0, 700.0, 380.0, 730.0));
+	$text1->SetText("Basic Text Field");
+	$text1->RefreshAppearance();
+	$blank_page->AnnotPushBack($text1);
+	// Create a vertical text widget with blue text and a yellow background.
+	$text2 = TextWidget::Create($doc, new Rect(50.0, 400.0, 90.0, 730.0));
+	$text2->SetRotation(90);
+	// Set the text content.
+	$text2->SetText("    ****Lucky Stars!****");
+	// Set the font type, text color, font size, border color and background color.
+	$text2->SetFont(Font::Create($doc->GetSDFDoc(), Font::e_helvetica_oblique));
+	$text2->SetFontSize(28);
+	$text2->SetTextColor(new ColorPt(0.0, 0.0, 1.0), 3);
+	$text2->SetBorderColor(new ColorPt(0.0, 0.0, 0.0), 3);
+	$text2->SetBackgroundColor(new ColorPt(1.0, 1.0, 0.0), 3);
+	$text2->RefreshAppearance();
+	// Add the annotation to the page.
+	$blank_page->AnnotPushBack($text2);
+	// Create two new text widget with Field names employee.name.first and employee.name.last
+	// This logic shows how these widgets can be created using either a field name string or
+	// a Field object
+	$text3 = TextWidget::Create($doc, new Rect(110.0, 660.0, 380.0, 690.0), "employee.name.first");
+	$text3->SetText("Levi");
+	//$text3->SetFont(Font::Create($doc, Font::e_times_bold));
+	$text3->RefreshAppearance();
+	$blank_page->AnnotPushBack($text3);
+	$emp_last_name = $doc->FieldCreate("employee.name.last", Field::e_text, "Ackerman"); 
+	$text4 = TextWidget::Create($doc, new Rect(110.0, 620.0, 380.0, 650.0), $emp_last_name);
+	$text4->SetFont(Font::Create($doc->GetSDFDoc(), Font::e_times_bold));
+	$text4->RefreshAppearance();
+	$blank_page->AnnotPushBack($text4);
 
-	// Create page annotations for the above fields.
+	// Signature Widget Creation (unsigned)
+	$signature1 = SignatureWidget::Create($doc, new Rect(110.0, 560.0, 260.0, 610.0));
+	$signature1->RefreshAppearance();
+	$blank_page->AnnotPushBack($signature1);
 
-	// Create text annotations
-	$annot1 = Widget::Create($doc->GetSDFDoc(), new Rect(50.0, 550.0, 350.0, 600.0), $emp_first_name);
-	$annot2 = Widget::Create($doc->GetSDFDoc(), new Rect(50.0, 450.0, 350.0, 500.0), $emp_last_name);
+	// CheckBox Widget Creation
+	// Create a check box widget that is not checked.
+	$check1 = CheckBoxWidget::Create($doc, new Rect(140.0, 490.0, 170.0, 520.0));
+	$check1->RefreshAppearance();
+	$blank_page->AnnotPushBack($check1);
+	// Create a check box widget that is checked.
+	$check2 = CheckBoxWidget::Create($doc, new Rect(190.0, 490.0, 250.0, 540.0), "employee.name.check1");
+	$check2->SetBackgroundColor(new ColorPt(1.0, 1.0, 1.0), 3);
+	$check2->SetBorderColor(new ColorPt(0.0, 0.0, 0.0), 3);
+	// Check the widget (by default it is unchecked).
+	$check2->SetChecked(true);
+	$check2->RefreshAppearance();
+	$blank_page->AnnotPushBack($check2);
 
-	// Create a check-box annotation
-	$annot3 = Widget::Create($doc->GetSDFDoc(), new Rect(64.0, 356.0, 120.0, 410.0), $emp_last_check1);
-	// Set the annotation appearance for the "Yes" state...
-	$annot3->SetAppearance(CreateCheckmarkAppearance($doc, Annot::e_normal, "Yes"));
-		
-	// Create button annotation
-	$annot4 = Widget::Create($doc->GetSDFDoc(), new Rect(64.0, 284.0, 163.0, 320.0), $submit);
-	// Set the annotation appearances for the down and up state...
-	$annot4->SetAppearance(CreateButtonAppearance($doc, false), Annot::e_normal);
-	$annot4->SetAppearance(CreateButtonAppearance($doc, true), Annot::e_down);
-		
+	// PushButton Widget Creation
+	$pushbutton1 = PushButtonWidget::Create($doc, new Rect(380.0, 490.0, 520.0, 540.0));
+	$pushbutton1->SetTextColor(new ColorPt(1.0, 1.0, 1.0), 3);
+	$pushbutton1->SetFontSize(36);
+	$pushbutton1->SetBackgroundColor(new ColorPt(0.0, 0.0, 0.0), 3);
+	// Add a caption for the pushbutton.
+	$pushbutton1->SetStaticCaptionText("PushButton");
+	$pushbutton1->RefreshAppearance();
+	$blank_page->AnnotPushBack($pushbutton1);
+
+	// ComboBox Widget Creation
+	$combo1 = ComboBoxWidget::Create($doc, new Rect(280.0, 560.0, 580.0, 610.0));
+	// Add options to the combobox widget.
+	$combo1->AddOption("Combo Box No.1");
+	$combo1->AddOption("Combo Box No.2");
+	$combo1->AddOption("Combo Box No.3");
+	// Make one of the options in the combo box selected by default.
+	$combo1->SetSelectedOption("Combo Box No.2");
+	$combo1->SetTextColor(new ColorPt(1.0, 0.0, 0.0), 3);
+	$combo1->SetFontSize(28);
+	$combo1->RefreshAppearance();
+	$blank_page->AnnotPushBack($combo1);
+
+	// ListBox Widget Creation
+	$list1 = ListBoxWidget::Create($doc, new Rect(400.0, 620.0, 580.0, 730.0));
+	// Add one option to the listbox widget.
+	$list1->AddOption("List Box No.1");
+	// Add multiple options to the listbox widget in a batch.
+	$list_options = new VectorString();
+	$list_options->push("List Box No.2");
+	$list_options->push("List Box No.3");		
+	$list1->AddOptions($list_options);
+	// Select some of the options in list box as default options
+	$list1->SetSelectedOptions($list_options);
+	// Enable list box to have multi-select when editing. 
+	$list1->GetField()->SetFlag(Field::e_multiselect, true);
+	$list1->SetFont(Font::Create($doc->GetSDFDoc(), Font::e_times_italic));
+	$list1->SetTextColor(new ColorPt(1.0, 0.0, 0.0), 3);
+	$list1->SetFontSize(28);
+	$list1->SetBackgroundColor(new ColorPt(1.0, 1.0, 1.0), 3);
+	$list1->RefreshAppearance();
+	$blank_page->AnnotPushBack($list1);
+
+	// RadioButton Widget Creation
+	// Create a radio button group and add three radio buttons in it. 
+	$radio_group = RadioButtonGroup::Create($doc, "RadioGroup");
+	$radiobutton1 = $radio_group->Add(new Rect(140.0, 410.0, 190.0, 460.0));
+	$radiobutton1->SetBackgroundColor(new ColorPt(1.0, 1.0, 0.0), 3);
+	$radiobutton1->RefreshAppearance();
+	$radiobutton2 = $radio_group->Add(new Rect(310.0, 410.0, 360.0, 460.0));
+	$radiobutton2->SetBackgroundColor(new ColorPt(0.0, 1.0, 0.0), 3);
+	$radiobutton2->RefreshAppearance();
+	$radiobutton3 = $radio_group->Add(new Rect(480.0, 410.0, 530.0, 460.0));
+	// Enable the third radio button. By default the first one is selected
+	$radiobutton3->EnableButton();
+	$radiobutton3->SetBackgroundColor(new ColorPt(0.0, 1.0, 1.0), 3);
+	$radiobutton3->RefreshAppearance();
+	$radio_group->AddGroupButtonsToPage($blank_page);
+
+	// Custom push button annotation creation
+	$custom_pushbutton1 = PushButtonWidget::Create($doc, new Rect(260.0, 320.0, 360.0, 360.0));
+	// Set the annotation appearance.
+	$custom_pushbutton1->SetAppearance(CreateCustomButtonAppearance($doc, false), Annot::e_normal);
 	// Create 'SubmitForm' action. The action will be linked to the button.
 	$url = FileSpec::CreateURL($doc->GetSDFDoc(), "http://www.pdftron.com");
 	$button_action = Action::CreateSubmitForm($url);
-
 	// Associate the above action with 'Down' event in annotations action dictionary.
-	$annot_action = $annot4->GetSDFObj()->PutDict("AA");
+	$annot_action = $custom_pushbutton1->GetSDFObj()->PutDict("AA");
 	$annot_action->Put("D", $button_action->GetSDFObj());
-
-	$blank_page->AnnotPushBack($annot1);  // Add annotations to the page
-	$blank_page->AnnotPushBack($annot2);
-	$blank_page->AnnotPushBack($annot3);
-	$blank_page->AnnotPushBack($annot4);
+	$blank_page->AnnotPushBack($custom_pushbutton1);
 
 	$doc->PagePushBack($blank_page);	// Add the page as the last page in the document.
 
@@ -169,9 +260,17 @@ function CreateButtonAppearance($doc, $button_down)
 	$doc->InitSecurityHandler();
 
 	$itr = $doc->GetFieldIterator();
-
+        $field_names = array();
 	for(; $itr->HasNext(); $itr->Next()) 
 	{
+		$cur_field_name = $itr->Current()->GetName();
+		// Add one to the count for this field name for later processing
+		if(isset($field_names [$cur_field_name])){
+			$field_names [$cur_field_name] += 1;
+		}
+		else{
+		    $field_names [$cur_field_name] = 1;
+		}
 		echo nl2br("Field name: ".$itr->Current()->GetName()."\n");
 		echo nl2br("Field partial name: ".$itr->Current()->GetPartialName()."\n");
 
@@ -240,10 +339,10 @@ function CreateButtonAppearance($doc, $button_down)
 	// Now we rename fields in order to make every field unique.
 	// You can use this technique for dynamic template filling where you have a 'master'
 	// form page that should be replicated, but with unique field names on every page. 
-	RenameAllFields($doc, "employee.name.first");
-	RenameAllFields($doc, "employee.name.last");
-	RenameAllFields($doc, "employee.name.check1");
-	RenameAllFields($doc, "submit");
+
+        foreach($field_names as $key => $val){
+		RenameAllFields($doc, $key, $val);
+	}
 
 	$doc->Save($output_path."forms_test1_cloned.pdf", 0);
 	echo nl2br("Done.\n");
@@ -268,24 +367,17 @@ function CreateButtonAppearance($doc, $button_down)
 		for ($pitr = $doc->GetPageIterator(); $pitr->HasNext(); $pitr->Next())  
 		{
 			$page = $pitr->Current();
-			$annots = $page->GetAnnots();
-			if ($annots)
-			{	// Look for all widget annotations (in reverse order)
-				for ($i = ($annots->Size())-1; $i>=0; --$i)
+			for ($i = (int)($page->GetNumAnnots())-1; $i>=0; --$i)
+			{
+				$annot = $page->GetAnnot(i);
+				if (annot.GetType() == Annot::e_Widget)
 				{
-					if (!strcmp(annots.GetAt(i).Get("Subtype").Value().GetName(), "Widget"))
-					{
-						$field($annots->GetAt(i));
-						$field->Flatten($page);
-
-						// Another way of making a read only field is by modifying 
-						// field's e_read_only flag: 
-						//    field.SetFlag(Field::e_read_only, true);
-					}
+					$annots->Flatten($page); 
 				}
 			}
 		}
 	}
+
 
 	$doc->Save(($output_path."forms_test1_flattened.pdf"), 0);
 	echo nl2br("Done.\n");	
