@@ -79,10 +79,8 @@ def CertifyPDF(in_docpath,
 	page1 = doc.GetPage(1);
 
 	# Create a random text field that we can lock using the field permissions feature.
-	asdf_test_field = doc.FieldCreate("asdf_test_field", Field::E_text, "", "");
-	annot1 = Widget.Create(doc.GetSDFDoc, Rect.new(50, 550, 350, 600), asdf_test_field);
+	annot1 = TextWidget.Create(doc.GetSDFDoc, Rect.new(50, 550, 350, 600), "asdf_test_field");
 	page1.AnnotPushBack(annot1);
-	annot1.SetPage(page1);
 
 	# Create new signature form field in the PDFDoc. The name argument is optional;
 	# leaving it empty causes it to be auto-generated. However, you may need the name for later.
@@ -91,7 +89,6 @@ def CertifyPDF(in_docpath,
 	certification_sig_field = doc.CreateDigitalSignatureField(in_cert_field_name);
 	widgetAnnot = SignatureWidget.Create(doc, Rect.new(0, 100, 200, 150), certification_sig_field);
 	page1.AnnotPushBack(widgetAnnot);
-	widgetObj = widgetAnnot.GetSDFObj();
 
 	# (OPTIONAL) Add an appearance.
 
