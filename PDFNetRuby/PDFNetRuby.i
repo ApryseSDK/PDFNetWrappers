@@ -618,6 +618,8 @@ namespace pdftron {
 %include "PDF/PatternColor.h"
 %include "PDF/GState.h"
 %include "PDF/Image.h"
+%include "PDF/PageLabel.h"
+%include "PDF/PDFDocViewPrefs.h"
 
 %include "PDF/PDFDoc.h"
 
@@ -657,12 +659,10 @@ namespace pdftron {
 %include "PDF/Image/Image2RGBA.h"
 %include "PDF/Highlights.h"
 %include "PDF/Optimizer.h"
-%include "PDF/PageLabel.h"
 %include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDocInfo.h"
-%include "PDF/PDFDocViewPrefs.h"
 %include "PDF/PDFRasterizer.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/PDFNet.h"
