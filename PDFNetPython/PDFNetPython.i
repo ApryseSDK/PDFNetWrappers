@@ -676,8 +676,6 @@ namespace pdftron {
 %include "FDF/FDFField.h"
 %include "FDF/FDFDoc.h"
 
-%include "PDF/PDFDoc.h"
-
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
@@ -689,7 +687,6 @@ namespace pdftron {
 %include "PDF/Struct/RoleMap.h"
 %include "PDF/Struct/STree.h"
 %include "PDF/Struct/SElement.h"
-%include "PDF/Annots.h"
 %include "PDF/Bookmark.h"
 %include "PDF/CharData.h"
 %include "PDF/ContentReplacer.h"
@@ -701,6 +698,9 @@ namespace pdftron {
 %include "PDF/GState.h"
 %include "PDF/Image.h"
 
+%include "PDF/PDFDoc.h"
+
+%include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
 %include "PDF/Annots/Circle.h"
 %include "PDF/Annots/Highlight.h"
