@@ -100,9 +100,7 @@ function CertifyPDF($in_docpath,
 	echo(nl2br('Adding document permissions.'.PHP_EOL));
 	$certification_sig_field->SetDocumentPermissions(DigitalSignatureField::e_annotating_formfilling_signing_allowed);
 	echo(nl2br('Adding field permissions.'.PHP_EOL));
-	$locked_fields_list = new VectorString();
-	$locked_fields_list->push('asdf_test_field');
-	$certification_sig_field->SetFieldPermissions(DigitalSignatureField::e_include, $locked_fields_list);
+	$certification_sig_field->SetFieldPermissions(DigitalSignatureField::e_include, array('asdf_test_field'));
 
 	$certification_sig_field->CertifyOnNextSave($in_private_key_file_path, $in_keyfile_password);
 
