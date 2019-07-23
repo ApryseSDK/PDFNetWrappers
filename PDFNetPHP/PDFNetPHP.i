@@ -9,7 +9,7 @@
  */
 %module(directors="1") PDFNetPHP
 
-
+%include "PDFNet_StdStringPHP.i"
 /**
  * Different versions of UString typemap will be used pending
  * on the version of PHP
@@ -213,7 +213,7 @@ namespace std {
    %template(VectorUChar) vector<unsigned char>;
    %template(VectorChar) vector<char>;
    %template(VectorInt) vector<int>;
-   %template(VectorString) vector<std::string>;
+   //%template(VectorString) vector<std::string>;
    %template(VectorRedaction) vector<pdftron::PDF::Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;

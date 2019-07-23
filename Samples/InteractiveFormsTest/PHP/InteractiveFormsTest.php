@@ -184,9 +184,7 @@ function CreateCustomButtonAppearance($doc, $button_down)
 	// Add one option to the listbox widget.
 	$list1->AddOption("List Box No.1");
 	// Add multiple options to the listbox widget in a batch.
-	$list_options = new VectorString();
-	$list_options->push("List Box No.2");
-	$list_options->push("List Box No.3");		
+	$list_options = array("List Box No.2", "List Box No.3");		
 	$list1->AddOptions($list_options);
 	// Select some of the options in list box as default options
 	$list1->SetSelectedOptions($list_options);
