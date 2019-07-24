@@ -2,7 +2,7 @@ This document shows a simple guide on how to build PHP bindings of PDFNet for Wi
 
 1. Download development package for Windows PHP here: http://windows.php.net/downloads/releases/. For this guide, we will download the following: http://windows.php.net/downloads/releases/php-devel-pack-5.6.11-nts-Win32-VC11-x86.zip. Keep in mind that this is version 5.6.11 non-threadsafe 32-bit for Visual Studio 2012. This means that you will need the same version of runtimes to get the samples to work (i.e. PHP 5.6.11 NTS 32-bit binaries, VS2012 runtimes, 32-bit PDFNetC).
 
-2. Because we just obtained x86 of PHP, we want to also obtain the required PDFNetC which must be 32-bit as well: https://www.pdftron.com/downloads/PDFNetC.zip (For x64, please obtain `PDFNetC64` from http://pdftron.com/downloads/PDFNetC64.zip) 
+2. Because we just obtained x86 of PHP, we want to also obtain the required PDFNetC which must be 32-bit as well: https://www.pdftron.com/downloads/PDFNetC.zip (For x64, please obtain `PDFNetC64` from https://www.pdftron.com/downloads/PDFNetC64.zip) 
 
 3. Download the Github repository for the wrappers: https://github.com/PDFTron/PDFNetWrappers/archive/master.zip
 
