@@ -159,7 +159,7 @@ def ClearSignature(in_docpath,
 	puts('Clearing signature: ' + in_digsig_field_name);
 	digsig.ClearSignature();
 
-	if (digsig.HasCryptographicSignature())
+	if (!digsig.HasCryptographicSignature())
 		puts('Cryptographic signature cleared properly.');
 	end
 

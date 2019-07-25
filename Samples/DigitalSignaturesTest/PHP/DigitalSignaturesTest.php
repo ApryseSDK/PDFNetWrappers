@@ -157,7 +157,7 @@ function ClearSignature($in_docpath,
 	echo(nl2br('Clearing signature: '.$in_digsig_field_name.PHP_EOL));
 	$digsig->ClearSignature();
 
-	if ($digsig->HasCryptographicSignature())
+	if (!$digsig->HasCryptographicSignature())
 	{
 		echo(nl2br('Cryptographic signature cleared properly.'.PHP_EOL));
 	}

@@ -156,7 +156,7 @@ def ClearSignature(in_docpath,
 	print('Clearing signature: ' + in_digsig_field_name)
 	digsig.ClearSignature()
 
-	if digsig.HasCryptographicSignature():
+	if not digsig.HasCryptographicSignature():
 		print('Cryptographic signature cleared properly.')
 
 	# Save incrementally so as to not invalidate other signatures' hashes from previous saves.
