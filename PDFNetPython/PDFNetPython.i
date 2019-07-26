@@ -95,6 +95,14 @@
     #include "PDF/Annots/Underline.h"
     #include "PDF/Annots/Watermark.h"
     #include "PDF/Annots/Widget.h"
+    #include "PDF/Annots/SignatureWidget.h"
+    #include "PDF/Annots/CheckBoxWidget.h"
+    #include "PDF/Annots/PushButtonWidget.h"
+    #include "PDF/Annots/TextWidget.h"
+    #include "PDF/Annots/ComboBoxWidget.h"
+    #include "PDF/Annots/ListBoxWidget.h"
+    #include "PDF/Annots/RadioButtonWidget.h"
+    #include "PDF/Annots/RadioButtonGroup.h"
 
     // header files in /PDFNetC/Headers/PDF/Image
     #include "PDF/Image/Image2RGB.h"
@@ -106,7 +114,7 @@
     #include "PDF/OCG/Group.h"
     #include "PDF/OCG/OCMD.h"
 
-    // header files in /PDFNetC/Headers/PDF/PDfA
+    // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
@@ -134,6 +142,7 @@
     #include "PDF/ElementReader.h"
     #include "PDF/ElementWriter.h"
     #include "PDF/Field.h"
+    #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
     #include "PDF/PathData.h"
@@ -175,6 +184,9 @@
     #include "SDF/ObjSet.h"
     #include "SDF/SDFDoc.h"
     #include "SDF/SecurityHandler.h"
+    #include "SDF/UndoManager.h"
+    #include "SDF/ResultSnapshot.h"
+    #include "SDF/DocSnapshot.h"
     
     using namespace pdftron;
     using namespace FDF;
@@ -205,6 +217,7 @@ namespace std {
    %template(VectorString) vector<std::string>;
    %template(VectorRedaction) vector<pdftron::PDF::Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
+   %template(VectorSeparation) vector<pdftron::PDF::Separation>;
 };
 
 /**
@@ -280,7 +293,7 @@ namespace pdftron {
 //----------------------------------------------------------------------------------------------
 
 /** 
- * Tyemapping for enums
+ * Typemapping for enums
  * Python can takes in an integer which is then converted to an enum
  * in the wrapper. The following mapping is needed because ErrorCode is
  * passed in as a pointer
@@ -615,7 +628,8 @@ namespace pdftron {
 %template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>; 
 %template (FDFFieldIterator) pdftron::Common::Iterator<pdftron::FDF::FDFField>;
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
-%template (CharIterator) pdftron::Common::Iterator<TRN_CharData>; 
+%template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
+%template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
 
 //----------------------------------------------------------------------------------------------
 
@@ -636,6 +650,9 @@ namespace pdftron {
 %include "SDF/Obj.h"
 %include "SDF/ObjSet.h"
 %include "SDF/SecurityHandler.h"
+%include "SDF/DocSnapshot.h"
+%include "SDF/ResultSnapshot.h"
+%include "SDF/UndoManager.h"
 %include "PDF/ViewChangeCollection.h"
 %include "PDF/Point.h"
 %include "PDF/Function.h"
@@ -644,6 +661,7 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
+%include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
 %include "PDF/Annot.h"
@@ -657,26 +675,7 @@ namespace pdftron {
 %include "PDF/Action.h"
 %include "FDF/FDFField.h"
 %include "FDF/FDFDoc.h"
-%include "PDF/Annots/Caret.h"
-%include "PDF/Annots/Circle.h"
-%include "PDF/Annots/Highlight.h"
-%include "PDF/Annots/Line.h"
-%include "PDF/Annots/FreeText.h"
-%include "PDF/Annots/Link.h"
-%include "PDF/Annots/Movie.h"
-%include "PDF/Annots/PolyLine.h"
-%include "PDF/Annots/Redaction.h"
 
-%include "PDF/Annots/RubberStamp.h"
-%include "PDF/Annots/Screen.h"
-%include "PDF/Annots/Sound.h"
-%include "PDF/Annots/Square.h"
-%include "PDF/Annots/Squiggly.h"
-%include "PDF/Annots/StrikeOut.h"
-%include "PDF/Annots/Text.h"
-%include "PDF/Annots/Underline.h"
-%include "PDF/Annots/Watermark.h"
-%include "PDF/Annots/Widget.h"
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
@@ -688,7 +687,6 @@ namespace pdftron {
 %include "PDF/Struct/RoleMap.h"
 %include "PDF/Struct/STree.h"
 %include "PDF/Struct/SElement.h"
-%include "PDF/Annots.h"
 %include "PDF/Bookmark.h"
 %include "PDF/CharData.h"
 %include "PDF/ContentReplacer.h"
@@ -699,6 +697,39 @@ namespace pdftron {
 %include "PDF/PatternColor.h"
 %include "PDF/GState.h"
 %include "PDF/Image.h"
+%include "PDF/PageLabel.h"
+%include "PDF/PDFDocViewPrefs.h"
+
+%include "PDF/PDFDoc.h"
+
+%include "PDF/Annots.h"
+%include "PDF/Annots/Caret.h"
+%include "PDF/Annots/Circle.h"
+%include "PDF/Annots/Highlight.h"
+%include "PDF/Annots/Line.h"
+%include "PDF/Annots/FreeText.h"
+%include "PDF/Annots/Link.h"
+%include "PDF/Annots/Movie.h"
+%include "PDF/Annots/PolyLine.h"
+%include "PDF/Annots/Redaction.h"
+%include "PDF/Annots/RubberStamp.h"
+%include "PDF/Annots/Screen.h"
+%include "PDF/Annots/Sound.h"
+%include "PDF/Annots/Square.h"
+%include "PDF/Annots/Squiggly.h"
+%include "PDF/Annots/StrikeOut.h"
+%include "PDF/Annots/Text.h"
+%include "PDF/Annots/Underline.h"
+%include "PDF/Annots/Watermark.h"
+%include "PDF/Annots/Widget.h"
+%include "PDF/Annots/SignatureWidget.h"
+%include "PDF/Annots/CheckBoxWidget.h"
+%include "PDF/Annots/PushButtonWidget.h"
+%include "PDF/Annots/TextWidget.h"
+%include "PDF/Annots/ComboBoxWidget.h"
+%include "PDF/Annots/ListBoxWidget.h"
+%include "PDF/Annots/RadioButtonWidget.h"
+%include "PDF/Annots/RadioButtonGroup.h"
 %include "PDF/Element.h"
 %include "PDF/ElementBuilder.h"
 %include "PDF/ElementReader.h"
@@ -709,13 +740,10 @@ namespace pdftron {
 //Rename to prevent naming conflict between nested class Highlight and Highlight.h
 %include "PDF/Highlights.h"
 %include "PDF/Optimizer.h"
-%include "PDF/PageLabel.h"
 %include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDocInfo.h"
-%include "PDF/PDFDocViewPrefs.h"
-%include "PDF/PDFDoc.h"
 %include "PDF/PDFRasterizer.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/PDFNet.h"

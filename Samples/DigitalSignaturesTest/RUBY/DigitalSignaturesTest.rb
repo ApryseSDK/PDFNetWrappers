@@ -8,16 +8,40 @@
 ##----------------------------------------------------------------------------------------------------------------------
 ## This sample demonstrates the basic usage of high-level digital signature API in PDFNet.
 ##
-## The following steps are typically used to add a digital signature to a PDF:
+## The following steps reflect typical intended usage of the digital signature API:
 ##
-##     1. Extend and implement a new SignatureHandler. The SignatureHandler will be used to add or validate/check a
-##        digital signature.
-##     2. Create an instance of the implemented SignatureHandler and register it with PDFDoc with
-##        pdfdoc.AddSignatureHandler(). The method returns an ID that can be used later to associate a SignatureHandler
-##        with a field.
-##     3. Find the required 'e_signature' field in the existing document or create a new field.
-##     4. Call field.UseSignatureHandler() with the ID of your handler.
-##     5. Call pdfdoc.Save()
+##	0.	Start with a PDF with or without form fields in it that one would like to lock (or, one can add a field, see (1)).
+##	
+##	1.	EITHER: 
+##		(a) Call doc.CreateDigitalSignatureField, optionally providing a name. You receive a DigitalSignatureField.
+##		-OR-
+##		(b) If you didn't just create the digital signature field that you want to sign/certify, find the existing one within the 
+##		document by using PDFDoc.DigitalSignatureFieldIterator or by using PDFDoc.GetField to get it by its fully qualified name.
+##	
+##	2.	Create a signature widget annotation, and pass the DigitalSignatureField that you just created or found. 
+##		If you want it to be visible, provide a Rect argument with a non-zero width or height, and don't set the
+##		NoView and Hidden flags. [Optionally, add an appearance to the annotation when you wish to sign/certify.]
+##		
+##	[3. (OPTIONAL) Add digital signature restrictions to the document using the field modification permissions (SetFieldPermissions) 
+##		or document modification permissions functions (SetDocumentPermissions) of DigitalSignatureField. These features disallow 
+##		certain types of changes to be made to the document without invalidating the cryptographic digital signature's hash once it
+##		is signed.]
+##		
+##	4. 	Call either CertifyOnNextSave or SignOnNextSave. There are three overloads for each one (six total):
+##		a.	Taking a PKCS #12 keyfile path and its password
+##		b.	Taking a buffer containing a PKCS #12 private keyfile and its password
+##		c.	Taking a unique identifier of a signature handler registered with the PDFDoc. This overload is to be used
+##			in the following fashion: 
+##			i)		Extend and implement a new SignatureHandler. The SignatureHandler will be used to add or 
+##					validate/check a digital signature.
+##			ii)		Create an instance of the implemented SignatureHandler and register it with PDFDoc with 
+##					pdfdoc.AddSignatureHandler(). The method returns a SignatureHandlerId.
+##			iii)	Call SignOnNextSaveWithCustomHandler/CertifyOnNextSaveWithCustomHandler with the SignatureHandlerId.
+##		NOTE: It is only possible to sign/certify one signature per call to the Save function.
+##	
+##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic hash to it.
+##		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
+##		so as to not invalidate the other signature's('s) cryptographic hashes. 
 ##
 ## Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 ## of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
@@ -33,170 +57,298 @@ include PDFNetRuby
 
 $stdout.sync = true
 
-##
-## This functions add an approval signature to the PDF document. The original PDF document contains a blank form field
-## that is prepared for a user to sign. The following code demonstrate how to sign this document using PDFNet.
-##
-def SignPDF()
-    infile = '../../TestFiles/doc_to_sign.pdf';
-    outfile = '../../TestFiles/Output/signed_doc.pdf';
-    certfile = '../../TestFiles/pdftron.pfx';
-    imagefile = '../../TestFiles/signature.jpg';
-    result = true;
-    
-    begin
-        puts('Signing PDF document: "' + infile + '".');
-        # Open an existing PDF
-        doc = PDFDoc.new(infile);
+def CertifyPDF(in_docpath,
+	in_cert_field_name,
+	in_private_key_file_path,
+	in_keyfile_password,
+	in_appearance_image_path,
+	in_outpath)
+	
+	puts('================================================================================');
+	puts('Certifying PDF document');
 
-        # Add an StdSignatureHandler instance to PDFDoc, making sure to keep track of it using the ID returned.
-        sigHandlerId = doc.AddStdSignatureHandler(certfile, 'password')
-        
-        # Obtain the signature form field from the PDFDoc via Annotation
-        sigField = doc.GetField('Signature1')
-        widgetAnnot = Widget.new(sigField.GetSDFObj())
-        
-        # Tell PDFNetC to use the SignatureHandler created to sign the new signature form field.
-        sigDict = sigField.UseSignatureHandler(sigHandlerId);
+	# Open an existing PDF
+	doc = PDFDoc.new(in_docpath);
 
-        # Add more information to the signature dictionary.
-        sigDict.PutName('SubFilter', 'adbe.pkcs7.detached');
-        sigDict.PutString('Name', 'PDFTron');
-        sigDict.PutString('Location', 'Vancouver, BC');
-        sigDict.PutString('Reason', 'Document verification.');
+	if (doc.HasSignatures())
+		puts('PDFDoc has signatures');
+	else
+		puts('PDFDoc has no signatures');
+	end
 
-        # Add the signature appearance.
-        apWriter = ElementWriter.new
-        apBuilder = ElementBuilder.new
-        apWriter.Begin(doc.GetSDFDoc())
-        sigImg = Image.Create(doc.GetSDFDoc(), imagefile)
-        w = sigImg.GetImageWidth()
-        h = sigImg.GetImageHeight()
-        apElement = apBuilder.CreateImage(sigImg, 0, 0, w, h)
-        apWriter.WritePlacedElement(apElement);
-        apObj = apWriter.End()
-        apObj.PutRect('BBox', 0, 0, w, h)
-        apObj.PutName('Subtype', 'Form')
-        apObj.PutName('Type', 'XObject')
-        apWriter.Begin(doc.GetSDFDoc())
-        apElement = apBuilder.CreateForm(apObj)
-        apWriter.WritePlacedElement(apElement)
-        apObj = apWriter.End()
-        apObj.PutRect('BBox', 0, 0, w, h)
-        apObj.PutName('Subtype', 'Form')
-        apObj.PutName('Type', 'XObject')
+	page1 = doc.GetPage(1);
 
-        widgetAnnot.SetAppearance(apObj)
-        widgetAnnot.RefreshAppearance()
-        
-        # Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information
-        # provided.
-        doc.Save(outfile, 0);
+	# Create a random text field that we can lock using the field permissions feature.
+	annot1 = TextWidget.Create(doc.GetSDFDoc, Rect.new(50, 550, 350, 600), "asdf_test_field");
+	page1.AnnotPushBack(annot1);
 
-        puts('Finished signing PDF document.');
-    rescue Exception => e
-        puts(e.message)
-        puts(e.backtrace.inspect)
-        result = false;
-    end
-    
-    return result;
-end # def SignPDF
+	# Create new signature form field in the PDFDoc. The name argument is optional;
+	# leaving it empty causes it to be auto-generated. However, you may need the name for later.
+	# Acrobat doesn't show digsigfield in side panel if it's without a widget. Using a
+	# Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
+	certification_sig_field = doc.CreateDigitalSignatureField(in_cert_field_name);
+	widgetAnnot = SignatureWidget.Create(doc, Rect.new(0, 100, 200, 150), certification_sig_field);
+	page1.AnnotPushBack(widgetAnnot);
 
-##
-## Adds a certification signature to the PDF document. Certifying a document is like notarizing a document. Unlike
-## approval signatures, there can be only one certification per PDF document. Only the first signature in the PDF
-## document can be used as the certification signature. The process of certifying a document is almost exactly the same
-## as adding approval signatures with the exception of certification signatures requires an entry in the "Perms"
-## dictionary.
-##
-def CertifyPDF()
-    infile = '../../TestFiles/newsletter.pdf';
-    outfile = '../../TestFiles/Output/newsletter_certified.pdf';
-    certfile = '../../TestFiles/pdftron.pfx';
-    result = true;
-    
-    begin
-        puts('Certifying PDF document: "' + infile + '".');
-        # Open an existing PDF
-        doc = PDFDoc.new(infile);
+	# (OPTIONAL) Add an appearance.
 
-        # Add an StdSignatureHandler instance to PDFDoc, making sure to keep track of it using the ID returned.
-        sigHandlerId = doc.AddStdSignatureHandler(certfile, 'password')
-        
-        # Create new signature form field in the PDFDoc.
-        sigField = doc.FieldCreate('Signature1', Field::E_signature)
+	# Widget AP from image
+	img = Image.Create(doc.GetSDFDoc, in_appearance_image_path);
+	widgetAnnot.CreateSignatureAppearance(img);
+	# End of optional appearance-adding code.
 
-        # Assign the form field as an annotation widget to the PDFDoc so that a signature appearance can be added.
-        page1 = doc.GetPage(1)
-        widgetAnnot = Widget.Create(doc.GetSDFDoc(), Rect.new(0, 0, 0, 0), sigField)
-        page1.AnnotPushBack(widgetAnnot)
-        widgetAnnot.SetPage(page1)
-        widgetObj = widgetAnnot.GetSDFObj()
-        widgetObj.PutNumber('F', 132)
-        widgetObj.PutName('Type', 'Annot')
-        
-        # Tell PDFNetC to use the SignatureHandler created to sign the new signature form field.
-        sigDict = sigField.UseSignatureHandler(sigHandlerId)
+	# Add permissions. Lock the random text field.
+	puts('Adding document permissions.');
+	certification_sig_field.SetDocumentPermissions(DigitalSignatureField::E_annotating_formfilling_signing_allowed);
+	puts('Adding field permissions.');
+	certification_sig_field.SetFieldPermissions(DigitalSignatureField::E_include, ['asdf_test_field']);
 
-        # Add more information to the signature dictionary.
-        sigDict.PutName('SubFilter', 'adbe.pkcs7.detached')
-        sigDict.PutString('Name', 'PDFTron')
-        sigDict.PutString('Location', 'Vancouver, BC')
-        sigDict.PutString('Reason', 'Document verification.')
-        
-        # Appearance can be added to the widget annotation. Please see the "SignPDF()" function for details.
+	certification_sig_field.CertifyOnNextSave(in_private_key_file_path, in_keyfile_password);
 
-        # Add this sigDict as DocMDP in Perms dictionary from root
-        root = doc.GetRoot();
-        perms = root.PutDict('Perms');
-        # add the sigDict as DocMDP (indirect) in Perms
-        perms.Put('DocMDP', sigDict);
+	##### (OPTIONAL) Add more information to the signature dictionary.
+	certification_sig_field.SetLocation('Vancouver, BC');
+	certification_sig_field.SetReason('Document certification.');
+	certification_sig_field.SetContactInfo('www.pdftron.com');
+	##### End of optional sig info code.
 
-        # add the additional DocMDP transform params
-        refObj = sigDict.PutArray('Reference');
-        transform = refObj.PushBackDict();
-        transform.PutName('TransformMethod', 'DocMDP');
-        transform.PutName('Type', 'SigRef');
-        transformParams = transform.PutDict('TransformParams');
-        transformParams.PutNumber('P', 1); # Set permissions as necessary.
-        transformParams.PutName('Type', 'TransformParams');
-        transformParams.PutName('V', '1.2');
+	# Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information provided.
+	doc.Save(in_outpath, 0);
 
-        # Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information
-        # provided.
-        doc.Save(outfile, 0);
-
-        puts('Finished certifying PDF document.');
-    rescue Exception => e
-        puts(e.message)
-        puts(e.backtrace.inspect)
-        result = false;
-    end
-
-    return result;
+	puts('================================================================================');
 end # def CertifyPDF
 
+def SignPDF(in_docpath,	
+	in_approval_field_name,	
+	in_private_key_file_path, 
+	in_keyfile_password, 
+	in_appearance_img_path, 
+	in_outpath)
+	
+	puts('================================================================================');
+	puts('Signing PDF document');
+
+	# Open an existing PDF
+	doc = PDFDoc.new(in_docpath);
+
+	# Sign the approval signatures.
+	found_approval_field = doc.GetField(in_approval_field_name);
+	found_approval_signature_digsig_field = DigitalSignatureField.new(found_approval_field);
+	img2 = Image.Create(doc.GetSDFDoc, in_appearance_img_path);
+	found_approval_signature_widget = SignatureWidget.new(found_approval_field.GetSDFObj());
+	found_approval_signature_widget.CreateSignatureAppearance(img2);
+
+	found_approval_signature_digsig_field.SignOnNextSave(in_private_key_file_path, in_keyfile_password);
+
+	doc.Save(in_outpath, SDFDoc::E_incremental);
+
+	puts('================================================================================');
+	
+end # def SignPDF
+
+def ClearSignature(in_docpath,
+	in_digsig_field_name,
+	in_outpath)
+
+	puts('================================================================================');
+	puts('Clearing certification signature');
+
+	doc = PDFDoc.new(in_docpath);
+
+	digsig = DigitalSignatureField.new(doc.GetField(in_digsig_field_name));
+	
+	puts('Clearing signature: ' + in_digsig_field_name);
+	digsig.ClearSignature();
+
+	if (!digsig.HasCryptographicSignature())
+		puts('Cryptographic signature cleared properly.');
+	end
+
+	# Save incrementally so as to not invalidate other signatures' hashes from previous saves.
+	doc.Save(in_outpath, SDFDoc::E_incremental);
+
+	puts('================================================================================');
+
+end # def ClearSignature
+
+def PrintSignaturesInfo(in_docpath)
+	puts('================================================================================');
+	puts('Reading and printing digital signature information');
+
+	doc = PDFDoc.new(in_docpath);
+	if (!doc.HasSignatures())
+		puts('Doc has no signatures.');
+		puts('================================================================================');
+		return;
+	else
+		puts('Doc has signatures.');
+	end
+
+	fitr = doc.GetFieldIterator()
+	while fitr.HasNext() do
+		current = fitr.Current();
+		if (current.IsLockedByDigitalSignature())
+			puts("==========\nField locked by a digital signature");
+		else
+			puts("==========\nField not locked by a digital signature");
+		end
+
+		puts('Field name: ' + current.GetName());
+		puts('==========');
+		
+		fitr.Next()
+	end
+
+	puts("====================\nNow iterating over digital signatures only.\n====================");
+
+	digsig_fitr = doc.GetDigitalSignatureFieldIterator();
+	while digsig_fitr.HasNext() do
+		current = digsig_fitr.Current();
+		puts('==========');
+		puts('Field name of digital signature: ' + Field.new(current.GetSDFObj()).GetName());
+
+		digsigfield = current;
+		if (!digsigfield.HasCryptographicSignature())
+			puts("Either digital signature field lacks a digital signature dictionary, " +
+				"or digital signature dictionary lacks a cryptographic hash entry. " +
+				"Digital signature field is not presently considered signed.\n" +
+				"==========");
+			digsig_fitr.Next()
+			next;
+		end
+
+		cert_count = digsigfield.GetCertCount();
+		puts('Cert count: ' + cert_count.to_s);
+		for i in 0...cert_count
+			cert = digsigfield.GetCert(i);
+			puts('Cert #' + i + ' size: ' + cert.length);
+		end
+
+		subfilter = digsigfield.GetSubFilter();
+
+		puts('Subfilter type: ' + subfilter.to_s);
+
+		if (subfilter != DigitalSignatureField::E_ETSI_RFC3161)
+			puts('Signature\'s signer: ' + digsigfield.GetSignatureName());
+
+			signing_time = digsigfield.GetSigningTime();
+			if (signing_time.IsValid())
+				puts('Signing day: ' + signing_time.GetDay());
+			end
+
+			puts('Location: ' + digsigfield.GetLocation());
+			puts('Reason: ' + digsigfield.GetReason());
+			puts('Contact info: ' + digsigfield.GetContactInfo());
+		else
+			puts('SubFilter == e_ETSI_RFC3161 (DocTimeStamp; no signing info)');
+		end
+
+		if (digsigfield.HasVisibleAppearance())
+			puts('Visible');
+		else
+			puts('Not visible');
+		end
+
+		digsig_doc_perms = digsigfield.GetDocumentPermissions();
+		locked_fields = digsigfield.GetLockedFields();
+		for it in locked_fields
+			puts('This digital signature locks a field named: ' + it);
+		end
+
+		case digsig_doc_perms
+		when DigitalSignatureField::E_no_changes_allowed
+			puts('No changes to the document can be made without invalidating this digital signature.');
+		when DigitalSignatureField::E_formfilling_signing_allowed
+			puts('Page template instantiation, form filling, and signing digital signatures are allowed without invalidating this digital signature.');
+		when DigitalSignatureField::E_annotating_formfilling_signing_allowed
+			puts('Annotating, page template instantiation, form filling, and signing digital signatures are allowed without invalidating this digital signature.');
+		when DigitalSignatureField::E_unrestricted
+			puts('Document not restricted by this digital signature.');
+		else
+			puts('Unrecognized digital signature document permission level.');
+			assert(false);
+		end
+		puts('==========');
+		digsig_fitr.Next()
+	end
+
+	puts('================================================================================');
+end # def PrintSignaturesInfo
+
 def main()
-    # Initialize PDFNetC
+    # Initialize PDFNet
     PDFNet.Initialize
-
+	
     result = true
+	input_path = '../../TestFiles/';
+    output_path = '../../TestFiles/Output/';
+	
+	#################### TEST 0:
+	# Create an approval signature field that we can sign after certifying.
+	# (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
+	# Open an existing PDF
+	begin
+		doc = PDFDoc.new(input_path + 'tiger.pdf');
+		
+		widgetAnnotApproval = SignatureWidget.Create(doc, Rect.new(300, 300, 500, 200), 'PDFTronApprovalSig');
+		page1 = doc.GetPage(1);
+		page1.AnnotPushBack(widgetAnnotApproval);
+		doc.Save(output_path + 'tiger_withApprovalField_output.pdf', SDFDoc::E_remove_unused);
+	rescue Exception => e
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
+    end
+	
+	#################### TEST 1: certify a PDF.
+	begin
+		CertifyPDF(input_path + 'tiger_withApprovalField.pdf',
+			'PDFTronCertificationSig',
+			input_path + 'pdftron.pfx',
+			'password',
+			input_path + 'pdftron.bmp',
+			output_path + 'tiger_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_output.pdf');
+	rescue Exception => e
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
+    end
+	#################### TEST 2: sign a PDF with a certification and an unsigned signature field in it.
+	begin
+		SignPDF(input_path + 'tiger_withApprovalField_certified.pdf',
+			'PDFTronApprovalSig',
+			input_path + 'pdftron.pfx',
+			'password',
+			input_path + 'signature.jpg',
+			output_path + 'tiger_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_output.pdf');
+	rescue Exception => e
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
+    end
 
-    if (!SignPDF())
-        result = false
-    end # if (!SignPDF())
+	#################### TEST 3: Clear a certification from a document that is certified and has two approval signatures.
+	begin
+		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
+			'PDFTronCertificationSig',
+			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+	rescue Exception => e
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
+    end
 
-    if (!CertifyPDF())
-        result = false
-    end # if (!CertifyPDF())
-    
-    if (!result)
-        puts('Tests failed.')
+	#################### End of tests. ####################
+
+	if (!result)
+        puts("Tests FAILED!!!\n==========")
         return
-    end # if (!result)
-    
-    puts('all Tests passed.')
+	end # if (!result)
+	
+	puts("Tests successful.\n==========")
+
 end # def main()
 
 main()
