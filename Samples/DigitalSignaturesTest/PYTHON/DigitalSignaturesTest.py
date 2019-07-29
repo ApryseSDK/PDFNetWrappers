@@ -129,7 +129,7 @@ def SignPDF(in_docpath,
 	# Open an existing PDF
 	doc = PDFDoc(in_docpath)
 
-	# Sign the approval signatures.
+	# Sign the approval signature.
 	found_approval_field = doc.GetField(in_approval_field_name)
 	found_approval_signature_digsig_field = DigitalSignatureField(found_approval_field)
 	img2 = Image.Create(doc.GetSDFDoc(), in_appearance_img_path)
