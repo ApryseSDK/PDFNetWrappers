@@ -5,9 +5,9 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------------------------------------------------------
-// This sample demonstrates the basic usage of high-level digital signature API in PDFNet.
+// This sample demonstrates the basic usage of the high-level digital signatures API in PDFNet.
 //
-// The following steps reflect typical intended usage of the digital signature API:
+// The following steps reflect typical intended usage of the digital signatures API:
 //
 //	0.	Start with a PDF with or without form fields in it that one would like to lock (or, one can add a field, see (1)).
 //	
@@ -81,7 +81,7 @@ function CertifyPDF($in_docpath,
 	$annot1 = TextWidget::Create($doc, new Rect(50.0, 550.0, 350.0, 600.0), "asdf_test_field");
 	$page1->AnnotPushBack($annot1);
 
-	// Create new signature form field in the PDFDoc. The name argument is optional;
+	// Create a new signature form field in the PDFDoc. The name argument is optional;
 	// leaving it empty causes it to be auto-generated. However, you may need the name for later.
 	// Acrobat doesn't show digsigfield in side panel if it's without a widget. Using a
 	// Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
@@ -108,7 +108,7 @@ function CertifyPDF($in_docpath,
 	$certification_sig_field->SetReason('Document certification.');
 	$certification_sig_field->SetContactInfo('www.pdftron.com');
 
-	// Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information provided.
+	// Save the PDFDoc. Once the method below is called, PDFNet will also sign the document using the information provided.
 	$doc->Save($in_outpath, 0);
 
 	echo(nl2br('================================================================================'.PHP_EOL));
@@ -134,7 +134,7 @@ function SignPDF($in_docpath,
 	// (OPTIONAL) Add an appearance to the signature field.
 	$img = Image::Create($doc->GetSDFDoc(), $in_appearance_img_path);
 	$found_approval_signature_widget = new SignatureWidget($found_approval_field->GetSDFObj());
-	$found_approval_signature_widget->CreateSignatureAppearance($img2);
+	$found_approval_signature_widget->CreateSignatureAppearance($img);
 
 	// Prepare the signature and signature handler for signing.
 	$found_approval_signature_digsig_field->SignOnNextSave($in_private_key_file_path, $in_keyfile_password);
