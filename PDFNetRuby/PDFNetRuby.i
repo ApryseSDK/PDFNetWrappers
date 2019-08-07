@@ -141,6 +141,8 @@
     #include "PDF/Highlights.h"
     #include "PDF/HTML2PDF.h"
     #include "PDF/Image.h"
+	#include "PDF/OCROptions.h"
+	#include "PDF/OCRModule.h"
     #include "PDF/Optimizer.h"
     #include "PDF/Page.h"
     #include "PDF/PageLabel.h"
@@ -159,6 +161,7 @@
     #include "PDF/Print.h"
     #include "PDF/QuadPoint.h"
     #include "PDF/Rect.h"
+	#include "PDF/RectCollection.h"
     #include "PDF/Redactor.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
@@ -275,8 +278,8 @@ namespace pdftron {
 //----------------------------------------------------------------------------------------------
 
 /** 
- * Tyemapping for enums
- * Ruby can takes in an integer which is then converted to an enum
+ * Typemapping for enums
+ * Ruby can take in an integer which is then converted to an enum
  * in the wrapper. The following mapping is needed because ErrorCode is
  * passed in as a pointer.
  */
@@ -296,6 +299,13 @@ namespace pdftron {
  * Treats volatile bool* as a regular bool*
  */
 %apply bool* INPUT {volatile bool*}
+
+//----------------------------------------------------------------------------------------------
+/** 
+ * Ignoring one of the overloaded methods
+ */
+
+%ignore pdftron::PDF::RectCollection::AddRect(double, double, double, double);
 
 //----------------------------------------------------------------------------------------------
 
@@ -555,7 +565,6 @@ namespace pdftron {
 
 //----------------------------------------------------------------------------------------------
 
-
 // Include the remaining header files
 
 %include "Filters/Filter.h"
@@ -579,6 +588,7 @@ namespace pdftron {
 %include "PDF/Function.h"
 %include "PDF/ColorSpace.h"
 %include "PDF/Rect.h"
+%include "PDF/RectCollection.h"
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
@@ -618,6 +628,8 @@ namespace pdftron {
 %include "PDF/PatternColor.h"
 %include "PDF/GState.h"
 %include "PDF/Image.h"
+%include "PDF/OCROptions.h"
+%include "PDF/OCRModule.h"
 %include "PDF/PageLabel.h"
 %include "PDF/PDFDocViewPrefs.h"
 
