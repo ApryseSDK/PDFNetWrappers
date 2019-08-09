@@ -632,7 +632,7 @@ namespace pdftron {
 %include "PDF/OCRModule.h"
 %include "PDF/PageLabel.h"
 %include "PDF/PDFDocViewPrefs.h"
-
+%include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
 
 %include "PDF/Annots.h"
@@ -674,7 +674,6 @@ namespace pdftron {
 %include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
-%include "PDF/PDFDocInfo.h"
 %include "PDF/PDFRasterizer.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/PDFNet.h"
