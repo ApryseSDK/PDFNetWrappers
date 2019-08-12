@@ -149,7 +149,8 @@ end
 		while line.IsValid do
 			word_num = line.GetNumWords
 			if word_num == 0
-                next
+				line = line.GetNextLine			
+				next
 			end
 			word = line.GetFirstWord
 			if cur_flow_id != line.GetFlowID
@@ -187,6 +188,7 @@ end
 				print " cur_num=\"" + "%d" % word.GetCurrentNum + "\"";
 				sz = word.GetStringLen
 				if sz == 0
+					word = word.GetNextWord				
 					next
 				end
 				# If the word style is different from the parent style, output the new style.
