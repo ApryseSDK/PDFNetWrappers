@@ -90,26 +90,24 @@ def CertifyPDF(in_docpath,
 	widgetAnnot = SignatureWidget.Create(doc, Rect(0, 100, 200, 150), certification_sig_field)
 	page1.AnnotPushBack(widgetAnnot)
 
-	# (OPTIONAL) Add an appearance.
-
-	# Widget AP from image
+	# (OPTIONAL) Add an appearance to the signature field.
 	img = Image.Create(doc.GetSDFDoc(), in_appearance_image_path)
 	widgetAnnot.CreateSignatureAppearance(img)
-	# End of optional appearance-adding code.
 
 	# Add permissions. Lock the random text field.
 	print('Adding document permissions.')
 	certification_sig_field.SetDocumentPermissions(DigitalSignatureField.e_annotating_formfilling_signing_allowed)
+	
+	# Prepare to lock the text field that we created earlier.
 	print('Adding field permissions.')
 	certification_sig_field.SetFieldPermissions(DigitalSignatureField.e_include, ['asdf_test_field'])
 
 	certification_sig_field.CertifyOnNextSave(in_private_key_file_path, in_keyfile_password)
 
-	##### (OPTIONAL) Add more information to the signature dictionary.
+	# (OPTIONAL) Add more information to the signature dictionary.
 	certification_sig_field.SetLocation('Vancouver, BC')
 	certification_sig_field.SetReason('Document certification.')
 	certification_sig_field.SetContactInfo('www.pdftron.com')
-	##### End of optional sig info code.
 
 	# Save the PDFDoc. Once the method below is called, PDFNetC will also sign the document using the information provided.
 	doc.Save(in_outpath, 0)
@@ -129,15 +127,19 @@ def SignPDF(in_docpath,
 	# Open an existing PDF
 	doc = PDFDoc(in_docpath)
 
-	# Sign the approval signatures.
+	# Retrieve the unsigned approval signature field.
 	found_approval_field = doc.GetField(in_approval_field_name)
 	found_approval_signature_digsig_field = DigitalSignatureField(found_approval_field)
-	img2 = Image.Create(doc.GetSDFDoc(), in_appearance_img_path)
+	
+	# (OPTIONAL) Add an appearance to the signature field.
+	img = Image.Create(doc.GetSDFDoc(), in_appearance_img_path)
 	found_approval_signature_widget = SignatureWidget(found_approval_field.GetSDFObj())
 	found_approval_signature_widget.CreateSignatureAppearance(img2)
 
+	# Prepare the signature and signature handler for signing.
 	found_approval_signature_digsig_field.SignOnNextSave(in_private_key_file_path, in_keyfile_password)
 
+	# The actual approval signing will be done during the following incremental save operation.
 	doc.Save(in_outpath, SDFDoc.e_incremental)
 
 	print('================================================================================')
@@ -273,7 +275,7 @@ def main():
 		widgetAnnotApproval = SignatureWidget.Create(doc, Rect(300, 300, 500, 200), 'PDFTronApprovalSig')
 		page1 = doc.GetPage(1)
 		page1.AnnotPushBack(widgetAnnotApproval)
-		doc.Save(output_path + 'tiger_withApprovalField.pdf', SDFDoc.e_remove_unused)
+		doc.Save(output_path + 'tiger_withApprovalField_output.pdf', SDFDoc.e_remove_unused)
 	except Exception as e:
 		print(e.args)
 		result = False
@@ -284,8 +286,8 @@ def main():
 			input_path + 'pdftron.pfx',
 			'password',
 			input_path + 'pdftron.bmp',
-			output_path + 'tiger_withApprovalField_certified.pdf')
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified.pdf')
+			output_path + 'tiger_withApprovalField_certified_output.pdf')
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_output.pdf')
 	except Exception as e:
 		print(e.args)
 		result = False
@@ -296,8 +298,8 @@ def main():
 			input_path + 'pdftron.pfx',
 			'password',
 			input_path + 'signature.jpg',
-			output_path + 'tiger_withApprovalField_certified_approved.pdf')
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved.pdf')
+			output_path + 'tiger_withApprovalField_certified_approved_output.pdf')
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_output.pdf')
 	except Exception as e:
 		print(e.args)
 		result = False
@@ -305,8 +307,8 @@ def main():
 	try:
 		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
-			output_path + 'tiger_withApprovalField_certified_approved_certcleared.pdf')
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared.pdf')
+			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf')
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf')
 	except Exception as e:
 		print(e.args)
 		result = False
