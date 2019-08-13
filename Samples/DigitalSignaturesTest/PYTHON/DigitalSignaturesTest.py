@@ -79,7 +79,7 @@ def CertifyPDF(in_docpath,
 	page1 = doc.GetPage(1)
 
 	# Create a text field that we can lock using the field permissions feature.
-	annot1 = TextWidget.Create(doc.GetSDFDoc(), Rect(50, 550, 350, 600), "asdf_test_field")
+	annot1 = TextWidget.Create(doc, Rect(50, 550, 350, 600), "asdf_test_field")
 	page1.AnnotPushBack(annot1)
 
 	# Create a new signature form field in the PDFDoc. The name argument is optional;
