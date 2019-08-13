@@ -143,6 +143,7 @@ def main():
         line = txt.GetFirstLine()
         while line.IsValid():
             if line.GetNumWords() == 0:
+                line = line.GetNextLine()			
                 continue
             word = line.GetFirstWord()
             if cur_flow_id != line.GetFlowID():
@@ -175,6 +176,7 @@ def main():
                 sys.stdout.write(" cur_num=\"" + str(word.GetCurrentNum()) + "\"");
                 sz = word.GetStringLen()
                 if sz == 0:
+                    word = word.GetNextWord()				
                     continue
                 # If the word style is different from the parent style, output the new style.
                 s = word.GetStyle()

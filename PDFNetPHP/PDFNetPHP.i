@@ -151,6 +151,8 @@
     #include "PDF/Highlights.h"
     #include "PDF/HTML2PDF.h"
     #include "PDF/Image.h"
+	#include "PDF/OCROptions.h"
+	#include "PDF/OCRModule.h"
     #include "PDF/Optimizer.h"
     #include "PDF/Page.h"
     #include "PDF/PageLabel.h"
@@ -169,6 +171,7 @@
     #include "PDF/Print.h"
     #include "PDF/QuadPoint.h"
     #include "PDF/Rect.h"
+	#include "PDF/RectCollection.h"
     #include "PDF/Redactor.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
@@ -340,6 +343,14 @@ namespace pdftron {
 %apply bool* INPUT {volatile bool*}
 
 //----------------------------------------------------------------------------------------------
+/** 
+ * Ignoring one of the overloaded methods
+ */
+
+%ignore pdftron::PDF::RectCollection::AddRect(double, double, double, double);
+
+//----------------------------------------------------------------------------------------------
+
 
 /**
  * Maps a PHP list of integers or strings to Unicode*
@@ -785,6 +796,7 @@ namespace pdftron {
 #undef Function
 %include "PDF/ColorSpace.h"
 %include "PDF/Rect.h"
+%include "PDF/RectCollection.h"
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
@@ -826,7 +838,7 @@ namespace pdftron {
 %include "PDF/Image.h"
 %include "PDF/PageLabel.h"
 %include "PDF/PDFDocViewPrefs.h"
-
+%include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
 
 %include "PDF/Annots.h"
@@ -866,11 +878,12 @@ namespace pdftron {
 
 //Rename to prevent naming conflict between nested class Highlight and Highlight.h
 %include "PDF/Highlights.h"
+%include "PDF/OCROptions.h"
+%include "PDF/OCRModule.h"
 %include "PDF/Optimizer.h"
 %include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
-%include "PDF/PDFDocInfo.h"
 %include "PDF/PDFRasterizer.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/PDFNet.h"
