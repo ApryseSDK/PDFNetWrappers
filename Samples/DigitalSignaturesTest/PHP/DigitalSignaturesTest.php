@@ -89,26 +89,24 @@ function CertifyPDF($in_docpath,
 	$widgetAnnot = SignatureWidget::Create($doc, new Rect(0.0, 100.0, 200.0, 150.0), $certification_sig_field);
 	$page1->AnnotPushBack($widgetAnnot);
 
-	// (OPTIONAL) Add an appearance.
-
-	// Widget AP from image
+	// (OPTIONAL) Add an appearance to the signature field.
 	$img = Image::Create($doc->GetSDFDoc(), $in_appearance_image_path);
 	$widgetAnnot->CreateSignatureAppearance($img);
-	// End of optional appearance-adding code.
 
-	// Add permissions. Lock the random text field.
+	// Prepare the document locking permission level. It will be applied upon document certification.
 	echo(nl2br('Adding document permissions.'.PHP_EOL));
 	$certification_sig_field->SetDocumentPermissions(DigitalSignatureField::e_annotating_formfilling_signing_allowed);
+	
+	// Prepare to lock the text field that we created earlier.
 	echo(nl2br('Adding field permissions.'.PHP_EOL));
 	$certification_sig_field->SetFieldPermissions(DigitalSignatureField::e_include, array('asdf_test_field'));
 
 	$certification_sig_field->CertifyOnNextSave($in_private_key_file_path, $in_keyfile_password);
 
-	///// (OPTIONAL) Add more information to the signature dictionary.
+	// (OPTIONAL) Add more information to the signature dictionary.
 	$certification_sig_field->SetLocation('Vancouver, BC');
 	$certification_sig_field->SetReason('Document certification.');
 	$certification_sig_field->SetContactInfo('www.pdftron.com');
-	///// End of optional sig info code.
 
 	// Save the PDFDoc. Once the method below is called, PDFNet will also sign the document using the information provided.
 	$doc->Save($in_outpath, 0);
@@ -129,15 +127,19 @@ function SignPDF($in_docpath,
 	// Open an existing PDF
 	$doc = new PDFDoc($in_docpath);
 
-	// Sign the approval signature.
+	// Retrieve the unsigned approval signature field.
 	$found_approval_field = $doc->GetField($in_approval_field_name);
 	$found_approval_signature_digsig_field = new DigitalSignatureField($found_approval_field);
+	
+	// (OPTIONAL) Add an appearance to the signature field.
 	$img = Image::Create($doc->GetSDFDoc(), $in_appearance_img_path);
 	$found_approval_signature_widget = new SignatureWidget($found_approval_field->GetSDFObj());
 	$found_approval_signature_widget->CreateSignatureAppearance($img);
 
+	// Prepare the signature and signature handler for signing.
 	$found_approval_signature_digsig_field->SignOnNextSave($in_private_key_file_path, $in_keyfile_password);
 
+	// The actual approval signing will be done during the following incremental save operation.
 	$doc->Save($in_outpath, SDFDoc::e_incremental);
 
 	echo(nl2br('================================================================================'.PHP_EOL));
@@ -319,7 +321,7 @@ function main()
 		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
-		$doc->Save($output_path.'tiger_withApprovalField.pdf', SDFDoc::e_remove_unused);
+		$doc->Save($output_path.'tiger_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
 	}
 	catch (Exception $e)
 	{
@@ -335,8 +337,8 @@ function main()
 			$input_path.'pdftron.pfx',
 			'password',
 			$input_path.'pdftron.bmp',
-			$output_path.'tiger_withApprovalField_certified.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified.pdf');
+			$output_path.'tiger_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -352,8 +354,8 @@ function main()
 			$input_path.'pdftron.pfx',
 			'password',
 			$input_path.'signature.jpg',
-			$output_path.'tiger_withApprovalField_certified_approved.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved.pdf');
+			$output_path.'tiger_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -366,8 +368,8 @@ function main()
 	{
 		ClearSignature($input_path.'tiger_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
-			$output_path.'tiger_withApprovalField_certified_approved_certcleared.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared.pdf');
+			$output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
 	}
 	catch (Exception $e)
 	{
