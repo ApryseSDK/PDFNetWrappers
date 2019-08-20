@@ -221,6 +221,7 @@ namespace std {
    %template(VectorRedaction) vector<pdftron::PDF::Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;
+   %template(VectorAnnot) vector<pdftron::PDF::Annot>;
 };
 
 /**
