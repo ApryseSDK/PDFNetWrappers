@@ -144,9 +144,9 @@
 %typemap(typecheck) std::vector<std::string>, std::vector<std::string>&
 {
 #if PHP_MAJOR_VERSION >= 7
-    $1 = ( Z_TYPE_P(&$input) == IS_STRING ) ? 1 : 0;
+    $1 = ( Z_TYPE_P(&$input) == IS_ARRAY ) ? 1 : 0;
 #else
-    $1 = ( Z_TYPE_PP($input) == IS_STRING ) ? 1 : 0;
+    $1 = ( Z_TYPE_PP($input) == IS_ARRAY ) ? 1 : 0;
 #endif
 }
 
