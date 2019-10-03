@@ -193,7 +193,7 @@ def ProcessText (page_reader):
                     char_code = itr.Current().char_code
                     if char_code>=32 and char_code<=255:     # Print if in ASCII range...
                         a = font.MapToUnicode(char_code)
-                        sys.stdout.write(a[0])
+                        sys.stdout.write( a[0] if sys.version_info.major < 3 else ascii(a[0]) )
                         
                     pt = Point()   
                     pt.x = itr.Current().x     # character positioning information

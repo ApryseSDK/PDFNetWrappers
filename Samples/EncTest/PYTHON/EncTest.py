@@ -80,7 +80,10 @@ def main():
         count = 0
         while count < 3:
             print("A password required to open the document.")
-            password = raw_input("Please enter the password: \n")
+            if sys.version_info.major >= 3:
+                password = input("Please enter the password: \n")
+            else:
+                password = raw_input("Please enter the password: \n")
                 
             if doc.InitStdSecurityHandler(password, len(password)):
                 success = True

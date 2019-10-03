@@ -20,6 +20,8 @@ if (PYTHONLIBS_FOUND)
     message(STATUS "Using Python: ${PYTHONLIBS_VERSION_STRING}")
     message(STATUS "Python include directory: ${PYTHON_INCLUDE_DIRS}")
     message(STATUS "Python library: ${PYTHON_LIBRARY}")
+    set(PylibInfoOutput ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo )
+    file(WRITE ${PylibInfoOutput} "python${PYTHONLIBS_VERSION_STRING}") 
 else ()
     message(FATAL_ERROR "Cannot find Python libraries, please set the variables specified by the error message then try again.")
     return ()
@@ -27,6 +29,8 @@ endif ()
 
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
+
+
 
 if (PYTHON_2)
     set(SWIG_DEFINE "-DPYTHON2")
@@ -102,7 +106,7 @@ configure_file(${PDFNetPython_SourcesDir}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT
 # Installation rules
 
 install(
-    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py
+    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo 
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
 install(

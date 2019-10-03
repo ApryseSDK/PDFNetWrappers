@@ -20,9 +20,7 @@ def ProcessElements(reader):
             points = data.GetPoints()
         elif element.GetType() == Element.e_text:		# Process text strings...
             data = element.GetTextString()
-            if sys.version_info.major >= 3:
-                data = ascii(data)
-            else:
+            if sys.version_info.major == 2:
                 reload(sys)
                 sys.setdefaultencoding("utf-8")
                 data = unicodedata.normalize('NFKC', unicode(data)).encode('ascii','replace')
