@@ -78,7 +78,7 @@ function CertifyPDF($in_docpath,
 	$page1 = $doc->GetPage(1);
 
 	// Create a text field that we can lock using the field permissions feature.
-	$annot1 = TextWidget::Create($doc->GetSDFDoc(), new Rect(50.0, 550.0, 350.0, 600.0), "asdf_test_field");
+	$annot1 = TextWidget::Create($doc, new Rect(50.0, 550.0, 350.0, 600.0), "asdf_test_field");
 	$page1->AnnotPushBack($annot1);
 
 	// Create a new signature form field in the PDFDoc. The name argument is optional;
@@ -270,9 +270,9 @@ function PrintSignaturesInfo($in_docpath)
 
 		$digsig_doc_perms = $digsigfield->GetDocumentPermissions();
 		$locked_fields = $digsigfield->GetLockedFields();
-		for ($i = 0; $i < $locked_fields->size(); $i++)
+		foreach ($locked_fields as $locked_field)
 		{
-			echo(nl2br('This digital signature locks a field named: '.$locked_fields->Get($i).PHP_EOL));
+			echo(nl2br('This digital signature locks a field named: '.$locked_field.PHP_EOL));
 		}
 
 		switch ($digsig_doc_perms)
