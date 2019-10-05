@@ -3,6 +3,6 @@ setlocal
 call ..\..\py_init.bat
 if %ERRORLEVEL% NEQ 0 goto EOF
 set TEST_NAME=PDFPageTest
-python -u %TEST_NAME%.py
+python.exe -u %TEST_NAME%.py
 :EOF
 endlocal
