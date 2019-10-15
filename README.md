@@ -10,7 +10,7 @@ This project demonstrates how to bind PDFNetC with other languages. This project
 
 This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build environment is necessary for compiling and producing the bridge file. We have tested this project on the following environments:
 
-* **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.x
+* **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.0.12
 * **CMake** version 2.8+
 * **Linux**: GCC 4.6 and above
 * **Windows**: Visual Studio 2012 and above
