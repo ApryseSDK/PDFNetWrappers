@@ -78,7 +78,7 @@ if (PHP_CONFIG_EXECUTABLE)
     )
 
     if(DEFINED PHP_MAJOR_VERSION)
-        if (PHP_MAJOR_VERSION LESS 7 OR SWIG_VERSION STREQUAL "3.0.8")
+        if (PHP_MAJOR_VERSION LESS 7)
             set(php_version "php")
         else()
             set(php_version "php7")
