@@ -25,7 +25,7 @@ $output_path = $input_path."Output/";
 		$new_doc = new PDFDoc();
 		$new_doc->InsertPages(0, $in_doc, $i, $i, PDFDoc::e_none);
 		$new_doc->Save($output_path."newsletter_split_page_".$i.".pdf", SDFDoc::e_remove_unused);
-		echo nl2br("Done. Result saved in newsletter_split_page_".$i.".pdf...\n");
+		echo nl2br("Done. Result saved in newsletter_split_page_".$i.".pdf\n");
 		$new_doc->Close();
 	}
 	$in_doc->Close();
@@ -40,13 +40,13 @@ $output_path = $input_path."Output/";
 	$page_num = 15;
 	for ($i = 1; $i <= $page_num; ++$i)
 	{	
-		echo nl2br("Opening newsletter_split_page_".$i.".pdf...\n");
+		echo nl2br("Opening newsletter_split_page_".$i.".pdf\n");
 		$in_doc = new PDFDoc($output_path."newsletter_split_page_".$i.".pdf");
 		$new_doc->InsertPages($i, $in_doc, 1, $in_doc->GetPageCount(), PDFDoc::e_none);
 		$in_doc->Close();
 	}
 	$new_doc->Save($output_path."newsletter_merge_pages.pdf", SDFDoc::e_remove_unused);
-	echo nl2br("Done. Result saved in newsletter_merge_pages.pdf...\n");
+	echo nl2br("Done. Result saved in newsletter_merge_pages.pdf\n");
 	$in_doc->Close();
 
 	// Sample 3 - Delete every second page

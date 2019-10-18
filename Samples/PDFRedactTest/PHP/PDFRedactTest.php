@@ -58,5 +58,5 @@ function Redact($input, $output, $vec) {
     	$vec->push(new Redaction(3, new Rect(0.0, 0.0, 700.0, 20.0), false, ""));
 
 	Redact($input_path."newsletter.pdf", $output_path."redacted.pdf", $vec);
-	echo "Done.\n";	
+	echo "Done...\n";	
 ?>

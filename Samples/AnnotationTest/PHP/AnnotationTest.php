@@ -24,7 +24,7 @@ function AnnotationHighLevelAPI($doc) {
 		{
 			$annot = $page->GetAnnot($i);
 			if (!$annot->IsValid()) continue;
-			echo "Annot Type: ".$annot->GetSDFObj()->Get("Subtype")->Value()->GetName(); 
+			echo nl2br("Annot Type: ".$annot->GetSDFObj()->Get("Subtype")->Value()->GetName()."\n"); 
 
 			$bbox = $annot->GetRect();
 			echo nl2br("  Position: ".$bbox->x1.", ".$bbox->y1.", ".$bbox->x2.", ".$bbox->y2."\n");

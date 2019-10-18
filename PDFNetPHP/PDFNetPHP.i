@@ -730,6 +730,7 @@ namespace pdftron {
 %rename (WriteUInt16) pdftron::Filters::FilterWriter::WriteInt(UInt16);
 %rename (WriteUInt32) pdftron::Filters::FilterWriter::WriteInt(UInt32);
 %rename (WriteUInt64) pdftron::Filters::FilterWriter::WriteInt(UInt64);
+%rename (IsEqual) operator==;
 
 //----------------------------------------------------------------------------------------------
 // Fixes the python not recognizing default arguments problem

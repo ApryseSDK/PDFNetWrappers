@@ -143,5 +143,4 @@ $input_filename = "newsletter";
 	$doc->Save($output_path."TigerText_flatten.pdf", SDFDoc::e_linearized);
 	$doc->Close();
 	
-	echo "Done.";	
 ?>
