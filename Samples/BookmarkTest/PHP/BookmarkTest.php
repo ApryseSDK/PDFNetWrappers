@@ -14,7 +14,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 function PrintIndent ($item) {
 	$ident = $item->GetIndent() - 1;
 	for ($i=0; $i<$ident; ++$i) {
-		echo " &nbsp &nbsp ";
+		echo "&nbsp &nbsp ";
 	}
 }
 
