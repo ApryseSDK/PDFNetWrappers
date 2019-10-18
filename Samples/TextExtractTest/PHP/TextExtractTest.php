@@ -102,18 +102,28 @@ function PrintStyle($style)
 	echo " style=\"font-family:".$style->GetFontName()."; "
 		."font-size:".$style->GetFontSize().";" 
 		.($style->IsSerif() ? " sans-serif; " : " ")
-		."color: #".$tmp."\"";
+		."color:#".$tmp."\"";
 }
 
+function IsStyleEqual($style1, $style2)
+{
+	if($style1->GetFontName() == $style2->GetFontName() && 
+		$style1->GetFontSize() == $style1->GetFontSize() && 
+		!($style1->IsSerif() xor $style1->IsSerif()) &&
+		$style1->GetColor() == $style2->GetColor() ) {
+		return true;
+	}
+	return false; 
+}
 //---------------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
 
-	$example1_basic     = true;
-	$example2_xml       = true;
-	$example3_wordlist  = true;
+	$example1_basic     = false;
+	$example2_xml       = false;
+	$example3_wordlist  = false;
 	$example4_advanced  = true;
-	$example5_low_level = true;
+	$example5_low_level = false;
 
 	// Sample code showing how to use high-level text extraction APIs.
 	
@@ -171,6 +181,7 @@ function PrintStyle($style)
 		$cur_flow_id=-1;
 		$cur_para_id=-1;
 
+		echo nl2br("<PDFText>\n");
 		// For each line on the page...
 		for ($line=$txt->GetFirstLine(); $line->IsValid(); $line=$line->GetNextLine())
 		{
@@ -197,8 +208,9 @@ function PrintStyle($style)
 
 			$bbox1 = $line->GetBBox();
 			$line_style = $line->GetStyle();
-			echo "<Line box=\"".$bbox1->x1.", ".$bbox1->y1.", ".$bbox1->x2.", ".$bbox1->y2."\"";
+			printf("<Line box=\"%.2f, %.2f, %.2f, %.2f\"", $bbox1->x1, $bbox1->y1, $bbox1->x2, $bbox1->y2);
 			PrintStyle($line_style);
+			echo  " cur_num=\"".$line->GetCurrentNum()."\"";
 			echo nl2br(">\n");
 
 			// For each word in the line...
@@ -206,16 +218,17 @@ function PrintStyle($style)
 			{
 				// Output the bounding box for the word.
 				$bbox2 = $word->GetBBox();
-				echo "<Word box=\"".$bbox2->x1.", ".$bbox2->y1.", ".$bbox2->x2.", ".$bbox2->y2."\"";
+				printf("<Word box=\"%.2f, %.2f, %.2f, %.2f\"", $bbox2->x1, $bbox2->y1, $bbox2->x2, $bbox2->y2);
+				echo " cur_num=\"" .$word->GetCurrentNum()."\"";
 				$sz = $word->GetStringLen();
 				if ($sz == 0) continue;
 
 				// If the word style is different from the parent style, output the new style.
 				$s = $word->GetStyle();
-				if ($s != $line_style) {
+				if(!$s->IsEqual($line_style)){
 					PrintStyle($s);
 				}
-
+				
 				echo ">".$word->GetString();
 				echo nl2br("</Word>\n");
 			}
@@ -228,12 +241,14 @@ function PrintStyle($style)
 				echo nl2br("</Para>\n");
 			}
 			echo nl2br("</Flow>\n");
+
+
 		}
+		echo nl2br("</PDFText>\n");
 
 		$txt->Destroy();
 		$doc->Close();
 
-		echo nl2br("-----------------------------------------------------------\n");
 	}
 
 	if($example5_low_level)
@@ -271,7 +286,6 @@ function PrintStyle($style)
 
 		// ... 
 		$doc->Close();
-		echo nl2br("-----------------------------------------------------------\n");
 		echo nl2br("Done.\n");
 	}
 ?>

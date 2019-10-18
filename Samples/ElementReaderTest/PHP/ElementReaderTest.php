@@ -41,7 +41,7 @@ function ProcessElements($reader) {
 	
 	// Extract text data from all pages in the document
 
-	echo nl2br("__________________________________________________\n");
+	echo nl2br("-------------------------------------------------\n");
 	echo nl2br("Sample 1 - Extract text data from all pages in the document.\n");
 	echo nl2br("Opening the input pdf...\n");
 	

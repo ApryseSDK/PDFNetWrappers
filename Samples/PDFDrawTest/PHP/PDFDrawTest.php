@@ -81,9 +81,9 @@ $output_path = $input_path."Output/";
 
 	// Traverse all pages in the document.
 	for ($itr=$doc->GetPageIterator(); $itr->HasNext(); $itr->Next()) {
-		$filename = $output_path."newsletter".$itr->Current()->GetIndex().".jpg";
+		$filename = "newsletter".$itr->Current()->GetIndex().".jpg";
 		echo nl2br($filename."\n");
-		$draw->Export($itr->Current(), $filename, "JPEG", $encoder_param);
+		$draw->Export($itr->Current(), $output_path.$filename, "JPEG", $encoder_param);
 	}
 
 	echo nl2br("Done.\n");

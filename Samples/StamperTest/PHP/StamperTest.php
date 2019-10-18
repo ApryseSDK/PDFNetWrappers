@@ -8,7 +8,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/";
 $output_path = $input_path."Output/";
-$input_filename = "newsletter.pdf";
+$input_filename = "newsletter";
 
 //---------------------------------------------------------------------------------------
 // The following sample shows how to add new content (or watermark) PDF pages
@@ -26,7 +26,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 	$s = new Stamper(Stamper::e_relative_scale, 0.5, 0.5);		
 
@@ -43,7 +43,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 2) Add Image stamp to first 2 pages. 
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$s = new Stamper(Stamper::e_relative_scale, 0.05, 0.05);
@@ -65,7 +65,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 3) Add Page stamp to all pages. 
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$fish_doc = new PDFDoc($input_path."fish.pdf");
@@ -89,7 +89,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 4) Add Image stamp to first 20 odd pages.
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$s = new Stamper(Stamper::e_absolute_size, 20.0, 20.0);
@@ -107,7 +107,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 5) Add text stamp to first 20 even pages
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$s = new Stamper(Stamper::e_relative_scale, 0.05, 0.05);
@@ -125,7 +125,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 6) Add first page as stamp to all even pages
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$fish_doc = new PDFDoc($input_path."fish.pdf");
@@ -147,7 +147,7 @@ $input_filename = "newsletter.pdf";
 	//--------------------------------------------------------------------------------
 	// Example 7) Add image stamp at top right corner in every pages
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$s = new Stamper(Stamper::e_relative_scale, 0.1, 0.1);
@@ -170,7 +170,7 @@ $input_filename = "newsletter.pdf";
 	//          Because text stamp is set as background, the image is top of the text
 	//          stamp. Text stamp on the first page is not visible.
 	
-	$doc = new PDFDoc($input_path.$input_filename);
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
 	$doc->InitSecurityHandler();
 
 	$s = new Stamper(Stamper::e_relative_scale, 0.07, -0.1);
@@ -192,5 +192,5 @@ $input_filename = "newsletter.pdf";
 	$doc->Save($output_path.$input_filename.".ex8.pdf", SDFDoc::e_linearized);
 	$doc->Close();
 
-	echo "Done.";
+
 ?>

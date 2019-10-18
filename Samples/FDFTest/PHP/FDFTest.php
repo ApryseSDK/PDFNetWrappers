@@ -134,23 +134,23 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$in_doc = new PDFDoc($input_path."numbered.pdf");
 	$in_doc->InitSecurityHandler();
 	
-	echo nl2br("Merge XFDF string into PDF. \n");
+	echo nl2br("Merge XFDF string into PDF.\n");
 	
 	$str = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?><xfdf xmlns=\"http://ns.adobe.com/xfdf\" xml:space=\"preserve\"><square subject=\"Rectangle\" page=\"0\" name=\"cf4d2e58-e9c5-2a58-5b4d-9b4b1a330e45\" title=\"user\" creationdate=\"D:20120827112326-07'00'\" date=\"D:20120827112326-07'00'\" rect=\"227.7814207650273,597.6174863387978,437.07103825136608,705.0491803278688\" color=\"#000000\" interior-color=\"#FFFF00\" flags=\"print\" width=\"1\"><popup flags=\"print,nozoom,norotate\" open=\"no\" page=\"0\" rect=\"0,792,0,792\" /></square></xfdf>";
 	$fdoc = FDFDoc::CreateFromXFDF($str);
 	$in_doc->FDFMerge($fdoc);
 	$in_doc->Save(($output_path."numbered_modified.pdf"), SDFDoc::e_linearized);
-	echo nl2br("Merge complete. \n");
+	echo nl2br("Merge complete.\n");
 	
 	// Extract XFDF as string
-	echo nl2br("Extract XFDF as a string. \n");
+	echo nl2br("Extract XFDF as a string.\n");
 	
 	$fdoc_new = $in_doc->FDFExtract(PDFDoc::e_both);
 	$XFDF_str = $fdoc_new->SaveAsXFDF();
 	echo nl2br("Extracted XFDF: \n");
 	echo nl2br($XFDF_str);
 	$in_doc->Close();
-	echo nl2br("\nExtract complete. \n");
+	echo nl2br("\nExtract complete.\n");
 	
 	// Example 5) Read FDF files directly
 	
@@ -160,7 +160,6 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	{
 		echo nl2br("Field name: ".$itr->Current()->GetName()."\n");
 		echo nl2br("Field partial name: ".$itr->Current()->GetPartialName()."\n");
-
 		echo nl2br("------------------------------\n");
 	}
 	
@@ -180,7 +179,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	
 	$doc->Save($output_path."sample_output.fdf");
 	$doc->Close();
-	echo nl2br("Done.\n");
+	echo nl2br("Done. Results saved in sample_output.fdf");
 	
 	
 ?>
