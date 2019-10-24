@@ -52,7 +52,7 @@ def main():
     # The max_ref_objs parameter to the PDFACompliance constructor controls the maximum number 
     # of object numbers that are collected for particular error codes. The default value is 10 
     # in order to prevent spam. If you need all the object numbers, pass 0 for max_ref_objs.
-    pdf_a = PDFACompliance(False, input_path+filename, None, PDFACompliance.e_Level1B, 0, 10)
+    pdf_a = PDFACompliance(False, input_path+filename, None, PDFACompliance.e_Level1B, 0, 0, 10)
     PrintResults(pdf_a, filename)
     pdf_a.Destroy()
     
@@ -60,13 +60,13 @@ def main():
     # Example 2: PDF/A Conversion
     #-----------------------------------------------------------
     filename = "fish.pdf"
-    pdf_a = PDFACompliance(True, input_path + filename, None, PDFACompliance.e_Level1B, 0, 10)
+    pdf_a = PDFACompliance(True, input_path + filename, None, PDFACompliance.e_Level1B, 0, 0, 10)
     filename = "pdfa.pdf"
     pdf_a.SaveAs(output_path + filename, True)
     pdf_a.Destroy()
     
     # Re-validate the document after the conversion...
-    pdf_a = PDFACompliance(False, output_path + filename, None, PDFACompliance.e_Level1B, 0, 10)
+    pdf_a = PDFACompliance(False, output_path + filename, None, PDFACompliance.e_Level1B, 0, 0, 10)
     PrintResults(pdf_a, filename)
     pdf_a.Destroy()
 	
