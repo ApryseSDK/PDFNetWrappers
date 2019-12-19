@@ -175,6 +175,7 @@ function ProcessStructElement2($element, &$mcid_doc_map, $ident)
 }
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Extract logical structure from a PDF document
 

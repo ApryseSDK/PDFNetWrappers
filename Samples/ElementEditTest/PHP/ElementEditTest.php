@@ -51,6 +51,7 @@ function ProcessElements($reader, $writer, $map) {
 }
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	echo nl2br("-------------------------------------------------\n");
 

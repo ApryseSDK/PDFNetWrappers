@@ -161,6 +161,7 @@ function CreateGroup3($doc, $layer)
 }
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	$doc = new PDFDoc();
 

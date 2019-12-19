@@ -12,6 +12,7 @@ $input_path = getcwd()."/../../TestFiles/";
 $output_path = $input_path."Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	$doc = new PDFDoc();
 	$builder = new ElementBuilder();	// ElementBuilder is used to build new Element objects
 	$writer = new ElementWriter();		// ElementWriter is used to write Elements to the page

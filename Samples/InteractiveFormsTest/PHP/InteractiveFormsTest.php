@@ -93,6 +93,7 @@ function CreateCustomButtonAppearance($doc, $button_down)
 }
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	//----------------------------------------------------------------------------------
 	// Example 1: Programatically create new Form Fields and Widget Annotations.

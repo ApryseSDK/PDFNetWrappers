@@ -58,6 +58,7 @@ function AddCoverPage($doc)
 //---------------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Create a PDF Package.
 	

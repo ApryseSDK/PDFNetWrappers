@@ -13,6 +13,7 @@ $output_path = $input_path."Output/";
 // existing document.
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	echo nl2br("Opening the test file...\n");
 

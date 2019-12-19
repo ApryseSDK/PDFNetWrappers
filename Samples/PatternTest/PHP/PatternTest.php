@@ -144,6 +144,7 @@ function CreateAxialShading($doc)
 //---------------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	$doc = new PDFDoc();
 	$writer = new ElementWriter();	

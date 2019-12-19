@@ -14,6 +14,7 @@ $output_path = $input_path."Output/";
 	// documents that don't need to be saved/read from a disk.
 	
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	// Read a PDF document in a memory buffer.
 	$file = new MappedFile($input_path."tiger.pdf");

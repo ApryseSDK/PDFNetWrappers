@@ -118,6 +118,7 @@ function IsStyleEqual($style1, $style2)
 //---------------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	$example1_basic     = false;
 	$example2_xml       = false;

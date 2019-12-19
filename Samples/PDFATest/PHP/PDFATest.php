@@ -50,6 +50,7 @@ function PrintResults($pdf_a, $filename)
 	$output_path = getcwd()."/../../TestFiles/Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	PDFNet::SetColorManagement();  // Enable color management (required for PDFA validation).
 
 	//-----------------------------------------------------------

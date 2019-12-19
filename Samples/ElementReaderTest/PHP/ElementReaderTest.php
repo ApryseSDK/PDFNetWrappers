@@ -38,6 +38,7 @@ function ProcessElements($reader) {
 }
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	// Extract text data from all pages in the document
 

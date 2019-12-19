@@ -11,6 +11,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 // available in PDFNet.
 //---------------------------------------------------------------------------------------
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	// Relative path to the folder containing the test files.
 	$input_path = getcwd()."/../../TestFiles/";

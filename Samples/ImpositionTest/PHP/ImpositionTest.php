@@ -19,6 +19,7 @@ $output_path = $input_path."Output/newsletter_booklet.pdf";
 //-----------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	echo nl2br("-------------------------------------------------\n");
 	echo nl2br("Opening the input pdf...\n");

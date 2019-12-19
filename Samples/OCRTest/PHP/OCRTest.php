@@ -17,6 +17,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// The location of the OCR Module
 	PDFNet::AddResourceSearchPath("../../../Lib/");

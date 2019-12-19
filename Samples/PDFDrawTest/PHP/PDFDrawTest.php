@@ -19,6 +19,7 @@ $output_path = $input_path."Output/";
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Optional: Set ICC color profiles to fine tune color conversion 
 	// for PDF 'device' color spaces...

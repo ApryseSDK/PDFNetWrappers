@@ -10,6 +10,7 @@ $input_path = getcwd()."/../../TestFiles/";
 $output_path = $input_path."Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	$doc = new PDFDoc($input_path."credit card numbers.pdf");
 	$doc->InitSecurityHandler();

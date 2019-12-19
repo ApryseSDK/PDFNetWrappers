@@ -17,6 +17,7 @@ $output_path = $input_path."Output/";
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	// Open the PDF document.
 	$doc = new PDFDoc($input_path."newsletter.pdf");

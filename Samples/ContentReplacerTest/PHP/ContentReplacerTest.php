@@ -11,6 +11,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 // 'template' pdf documents easier.
 //-----------------------------------------------------------------------------------------
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	// Relative path to the folder containing the test files.
 	$input_path = getcwd()."/../../TestFiles/";

@@ -37,6 +37,7 @@ $output_path = $input_path."Output/";
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// For HTML2PDF we need to locate the html2pdf module. If placed with the 
 	// PDFNet library, or in the current working directory, it will be loaded

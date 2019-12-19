@@ -22,6 +22,7 @@ $input_filename = "newsletter";
 //---------------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	//--------------------------------------------------------------------------------
 	// Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 

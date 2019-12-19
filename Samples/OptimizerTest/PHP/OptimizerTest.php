@@ -43,6 +43,7 @@ $input_filename = "newsletter";
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	//--------------------------------------------------------------------------------
 	// Example 1) Simple optimization of a pdf with default settings. 

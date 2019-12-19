@@ -49,6 +49,7 @@ function PrintOutlineTree($item) {
 	}
 }
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Relative path to the folder containing the test files.
 	$input_path = getcwd()."/../../TestFiles/";

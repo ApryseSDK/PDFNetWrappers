@@ -305,6 +305,7 @@ function main()
 {
 	// Initialize PDFNet
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	$result = true;
 	$input_path = '../../TestFiles/';

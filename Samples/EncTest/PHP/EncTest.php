@@ -11,6 +11,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 // be removed from an existing PDF document.
 //---------------------------------------------------------------------------------------
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 	
 	// Relative path to the folder containing the test files.
 	$input_path = getcwd()."/../../TestFiles/";

@@ -78,7 +78,8 @@ function Create3DAnnotation($doc, $annots)
 
 // ---------------------------------------------------------------------------------
 
-	PDFNet::Initialize();	
+	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();	
 
 	$doc = new PDFDoc();
 	$page = $doc->PageCreate();

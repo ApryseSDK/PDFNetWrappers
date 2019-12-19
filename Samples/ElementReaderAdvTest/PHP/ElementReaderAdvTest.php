@@ -331,6 +331,7 @@ function ProcessElements($reader)
 	$output_path = $input_path."Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	# Extract text data from all pages in the document
 	echo nl2br("__________________________________________________\n");

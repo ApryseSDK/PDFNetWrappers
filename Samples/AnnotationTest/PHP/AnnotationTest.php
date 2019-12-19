@@ -583,6 +583,7 @@ function CreateTestAnnots($doc) {
 }
 	
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	$doc = new PDFDoc($input_path."numbered.pdf");
 	$doc->InitSecurityHandler();

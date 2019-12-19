@@ -21,6 +21,7 @@ function main()
     global $input_path, $output_path;
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	$doc = new PDFDoc();
 

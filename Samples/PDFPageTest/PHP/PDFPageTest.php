@@ -10,6 +10,7 @@ $input_path = getcwd()."/../../TestFiles/";
 $output_path = $input_path."Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Sample 1 - Split a PDF document into multiple pages
 	

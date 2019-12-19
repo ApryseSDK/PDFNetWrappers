@@ -48,6 +48,7 @@ function Redact($input, $output, $vec) {
 	$output_path = $input_path."Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	$vec = new VectorRedaction();
 	$vec->push(new Redaction(1, new Rect(0.0, 0.0, 600.0, 600.0), false, "Top Secret"));

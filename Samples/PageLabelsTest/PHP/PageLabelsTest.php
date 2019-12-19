@@ -23,6 +23,7 @@ $output_path = $input_path."Output/";
 //-----------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	//-----------------------------------------------------------
 	// Example 1: Add page labels to an existing or newly created PDF

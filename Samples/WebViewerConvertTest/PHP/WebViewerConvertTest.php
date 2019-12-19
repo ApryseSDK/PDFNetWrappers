@@ -37,6 +37,7 @@ function main()
     global $inputPath, $outputPath;
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Sample 1:
 	// Directly convert from PDF to XOD.

@@ -70,6 +70,7 @@ function ImageExtract($reader)
 
 	// Initialize PDFNet
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();
 
 	// Example 1: 
 	// Extract images by traversing the display list for 
