@@ -14,7 +14,7 @@ $output_path = $input_path."Output/";
 	// documents that don't need to be saved/read from a disk.
 	
 	PDFNet::Initialize();
-	PDFNet::GetSystemFontList();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Read a PDF document in a memory buffer.
 	$file = new MappedFile($input_path."tiger.pdf");

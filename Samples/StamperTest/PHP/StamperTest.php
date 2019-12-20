@@ -22,7 +22,7 @@ $input_filename = "newsletter";
 //---------------------------------------------------------------------------------------
 
 	PDFNet::Initialize();
-	PDFNet::GetSystemFontList();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	//--------------------------------------------------------------------------------
 	// Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 

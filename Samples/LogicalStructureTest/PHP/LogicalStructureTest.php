@@ -175,7 +175,7 @@ function ProcessStructElement2($element, &$mcid_doc_map, $ident)
 }
 
 	PDFNet::Initialize();
-	PDFNet::GetSystemFontList();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// Extract logical structure from a PDF document
 

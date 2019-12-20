@@ -38,7 +38,7 @@ function ProcessElements($reader) {
 }
 
 	PDFNet::Initialize();
-	PDFNet::GetSystemFontList();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Extract text data from all pages in the document
 
