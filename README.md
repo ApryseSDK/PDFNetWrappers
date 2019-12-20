@@ -8,7 +8,9 @@ This project demonstrates how to bind PDFNetC with other languages. This project
 
 # Requirements
 
-This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build environment is necessary for compiling and producing the bridge file. We have tested this project on the following environments:
+This project uses SWIG (http://www.swig.org/) in order to generate the language binding source files. Furthermore, a C++ build environment is necessary for compiling and producing the bridge file. We have tested this project on the following:
+
+## Environments and versions
 
 * **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.0.12
 * **CMake** version 2.8+
@@ -16,7 +18,21 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 * **Windows**: Visual Studio 2012 and above
 * **macOS**: XCode 5.0 and above
 
+## Get PDFNetC
+
 Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: http://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
+
+## Strict PHP and SWIG version compatibility
+
+Having a **single version of SWIG and PHP installed** on the server is preferred.  Any other combinations of SWIG and PHP versions not listed below is likely to encounter problems.  If your build is not working as expected then please double check the version numbers.  Installing multiple versions of SWIG and PHP may also produce issues.
+
+* Targeting **PHP7**
+
+    * **PHP7** with developer extensions and **SWIG3 (3.0.12)**
+
+* Targeting **PHP5**
+
+    * **PHP5** with developer extensions and **SWIG2 (2.0.4 - 2.0.12)**
 
 # Building
 
