@@ -177,6 +177,7 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
+    #include "PDF/ViewerOptimizedOptions.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -899,6 +900,7 @@ namespace pdftron {
 %include "PDF/TextExtractor.h"
 
 %include "PDF/TextSearch.h"
+%include "PDF/ViewerOptimizedOptions.h"
 
 //Rename to prevent naming conflict between nested class Redaction and Redaction.h
 //#define Redaction Redaction
