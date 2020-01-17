@@ -40,7 +40,7 @@ Having a **single version of SWIG and PYTHON installed** on the server is prefer
 
 * Targeting **PYTHON3**
 
-    * **PYTHON3 ** with developer extensions and **SWIG3 (3.0.12)** or above
+    * **PYTHON3** with developer extensions and **SWIG3 (3.0.12)** or above
 
 # Building
 
