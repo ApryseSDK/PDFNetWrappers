@@ -136,6 +136,8 @@
     #include "PDF/Convert.h"
     #include "PDF/Date.h"
     #include "PDF/Destination.h"
+    #include "PDF/DigestAlgorithm.h"
+    #include "PDF/DisallowedChange.h"
     #include "PDF/Element.h"
     #include "PDF/ElementBuilder.h"
     #include "PDF/ElementReader.h"
@@ -178,6 +180,9 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
+    #include "PDF/TrustVerificationResult.h"
+    #include "PDF/VerificationOptions.h"
+    #include "PDF/VerificationResult.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -221,6 +226,7 @@ namespace std {
    %template(VectorRedaction) vector<pdftron::PDF::Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;
+   %template(VectorDisallowedChange) vector<pdftron::PDF::DisallowedChange>;
 };
 
 /**
@@ -802,6 +808,11 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
+%include "PDF/DigestAlgorithm.h"
+%include "PDF/DisallowedChange.h"
+%include "PDF/VerificationOptions.h"
+%include "PDF/TrustVerificationResult.h"
+%include "PDF/VerificationResult.h"
 %include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
