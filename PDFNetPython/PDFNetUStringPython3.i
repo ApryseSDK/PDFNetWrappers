@@ -34,7 +34,13 @@ namespace pdftron {
 	 */
 	%typemap(out) UString, const UString
 	%{  
-		$result = PyUnicode_FromString($1.ConvertToUtf8().c_str());
+		try{
+			$result = PyUnicode_FromString($1.ConvertToUtf8().c_str());
+		}catch( ... )
+		{
+			$result =  PyUnicode_FromString("");
+			//SWIG_exception(SWIG_RuntimeError,"UTF8 exception"); //SWIG_fail;
+		}
 	%}
 
     /**
@@ -43,7 +49,12 @@ namespace pdftron {
     /* UString -> Python string */
 	%typemap(directorin) UString, const UString
 	%{  
-		$1 = PyUnicode_FromString($input.ConvertToUtf8().c_str());
+		try{
+			$1 = PyUnicode_FromString($input.ConvertToUtf8().c_str());
+		}catch( ... )
+		{
+			$1 = PyUnicode_FromString("");
+		}
 	%}
     
     /* Python string -> UString */
