@@ -93,6 +93,12 @@ else()
     message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
     return ()
 endif()
+
+if (("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$") AND (PHP_MAJOR_VERSION EQUAL 7))
+    message(FATAL_ERROR "SWIG2 doesn't work with PHP7. Please make sure either SWIG2/PHP5 or SWIG3+/PHP7 are installed. Note that only SWIG-3.0.12 and above works with PHP7. Any other combination of SWIG and PHP VERSION is likely to encounter problems!")
+    return ()
+endif()
+
 message(STATUS "====================================================")
 message(STATUS "*** WARNING: SWIG2 doesn't work with PHP7. Please make sure either SWIG2/PHP5 or SWIG3+/PHP7 are installed. Note that only SWIG-3.0.12 and above works with PHP7. Any other combination of SWIG and PHP VERSION is likely to encounter problems!")
 message(STATUS "====================================================")
