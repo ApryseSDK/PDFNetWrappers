@@ -58,6 +58,7 @@ site.addsitedir('../../../PDFNetC/Lib')
 
 from PDFNetPython import *
 
+# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	doc = PDFDoc(in_docpath)
 	print("==========")
@@ -445,6 +446,7 @@ def main():
 
 	#################### TEST 4: Verify a document's digital signatures.
 	try:
+		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 		VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
 	except Exception as e:
 		print(e.args)
