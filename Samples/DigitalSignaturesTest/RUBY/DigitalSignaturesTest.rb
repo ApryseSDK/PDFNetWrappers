@@ -85,15 +85,15 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 		end
 
 		case result.GetSignersDigestAlgorithm()
-		when DigestAlgorithm::E_sha1
+		when DigestAlgorithm::E_SHA1
 			puts("Digest algorithm: SHA-1")
-		when DigestAlgorithm::E_sha256
+		when DigestAlgorithm::E_SHA256
 			puts("Digest algorithm: SHA-256")
-		when DigestAlgorithm::E_sha384
+		when DigestAlgorithm::E_SHA384
 			puts("Digest algorithm: SHA-384")
-		when DigestAlgorithm::E_sha512
+		when DigestAlgorithm::E_SHA512
 			puts("Digest algorithm: SHA-512")
-		when DigestAlgorithm::E_ripemd160
+		when DigestAlgorithm::E_RIPEMD160
 			puts("Digest algorithm: RIPEMD-160")
 		when DigestAlgorithm::E_unknown_digest_algorithm
 			puts("Digest algorithm: unknown")
