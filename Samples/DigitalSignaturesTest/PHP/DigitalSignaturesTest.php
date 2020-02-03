@@ -241,7 +241,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			echo(nl2br("No detailed trust verification result available."));
 		}
 		
-		echo(nl2br("=========="));
+		echo(nl2br("==========".PHP_EOL));
 		
 		$digsig_fitr->Next();
 	}
