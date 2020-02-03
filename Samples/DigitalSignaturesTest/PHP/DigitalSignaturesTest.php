@@ -222,13 +222,13 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			
 			switch ($trust_verification_result->GetTimeOfTrustVerificationEnum())
 			{
-				case $trust_verification_time_enum === VerificationOptions::e_current:
+				case VerificationOptions::e_current:
 					echo(nl2br("Trust verification attempted with respect to current time (as epoch time): ".$tmp_time_t.PHP_EOL));
 					break;
-				case $trust_verification_time_enum === VerificationOptions::e_signing:
+				case VerificationOptions::e_signing:
 					echo(nl2br("Trust verification attempted with respect to signing time (as epoch time): ".$tmp_time_t.PHP_EOL));
 					break;
-				case $trust_verification_time_enum === VerificationOptions::e_timestamp:
+				case VerificationOptions::e_timestamp:
 					echo(nl2br("Trust verification attempted with respect to secure embedded timestamp (as epoch time): ".$tmp_time_t.PHP_EOL));
 					break;
 				default:
