@@ -246,7 +246,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 		$digsig_fitr->Next();
 	}
 
-	return verification_status;
+	return $verification_status;
 }
 
 function CertifyPDF($in_docpath,
