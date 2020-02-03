@@ -198,9 +198,10 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 		}
 		
 		$changes = $result->GetDisallowedChanges();
-		foreach ($changes as $it2)
+		for ($i = 0; $i < $changes->size(); $i++)
 		{
-			echo(nl2br("\tDisallowed change: ".strval($it2->GetTypeAsString()).", objnum: ".strval($it2->GetObjNum()).PHP_EOL));
+			$change = $changes->get($i);
+			echo(nl2br("\tDisallowed change: ".strval($change->GetTypeAsString()).", objnum: ".strval($change->GetObjNum()).PHP_EOL));
 		}
 		
 		// Get and print all the detailed trust-related results, if they are available.
