@@ -75,15 +75,15 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 		$result = $curr->Verify($opts);
 		if ($result->GetVerificationStatus())
 		{
-			echo(nl2br("Signature verified, objnum: ".strval($curr.GetSDFObj().GetObjNum()).PHP_EOL));
+			echo(nl2br("Signature verified, objnum: ".strval($curr->GetSDFObj()->GetObjNum()).PHP_EOL));
 		}
 		else
 		{
-			echo(nl2br("Signature verification failed, objnum: ".strval($curr.GetSDFObj().GetObjNum()).PHP_EOL));
+			echo(nl2br("Signature verification failed, objnum: ".strval($curr->GetSDFObj()->GetObjNum()).PHP_EOL));
 			$verification_status = False;
 		}
 		
-		switch($result.GetSignersDigestAlgorithm())
+		switch($result->GetSignersDigestAlgorithm())
 		{
 			case DigestAlgorithm::e_sha1:
 				echo(nl2br("Digest algorithm: SHA-1".PHP_EOL));
