@@ -85,19 +85,19 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 		
 		switch($result->GetSignersDigestAlgorithm())
 		{
-			case DigestAlgorithm::e_sha1:
+			case DigestAlgorithm::e_SHA1:
 				echo(nl2br("Digest algorithm: SHA-1".PHP_EOL));
 				break;
-			case DigestAlgorithm::e_sha256:
+			case DigestAlgorithm::e_SHA256:
 				echo(nl2br("Digest algorithm: SHA-256".PHP_EOL));
 				break;
-			case DigestAlgorithm::e_sha384:
+			case DigestAlgorithm::e_SHA384:
 				echo(nl2br("Digest algorithm: SHA-384".PHP_EOL));
 				break;
-			case DigestAlgorithm::e_sha512:
+			case DigestAlgorithm::e_SHA512:
 				echo(nl2br("Digest algorithm: SHA-512".PHP_EOL));
 				break;
-			case DigestAlgorithm::e_ripemd160:
+			case DigestAlgorithm::e_RIPEMD160:
 				echo(nl2br("Digest algorithm: RIPEMD-160".PHP_EOL));
 				break;
 			case DigestAlgorithm::e_unknown_digest_algorithm:
