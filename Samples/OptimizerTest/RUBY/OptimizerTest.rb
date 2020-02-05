@@ -140,3 +140,24 @@ $stdout.sync = true
 	fl.Process(doc, Flattener::E_fast)
 	doc.Save(output_path + "TigerText_flatten.pdf", SDFDoc::E_linearized)
 	doc.Close
+
+
+	# ----------------------------------------------------------------------
+	# Example 5) Optimize a PDF for viewing using SaveViewerOptimized.
+
+	doc = PDFDoc.new(input_path + input_filename + ".pdf")
+	doc.InitSecurityHandler
+
+	opts = ViewerOptimizedOptions.new
+
+	# set the maximum dimension (width or height) that thumbnails will have.
+	opts.SetThumbnailSize(1500)
+
+	# set thumbnail rendering threshold. A number from 0 (include all thumbnails) to 100 (include only the first thumbnail) 
+	# representing the complexity at which SaveViewerOptimized would include the thumbnail. 
+	# By default it only produces thumbnails on the first and complex pages. 
+	# The following line will produce thumbnails on every page.
+	# opts.SetThumbnailRenderingThreshold(0) 
+
+	doc.SaveViewerOptimized(output_path + input_filename + "_SaveViewerOptimized.pdf", opts)
+	doc.Close
