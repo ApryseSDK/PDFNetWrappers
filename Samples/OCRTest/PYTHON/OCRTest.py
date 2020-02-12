@@ -71,7 +71,7 @@ def main():
 
         OCRModule.ImageToPDF(doc, input_path + "multi_lang.jpg", opts)
 
-        # C) Check the result
+        # D) Check the result
 
         doc.Save(output_path + "multi_lang.pdf", 0)
         print("Example 2: multi_lang.jpg")
@@ -120,8 +120,6 @@ def main():
         ignore_zones.AddRect(Rect(1492, 56, 2236, 432))
         opts.AddIgnoreZonesForPage(ignore_zones, 1)
 
-        ignore_zones.Clear()
-        ignore_zones.AddRect(Rect(1492, 56, 2236, 432))
         opts.AddIgnoreZonesForPage(ignore_zones, 2)
 
         # can use a combination of ignore and text boxes to focus on the page area of interest,
@@ -203,6 +201,30 @@ def main():
 
         doc.Save(output_path + "physics.pdf", 0)
         print("Example 6: extracting and applying OCR XML from physics.tif")
+
+        # Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
+        # --------------------------------------------------------------------------------
+
+        # A) Setup empty destination doc
+
+        doc = PDFDoc()
+
+        # B) Setup options with a text zone
+
+        opts = OCROptions()
+        text_zones = RectCollection()
+        text_zones.AddRect(Rect(140, 870, 310, 920))
+        opts.AddTextZonesForPage(text_zones, 1)
+
+        # C) Manually override DPI
+        opts.AddDPI(100)
+
+        # D) Run OCR on the .jpg with options
+        OCRModule.ImageToPDF(doc, input_path + "corrupted_dpi.jpg", opts)
+
+        # E) Check the result
+        doc.Save(output_path + "corrupted_dpi.pdf", 0)
+        print("Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text")
 
 
 if __name__ == '__main__':
