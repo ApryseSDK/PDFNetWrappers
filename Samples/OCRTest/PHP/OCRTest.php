@@ -85,7 +85,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		$opts->AddLang("deu");
 
 		$ignore_zones = new RectCollection();
-		$rect = new Rect(1768.0, 680.0, 2056.0, 3044.0);
+		$rect = new Rect(424.0, 163.0, 493.0, 730.0);
 		$ignore_zones->AddRect($rect);
 		$opts->AddIgnoreZonesForPage($ignore_zones, 1);
 
@@ -93,7 +93,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 		OCRModule::ProcessPDF($doc, $opts);
 
-		// C) check the result
+		// D) check the result
 
 		$doc->Save($output_path."german_kids_song.pdf", 0);
 
@@ -115,9 +115,6 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		// ignore signature box in the first 2 pages
 		$ignore_zones->AddRect(new Rect(1492.0, 56.0, 2236.0, 432.0));
 		$opts->AddIgnoreZonesForPage($ignore_zones, 1);
-
-		$ignore_zones->Clear();
-		$ignore_zones->AddRect(new Rect(1492.0, 56.0, 2236.0, 432.0));
 		$opts->AddIgnoreZonesForPage($ignore_zones, 2);
 
 		// can use a combination of ignore and text boxes to focus on the page area of interest,
@@ -146,7 +143,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 		OCRModule::ImageToPDF($doc, $input_path."bc_environment_protection.tif", $opts);
 
-		// C) check the result
+		// D) check the result
 
 		$doc->Save($output_path."bc_environment_protection.pdf", 0);
 
@@ -170,7 +167,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 		OCRModule::ApplyOCRJsonToPDF($doc, $json);
 
-		// C) check the result
+		// D) check the result
 
 		$doc->Save($output_path."zero_value_test_no_text.pdf", 0);
 
@@ -195,13 +192,42 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 		OCRModule::ApplyOCRXmlToPDF($doc, $xml);
 
-		// C) check the result
+		// D) check the result
 
 		$doc->Save($output_path."physics.pdf", 0);
 
 		echo "Example 6: extracting and applying OCR XML from physics.tif \n";
 
 		echo "Done. \n";
+
+
+		//--------------------------------------------------------------------------------
+		// Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
+
+		// A) Setup empty destination doc
+
+		$doc = new PDFDoc();
+
+		// B) Setup options with a text zone
+
+		$opts = new OCROptions();
+		$text_zones = new RectCollection();
+		$text_zones->AddRect(new Rect(140.0, 870.0, 310.0, 920.0));
+		$opts->AddTextZonesForPage($text_zones, 1);
+
+		// C) Manually override DPI
+
+		$opts->AddDPI(100);
+
+                // D) Run OCR on the .jpg with options
+
+		OCRModule::ImageToPDF($doc, $input_path."corrupted_dpi.jpg", $opts);
+
+		// E) check the result
+
+		$doc->Save($output_path."corrupted_dpi.pdf", 0);
+
+		echo "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text \n";
 
 	}
 
