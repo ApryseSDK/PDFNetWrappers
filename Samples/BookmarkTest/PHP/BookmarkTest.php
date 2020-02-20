@@ -49,6 +49,7 @@ function PrintOutlineTree($item) {
 	}
 }
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// Relative path to the folder containing the test files.
 	$input_path = getcwd()."/../../TestFiles/";

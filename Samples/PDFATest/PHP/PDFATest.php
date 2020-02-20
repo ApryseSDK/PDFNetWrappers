@@ -50,6 +50,7 @@ function PrintResults($pdf_a, $filename)
 	$output_path = getcwd()."/../../TestFiles/Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	PDFNet::SetColorManagement();  // Enable color management (required for PDFA validation).
 
 	//-----------------------------------------------------------
@@ -59,7 +60,7 @@ function PrintResults($pdf_a, $filename)
 	// The max_ref_objs parameter to the PDFACompliance constructor controls the maximum number 
 	// of object numbers that are collected for particular error codes. The default value is 10 
 	// in order to prevent spam. If you need all the object numbers, pass 0 for max_ref_objs.
-	$pdf_a = new PDFACompliance(false, $input_path.$filename, "", PDFACompliance::e_Level1B, 0, 0, 10);
+	$pdf_a = new PDFACompliance(false, $input_path.$filename, "", PDFACompliance::e_Level2B, 0, 0, 10);
 	PrintResults($pdf_a, $filename);
 	$pdf_a->Destroy();
 
@@ -68,13 +69,13 @@ function PrintResults($pdf_a, $filename)
 	//-----------------------------------------------------------
 	$filename = "fish.pdf";
 	
-	$pdf_a = new PDFACompliance(true, $input_path.$filename, "", PDFACompliance::e_Level1B, 0, 0, 10);
+	$pdf_a = new PDFACompliance(true, $input_path.$filename, "", PDFACompliance::e_Level2B, 0, 0, 10);
 	$filename = "pdfa.pdf";
 	$pdf_a->SaveAs($output_path.$filename, true);
 	$pdf_a->Destroy();
 
 	// Re-validate the document after the conversion...
-	$pdf_a = new PDFACompliance(false, $output_path.$filename);		
+	$pdf_a = new PDFACompliance(false, $output_path.$filename, "", PDFACompliance::e_Level2B, 0, 0, 10);		
 	PrintResults($pdf_a, $filename);
 	$pdf_a->Destroy();
 	

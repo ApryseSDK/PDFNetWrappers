@@ -62,7 +62,10 @@ def main():
     buffer = doc.Save(SDFDoc.e_remove_unused)
     
     # Write the contents of the buffer to the disk
-    f = open(output_path + "doc_memory_edit.txt", "wb")
+    if sys.version_info.major >= 3:
+        f = open(output_path + "doc_memory_edit.txt", "w")
+    else:	
+        f = open(output_path + "doc_memory_edit.txt", "wb")
     try:
         f.write(str(buffer))
     finally:

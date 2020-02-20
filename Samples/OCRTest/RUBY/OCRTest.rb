@@ -22,12 +22,12 @@ output_path = "../../TestFiles/Output/"
 	PDFNet.Initialize
 	
 	# The location of the OCR Module
-    PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
+        PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
 	
 	#Example 1) Convert the first page to PNG and TIFF at 92 DPI.
 	
 	# The location of the OCR Module
-    PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
+        PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
 
 	begin  
 		if !OCRModule.IsModuleAvailable
@@ -40,7 +40,6 @@ output_path = "../../TestFiles/Output/"
 			puts 'using the PDFNet::AddResourceSearchPath() function.'
 
 		else
-
 
 			# Example 1) Process image without specifying options, default language - English - is used
 			# --------------------------------------------------------------------------------
@@ -76,7 +75,7 @@ output_path = "../../TestFiles/Output/"
 
 			OCRModule.ImageToPDF(doc, input_path + "multi_lang.jpg", opts)
 
-			# C) Check the result
+			# D) Check the result
 
 			doc.Save(output_path + "multi_lang.pdf", 0)
 			puts "Example 2: multi_lang.jpg"
@@ -97,7 +96,7 @@ output_path = "../../TestFiles/Output/"
 			opts.AddLang("deu")
 
 			ignore_zones = RectCollection.new
-			ignore_zones.AddRect(Rect.new(1768, 680, 2056, 3044))
+			ignore_zones.AddRect(Rect.new(424, 163, 493, 730))
 			opts.AddIgnoreZonesForPage(ignore_zones, 1)
 
 			# C) Run OCR on the .pdf with options
@@ -110,7 +109,6 @@ output_path = "../../TestFiles/Output/"
 			puts "Example 3: german_kids_song.pdf"
 
 			doc.Close
-
 
 			# Example 4) Process multi-page tiff with text/ignore zones specified for each page,
 			# optionally provide English as the target language
@@ -131,8 +129,6 @@ output_path = "../../TestFiles/Output/"
 			ignore_zones.AddRect(Rect.new(1492, 56, 2236, 432))
 			opts.AddIgnoreZonesForPage(ignore_zones, 1)
 
-			ignore_zones.Clear
-			ignore_zones.AddRect(Rect.new(1492, 56, 2236, 432))
 			opts.AddIgnoreZonesForPage(ignore_zones, 2)
 
 			# can use a combination of ignore and text boxes to focus on the page area of interest,
@@ -220,6 +216,37 @@ output_path = "../../TestFiles/Output/"
 			puts "Example 6: extracting and applying OCR XML from physics.tif"
 
 			doc.Close
+
+
+			# Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
+			# --------------------------------------------------------------------------------
+
+			# A) Setup empty destination doc
+
+			doc = PDFDoc.new
+
+			# B) Setup options with a text zone
+
+			opts = OCROptions.new
+			text_zones = RectCollection.new
+			text_zones.AddRect(Rect.new(140, 870, 310, 920))
+			opts.AddIgnoreZonesForPage(text_zones, 1)
+
+			# C) Manually override DPI
+
+			opts.AddDPI(100)
+
+			# D) Run OCR on the .jpg with options
+
+			OCRModule.ImageToPDF(doc, input_path + "corrupted_dpi.jpg", opts)
+
+                        # E) Check the result
+
+			doc.Save(output_path + "corrupted_dpi.pdf", 0)
+			puts "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text"
+
+			doc.Close
+
 			end
 	rescue Exception=>e
 		puts e

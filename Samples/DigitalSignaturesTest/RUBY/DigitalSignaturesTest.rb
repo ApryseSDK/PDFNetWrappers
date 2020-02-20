@@ -57,6 +57,157 @@ include PDFNetRuby
 
 $stdout.sync = true
 
+# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
+	doc = PDFDoc.new(in_docpath)
+	puts("==========")
+	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving)
+	
+	# Trust the public certificate we use for signing.
+	trusted_cert_buf = []
+	trusted_cert_file = MappedFile.new(in_public_key_file_path)
+	file_sz = trusted_cert_file.FileSize()
+	file_reader = FilterReader.new(trusted_cert_file)
+	trusted_cert_buf = file_reader.Read(file_sz)
+	opts.AddTrustedCertificate(trusted_cert_buf)
+
+	# Iterate over the signatures and verify all of them.
+	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
+	verification_status = true
+	while digsig_fitr.HasNext() do
+		curr = digsig_fitr.Current()
+		result = curr.Verify(opts)
+		if result.GetVerificationStatus()
+			puts("Signature verified, objnum: " + curr.GetSDFObj().GetObjNum().to_s)
+		else
+			puts("Signature verification failed, objnum: " + curr.GetSDFObj().GetObjNum().to_s)
+			verification_status = false
+		end
+
+		case result.GetSignersDigestAlgorithm()
+		when DigestAlgorithm::E_SHA1
+			puts("Digest algorithm: SHA-1")
+		when DigestAlgorithm::E_SHA256
+			puts("Digest algorithm: SHA-256")
+		when DigestAlgorithm::E_SHA384
+			puts("Digest algorithm: SHA-384")
+		when DigestAlgorithm::E_SHA512
+			puts("Digest algorithm: SHA-512")
+		when DigestAlgorithm::E_RIPEMD160
+			puts("Digest algorithm: RIPEMD-160")
+		when DigestAlgorithm::E_unknown_digest_algorithm
+			puts("Digest algorithm: unknown")
+		else
+			puts("unrecognized digest algorithm")
+			assert(false)
+		end
+
+		puts("Detailed verification result: ")
+		case result.GetDocumentStatus()
+		when VerificationResult::E_no_error
+			puts("\tNo general error to report.")
+		when VerificationResult::E_corrupt_file
+			puts("\tSignatureHandler reported file corruption.")
+		when  VerificationResult::E_unsigned
+			puts("\tThe signature has not yet been cryptographically signed.")
+		when VerificationResult::E_bad_byteranges
+			puts("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.")
+		when VerificationResult::E_corrupt_cryptographic_contents
+			puts("\tSignatureHandler reports corruption in the Contents of the digital signature.")
+		else
+			puts("unrecognized document status")
+			assert(false)
+		end
+		
+		case result.GetDigestStatus()
+		when VerificationResult::E_digest_invalid
+			puts("\tThe digest is incorrect.")
+		when VerificationResult::E_digest_verified
+			puts("\tThe digest is correct.")
+		when VerificationResult::E_digest_verification_disabled
+			puts("\tDigest verification has been disabled.")
+		when VerificationResult::E_weak_digest_algorithm_but_digest_verifiable
+			puts("\tThe digest is correct, but the digest algorithm is weak and not secure.")
+		when VerificationResult::E_no_digest_status
+			puts( "\tNo digest status to report.")
+		when VerificationResult::e_unsupported_encoding
+			puts("\tNo installed SignatureHandler was able to recognize the signature's encoding.")
+		else
+			puts("unrecognized digest status")
+			assert(false)
+		end
+		
+		case result.GetTrustStatus()
+		when VerificationResult::E_trust_verified
+			puts("\tEstablished trust in signer successfully.")
+		when VerificationResult::E_untrusted
+			puts("\tTrust could not be established.")
+		when VerificationResult::E_trust_verification_disabled
+			puts("\tTrust verification has been disabled.")
+		when VerificationResult::E_no_trust_status
+			puts("\tNo trust status to report.")
+		else
+			puts("unrecognized trust status")
+			assert(false)
+		end
+		
+		case result.GetPermissionsStatus()
+		when VerificationResult::E_invalidated_by_disallowed_changes
+			puts("\tThe document has changes that are disallowed by the signature's permissions settings.")
+		when VerificationResult::E_has_allowed_changes
+			puts("\tThe document has changes that are allowed by the signature's permissions settings.")
+		when VerificationResult::E_unmodified
+			puts("\tThe document has not been modified since it was signed.")
+		when VerificationResult::E_permissions_verification_disabled
+			puts("\tPermissions verification has been disabled.")
+		when VerificationResult::E_no_permissions_status
+			puts("\tNo permissions status to report.")
+		else
+			puts("unrecognized modification permissions status")
+			assert(false)
+		end
+		
+		changes = result.GetDisallowedChanges()
+		for it2 in changes
+			puts("\tDisallowed change: " + it2.GetTypeAsString() + ", objnum: " + it2.GetObjNum().to_s)
+		end
+		
+		# Get and print all the detailed trust-related results, if they are available.
+		if result.HasTrustVerificationResult()
+			trust_verification_result = result.GetTrustVerificationResult()
+			if trust_verification_result.WasSuccessful()
+				puts("Trust verified.")
+			else
+				puts("Trust not verifiable.")
+			end
+			puts("Trust verification result string: " + trust_verification_result.GetResultString())
+			
+			tmp_time_t = trust_verification_result.GetTimeOfTrustVerification()
+			
+			case trust_verification_result.GetTimeOfTrustVerificationEnum()
+			when VerificationOptions::E_current
+				puts("Trust verification attempted with respect to current time (as epoch time): " + tmp_time_t.to_s)
+			when VerificationOptions::E_signing
+				puts("Trust verification attempted with respect to signing time (as epoch time): " + tmp_time_t.to_s)
+			when VerificationOptions::E_timestamp
+				puts("Trust verification attempted with respect to secure embedded timestamp (as epoch time): " + tmp_time_t.to_s)
+			else
+				puts("unrecognized time enum value")
+				assert(false)
+			end
+			
+		else
+			puts("No detailed trust verification result available.")
+		end
+		
+		puts("==========")
+		
+		digsig_fitr.Next()
+	end
+
+	return verification_status
+end # VerifyAllAndPrint
+
 def CertifyPDF(in_docpath,
 	in_cert_field_name,
 	in_private_key_file_path,
@@ -78,7 +229,7 @@ def CertifyPDF(in_docpath,
 
 	page1 = doc.GetPage(1);
 
-	# Create a random text field that we can lock using the field permissions feature.
+	# Create a text field that we can lock using the field permissions feature.
 	annot1 = TextWidget.Create(doc, Rect.new(50, 550, 350, 600), "asdf_test_field");
 	page1.AnnotPushBack(annot1);
 
@@ -330,12 +481,22 @@ def main()
 		result = false
     end
 
-	#################### TEST 3: Clear a certification from a document that is certified and has two approval signatures.
+	#################### TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	begin
 		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
 			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
 		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+	rescue Exception => e
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
+    end
+
+	#################### TEST 4: Verify a document's digital signatures.
+	begin
+		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+		result &= VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer");
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)

@@ -17,6 +17,7 @@ $output_path = $input_path."Output/";
 //   http://www.pdftron.com/net/samplecode/data/US061222892.pdf
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	$pdf_doc = new PDFDoc("../../TestFiles/US061222892-a.pdf") ;
 	$pdf_doc->InitSecurityHandler();

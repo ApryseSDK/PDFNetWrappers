@@ -15,11 +15,14 @@ if (PYTHONLIBS_FOUND)
         set(PYTHON_3 ON)
     else ()
         message(FATAL_ERROR "Unsupported Python version (Detected: ${PYTHONLIBS_VERSION_STRING}). Please install either Python 2 or Python 3.")
+        return ()
     endif ()
 
     message(STATUS "Using Python: ${PYTHONLIBS_VERSION_STRING}")
     message(STATUS "Python include directory: ${PYTHON_INCLUDE_DIRS}")
     message(STATUS "Python library: ${PYTHON_LIBRARY}")
+    set(PylibInfoOutput ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo )
+    file(WRITE ${PylibInfoOutput} "python${PYTHONLIBS_VERSION_STRING}") 
 else ()
     message(FATAL_ERROR "Cannot find Python libraries, please set the variables specified by the error message then try again.")
     return ()
@@ -27,6 +30,11 @@ endif ()
 
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
+
+if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
+    message(FATAL_ERROR "Cannot build PYTHON3 wrapper with SWIG2. Please install SWIG 3.0.12 or above and rebuild the wrapper.")
+    return ()
+endif ()
 
 if (PYTHON_2)
     set(SWIG_DEFINE "-DPYTHON2")
@@ -102,7 +110,7 @@ configure_file(${PDFNetPython_SourcesDir}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT
 # Installation rules
 
 install(
-    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py
+    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo 
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
 install(

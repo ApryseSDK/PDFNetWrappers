@@ -32,8 +32,6 @@ def dumpAllText (reader):
             print("BBox: " + str(bbox.GetX1()) + ", " + str(bbox.GetY1()) + ", " 
                   + str(bbox.GetX2()) + ", " + str(bbox.GetY2()))
             textString = element.GetTextString()
-            if sys.version_info.major >= 3:
-                textString = ascii(textString)
             print(textString)
         elif type == Element.e_text_new_line:
             print("New Line")
@@ -102,8 +100,6 @@ def main():
     if example1_basic:
         print("Word count: " + str(txt.GetWordCount()))
         txtAsText = txt.GetAsText()
-        if sys.version_info.major >= 3:
-            txtAsText = ascii(txtAsText)
         print("- GetAsText --------------------------" + txtAsText)
         print("-----------------------------------------------------------")
    
@@ -123,8 +119,6 @@ def main():
             word = line.GetFirstWord()
             while word.IsValid():
                 wordString = word.GetString()
-                if sys.version_info.major >= 3:
-                    wordString = ascii(wordString)
                 print(wordString)
                 word = word.GetNextWord()
             line = line.GetNextLine()
@@ -143,6 +137,7 @@ def main():
         line = txt.GetFirstLine()
         while line.IsValid():
             if line.GetNumWords() == 0:
+                line = line.GetNextLine()			
                 continue
             word = line.GetFirstWord()
             if cur_flow_id != line.GetFlowID():
@@ -175,14 +170,13 @@ def main():
                 sys.stdout.write(" cur_num=\"" + str(word.GetCurrentNum()) + "\"");
                 sz = word.GetStringLen()
                 if sz == 0:
+                    word = word.GetNextWord()				
                     continue
                 # If the word style is different from the parent style, output the new style.
                 s = word.GetStyle()
                 if s != line_style:
                     printStyle (s);
                 wordString = word.GetString()
-                if sys.version_info.major >= 3:
-                    wordString = ascii(wordString)
                 sys.stdout.write(">" + wordString + "</Word>\n")
                 word = word.GetNextWord()
             sys.stdout.write("</Line>\n")                
@@ -223,18 +217,12 @@ def main():
         itr = doc.GetPageIterator()
         first_page = itr.Current()
         s1 = ReadTextFromRect(first_page, Rect(27, 392, 563, 534), reader)
-        if sys.version_info.major >= 3:
-            s1 = ascii(s1)
         print("Field 1: " + s1)
 
         s1 = ReadTextFromRect(first_page, Rect(28, 551, 106, 623), reader);
-        if sys.version_info.major >= 3:
-            s1 = ascii(s1)
         print("Field 2: " + s1)
 
         s1 = ReadTextFromRect(first_page, Rect(208, 550, 387, 621), reader);
-        if sys.version_info.major >= 3:
-            s1 = ascii(s1)
         print("Field 3: " + s1)
         
         doc.Close()

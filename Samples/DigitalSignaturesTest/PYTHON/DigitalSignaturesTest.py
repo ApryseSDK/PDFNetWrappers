@@ -58,6 +58,137 @@ site.addsitedir('../../../PDFNetC/Lib')
 
 from PDFNetPython import *
 
+# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
+	doc = PDFDoc(in_docpath)
+	print("==========")
+	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
+	
+	# Trust the public certificate we use for signing.
+	trusted_cert_buf = []
+	trusted_cert_file = MappedFile(in_public_key_file_path)
+	file_sz = trusted_cert_file.FileSize()
+	file_reader = FilterReader(trusted_cert_file)
+	trusted_cert_buf = file_reader.Read(file_sz)
+	opts.AddTrustedCertificate(trusted_cert_buf)
+
+	# Iterate over the signatures and verify all of them.
+	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
+	verification_status = True
+	while (digsig_fitr.HasNext()):
+		curr = digsig_fitr.Current()
+		result = curr.Verify(opts)
+		if result.GetVerificationStatus():
+			print("Signature verified, objnum: %lu" % curr.GetSDFObj().GetObjNum())
+		else:
+			print("Signature verification failed, objnum: %lu" % curr.GetSDFObj().GetObjNum())
+			verification_status = False
+
+		digest_algorithm = result.GetSignersDigestAlgorithm()
+		if digest_algorithm is DigestAlgorithm.e_SHA1:
+			print("Digest algorithm: SHA-1")
+		elif digest_algorithm is DigestAlgorithm.e_SHA256:
+			print("Digest algorithm: SHA-256")
+		elif digest_algorithm is DigestAlgorithm.e_SHA384:
+			print("Digest algorithm: SHA-384")
+		elif digest_algorithm is DigestAlgorithm.e_SHA512:
+			print("Digest algorithm: SHA-512")
+		elif digest_algorithm is DigestAlgorithm.e_RIPEMD160:
+			print("Digest algorithm: RIPEMD-160")
+		elif digest_algorithm is DigestAlgorithm.e_unknown_digest_algorithm:
+			print("Digest algorithm: unknown")
+		else:
+			assert False, "unrecognized document status"
+
+		print("Detailed verification result: ")
+		doc_status = result.GetDocumentStatus()
+		if doc_status is VerificationResult.e_no_error:
+			print("\tNo general error to report.")
+		elif doc_status is VerificationResult.e_corrupt_file:
+			print("\tSignatureHandler reported file corruption.")
+		elif doc_status is VerificationResult.e_unsigned:
+			print("\tThe signature has not yet been cryptographically signed.")
+		elif doc_status is VerificationResult.e_bad_byteranges:
+			print("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.")
+		elif doc_status is VerificationResult.e_corrupt_cryptographic_contents:
+			print("\tSignatureHandler reports corruption in the Contents of the digital signature.")
+		else:
+			assert False, "unrecognized document status"
+		
+		digest_status = result.GetDigestStatus()
+		if digest_status is VerificationResult.e_digest_invalid:
+			print("\tThe digest is incorrect.")
+		elif digest_status is VerificationResult.e_digest_verified:
+			print("\tThe digest is correct.")
+		elif digest_status is VerificationResult.e_digest_verification_disabled:
+			print("\tDigest verification has been disabled.")
+		elif digest_status is VerificationResult.e_weak_digest_algorithm_but_digest_verifiable:
+			print("\tThe digest is correct, but the digest algorithm is weak and not secure.")
+		elif digest_status is VerificationResult.e_no_digest_status:
+			print( "\tNo digest status to report.")
+		elif digest_status is VerificationResult.e_unsupported_encoding:
+			print("\tNo installed SignatureHandler was able to recognize the signature's encoding.")
+		else:
+			assert False, "unrecognized digest status"
+		
+		trust_status = result.GetTrustStatus()
+		if trust_status is VerificationResult.e_trust_verified:
+			print("\tEstablished trust in signer successfully.")
+		elif trust_status is VerificationResult.e_untrusted:
+			print("\tTrust could not be established.")
+		elif trust_status is VerificationResult.e_trust_verification_disabled:
+			print("\tTrust verification has been disabled.")
+		elif trust_status is VerificationResult.e_no_trust_status:
+			print("\tNo trust status to report.")
+		else:
+			assert False, "unrecognized trust status"
+		
+		permissions_status = result.GetPermissionsStatus()
+		if permissions_status is VerificationResult.e_invalidated_by_disallowed_changes:
+			print("\tThe document has changes that are disallowed by the signature's permissions settings.")
+		elif permissions_status is VerificationResult.e_has_allowed_changes:
+			print("\tThe document has changes that are allowed by the signature's permissions settings.")
+		elif permissions_status is VerificationResult.e_unmodified:
+			print("\tThe document has not been modified since it was signed.")
+		elif permissions_status is VerificationResult.e_permissions_verification_disabled:
+			print("\tPermissions verification has been disabled.")
+		elif permissions_status is VerificationResult.e_no_permissions_status:
+			print("\tNo permissions status to report.")
+		else:
+			assert False, "unrecognized modification permissions status"
+		
+		changes = result.GetDisallowedChanges()
+		for it2 in changes:
+			print("\tDisallowed change: %s, objnum: %lu" % (it2.GetTypeAsString(), it2.GetObjNum()))
+		
+		# Get and print all the detailed trust-related results, if they are available.
+		if result.HasTrustVerificationResult():
+			trust_verification_result = result.GetTrustVerificationResult()
+			print("Trust verified." if trust_verification_result.WasSuccessful() else "Trust not verifiable.")
+			print("Trust verification result string: %s" % trust_verification_result.GetResultString())
+			
+			tmp_time_t = trust_verification_result.GetTimeOfTrustVerification()
+			
+			trust_verification_time_enum = trust_verification_result.GetTimeOfTrustVerificationEnum()
+			
+			if trust_verification_time_enum is VerificationOptions.e_current:
+				print("Trust verification attempted with respect to current time (as epoch time): " + str(tmp_time_t))
+			elif trust_verification_time_enum is VerificationOptions.e_signing:
+				print("Trust verification attempted with respect to signing time (as epoch time): " + str(tmp_time_t))
+			elif trust_verification_time_enum is VerificationOptions.e_timestamp:
+				print("Trust verification attempted with respect to secure embedded timestamp (as epoch time): " + str(tmp_time_t))
+			else:
+				assert False, "unrecognized time enum value"
+			
+		else:
+			print("No detailed trust verification result available.")
+		
+		print("==========")
+		
+		digsig_fitr.Next()
+
+	return verification_status
+
 def CertifyPDF(in_docpath,
 	in_cert_field_name,
 	in_private_key_file_path,
@@ -78,7 +209,7 @@ def CertifyPDF(in_docpath,
 
 	page1 = doc.GetPage(1)
 
-	# Create a random text field that we can lock using the field permissions feature.
+	# Create a text field that we can lock using the field permissions feature.
 	annot1 = TextWidget.Create(doc, Rect(50, 550, 350, 600), "asdf_test_field")
 	page1.AnnotPushBack(annot1)
 
@@ -303,7 +434,7 @@ def main():
 	except Exception as e:
 		print(e.args)
 		result = False
-	#################### TEST 3: Clear a certification from a document that is certified and has two approval signatures.
+	#################### TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try:
 		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
@@ -313,6 +444,14 @@ def main():
 		print(e.args)
 		result = False
 
+	#################### TEST 4: Verify a document's digital signatures.
+	try:
+		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+		VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
+	except Exception as e:
+		print(e.args)
+		result = False
+	
 	#################### End of tests. ####################
 
 	if not result:

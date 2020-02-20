@@ -48,6 +48,7 @@ function Redact($input, $output, $vec) {
 	$output_path = $input_path."Output/";
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	$vec = new VectorRedaction();
 	$vec->push(new Redaction(1, new Rect(0.0, 0.0, 600.0, 600.0), false, "Top Secret"));

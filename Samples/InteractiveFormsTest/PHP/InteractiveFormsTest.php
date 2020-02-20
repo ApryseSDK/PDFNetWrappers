@@ -93,6 +93,7 @@ function CreateCustomButtonAppearance($doc, $button_down)
 }
 
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	//----------------------------------------------------------------------------------
 	// Example 1: Programatically create new Form Fields and Widget Annotations.

@@ -245,7 +245,10 @@ def main():
 
         cur_field_name = itr.Current().GetName()
         # Add one to the count for this field name for later processing
-        field_names[cur_field_name] = field_names[cur_field_name] + 1 if field_names.has_key(cur_field_name) else 1
+        if sys.version_info.major >= 3:
+            field_names[cur_field_name] = field_names[cur_field_name] + 1 if cur_field_name in field_names else 1
+        else:
+            field_names[cur_field_name] = field_names[cur_field_name] + 1 if field_names.has_key(cur_field_name) else 1
 
         print("Field name: " + itr.Current().GetName())
         print("Field partial name: " + itr.Current().GetPartialName())

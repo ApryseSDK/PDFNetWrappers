@@ -116,7 +116,10 @@ def main():
     bmp = draw.GetBitmap(page, PDFDraw.e_rgb)
 
     # Save the raw RGB data to disk.
-    f = open(output_path + "tiger_100dpi_rot90.raw", "wb")
+    if sys.version_info.major >= 3:
+	    f = open(output_path + "tiger_100dpi_rot90.raw", "w")
+    else:
+	    f = open(output_path + "tiger_100dpi_rot90.raw", "wb")
     try:
         f.write(str(bmp.GetBuffer()))
     finally:

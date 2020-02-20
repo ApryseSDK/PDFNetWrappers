@@ -43,6 +43,7 @@ $input_filename = "newsletter";
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
 	PDFNet::Initialize();
+	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	//--------------------------------------------------------------------------------
 	// Example 1) Simple optimization of a pdf with default settings. 
@@ -141,6 +142,26 @@ $input_filename = "newsletter";
 	// a background image e_simple should be used instead.
 	$fl->Process($doc, Flattener::e_fast);
 	$doc->Save($output_path."TigerText_flatten.pdf", SDFDoc::e_linearized);
+	$doc->Close();
+
+	// ----------------------------------------------------------------------
+	// Example 5) Optimize a PDF for viewing using SaveViewerOptimized.
+	
+	$doc = new PDFDoc($input_path.$input_filename.".pdf");
+	$doc->InitSecurityHandler();
+	
+	$opts = new ViewerOptimizedOptions();
+
+	// set the maximum dimension (width or height) that thumbnails will have.
+        $opts->SetThumbnailSize(1500);
+
+	// set thumbnail rendering threshold. A number from 0 (include all thumbnails) to 100 (include only the first thumbnail) 
+        // representing the complexity at which SaveViewerOptimized would include the thumbnail. 
+        // By default it only produces thumbnails on the first and complex pages. 
+        // The following line will produce thumbnails on every page.
+        // opts->SetThumbnailRenderingThreshold(0); 
+
+        $doc->SaveViewerOptimized($output_path.$input_filename."_SaveViewerOptimized.pdf", $opts);
 	$doc->Close();
 	
 ?>
