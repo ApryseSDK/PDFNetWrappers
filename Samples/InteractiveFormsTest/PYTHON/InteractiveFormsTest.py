@@ -261,12 +261,14 @@ def main():
         elif type == Field.e_radio:
             sys.stdout.write("Radio button: Value = " + str_val + '\n')
         elif type == Field.e_check:
+            itr.Current().SetValue(True)
             sys.stdout.write("Check box: Value = " + str_val + '\n')
-            sv = itr.Current().SetValue(True)
         elif type == Field.e_text:
             sys.stdout.write("Text" + '\n')
             # Edit all variable text in the document
-            sv = itr.Current().SetValue("This is a new value. The old one was: " + str_val + '\n')
+            if itr.Current().GetValue():
+                old_value = itr.Current().GetValueAsString();
+                itr.Current().SetValue("This is a new value. The old one was: " + old_value)
         elif type == Field.e_choice:
             sys.stdout.write("Choice" + '\n')
         elif type == Field.e_signature:
