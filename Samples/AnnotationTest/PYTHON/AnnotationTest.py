@@ -85,14 +85,6 @@ def AnnotationHighLevelAPI(doc):
     file_attach = FileAttachment.Create(doc.GetSDFDoc(), Rect(80, 280, 200, 320), (input_path + "peppers.jpg"))
     first_page.AnnotPushBack(file_attach)
 
-    circle = Circle.Create(doc.GetSDFDoc(), Rect(10, 110, 100, 200))
-    circle.SetInteriorColor(ColorPt(0, 0.5, 1), 3)
-    circle.SetTitle("This is a title for the circle")
-    circle.SetColor(ColorPt(0, 1, 0), 3)
-    circle.SetInteriorColor(ColorPt(0, 0, 1), 3)
-    circle.SetContentRect(Rect(12, 112, 98, 198))
-    circle.SetOpacity(0.5)
-    first_page.AnnotPushBack(circle)
 
     ink = Ink.Create(doc.GetSDFDoc(), Rect(110, 10, 300, 200))
     pt3 = Point(110, 10)
@@ -201,7 +193,7 @@ def CreateTestAnnots(doc):
     txtannot.SetContents( "\n\nSome swift brown fox snatched a gray hare out " +
                           "of the air by freezing it with an angry glare." +
                           "\n\nAha!\n\nAnd there was much rejoicing!"    )
-    txtannot.SetBorderStyle( BorderStyle( BorderStyle.e_solid, 1, 10, 20 ), True )
+    txtannot.SetBorderStyle( BorderStyle( BorderStyle.e_solid, 1, 10, 20 ), False )
     txtannot.SetQuaddingFormat(0)
     first_page.AnnotPushBack(txtannot)
     txtannot.RefreshAppearance()
@@ -212,7 +204,7 @@ def CreateTestAnnots(doc):
                             "by freezing it with an angry glare."
                             "\n\nAha!\n\nAnd there was much rejoicing!"    )
     txtannot.SetCalloutLinePoints( Point(200,300), Point(150,290), Point(110,110) )
-    txtannot.SetBorderStyle( BorderStyle( BorderStyle.e_solid, 1, 10, 20 ), True )
+    txtannot.SetBorderStyle( BorderStyle( BorderStyle.e_solid, 1, 10, 20 ), False )
     txtannot.SetEndingStyle( LineAnnot.e_ClosedArrow )
     txtannot.SetColor( ColorPt( 0, 1, 0 ) )
     txtannot.SetQuaddingFormat(1)
@@ -223,7 +215,7 @@ def CreateTestAnnots(doc):
     txtannot.SetContents( "\n\nSome swift brown fox snatched a gray hare out of the air "
                           "by freezing it with an angry glare."
                           "\n\nAha!\n\nAnd there was much rejoicing!"    )
-    txtannot.SetBorderStyle( BorderStyle( BorderStyle.e_solid, 1, 10, 20 ), True )
+    txtannot.SetBorderStyle( BorderStyle( BorderStyle.e_solid, 1, 10, 20 ), False )
     txtannot.SetColor( ColorPt( 0, 0, 1 ) )
     txtannot.SetOpacity( 0.2 )
     txtannot.SetQuaddingFormat(2)
@@ -461,35 +453,8 @@ def CreateTestAnnots(doc):
     ew.End()  # save changes to the current page
     doc.PagePushBack(page6)
     
-    ipage = 0
-    while ipage<2:
-        iann = 0
-        while iann<100:
-            if not iann > FileAttachment.e_Tag:
-                fa = FileAttachment.Create(doc.GetSDFDoc(),Rect(50+50*iann,100,70+50*iann,120), fs, iann)
-                if ipage != 0:
-                    fa.SetColor(ColorPt(1,1,0))
-                    fa.RefreshAppearance()
-                if ipage == 0:
-                    page5.AnnotPushBack( fa )
-                else:
-                    page6.AnnotPushBack( fa )
-            if iann > Text.e_Note:
-                break
-            txt = Text.Create( doc.GetSDFDoc(), Rect( 10+iann*50, 200, 30+iann*50, 220 ) )
-            txt.SetIcon( iann )
-            txt.SetContents( txt.GetIconName() )
-            if ipage != 0:
-                txt.SetColor( ColorPt(1,1,0) )
-            txt.RefreshAppearance()
-            if ipage == 0:
-                page5.AnnotPushBack( txt )
-            else:
-                page6.AnnotPushBack( txt )
-            iann = iann + 1
-        ipage = ipage + 1
         
-    txt = Text.Create( doc.GetSDFDoc(), Rect( 10, 20, 30, 40 ) )
+    txt = Text.Create( doc.GetSDFDoc(), Point(10, 20) )
     txt.SetIcon( "UserIcon" )
     txt.SetContents( "User defined icon, unrecognized by appearance generator" )
     txt.SetColor( ColorPt(0,1,0) )
