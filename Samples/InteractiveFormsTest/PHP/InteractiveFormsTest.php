@@ -129,7 +129,7 @@ function CreateCustomButtonAppearance($doc, $button_down)
 	// a Field object
 	$text3 = TextWidget::Create($doc, new Rect(110.0, 660.0, 380.0, 690.0), "employee.name.first");
 	$text3->SetText("Levi");
-	//$text3->SetFont(Font::Create($doc, Font::e_times_bold));
+	$text3->SetFont(Font::Create($doc->GetSDFDoc(), Font::e_times_bold));
 	$text3->RefreshAppearance();
 	$blank_page->AnnotPushBack($text3);
 	$emp_last_name = $doc->FieldCreate("employee.name.last", Field::e_text, "Ackerman"); 

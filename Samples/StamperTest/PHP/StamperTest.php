@@ -34,7 +34,7 @@ $input_filename = "newsletter";
 	$s->SetAlignment(Stamper::e_horizontal_center, Stamper::e_vertical_center);
 	$red = new ColorPt(1.0, 0.0, 0.0); // set text color to red
 	$s->SetFontColor($red);
-	$s->StampText($doc, "If you are readimaing this\nthis is an even page", new PageSet(1, $doc->GetPageCount()));
+	$s->StampText($doc, "If you are reading this\nthis is an even page", new PageSet(1, $doc->GetPageCount()));
 	//delete all text stamps in even pages
 	Stamper::DeleteStamps($doc, new PageSet(1, $doc->GetPageCount(), PageSet::e_odd));
 

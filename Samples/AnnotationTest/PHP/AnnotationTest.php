@@ -222,7 +222,7 @@ function CreateTestAnnots($doc) {
 	$txtannot = FreeText::Create( $doc->GetSDFDoc(), new Rect(10.0, 400.0, 160.0, 570.0)  );
 	$txtannot->SetContents( "\n\nSome swift brown fox snatched a gray hare out of the air by freezing it with an angry glare."
 				."\n\nAha!\n\nAnd there was much rejoicing!");
-	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), true );
+	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), false );
 	$txtannot->SetQuaddingFormat(0);
 	$first_page->AnnotPushBack($txtannot);
 	$txtannot->RefreshAppearance();
@@ -232,7 +232,7 @@ function CreateTestAnnots($doc) {
 	$txtannot->SetContents("\n\nSome swift brown fox snatched a gray hare out of the air by freezing it with an angry glare."
 			       ."\n\nAha!\n\nAnd there was much rejoicing!");
 	$txtannot->SetCalloutLinePoints( new Point(200.0,300.0), new Point(150.0,290.0), new Point(110.0,110.0) );
-	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), true );
+	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), false );
 	$txtannot->SetEndingStyle( LineAnnot::e_ClosedArrow );
 	$txtannot->SetColor( new ColorPt( 0.0, 1.0, 0.0 ) );
 	$txtannot->SetQuaddingFormat(1);
@@ -242,7 +242,7 @@ function CreateTestAnnots($doc) {
 	$txtannot = FreeText::Create( $doc->GetSDFDoc(), new Rect(400.0, 10.0, 550.0, 400.0) );
 	$txtannot->SetContents("\n\nSome swift brown fox snatched a gray hare out of the air by freezing it with an angry glare."
 			     ."\n\nAha!\n\nAnd there was much rejoicing!");
-	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), true );
+	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), false );
 	$txtannot->SetColor( new ColorPt( 0.0, 0.0, 1.0 ) );
 	$txtannot->SetOpacity( 0.2 );
 	$txtannot->SetQuaddingFormat(2);
@@ -461,7 +461,6 @@ function CreateTestAnnots($doc) {
 	$page4->AnnotPushBack( $hl );
 
 	$sq = Squiggly::Create( $doc->GetSDFDoc(), new Rect(100.0,450.0,250.0,600.0) );
-	//$sq->SetColor( new ColorPt(1.0,0.0,0.0), 3 );
 	$sq->SetQuadPoint( 0, new QuadPoint( new Point( 122.0,455.0), new Point(240.0, 545.0), new Point(230.0, 595.0), new Point(101.0,500.0 ) ) );
 	$sq->RefreshAppearance();
 	$page4->AnnotPushBack( $sq );
@@ -483,35 +482,8 @@ function CreateTestAnnots($doc) {
 	$ew->End();  // save changes to the current page
 	$doc->PagePushBack($page6);
 
-	for( $ipage =0; $ipage < 2; ++$ipage ) {
-		for( $iann =0; $iann < 100; $iann++ ) {
-			if( ! ($iann > FileAttachment::e_Tag) ) {
-				$fa = FileAttachment::Create( $doc->GetSDFDoc(),new Rect(50.0+50.0*(double)$iann,100.0,70.0+50.0*(double)$iann,120.0), $fs, $iann );
-				if($ipage) {
-					$fa->SetColor( new ColorPt(1.0,1.0,0.0) );
-				}
-				$fa->RefreshAppearance();
-				if( $ipage == 0 ) {
-					$page5->AnnotPushBack( $fa );
-				}
-				else {
-					$page6->AnnotPushBack( $fa );
-				}
-			}
-			if( $iann > Text::e_Note ) break;
-			$txt = Text::Create( $doc->GetSDFDoc(), new Rect( 10.0+(double)$iann*50.0, 200.0, 30.0+(double)$iann*50.0, 220.0 ) );
-			$txt->SetIcon( $iann );
-			$txt->SetContents( $txt->GetIconName() );
-			if( $ipage )	$txt->SetColor( new ColorPt(1.0,1.0,0.0) );
-			$txt->RefreshAppearance();
-			if( $ipage == 0 )
-				$page5->AnnotPushBack( $txt );
-			else 
-				$page6->AnnotPushBack( $txt );
-		}
-	}
 
-	$txt = Text::Create( $doc->GetSDFDoc(), new Rect( 10.0, 20.0, 30.0, 40.0 ) );
+	$txt = Text::Create( $doc->GetSDFDoc(), new Point(10.0, 20.0) );
 	$txt->SetIcon( "UserIcon" );
 	$txt->SetContents( "User defined icon, unrecognized by appearance generator" );
 	$txt->SetColor( new ColorPt(0.0,1.0,0.0) );

@@ -40,11 +40,10 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
     	$writer->WritePlacedElement($element);
 
    	// ----------------------------------------------------------
-	// The following section is excluded because gif is not supported in Linux
    	// Add a GIF image to the output file
-    	//$img = Image::Create($doc->GetSDFDoc(), $input_path."pdfnet.gif");
-    	//$element = $builder->CreateImage($img, new Matrix2D((double)($img->GetImageWidth()), 0.0, 0.0, (double)($img->GetImageHeight()), 50.0, 350.0));
-    	//$writer->WritePlacedElement($element);
+    	$img = Image::Create($doc->GetSDFDoc(), $input_path."pdfnet.gif");
+    	$element = $builder->CreateImage($img, new Matrix2D((double)($img->GetImageWidth()), 0.0, 0.0, (double)($img->GetImageHeight()), 50.0, 350.0));
+    	$writer->WritePlacedElement($element);
     
     	// ----------------------------------------------------------
     	// Add a TIFF image to the output file
