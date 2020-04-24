@@ -253,7 +253,7 @@ def CreateTestAnnots(doc)
 	line.SetEndPoint( Point.new(260,370) )
 	line.SetStartStyle(LineAnnot::E_Square)
 	line.SetEndStyle(LineAnnot::E_Circle)
-	line.SetColor(ColorPt.new(3, 5, 0), 3)
+	line.SetColor(ColorPt.new(0.3, 0.5, 0), 3)
 	line.SetContents( "Dashed Captioned" )
 	line.SetShowCaption(true)
 	line.SetCaptionPosition( LineAnnot::E_Top )
@@ -472,41 +472,6 @@ def CreateTestAnnots(doc)
 	ew.End()  # save changes to the current page
 	doc.PagePushBack(page6)
 	
-	ipage = 0
-	while ipage<2 do
-		iann = 0
-		while iann<100 do
-			if !(iann > FileAttachment::E_Tag)
-				fa = FileAttachment.Create(doc.GetSDFDoc(),Rect.new(50+50*iann,100,70+50*iann,120), fs, iann)
-				if ipage != 0
-					fa.SetColor(ColorPt.new(1,1,0))
-					fa.RefreshAppearance()
-				end
-				if ipage == 0
-					page5.AnnotPushBack( fa )
-				else
-					page6.AnnotPushBack( fa )
-				end
-			end
-			if iann > Text::E_Note
-				break
-			end
-			txt = Text.Create( doc.GetSDFDoc(), Rect.new( 10+iann*50, 200, 30+iann*50, 220 ) )
-			txt.SetIcon( iann )
-			txt.SetContents( txt.GetIconName() )
-			if ipage != 0
-				txt.SetColor( ColorPt.new(1,1,0) )
-			end
-			txt.RefreshAppearance()
-			if ipage == 0
-				page5.AnnotPushBack( txt )
-			else
-				page6.AnnotPushBack( txt )
-			end
-			iann = iann + 1
-		end
-		ipage = ipage + 1
-	end
 		
 	txt = Text.Create( doc.GetSDFDoc(), Rect.new( 10, 20, 30, 40 ) )
 	txt.SetIcon( "UserIcon" )

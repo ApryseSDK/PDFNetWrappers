@@ -34,10 +34,10 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 // document, including XML Forms Architecture (XFA) content and Extensible Metadata 
 // Platform (XMP) content.
 	
-function Redact($input, $output, $vec) {
+function Redact($input, $output, $vec, $app) {
 	$doc = new PDFDoc($input);
 	if ($doc->InitSecurityHandler()) {
-		Redactor::Redact($doc, $vec);
+		Redactor::Redact($doc, $vec, $app, false, true);
 		$doc->Save($output, SDFDoc::e_linearized);
 	}
 
@@ -51,13 +51,19 @@ function Redact($input, $output, $vec) {
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	$vec = new VectorRedaction();
-	$vec->push(new Redaction(1, new Rect(0.0, 0.0, 600.0, 600.0), false, "Top Secret"));
-	$vec->push(new Redaction(2, new Rect(0.0, 0.0, 100.0, 100.0), false, "foo"));
-    	$vec->push(new Redaction(2, new Rect(100.0, 100.0, 200.0, 200.0), false, "bar"));
+	$vec->push(new Redaction(1, new Rect(100.0, 100.0, 550.0, 600.0), false, "Top Secret"));
+	$vec->push(new Redaction(2, new Rect(30.0, 30.0, 450.0, 450.0), true, "Negative Redaction"));
+	$vec->push(new Redaction(2, new Rect(0.0, 0.0, 100.0, 100.0), false, "Positive"));
+	$vec->push(new Redaction(2, new Rect(100.0, 100.0, 200.0, 200.0), false, "Positive"));
    	$vec->push(new Redaction(2, new Rect(300.0, 300.0, 400.0, 400.0), false, ""));
-    	$vec->push(new Redaction(2, new Rect(500.0, 500.0, 600.0, 600.0), false, ""));
-    	$vec->push(new Redaction(3, new Rect(0.0, 0.0, 700.0, 20.0), false, ""));
-
-	Redact($input_path."newsletter.pdf", $output_path."redacted.pdf", $vec);
+	$vec->push(new Redaction(2, new Rect(500.0, 500.0, 600.0, 600.0), false, ""));
+	$vec->push(new Redaction(3, new Rect(0.0, 0.0, 700.0, 20.0), false, ""));
+	
+	$app = new Appearance(); 
+	$app->RedactionOverlay = true;
+	$app->Border = false;
+	$app->ShowRedactedContentRegions = true;
+	Redact($input_path."newsletter.pdf", $output_path."redacted.pdf", $vec, $app);
+    
 	echo "Done...\n";	
 ?>
