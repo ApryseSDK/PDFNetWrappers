@@ -354,7 +354,7 @@ def PrintSignaturesInfo(in_docpath):
 
 			signing_time = digsigfield.GetSigningTime()
 			if signing_time.IsValid():
-				print('Signing day: ' + signing_time.GetDay())
+				print('Signing time is valid.')
 
 			print('Location: ' + digsigfield.GetLocation())
 			print('Reason: ' + digsigfield.GetReason())
