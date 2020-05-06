@@ -444,7 +444,7 @@ function PrintSignaturesInfo($in_docpath)
 			$signing_time = $digsigfield->GetSigningTime();
 			if ($signing_time->IsValid())
 			{
-				echo(nl2br('Signing day: '.$signing_time->GetDay().PHP_EOL));
+				echo(nl2br('Signing time is valid.'.PHP_EOL));
 			}
 
 			echo(nl2br('Location: '.$digsigfield->GetLocation().PHP_EOL));
