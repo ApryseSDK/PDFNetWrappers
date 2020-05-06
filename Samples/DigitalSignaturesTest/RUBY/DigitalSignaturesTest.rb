@@ -385,7 +385,7 @@ def PrintSignaturesInfo(in_docpath)
 
 			signing_time = digsigfield.GetSigningTime();
 			if (signing_time.IsValid())
-				puts('Signing day: ' + signing_time.GetDay());
+				puts('Signing time is valid.');
 			end
 
 			puts('Location: ' + digsigfield.GetLocation());
