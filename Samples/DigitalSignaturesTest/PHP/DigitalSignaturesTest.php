@@ -216,7 +216,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			{
 				echo(nl2br("Trust not verifiable.".PHP_EOL));
 			}
-			echo(nl2br("Trust verification result string: ".$trust_verification_result->GetResultString().PHP_EOL));
+			echo(nl2br($trust_verification_result->GetResultString().PHP_EOL));
 			
 			$tmp_time_t = $trust_verification_result->GetTimeOfTrustVerification();
 			

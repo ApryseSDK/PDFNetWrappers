@@ -165,7 +165,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 		if result.HasTrustVerificationResult():
 			trust_verification_result = result.GetTrustVerificationResult()
 			print("Trust verified." if trust_verification_result.WasSuccessful() else "Trust not verifiable.")
-			print("Trust verification result string: %s" % trust_verification_result.GetResultString())
+			print(trust_verification_result.GetResultString())
 			
 			tmp_time_t = trust_verification_result.GetTimeOfTrustVerification()
 			

@@ -180,7 +180,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			else
 				puts("Trust not verifiable.")
 			end
-			puts("Trust verification result string: " + trust_verification_result.GetResultString())
+			puts(trust_verification_result.GetResultString())
 			
 			tmp_time_t = trust_verification_result.GetTimeOfTrustVerification()
 			
