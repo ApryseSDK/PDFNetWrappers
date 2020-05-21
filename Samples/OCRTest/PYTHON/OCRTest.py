@@ -89,7 +89,7 @@ def main():
         opts.AddLang("deu")
 
         ignore_zones = RectCollection()
-        ignore_zones.AddRect(Rect(1768, 680, 2056, 3044))
+        ignore_zones.AddRect(Rect(424, 163, 493, 730))
         opts.AddIgnoreZonesForPage(ignore_zones, 1)
 
         # C) Run OCR on the .pdf with options
