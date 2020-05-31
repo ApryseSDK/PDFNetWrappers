@@ -32,16 +32,16 @@ def ImageExtract(reader):
             global image_counter
             image_counter =image_counter + 1
             print("--> Image: " + str(image_counter))
-            print("Width: " + str(element.GetImageWidth()))
-            print("Height: " + str(element.GetImageHeight()))
-            print("BPC: " + str(element.GetBitsPerComponent()))
+            print("    Width: " + str(element.GetImageWidth()))
+            print("    Height: " + str(element.GetImageHeight()))
+            print("    BPC: " + str(element.GetBitsPerComponent()))
             
             ctm = element.GetCTM()
             x2 = 1
             y2 = 1
             pt = Point(x2, y2)
             point = ctm.Mult(pt)
-            print("Coords: x1=" + str(ctm.m_h) + ", y1=" + str(ctm.m_v) + ", x2=" + str(point.x) + ", y2=" + str(point.y))
+            print("    Coords: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f" % (ctm.m_h, ctm.m_v, point.x, point.y))
             
             if element.GetType() == Element.e_image:
                 image = Image(element.GetXObject())
@@ -73,7 +73,7 @@ def main():
     
     doc = PDFDoc(input_path + "newsletter.pdf")
     doc.InitSecurityHandler()
-    
+    print('')   
     reader = ElementReader()
     
     # Read every page
@@ -94,6 +94,7 @@ def main():
     
     doc = PDFDoc(input_path + "newsletter.pdf")
     doc.InitSecurityHandler()
+    print('')
     image_counter= 0
     
     cos_doc = doc.GetSDFDoc()
@@ -118,10 +119,10 @@ def main():
             image = Image(obj)
             
             image_counter = image_counter + 1
-            print("-. Image: " + str(image_counter))
-            print("Width: " + str(image.GetImageWidth()))
-            print("Height: " + str(image.GetImageHeight()))
-            print("BPC: " + str(image.GetBitsPerComponent()))
+            print("--> Image: " + str(image_counter))
+            print("    Width: " + str(image.GetImageWidth()))
+            print("    Height: " + str(image.GetImageHeight()))
+            print("    BPC: " + str(image.GetBitsPerComponent()))
             
             fname = "image_extract2_" + str(image_counter)
                 

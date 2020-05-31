@@ -40,8 +40,8 @@ function ImageExtract($reader)
 				$x2=1.0;
 				$y2=1.0;
 				$point = $ctm->Mult(new Point($x2, $y2));
-				echo nl2br("\n    Coords: x1=".$ctm->m_h.", y1=".$ctm->m_v.", x2=".$point->x.", y2=".$point->y);
-
+				printf("\n    Coords: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f", $ctm->m_h, $ctm->m_v, $point->x, $point->y);
+				echo nl2br("");
 				if ($element->GetType() == Element::e_image) 
 				{
 					$image = new Image($element->GetXObject());
@@ -61,7 +61,7 @@ function ImageExtract($reader)
 			break;
 		case Element::e_form:		// Process form XObjects
 			$reader->FormBegin(); 
-            		ImageExtract($reader);
+			ImageExtract($reader);
 			$reader->End(); 
 			break; 
 		}
@@ -89,7 +89,7 @@ function ImageExtract($reader)
 	}
 
 	$doc->Close();
-	echo nl2br("Done...\n");
+	echo nl2br("\nDone.\n");
 
 	echo nl2br("----------------------------------------------------------------\n");
 
@@ -121,7 +121,7 @@ function ImageExtract($reader)
 			}
 				
 			$image = new Image($obj);
-			echo nl2br("\n-. Image: ".++$image_counter);
+			echo nl2br("\n--> Image: ".++$image_counter);
 			echo nl2br("\n    Width: ".$image->GetImageWidth());
 			echo nl2br("\n    Height: ".$image->GetImageHeight());
 			echo nl2br("\n    BPC: ".$image->GetBitsPerComponent());
