@@ -32,16 +32,16 @@ def ImageExtract(reader)
 
 			$image_counter =$image_counter + 1
 			puts "--> Image: " + $image_counter.to_s()
-			puts "Width: " + element.GetImageWidth().to_s()
-			puts "Height: " + element.GetImageHeight().to_s()
-			puts "BPC: " + element.GetBitsPerComponent().to_s()
+			puts "    Width: " + element.GetImageWidth().to_s()
+			puts "    Height: " + element.GetImageHeight().to_s()
+			puts "    BPC: " + element.GetBitsPerComponent().to_s()
 			
 			ctm = element.GetCTM()
 			x2 = 1
 			y2 = 1
 			pt = Point.new(x2, y2)
 			point = ctm.Mult(pt)
-			puts "Coords: x1=" + ctm.m_h.to_s() + ", y1=" + ctm.m_v.to_s() + ", x2=" + point.x.to_s() + ", y2=" + point.y.to_s()
+			puts "    Coords: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f" % [ctm.m_h, ctm.m_v, point.x, point.y]
 			
 			if element.GetType() == Element::E_image
 				image = Image.new(element.GetXObject())
@@ -76,7 +76,7 @@ end
 	
 	doc = PDFDoc.new($input_path + "newsletter.pdf")
 	doc.InitSecurityHandler()
-	
+	puts ""	
 	reader = ElementReader.new()
 	
 	# Read every page
@@ -98,6 +98,7 @@ end
 	
 	doc = PDFDoc.new($input_path + "newsletter.pdf")
 	doc.InitSecurityHandler()
+	puts ""
 	$image_counter= 0
 	
 	cos_doc = doc.GetSDFDoc()
@@ -123,10 +124,10 @@ end
 			
 			image = Image.new(obj)
 			$image_counter = $image_counter + 1
-			puts "-. Image: " + $image_counter.to_s()
-			puts "Width: " + image.GetImageWidth().to_s()
-			puts "Height: " + image.GetImageHeight().to_s()
-			puts "BPC: " + image.GetBitsPerComponent().to_s()
+			puts "--> Image: " + $image_counter.to_s()
+			puts "    Width: " + image.GetImageWidth().to_s()
+			puts "    Height: " + image.GetImageHeight().to_s()
+			puts "    BPC: " + image.GetBitsPerComponent().to_s()
 			
 			fname = "image_extract2_" + $image_counter.to_s()
 				
