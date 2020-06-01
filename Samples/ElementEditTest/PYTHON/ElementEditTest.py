@@ -11,7 +11,7 @@ from PDFNetPython import *
 #---------------------------------------------------------------------------------------
 # The sample code shows how to edit the page display list and how to modify graphics state 
 # attributes on existing Elements. In particular the sample program strips all images from 
-# the page and changes text color to blue. 
+# the page, changes path fill color to red, and changes text color to blue. 
 #---------------------------------------------------------------------------------------
 
 def ProcessElements(reader, writer, map):
@@ -24,6 +24,12 @@ def ProcessElements(reader, writer, map):
         elif type == Element.e_inline_image:            
             # remove all images by skipping them
             pass
+        elif type == Element.e_path:
+            # Set all paths to red color.
+            gs = element.GetGState()
+            gs.SetFillColorSpace(ColorSpace.CreateDeviceRGB())
+            gs.SetFillColor(ColorPt(1, 0, 0))
+            writer.WriteElement(element)
         elif type == Element.e_text:    # Process text strings...
             # Set all text to blue color.
             gs = element.GetGState()
@@ -35,7 +41,6 @@ def ProcessElements(reader, writer, map):
             o = element.GetXObject()
             map[o.GetObjNum()] = o
             writer.WriteElement(element)
-            pass
         else:
             writer.WriteElement(element)
         element = reader.Next()
@@ -49,7 +54,6 @@ def main():
     input_filename = "newsletter.pdf"
     output_filename = "newsletter_edited.pdf"
     
-    print("-------------------------------------------------")
     
     # Open the test file
     print("Opening the input file...")

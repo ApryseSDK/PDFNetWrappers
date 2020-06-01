@@ -24,8 +24,17 @@ function ProcessElements($reader, $writer, $map) {
 		{		
 		case Element::e_image: 
 		case Element::e_inline_image: 
-			// remove all images by skipping them			
+			// remove all images by skipping them
 			break;
+		case Element::e_path:
+			{
+				// Set all paths to red color.
+				$gs = $element->GetGState();
+				$gs->SetFillColorSpace(ColorSpace::CreateDeviceRGB());
+				$gs->SetFillColor(new ColorPt(1.0, 0.0, 0.0));
+				$writer->WriteElement($element);
+				break;
+			}
 		case Element::e_text:// Process text strings...
 			{
 				// Set all text to blue color.
@@ -41,7 +50,7 @@ function ProcessElements($reader, $writer, $map) {
 				$o = $element->GetXObject();
 				$objNum = $o->GetObjNum();
 				$map[$objNum] = $o;
-				$writer->WriteElement($element); 				
+				$writer->WriteElement($element);
 				break; 
 			}
 		default:
@@ -53,7 +62,6 @@ function ProcessElements($reader, $writer, $map) {
 	PDFNet::Initialize();
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
-	echo nl2br("-------------------------------------------------\n");
 
 	// Open the test file
 	echo nl2br("Opening the input file...\n");

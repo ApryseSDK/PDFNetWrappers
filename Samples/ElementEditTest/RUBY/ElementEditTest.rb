@@ -23,6 +23,12 @@ def ProcessElements(reader, writer, map)
 		# remove all images by skipping them
 		when Element::E_inline_image	
 			# remove all images by skipping them
+		when Element::E_path
+			# Set all paths to red color.
+			gs = element.GetGState()
+			gs.SetFillColorSpace(ColorSpace.CreateDeviceRGB())
+			gs.SetFillColor(ColorPt.new(1, 0, 0))
+			writer.WriteElement(element)
 		when Element::E_text	# Process text strings...
 			# Set all text to blue color.
 			gs = element.GetGState()
@@ -49,7 +55,6 @@ end
 	input_filename = "newsletter.pdf"
 	output_filename = "newsletter_edited.pdf"
 	
-	puts "-------------------------------------------------"
 	
 	# Open the test file
 	puts "Opening the input file..."
