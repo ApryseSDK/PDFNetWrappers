@@ -243,9 +243,9 @@ end
 				ocg = Group.new(ocgs.GetAt(i))
 				ctx.ResetStates(false)
 				ctx.SetState(ocg, true)
-				fname = $output_path + "pdf_layers_" + ocg.GetName + ".png"
+				fname = "pdf_layers_" + ocg.GetName + ".png"
 				puts fname
-				pdfdraw.Export(page, fname)
+				pdfdraw.Export(page, $output_path + fname)
 				i = i + 1
 			end
 		end

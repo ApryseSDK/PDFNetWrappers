@@ -237,9 +237,9 @@ def main():
                 ocg = Group(ocgs.GetAt(i))
                 ctx.ResetStates(False)
                 ctx.SetState(ocg, True)
-                fname = output_path + "pdf_layers_" + ocg.GetName() + ".png"
+                fname = "pdf_layers_" + ocg.GetName() + ".png"
                 print(fname)
-                pdfdraw.Export(page, fname)
+                pdfdraw.Export(page, output_path + fname)
                 i = i + 1
         # Now draw content that is not part of any layer...
         ctx.SetNonOCDrawing(True)
