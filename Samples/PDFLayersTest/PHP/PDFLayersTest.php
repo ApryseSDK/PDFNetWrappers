@@ -252,9 +252,9 @@ function CreateGroup3($doc, $layer)
 				$ocg = new Group($ocgs->GetAt($i));
 				$ctx->ResetStates(false);
 				$ctx->SetState($ocg, true);
-				$fname = $output_path."pdf_layers_".$ocg->GetName().".png";
+				$fname = "pdf_layers_".$ocg->GetName().".png";
 				echo nl2br($fname."\n");
-				$pdfdraw->Export($page, $fname);
+				$pdfdraw->Export($page, $output_path.$fname);
 			}
 		}
 
