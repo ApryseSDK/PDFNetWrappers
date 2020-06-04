@@ -69,7 +69,6 @@ end
 	AddCoverPage(doc)
 	doc.Save(output_path + "package.pdf", SDFDoc::E_linearized)
 	doc.Close
-	puts "Done."
 	
 	# Extract parts from a PDF Package
 	doc = PDFDoc.new(output_path + "package.pdf")
@@ -82,11 +81,11 @@ end
 		counter = 0
 		while i.HasNext do
 			entry_name = i.Key.GetAsPDFText
-			puts "Part: " + entry_name
+			# puts "Part: " + entry_name
 			file_spec = FileSpec.new(i.Value)
 			stm = Filter.new(file_spec.GetFileData)
 			if !stm.nil?
-                stm.WriteToFile(output_path + "extract_" + counter.to_s, false)
+				stm.WriteToFile(output_path + "extract_" + counter.to_s + ".pdf", false)
 			end
 			i.Next
 			counter = counter + 1

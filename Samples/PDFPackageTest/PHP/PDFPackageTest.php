@@ -69,7 +69,6 @@ function AddCoverPage($doc)
 	AddCoverPage($doc);
 	$doc->Save($output_path."package.pdf", SDFDoc::e_linearized);
 	$doc->Close();
-	echo nl2br("Done.\n");
 
 	// Extract parts from a PDF Package.
 	
@@ -84,12 +83,12 @@ function AddCoverPage($doc)
 		for ($counter = 0; $i->HasNext(); $i->Next(), ++$counter) 
 		{
 			$entry_name = $i->Key()->GetAsPDFText();
-			echo nl2br("Part: ".$entry_name."\n");
+			// echo nl2br("Part: ".$entry_name."\n");
 			$file_spec = new FileSpec($i->Value());
 			$stm = new Filter($file_spec->GetFileData());
 			if ($stm) 
 			{
-                $stm->WriteToFile($output_path."extract_".$counter, false);
+				$stm->WriteToFile($output_path."extract_".$counter.".pdf", false);
 			}
 		}
 	}
