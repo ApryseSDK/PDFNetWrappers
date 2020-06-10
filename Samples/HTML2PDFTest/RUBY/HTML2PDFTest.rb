@@ -45,23 +45,20 @@ $stdout.sync = true
 	#--------------------------------------------------------------------------------
 	# Example 1) Simple conversion of a web page to a PDF doc. 
 	
-	puts "Example 1..."
 	doc = PDFDoc.new()
 	# now convert a web page, sending generated PDF pages to doc
 	converter = HTML2PDF.new()
 	converter.InsertFromURL(host + page0)
 	if converter.Convert(doc)
 		doc.Save(output_path + "_01.pdf", SDFDoc::E_linearized)
-		puts "Done. Saved in " + output_path + "_01.pdf"
 	else
-		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
+		print "Conversion failed."
 	end
 	
 	#--------------------------------------------------------------------------------
 	# Example 2) Modify the settings of the generated PDF pages and attach to an
 	# existing PDF document. 
 	
-	puts "Example 2..."
 	# open the existing PDF, and initialize the security handler
 	doc = PDFDoc.new("../../TestFiles/numbered.pdf")
 	doc.InitSecurityHandler()
@@ -77,7 +74,6 @@ $stdout.sync = true
 	# convert the web page, appending generated PDF pages to doc
 	if converter.Convert(doc)
 		doc.Save(output_path + "_02.pdf", SDFDoc::E_linearized)
-		puts "Done. Saved in " + output_path + "_02.pdf"
 	else
 		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
 	end
@@ -86,7 +82,6 @@ $stdout.sync = true
 	# Example 3) Convert multiple web pages, adding a table of contents, and setting
 	# the first page as a cover page, not to be included with the table of contents outline.
 	
-	puts "Example 3..."
 	doc = PDFDoc.new()
 	converter = HTML2PDF.new()
 	
@@ -114,7 +109,6 @@ $stdout.sync = true
 	
 	if converter.Convert(doc)
 		doc.Save(output_path + "_03.pdf", SDFDoc::E_linearized)
-		puts "Done. Saved in " + output_path + "_03.pdf"
 	else
 		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
 	end
@@ -122,7 +116,6 @@ $stdout.sync = true
 	#--------------------------------------------------------------------------------
 	# Example 4) Convert HTML string to PDF. 
 	
-	puts "Example 4..."
 	doc = PDFDoc.new()
 	converter = HTML2PDF.new()
 	
@@ -135,7 +128,6 @@ $stdout.sync = true
 	
 	if converter.Convert(doc)
 		doc.Save(output_path + "_04.pdf", SDFDoc::E_linearized)
-		puts "Done. Saved in " + output_path + "_04.pdf"
 	else
 		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
 	end

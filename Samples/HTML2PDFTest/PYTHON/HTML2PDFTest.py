@@ -46,22 +46,19 @@ def main():
     #--------------------------------------------------------------------------------
     # Example 1) Simple conversion of a web page to a PDF doc. 
 
-    print("Example 1...")
     doc = PDFDoc()
     # now convert a web page, sending generated PDF pages to doc
     converter = HTML2PDF()
     converter.InsertFromURL(host + page0)
     if converter.Convert(doc):
         doc.Save(output_path + "_01.pdf", SDFDoc.e_linearized)
-        print("Done.")
     else:
-        print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
+        print("Conversion failed.")
     
     #--------------------------------------------------------------------------------
     # Example 2) Modify the settings of the generated PDF pages and attach to an
     # existing PDF document. 
     
-    print("Example 2...")
     # open the existing PDF, and initialize the security handler
     doc = PDFDoc("../../TestFiles/numbered.pdf")
     doc.InitSecurityHandler()
@@ -77,14 +74,12 @@ def main():
     # convert the web page, appending generated PDF pages to doc
     if converter.Convert(doc):
         doc.Save(output_path + "_02.pdf", SDFDoc.e_linearized)
-        print("Done.")
     else:
         print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
     #--------------------------------------------------------------------------------
     # Example 3) Convert multiple web pages, adding a table of contents, and setting
     # the first page as a cover page, not to be included with the table of contents outline.
     
-    print("Example 3...")
     doc = PDFDoc()
     converter = HTML2PDF()
     
@@ -112,14 +107,12 @@ def main():
     
     if converter.Convert(doc):
         doc.Save(output_path + "_03.pdf", SDFDoc.e_linearized)
-        print("Done.")
     else:
         print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
     
     #--------------------------------------------------------------------------------
     # Example 4) Convert HTML string to PDF. 
     
-    print("Example 4...")
     doc = PDFDoc()
     converter = HTML2PDF()
     
@@ -132,7 +125,6 @@ def main():
     
     if converter.Convert(doc):
         doc.Save(output_path + "_04.pdf", SDFDoc.e_linearized)
-        print("Done.")
     else:
         print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
         
