@@ -83,7 +83,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			$verification_status = False;
 		}
 		
-		switch($result->GetSignersDigestAlgorithm())
+		switch($result->GetDigestAlgorithm())
 		{
 			case DigestAlgorithm::e_SHA1:
 				echo(nl2br("Digest algorithm: SHA-1".PHP_EOL));
