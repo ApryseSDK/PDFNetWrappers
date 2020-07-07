@@ -84,7 +84,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			verification_status = false
 		end
 
-		case result.GetSignersDigestAlgorithm()
+		case result.GetDigestAlgorithm()
 		when DigestAlgorithm::E_SHA1
 			puts("Digest algorithm: SHA-1")
 		when DigestAlgorithm::E_SHA256
