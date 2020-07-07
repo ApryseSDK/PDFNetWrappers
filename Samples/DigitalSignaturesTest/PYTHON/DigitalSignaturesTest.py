@@ -84,7 +84,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 			print("Signature verification failed, objnum: %lu" % curr.GetSDFObj().GetObjNum())
 			verification_status = False
 
-		digest_algorithm = result.GetSignersDigestAlgorithm()
+		digest_algorithm = result.GetDigestAlgorithm()
 		if digest_algorithm is DigestAlgorithm.e_SHA1:
 			print("Digest algorithm: SHA-1")
 		elif digest_algorithm is DigestAlgorithm.e_SHA256:
