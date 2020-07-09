@@ -24,7 +24,7 @@
 ##		
 ##	[3. (OPTIONAL) Add digital signature restrictions to the document using the field modification permissions (SetFieldPermissions) 
 ##		or document modification permissions functions (SetDocumentPermissions) of DigitalSignatureField. These features disallow 
-##		certain types of changes to be made to the document without invalidating the cryptographic digital signature's hash once it
+##		certain types of changes to be made to the document without invalidating the cryptographic digital signature once it
 ##		is signed.]
 ##		
 ##	4. 	Call either CertifyOnNextSave or SignOnNextSave. There are three overloads for each one (six total):
@@ -39,9 +39,9 @@
 ##			iii)	Call SignOnNextSaveWithCustomHandler/CertifyOnNextSaveWithCustomHandler with the SignatureHandlerId.
 ##		NOTE: It is only possible to sign/certify one signature per call to the Save function.
 ##	
-##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic hash to it.
+##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic signature to it.
 ##		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
-##		so as to not invalidate the other signature's('s) cryptographic hashes. 
+##		so as to not invalidate the other signature(s). 
 ##
 ## Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 ## of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
@@ -316,7 +316,7 @@ def ClearSignature(in_docpath,
 		puts('Cryptographic signature cleared properly.');
 	end
 
-	# Save incrementally so as to not invalidate other signatures' hashes from previous saves.
+	# Save incrementally so as to not invalidate other signatures from previous saves.
 	doc.Save(in_outpath, SDFDoc::E_incremental);
 
 	puts('================================================================================');
@@ -362,7 +362,7 @@ def PrintSignaturesInfo(in_docpath)
 		digsigfield = current;
 		if (!digsigfield.HasCryptographicSignature())
 			puts("Either digital signature field lacks a digital signature dictionary, " +
-				"or digital signature dictionary lacks a cryptographic hash entry. " +
+				"or digital signature dictionary lacks a cryptographic Contents entry. " +
 				"Digital signature field is not presently considered signed.\n" +
 				"==========");
 			digsig_fitr.Next()
