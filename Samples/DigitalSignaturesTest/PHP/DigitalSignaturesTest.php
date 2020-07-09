@@ -40,7 +40,7 @@
 //	
 //	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic signature to it.
 //		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
-//		so as to not invalidate the other signatures. 
+//		so as to not invalidate the other signature(s). 
 //
 // Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 // of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
