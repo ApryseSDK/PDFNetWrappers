@@ -64,7 +64,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 	$file_sz = $trusted_cert_file->FileSize();
 	$file_reader = new FilterReader($trusted_cert_file);
 	$trusted_cert_buf = $file_reader->Read($file_sz);
-	$opts->AddTrustedCertificate($trusted_cert_buf);
+	$opts->AddTrustedCertificate($trusted_cert_buf, strlen($trusted_cert_buf));
 
 	// Iterate over the signatures and verify all of them.
 	$digsig_fitr = $doc->GetDigitalSignatureFieldIterator();
