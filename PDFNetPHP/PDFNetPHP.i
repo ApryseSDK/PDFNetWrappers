@@ -254,6 +254,12 @@ namespace pdftron {
         class Font;
         class ColorPt;
         class Field;
+		class PatternColor;
+        class ViewerOptimizedOptions;
+        class EmbeddedTimestampVerificationResult;
+        class TrustVerificationResult;
+        class DigestAlgorithm;
+        class ObjectIdentifier;
         namespace Struct {
             class SElement;
         }
