@@ -125,13 +125,22 @@
     #include "PDF/ContentReplacer.h" 
     #include "PDF/Date.h"
     #include "PDF/Destination.h"
-    #include "PDF/DigestAlgorithm.h"
-    #include "PDF/DisallowedChange.h"
     #include "PDF/Element.h"
     #include "PDF/ElementBuilder.h"
     #include "PDF/ElementReader.h"
     #include "PDF/ElementWriter.h"
     #include "PDF/Field.h"
+    #include "PDF/ObjectIdentifier.h"
+    #include "PDF/X501DistinguishedName.h"
+    #include "PDF/X501AttributeTypeAndValue.h"
+    #include "PDF/X509Extension.h"
+    #include "PDF/X509Certificate.h"
+    #include "PDF/DisallowedChange.h"
+    #include "PDF/VerificationOptions.h"
+    #include "PDF/TrustVerificationResult.h"
+    #include "PDF/VerificationResult.h"
+    #include "PDF/EmbeddedTimestampVerificationResult.h"
+    #include "PDF/DigestAlgorithm.h"
     #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
@@ -176,9 +185,6 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
-    #include "PDF/TrustVerificationResult.h"
-    #include "PDF/VerificationOptions.h"
-    #include "PDF/VerificationResult.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -238,6 +244,12 @@ namespace pdftron {
         class Font;
         class ColorPt;
         class Field;
+		class PatternColor;
+        class ViewerOptimizedOptions;
+        class EmbeddedTimestampVerificationResult;
+        class TrustVerificationResult;
+        class DigestAlgorithm;
+        class ObjectIdentifier;
         namespace Struct {
             class SElement;
         }
@@ -606,11 +618,17 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
-%include "PDF/DigestAlgorithm.h"
+%include "PDF/ObjectIdentifier.h"
+%include "PDF/X501DistinguishedName.h"
+%include "PDF/X501AttributeTypeAndValue.h"
+%include "PDF/X509Extension.h"
+%include "PDF/X509Certificate.h"
 %include "PDF/DisallowedChange.h"
 %include "PDF/VerificationOptions.h"
 %include "PDF/TrustVerificationResult.h"
 %include "PDF/VerificationResult.h"
+%include "PDF/EmbeddedTimestampVerificationResult.h"
+%include "PDF/DigestAlgorithm.h"
 %include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
