@@ -82,7 +82,7 @@ def AnnotationHighLevelAPI(doc):
     first_page.AnnotPushBack(stamp)
     
     # Create a file attachment annotation (embed the 'peppers.jpg').
-    file_attach = FileAttachment.Create(doc.GetSDFDoc(), Rect(80, 280, 200, 320), (input_path + "peppers.jpg"))
+    file_attach = FileAttachment.Create(doc.GetSDFDoc(), Rect(80, 280, 108, 320), (input_path + "peppers.jpg"))
     first_page.AnnotPushBack(file_attach)
 
 

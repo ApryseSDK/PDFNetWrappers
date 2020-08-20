@@ -92,7 +92,7 @@ function AnnotationHighLevelAPI($doc) {
 
 	// Create a file attachment annotation (embed the 'peppers.jpg').
 	global $input_path;
-	$file_attach = FileAttachment::Create($doc->GetSDFDoc(), new Rect(80.0, 280.0, 200.0, 320.0), ($input_path."peppers.jpg"));
+	$file_attach = FileAttachment::Create($doc->GetSDFDoc(), new Rect(80.0, 280.0, 108.0, 320.0), ($input_path."peppers.jpg"));
 	$first_page->AnnotPushBack($file_attach);
 
 	$ink = Ink::Create($doc->GetSDFDoc(), new Rect(110.0, 10.0, 300.0, 200.0));
