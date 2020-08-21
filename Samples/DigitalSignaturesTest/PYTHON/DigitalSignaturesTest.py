@@ -58,6 +58,41 @@ site.addsitedir('../../../PDFNetC/Lib')
 
 from PDFNetPython import *
 
+def VerifySimple(in_docpath, in_public_key_file_path):
+	doc = PDFDoc(in_docpath)
+	print("==========")
+	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
+
+	# Add trust root to store of trusted certificates contained in VerificationOptions.
+	opts.AddTrustedCertificate(in_public_key_file_path)
+
+	result = doc.VerifySignedDigitalSignatures(opts)
+		
+	if result is PDFDoc.e_unsigned:
+		print("Document has no signed signature fields.")
+		return False
+		# e_failure == bad doc status, digest status, or permissions status
+		# (i.e. does not include trust issues, because those are flaky due to being network/config-related)
+	elif result is PDFDoc.e_failure:
+		print("Hard failure in verification on at least one signature.")
+		return False
+	elif result is PDFDoc.e_untrusted:
+		print("Could not verify trust for at least one signature.")
+		return False
+	elif result is PDFDoc.e_unsupported:
+		# If necessary, call GetUnsupportedFeatures on VerificationResult to check which
+		# unsupported features were encountered (requires verification using 'detailed' APIs)
+		print("At least one signature contains unsupported features.")
+		return False
+		# unsigned sigs skipped; parts of document may be unsigned (check GetByteRanges on signed sigs to find out)
+	elif result is PDFDoc.e_verified:
+		print("All signed signatures in document verified.")
+		return True
+	else:
+		print("unrecognized document verification status")
+		assert False, "unrecognized document status"
+
+
 # EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	doc = PDFDoc(in_docpath)
@@ -179,14 +214,40 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 				print("Trust verification attempted with respect to secure embedded timestamp (as epoch time): " + str(tmp_time_t))
 			else:
 				assert False, "unrecognized time enum value"
-			
+
+			if not trust_verification_result.GetCertPath():
+				print("Could not print certificate path.")
+			else:
+				print("Certificate path:")
+				cert_path = trust_verification_result.GetCertPath()
+				for j in range(len(cert_path)):
+					print("\tCertificate:")
+					full_cert = cert_path[j]
+					print("\t\tIssuer names:")
+					issuer_dn  = full_cert.GetIssuerField().GetAllAttributesAndValues()
+					for i in range(len(issuer_dn)):  
+						print("\t\t\t" + issuer_dn[i].GetStringValue())
+
+					print("\t\tSubject names:")
+					subject_dn = full_cert.GetSubjectField().GetAllAttributesAndValues()
+					for s in subject_dn:
+						print("\t\t\t" + s.GetStringValue())
+
+					print("\t\tExtensions:")
+					for x in full_cert.GetExtensions():
+						print("\t\t\t" + x.ToString())
+					
 		else:
 			print("No detailed trust verification result available.")
 		
+			unsupported_features = result.GetUnsupportedFeatures()
+			if not unsupported_features:
+				print("Unsupported features:")
+				for unsupported_feature in unsupported_features:
+					print("\t" + unsupported_feature)
 		print("==========")
 		
 		digsig_fitr.Next()
-
 	return verification_status
 
 def CertifyPDF(in_docpath,
@@ -388,66 +449,176 @@ def PrintSignaturesInfo(in_docpath):
 
 	print('================================================================================')
 
+def TimestampAndEnableLTV(in_docpath, 
+	in_trusted_cert_path, 
+	in_appearance_img_path,
+	in_outpath):
+	doc = PDFDoc(in_docpath)
+	doctimestamp_signature_field = doc.CreateDigitalSignatureField()
+	tst_config = TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2")
+	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
+#	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
+#	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
+#	response to be verifiable during DocTimeStamp signing. It is also necessary in the context of this 
+#	function to do this for the later LTV section, because one needs to be able to verify the DocTimeStamp 
+#	in order to enable LTV for it, and we re-use the VerificationOptions opts object in that part.
+
+	opts.AddTrustedCertificate(in_trusted_cert_path)
+#   	By default, we only check online for revocation of certificates using the newer and lighter 
+#	OCSP protocol as opposed to CRL, due to lower resource usage and greater reliability. However, 
+#	it may be necessary to enable online CRL revocation checking in order to verify some timestamps
+#	(i.e. those that do not have an OCSP responder URL for all non-trusted certificates).
+
+	opts.EnableOnlineCRLRevocationChecking(True)
+
+	widgetAnnot = SignatureWidget.Create(doc, Rect(0.0, 100.0, 200.0, 150.0), doctimestamp_signature_field)
+	doc.GetPage(1).AnnotPushBack(widgetAnnot)
+
+	# (OPTIONAL) Add an appearance to the signature field.
+	img = Image.Create(doc.GetSDFDoc(), in_appearance_img_path)
+	widgetAnnot.CreateSignatureAppearance(img)
+
+	print('Testing timestamping configuration.')
+	config_result = tst_config.TestConfiguration(opts)
+	if config_result.GetStatus():
+		print('Success: timestamping configuration usable. Attempting to timestamp.')
+	else:
+		# Print details of timestamping failure.
+		print('config_result.GetString()')
+		if config_result.HasResponseVerificationResult():
+			tst_result = config_result.GetResponseVerificationResult()
+			print('CMS digest status: '+ tst_result.GetCMSDigestStatusAsString())
+			print('Message digest status: ' + tst_result.GetMessageImprintDigestStatusAsString())
+			print('Trust status: ' + tst_result.GetTrustStatusAsString())
+		return False
+	
+
+	doctimestamp_signature_field.TimestampOnNextSave(tst_config, opts)
+
+	# Save/signing throws if timestamping fails.
+	doc.Save(in_outpath, SDFDoc.e_incremental)
+
+	print('Timestamping successful. Adding LTV information for DocTimeStamp signature.')
+
+	# Add LTV information for timestamp signature to document.
+	timestamp_verification_result = doctimestamp_signature_field.Verify(opts)
+	if not doctimestamp_signature_field.EnableLTVOfflineVerification(timestamp_verification_result):
+		print('Could not enable LTV for DocTimeStamp.')
+		return False
+	doc.Save(in_outpath, SDFDoc.e_incremental)
+	print('Added LTV information for DocTimeStamp signature successfully.')
+
+	return True
+
 def main():
 	# Initialize PDFNet
 	PDFNet.Initialize()
 	
 	result = True
-	input_path = '../../TestFiles/'
-	output_path = '../../TestFiles/Output/'
+	g_infile_path_fieldaddition = '../../TestFiles/tiger.pdf'
+	g_outfile_path_fieldaddition = '../../TestFiles/Output/tiger_withApprovalField_output.pdf'
+
+	g_infile_path_certification = '../../TestFiles/tiger_withApprovalField.pdf'
+	g_outfile_path_certification = '../../TestFiles/Output/tiger_withApprovalField_certified_output.pdf'
+
+	g_infile_path_approval = '../../TestFiles/tiger_withApprovalField_certified.pdf'
+	g_outfile_path_approval = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_output.pdf'
+
+	g_infile_path_clearing = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf'
+	g_outfile_path_clearing = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_certcleared_output.pdf'
+
+	g_DocTimeStamp_trusted_root_cert_path = '../../TestFiles/GlobalSignRootForTST.cer'
+	g_outfile_path_DocTimeStamp_LTV = '../../TestFiles/Output/tiger_DocTimeStamp_LTV.pdf'
+
+	g_certification_field_name = 'PDFTronCertificationSig'
+	g_approval_field_name = 'PDFTronApprovalSig'
+	g_clearing_field_name = 'PDFTronCertificationSig'
+
+	# For your local self-signed certificates to work in Acrobat: Create them in Acrobat, so that they're registered in it (or just register them)
+	g_private_key_file_path_1 = '../../TestFiles/pdftron.pfx'
+	g_private_key_file_path_2 = '../../TestFiles/pdftron.pfx'
+	g_keyfile_1_password = 'password'
+	g_keyfile_2_password = 'password'
+
+	g_appearance_img_path_1 = '../../TestFiles/pdftron.bmp'
+	g_appearance_img_path_2 = '../../TestFiles/signature.jpg'
+
+	g_public_key_file_path = '../../TestFiles/pdftron.cer'
+	g_infile_path_verification = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf'
+
 	
 	#################### TEST 0:
 	# Create an approval signature field that we can sign after certifying.
 	# (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
 	# Open an existing PDF
 	try:
-		doc = PDFDoc(input_path + 'tiger.pdf')
+		doc = PDFDoc(g_infile_path_fieldaddition)
 		
-		widgetAnnotApproval = SignatureWidget.Create(doc, Rect(300, 300, 500, 200), 'PDFTronApprovalSig')
+		approval_signature_field = doc.CreateDigitalSignatureField(g_approval_field_name)
+		widgetAnnotApproval = SignatureWidget.Create(doc, Rect(300, 300, 500, 200), approval_signature_field)
 		page1 = doc.GetPage(1)
 		page1.AnnotPushBack(widgetAnnotApproval)
-		doc.Save(output_path + 'tiger_withApprovalField_output.pdf', SDFDoc.e_remove_unused)
+		doc.Save(g_outfile_path_fieldaddition, SDFDoc.e_remove_unused)
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 1: certify a PDF.
 	try:
-		CertifyPDF(input_path + 'tiger_withApprovalField.pdf',
-			'PDFTronCertificationSig',
-			input_path + 'pdftron.pfx',
-			'password',
-			input_path + 'pdftron.bmp',
-			output_path + 'tiger_withApprovalField_certified_output.pdf')
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_output.pdf')
+		CertifyPDF(g_infile_path_certification,
+			g_certification_field_name,
+			g_private_key_file_path_1,
+			g_keyfile_1_password,
+			g_appearance_img_path_1,
+			g_outfile_path_certification)
+		PrintSignaturesInfo(g_outfile_path_certification)
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	try:
-		SignPDF(input_path + 'tiger_withApprovalField_certified.pdf',
-			'PDFTronApprovalSig',
-			input_path + 'pdftron.pfx',
-			'password',
-			input_path + 'signature.jpg',
-			output_path + 'tiger_withApprovalField_certified_approved_output.pdf')
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_output.pdf')
+		SignPDF(g_infile_path_approval,
+			g_approval_field_name,
+			g_private_key_file_path_2,
+			g_keyfile_2_password,
+			g_appearance_img_path_2,
+			g_outfile_path_approval)
+		PrintSignaturesInfo(g_outfile_path_approval)
+
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try:
-		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
-			'PDFTronCertificationSig',
-			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf')
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf')
+		ClearSignature(g_infile_path_clearing,
+			g_clearing_field_name,
+			g_outfile_path_clearing)
+		PrintSignaturesInfo(g_outfile_path_clearing)
+
 	except Exception as e:
 		print(e.args)
 		result = False
 
 	#################### TEST 4: Verify a document's digital signatures.
 	try:
-		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
-		VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
+		if not VerifyAllAndPrint(g_infile_path_verification, g_public_key_file_path):
+			result = False
+	except Exception as e:
+		print(e.args)
+		result = False
+	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
+	try:
+		if not VerifySimple(g_infile_path_verification, g_public_key_file_path):
+			result = False
+	except Exception as e:
+		print(e.args)
+		result = False
+	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
+	try:
+		if not TimestampAndEnableLTV(g_infile_path_fieldaddition,
+			g_DocTimeStamp_trusted_root_cert_path,
+			g_appearance_img_path_2,
+			g_outfile_path_DocTimeStamp_LTV):
+			result = False
 	except Exception as e:
 		print(e.args)
 		result = False

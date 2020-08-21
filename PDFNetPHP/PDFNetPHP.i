@@ -140,6 +140,8 @@
     #include "PDF/ElementReader.h"
     #include "PDF/ElementWriter.h"
     #include "PDF/Field.h"
+    #include "PDF/TimestampingTestResult.h"
+    #include "PDF/TimestampingConfiguration.h"
     #include "PDF/ObjectIdentifier.h"
     #include "PDF/X501DistinguishedName.h"
     #include "PDF/X501AttributeTypeAndValue.h"
@@ -240,6 +242,11 @@ namespace std {
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;
    %template(VectorDisallowedChange) vector<pdftron::PDF::DisallowedChange>;
    %template(VectorAnnot) vector<pdftron::PDF::Annot>;
+   %template(VectorX509Extension) vector<pdftron::PDF::X509Extension>;
+   %template(VectorX501AttributeTypeAndValue) vector<pdftron::PDF::X501AttributeTypeAndValue>;
+   %template(VectorX509Certificate) vector<pdftron::PDF::X509Certificate>;
+   %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
+   %template(VectorVectorX509Certificate) vector<vector<pdftron::PDF::X509Certificate> >;
 };
 
 /**
@@ -827,6 +834,8 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
+%include "PDF/TimestampingTestResult.h"
+%include "PDF/TimestampingConfiguration.h"
 %include "PDF/ObjectIdentifier.h"
 %include "PDF/X501DistinguishedName.h"
 %include "PDF/X501AttributeTypeAndValue.h"

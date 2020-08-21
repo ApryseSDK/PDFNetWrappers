@@ -52,6 +52,44 @@
 
 include('../../../PDFNetC/Lib/PDFNetPHP.php');
 
+function VerifySimple($in_docpath, $in_public_key_file_path)
+{
+	$doc = new PDFDoc($in_docpath);
+	echo(nl2br("==========".PHP_EOL));
+	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
+
+	// Add trust root to store of trusted certificates contained in VerificationOptions.
+	$opts->AddTrustedCertificate($in_public_key_file_path);
+
+	$result = $doc->VerifySignedDigitalSignatures($opts);
+	switch ($result)
+	{
+	case PDFDoc::e_unsigned:
+		echo(nl2br("Document has no signed signature fields.".PHP_EOL));
+		return False;
+		/* e_failure == bad doc status, digest status, or permissions status
+		(i.e. does not include trust issues, because those are flaky due to being network/config-related) */
+	case PDFDoc::e_failure:
+		echo(nl2br("Hard failure in verification on at least one signature.".PHP_EOL));
+		return False;
+	case PDFDoc::e_untrusted:
+		echo(nl2br("Could not verify trust for at least one signature.".PHP_EOL));
+		return False;
+	case PDFDoc::e_unsupported:
+		/* If necessary, call GetUnsupportedFeatures on VerificationResult to check which
+		unsupported features were encountered (requires verification using 'detailed' APIs) */
+		echo(nl2br("At least one signature contains unsupported features.".PHP_EOL));
+		return False;
+		// unsigned sigs skipped; parts of document may be unsigned (check GetByteRanges on signed sigs to find out)
+	case PDFDoc::e_verified:
+		echo(nl2br("All signed signatures in document verified.".PHP_EOL));
+		return True;
+	default:
+		echo(nl2br("unrecognized document verification status".PHP_EOL));
+		assert(False);
+	}
+}
+
 // EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 {
@@ -235,12 +273,55 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 					echo(nl2br('unrecognized time enum value'.PHP_EOL));
 					assert(False);
 			}
+
+			if ($trust_verification_result->GetCertPath()->Size() == 0)
+			{
+				echo(nl2br("Could not print certificate path.\n"));
+			}
+			else
+			{
+				echo(nl2br("Certificate path:\n"));
+				$cert_path = $trust_verification_result->GetCertPath();
+				for ($j = 0; $j < $cert_path->Size(); $j++)
+				{
+					echo(nl2br("\tCertificate:\n"));
+					$full_cert = $cert_path->Get($j);
+					echo(nl2br("\t\tIssuer names:\n"));
+										
+					$issuer_dn = $full_cert->GetIssuerField()->GetAllAttributesAndValues();
+					for ($i = 0; $i < $issuer_dn->Size(); $i++)
+					{
+						echo(nl2br("\t\t\t". $issuer_dn->Get($i)->GetStringValue()."\n"));
+					}
+					echo(nl2br("\t\tSubject names:\n"));
+					$subject_dn = $full_cert->GetSubjectField()->GetAllAttributesAndValues();
+					for ($i = 0; $i < $subject_dn->Size(); $i++)
+					{
+						echo(nl2br("\t\t\t".$subject_dn->Get($i)->GetStringValue()."\n"));
+					}
+					echo(nl2br("\t\tExtensions:\n"));
+					$ex = $full_cert->GetExtensions();
+					for ($i = 0; $i < $ex->Size(); $i++)
+					{	
+						echo(nl2br("\t\t\t".$ex->Get($i)->ToString()."\n"));
+					}
+				}
+			}
 		}	
 		else
 		{
 			echo(nl2br("No detailed trust verification result available."));
 		}
-		
+
+		$unsupported_features = $result->GetUnsupportedFeatures();
+		if (count($unsupported_features) > 0)
+		{
+			echo(nl2br("Unsupported features:\n"));
+			for ($i = 0; $i < count($unsupported_features); $i++)
+			{
+				echo(nl2br("\t".$unsupported_features[$i]."\n"));
+			}
+		}		
 		echo(nl2br("==========".PHP_EOL));
 		
 		$digsig_fitr->Next();
@@ -498,14 +579,110 @@ function PrintSignaturesInfo($in_docpath)
 	echo(nl2br('================================================================================'.PHP_EOL));
 }
 
+function TimestampAndEnableLTV($in_docpath, 
+	$in_trusted_cert_path, 
+	$in_appearance_img_path,
+	$in_outpath)
+{
+	$doc = new PDFDoc($in_docpath);
+	$doctimestamp_signature_field = $doc->CreateDigitalSignatureField();
+	$tst_config = new TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2");
+	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
+	/* It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
+	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
+	response to be verifiable during DocTimeStamp signing. It is also necessary in the context of this 
+	function to do this for the later LTV section, because one needs to be able to verify the DocTimeStamp 
+	in order to enable LTV for it, and we re-use the VerificationOptions opts object in that part. */
+	$opts->AddTrustedCertificate($in_trusted_cert_path);
+	/* By default, we only check online for revocation of certificates using the newer and lighter 
+	OCSP protocol as opposed to CRL, due to lower resource usage and greater reliability. However, 
+	it may be necessary to enable online CRL revocation checking in order to verify some timestamps
+	(i.e. those that do not have an OCSP responder URL for all non-trusted certificates). */
+	$opts->EnableOnlineCRLRevocationChecking(true);
+
+	$widgetAnnot = SignatureWidget::Create($doc, new Rect(0.0, 100.0, 200.0, 150.0), $doctimestamp_signature_field);
+	$doc->GetPage(1)->AnnotPushBack($widgetAnnot);
+
+	// (OPTIONAL) Add an appearance to the signature field.
+	$img = Image::Create($doc->GetSDFDoc(), $in_appearance_img_path);
+	$widgetAnnot->CreateSignatureAppearance($img);
+
+	echo(nl2br('Testing timestamping configuration.'.PHP_EOL));
+	$config_result = $tst_config->TestConfiguration($opts);
+	if ($config_result->GetStatus())
+	{
+		echo(nl2br('Success: timestamping configuration usable. Attempting to timestamp.'.PHP_EOL));
+	}
+	else
+	{
+		// Print details of timestamping failure.
+		echo(nl2br('$config_result->GetString()'.PHP_EOL));
+		if ($config_result->HasResponseVerificationResult())
+		{
+			$tst_result = $config_result->GetResponseVerificationResult();
+			echo(nl2br('CMS digest status: '.$tst_result->GetCMSDigestStatusAsString().PHP_EOL));
+			echo(nl2br('Message digest status: '.$tst_result->GetMessageImprintDigestStatusAsString().PHP_EOL));
+			echo(nl2br('Trust status: '.$tst_result->GetTrustStatusAsString().PHP_EOL));
+		}
+		return false;
+	}
+
+	$doctimestamp_signature_field->TimestampOnNextSave($tst_config, $opts);
+
+	// Save/signing throws if timestamping fails.
+	$doc->Save($in_outpath, SDFDoc::e_incremental);
+
+	echo(nl2br('Timestamping successful. Adding LTV information for DocTimeStamp signature.'.PHP_EOL));
+
+	// Add LTV information for timestamp signature to document.
+	$timestamp_verification_result = $doctimestamp_signature_field->Verify($opts);
+	if (!$doctimestamp_signature_field->EnableLTVOfflineVerification($timestamp_verification_result))
+	{
+		echo(nl2br('Could not enable LTV for DocTimeStamp.'.PHP_EOL));
+		return false;
+	}
+	$doc->Save($in_outpath, SDFDoc::e_incremental);
+	echo(nl2br('Added LTV information for DocTimeStamp signature successfully.'.PHP_EOL));
+
+	return true;
+}
 function main()
 {
 	// Initialize PDFNet
 	PDFNet::Initialize();
 	
 	$result = true;
-	$input_path = '../../TestFiles/';
-	$output_path = '../../TestFiles/Output/';
+
+	$g_infile_path_fieldaddition = '../../TestFiles/tiger.pdf';
+	$g_outfile_path_fieldaddition = '../../TestFiles/Output/tiger_withApprovalField_output.pdf';
+
+	$g_infile_path_certification = '../../TestFiles/tiger_withApprovalField.pdf';
+	$g_outfile_path_certification = '../../TestFiles/Output/tiger_withApprovalField_certified_output.pdf';
+
+	$g_infile_path_approval = '../../TestFiles/tiger_withApprovalField_certified.pdf';
+	$g_outfile_path_approval = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_output.pdf';
+
+	$g_infile_path_clearing = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf';
+	$g_outfile_path_clearing = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_certcleared_output.pdf';
+
+	$g_DocTimeStamp_trusted_root_cert_path = '../../TestFiles/GlobalSignRootForTST.cer';
+	$g_outfile_path_DocTimeStamp_LTV = '../../TestFiles/Output/tiger_DocTimeStamp_LTV.pdf';
+
+	$g_certification_field_name = 'PDFTronCertificationSig';
+	$g_approval_field_name = 'PDFTronApprovalSig';
+	$g_clearing_field_name = 'PDFTronCertificationSig';
+
+	// For your local self-signed certificates to work in Acrobat: Create them in Acrobat, so that they're registered in it (or just register them)
+	$g_private_key_file_path_1 = '../../TestFiles/pdftron.pfx';
+	$g_private_key_file_path_2 = '../../TestFiles/pdftron.pfx';
+	$g_keyfile_1_password = 'password';
+	$g_keyfile_2_password = 'password';
+
+	$g_appearance_img_path_1 = '../../TestFiles/pdftron.bmp';
+	$g_appearance_img_path_2 = '../../TestFiles/signature.jpg';
+
+	$g_public_key_file_path = '../../TestFiles/pdftron.cer';
+	$g_infile_path_verification = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf';
 	
 	//////////////////// TEST 0:
 	// Create an approval signature field that we can sign after certifying.
@@ -513,12 +690,12 @@ function main()
 	// Open an existing PDF
 	try
 	{
-		$doc = new PDFDoc($input_path.'tiger.pdf');
-		
-		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
+		$doc = new PDFDoc($g_infile_path_fieldaddition);
+		$approval_signature_field = $doc->CreateDigitalSignatureField($g_approval_field_name);
+		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), $approval_signature_field);
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
-		$doc->Save($output_path.'tiger_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
+		$doc->Save($g_outfile_path_fieldaddition, SDFDoc::e_remove_unused);
 	}
 	catch (Exception $e)
 	{
@@ -529,13 +706,13 @@ function main()
 	//////////////////// TEST 1: certify a PDF.
 	try
 	{
-		CertifyPDF($input_path.'tiger_withApprovalField.pdf',
-			'PDFTronCertificationSig',
-			$input_path.'pdftron.pfx',
-			'password',
-			$input_path.'pdftron.bmp',
-			$output_path.'tiger_withApprovalField_certified_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_output.pdf');
+		CertifyPDF($g_infile_path_certification,
+			$g_certification_field_name,
+			$g_private_key_file_path_1,
+			$g_keyfile_1_password,
+			$g_appearance_img_path_1,
+			$g_outfile_path_certification);
+		PrintSignaturesInfo($g_outfile_path_certification);
 	}
 	catch (Exception $e)
 	{
@@ -546,13 +723,13 @@ function main()
 	//////////////////// TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	try
 	{
-		SignPDF($input_path.'tiger_withApprovalField_certified.pdf',
-			'PDFTronApprovalSig',
-			$input_path.'pdftron.pfx',
-			'password',
-			$input_path.'signature.jpg',
-			$output_path.'tiger_withApprovalField_certified_approved_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_output.pdf');
+		SignPDF($g_infile_path_approval,
+			$g_approval_field_name,
+			$g_private_key_file_path_2,
+			$g_keyfile_2_password,
+			$g_appearance_img_path_2,
+			$g_outfile_path_approval);
+		PrintSignaturesInfo($g_outfile_path_approval);
 	}
 	catch (Exception $e)
 	{
@@ -563,10 +740,10 @@ function main()
 	//////////////////// TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try
 	{
-		ClearSignature($input_path.'tiger_withApprovalField_certified_approved.pdf',
-			'PDFTronCertificationSig',
-			$output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+		ClearSignature($g_infile_path_clearing,
+			$g_clearing_field_name,
+			$g_outfile_path_clearing);
+		PrintSignaturesInfo($g_outfile_path_clearing);
 	}
 	catch (Exception $e)
 	{
@@ -577,8 +754,10 @@ function main()
 	//////////////////// TEST 4: Verify a document's digital signatures.
 	try
 	{
-		// EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
-		$result &= VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer');
+		if (!VerifyAllAndPrint($g_infile_path_verification, $g_public_key_file_path))
+		{
+	        $result = false;
+		}
 	}
 	catch (Exception $e)
 	{
@@ -586,6 +765,39 @@ function main()
         echo(nl2br($e->getTraceAsString().PHP_EOL));
         $result = false;
     }
+	//////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
+	try
+	{
+		if (!VerifySimple($g_infile_path_verification, $g_public_key_file_path))
+		{
+			$result = false;
+		}
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+
+	//////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
+	try
+	{
+		if (!TimestampAndEnableLTV($g_infile_path_fieldaddition,
+			$g_DocTimeStamp_trusted_root_cert_path,
+			$g_appearance_img_path_2,
+			$g_outfile_path_DocTimeStamp_LTV))
+		{
+			$result = false;
+		}
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+
 	//////////////////// End of tests. ////////////////////
 
 	if (!$result)
