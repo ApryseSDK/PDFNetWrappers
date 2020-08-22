@@ -20,7 +20,7 @@ namespace pdftron {
 	 */
 	%typemap(in) UString, const UString
 	{  
-		if (!PyUnicode_Check(& $input)) {
+		if (!PyUnicode_Check($input)) {
 			PyErr_SetString(PyExc_ValueError,"Expected a String");
 			return NULL;
 		}
