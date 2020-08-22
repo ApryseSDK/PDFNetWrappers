@@ -484,7 +484,7 @@ def TimestampAndEnableLTV(in_docpath,
 		print('Success: timestamping configuration usable. Attempting to timestamp.')
 	else:
 		# Print details of timestamping failure.
-		print('config_result.GetString()')
+		print(config_result.GetString())
 		if config_result.HasResponseVerificationResult():
 			tst_result = config_result.GetResponseVerificationResult()
 			print('CMS digest status: '+ tst_result.GetCMSDigestStatusAsString())

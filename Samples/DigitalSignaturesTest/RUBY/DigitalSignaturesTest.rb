@@ -529,7 +529,7 @@ def TimestampAndEnableLTV(in_docpath,
 		puts('Success: timestamping configuration usable. Attempting to timestamp.');
 	else
 		# Print details of timestamping failure.
-		puts('config_result.GetString()');
+		puts(config_result.GetString());
 		if config_result.HasResponseVerificationResult()
 			tst_result = config_result.GetResponseVerificationResult();
 			puts('CMS digest status: '+ tst_result.GetCMSDigestStatusAsString());

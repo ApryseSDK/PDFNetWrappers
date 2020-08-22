@@ -616,7 +616,7 @@ function TimestampAndEnableLTV($in_docpath,
 	else
 	{
 		// Print details of timestamping failure.
-		echo(nl2br('$config_result->GetString()'.PHP_EOL));
+		echo(nl2br($config_result->GetString().PHP_EOL));
 		if ($config_result->HasResponseVerificationResult())
 		{
 			$tst_result = $config_result->GetResponseVerificationResult();
