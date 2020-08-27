@@ -92,7 +92,6 @@ def VerifySimple(in_docpath, in_public_key_file_path)
 	end
 end # VerifySimple()
 	
-# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 	doc = PDFDoc.new(in_docpath)
 	puts("==========")
@@ -119,11 +118,28 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			verification_status = false
 		end
 
+		case result.GetDigestAlgorithm()
+		when DigestAlgorithm::E_SHA1
+			puts("Digest algorithm: SHA-1")
+		when DigestAlgorithm::E_SHA256
+			puts("Digest algorithm: SHA-256")
+		when DigestAlgorithm::E_SHA384
+			puts("Digest algorithm: SHA-384")
+		when DigestAlgorithm::E_SHA512
+			puts("Digest algorithm: SHA-512")
+		when DigestAlgorithm::E_RIPEMD160
+			puts("Digest algorithm: RIPEMD-160")
+		when DigestAlgorithm::E_unknown_digest_algorithm
+			puts("Digest algorithm: unknown")
+		else
+			puts("unrecognized digest algorithm")
+			assert(false)
+		end
 	
-		puts("Detailed verification result: " +
-			result.GetDocumentStatusAsString() + " " +
-			result.GetDigestStatusAsString() + " " +
-			result.GetTrustStatusAsString() + " " +
+		puts("Detailed verification result: \n\t" +
+			result.GetDocumentStatusAsString() + "\n\t" +
+			result.GetDigestStatusAsString() + "\n\t" +
+			result.GetTrustStatusAsString() + "\n\t" +
 			result.GetPermissionsStatusAsString() )
 			
 		changes = result.GetDisallowedChanges()
@@ -550,7 +566,6 @@ def main()
 
 	#################### TEST 4: Verify a document's digital signatures.
 	begin
-		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 		if !VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
 			return false;
 		end

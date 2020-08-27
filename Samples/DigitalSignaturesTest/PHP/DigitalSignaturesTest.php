@@ -90,7 +90,6 @@ function VerifySimple($in_docpath, $in_public_key_file_path)
 	}
 }
 
-// EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 {
 	$doc = new PDFDoc($in_docpath);
@@ -121,9 +120,33 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			$verification_status = False;
 		}
 		
-		echo(nl2br("Detailed verification result: ".$result->GetDocumentStatusAsString()." "
-		.$result->GetDigestStatusAsString()." "
-		.$result->GetTrustStatusAsString()." "
+		switch($result->GetDigestAlgorithm())
+		{
+			case DigestAlgorithm::e_SHA1:
+				echo(nl2br("Digest algorithm: SHA-1".PHP_EOL));
+				break;
+			case DigestAlgorithm::e_SHA256:
+				echo(nl2br("Digest algorithm: SHA-256".PHP_EOL));
+				break;
+			case DigestAlgorithm::e_SHA384:
+				echo(nl2br("Digest algorithm: SHA-384".PHP_EOL));
+				break;
+			case DigestAlgorithm::e_SHA512:
+				echo(nl2br("Digest algorithm: SHA-512".PHP_EOL));
+				break;
+			case DigestAlgorithm::e_RIPEMD160:
+				echo(nl2br("Digest algorithm: RIPEMD-160".PHP_EOL));
+				break;
+			case DigestAlgorithm::e_unknown_digest_algorithm:
+				echo(nl2br("Digest algorithm: unknown".PHP_EOL));
+				break;
+			default:
+				echo(nl2br("unrecognized digest algorithm".PHP_EOL));
+				assert(False);
+		}
+		echo(nl2br("Detailed verification result: \n\t".$result->GetDocumentStatusAsString()."\n\t"
+		.$result->GetDigestStatusAsString()."\n\t"
+		.$result->GetTrustStatusAsString()."\n\t"
 		.$result->GetPermissionsStatusAsString().PHP_EOL));
 
 
@@ -616,7 +639,6 @@ function main()
 	//////////////////// TEST 4: Verify a document's digital signatures.
 	try
 	{
-		// EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 		if (!VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
 			$result = false;

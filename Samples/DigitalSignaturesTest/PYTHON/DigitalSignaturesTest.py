@@ -93,7 +93,6 @@ def VerifySimple(in_docpath, in_public_key_file_path):
 		assert False, "unrecognized document status"
 
 
-# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
 def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	doc = PDFDoc(in_docpath)
 	print("==========")
@@ -119,8 +118,23 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 			print("Signature verification failed, objnum: %lu" % curr.GetSDFObj().GetObjNum())
 			verification_status = False
 
-	
-		print("Detailed verification result: %s %s %s %s" % ( 
+		digest_algorithm = result.GetDigestAlgorithm()
+		if digest_algorithm is DigestAlgorithm.e_SHA1:
+			print("Digest algorithm: SHA-1")
+		elif digest_algorithm is DigestAlgorithm.e_SHA256:
+			print("Digest algorithm: SHA-256")
+		elif digest_algorithm is DigestAlgorithm.e_SHA384:
+			print("Digest algorithm: SHA-384")
+		elif digest_algorithm is DigestAlgorithm.e_SHA512:
+			print("Digest algorithm: SHA-512")
+		elif digest_algorithm is DigestAlgorithm.e_RIPEMD160:
+			print("Digest algorithm: RIPEMD-160")
+		elif digest_algorithm is DigestAlgorithm.e_unknown_digest_algorithm:
+			print("Digest algorithm: unknown")
+		else:
+			assert False, "unrecognized document status"
+
+		print("Detailed verification result: \n\t%s\n\t%s\n\t%s\n\t%s" % ( 
 			result.GetDocumentStatusAsString(),
 			result.GetDigestStatusAsString(),
 			result.GetTrustStatusAsString(),
