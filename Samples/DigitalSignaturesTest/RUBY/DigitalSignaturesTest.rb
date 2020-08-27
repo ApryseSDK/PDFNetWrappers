@@ -119,89 +119,13 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			verification_status = false
 		end
 
-		case result.GetDigestAlgorithm()
-		when DigestAlgorithm::E_SHA1
-			puts("Digest algorithm: SHA-1")
-		when DigestAlgorithm::E_SHA256
-			puts("Digest algorithm: SHA-256")
-		when DigestAlgorithm::E_SHA384
-			puts("Digest algorithm: SHA-384")
-		when DigestAlgorithm::E_SHA512
-			puts("Digest algorithm: SHA-512")
-		when DigestAlgorithm::E_RIPEMD160
-			puts("Digest algorithm: RIPEMD-160")
-		when DigestAlgorithm::E_unknown_digest_algorithm
-			puts("Digest algorithm: unknown")
-		else
-			puts("unrecognized digest algorithm")
-			assert(false)
-		end
-
-		puts("Detailed verification result: ")
-		case result.GetDocumentStatus()
-		when VerificationResult::E_no_error
-			puts("\tNo general error to report.")
-		when VerificationResult::E_corrupt_file
-			puts("\tSignatureHandler reported file corruption.")
-		when  VerificationResult::E_unsigned
-			puts("\tThe signature has not yet been cryptographically signed.")
-		when VerificationResult::E_bad_byteranges
-			puts("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.")
-		when VerificationResult::E_corrupt_cryptographic_contents
-			puts("\tSignatureHandler reports corruption in the Contents of the digital signature.")
-		else
-			puts("unrecognized document status")
-			assert(false)
-		end
-		
-		case result.GetDigestStatus()
-		when VerificationResult::E_digest_invalid
-			puts("\tThe digest is incorrect.")
-		when VerificationResult::E_digest_verified
-			puts("\tThe digest is correct.")
-		when VerificationResult::E_digest_verification_disabled
-			puts("\tDigest verification has been disabled.")
-		when VerificationResult::E_weak_digest_algorithm_but_digest_verifiable
-			puts("\tThe digest is correct, but the digest algorithm is weak and not secure.")
-		when VerificationResult::E_no_digest_status
-			puts( "\tNo digest status to report.")
-		when VerificationResult::e_unsupported_encoding
-			puts("\tNo installed SignatureHandler was able to recognize the signature's encoding.")
-		else
-			puts("unrecognized digest status")
-			assert(false)
-		end
-		
-		case result.GetTrustStatus()
-		when VerificationResult::E_trust_verified
-			puts("\tEstablished trust in signer successfully.")
-		when VerificationResult::E_untrusted
-			puts("\tTrust could not be established.")
-		when VerificationResult::E_trust_verification_disabled
-			puts("\tTrust verification has been disabled.")
-		when VerificationResult::E_no_trust_status
-			puts("\tNo trust status to report.")
-		else
-			puts("unrecognized trust status")
-			assert(false)
-		end
-		
-		case result.GetPermissionsStatus()
-		when VerificationResult::E_invalidated_by_disallowed_changes
-			puts("\tThe document has changes that are disallowed by the signature's permissions settings.")
-		when VerificationResult::E_has_allowed_changes
-			puts("\tThe document has changes that are allowed by the signature's permissions settings.")
-		when VerificationResult::E_unmodified
-			puts("\tThe document has not been modified since it was signed.")
-		when VerificationResult::E_permissions_verification_disabled
-			puts("\tPermissions verification has been disabled.")
-		when VerificationResult::E_no_permissions_status
-			puts("\tNo permissions status to report.")
-		else
-			puts("unrecognized modification permissions status")
-			assert(false)
-		end
-		
+	
+		puts("Detailed verification result: " +
+			result.GetDocumentStatusAsString() + " " +
+			result.GetDigestStatusAsString() + " " +
+			result.GetTrustStatusAsString() + " " +
+			result.GetPermissionsStatusAsString() )
+			
 		changes = result.GetDisallowedChanges()
 		for it2 in changes
 			puts("\tDisallowed change: " + it2.GetTypeAsString() + ", objnum: " + it2.GetObjNum().to_s)
@@ -563,49 +487,20 @@ def main()
     PDFNet.Initialize
 	
     result = true
-	g_infile_path_fieldaddition = '../../TestFiles/tiger.pdf';
-	g_outfile_path_fieldaddition = '../../TestFiles/Output/tiger_withApprovalField_output.pdf';
-
-	g_infile_path_certification = '../../TestFiles/tiger_withApprovalField.pdf';
-	g_outfile_path_certification = '../../TestFiles/Output/tiger_withApprovalField_certified_output.pdf';
-
-	g_infile_path_approval = '../../TestFiles/tiger_withApprovalField_certified.pdf';
-	g_outfile_path_approval = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_output.pdf';
-
-	g_infile_path_clearing = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf';
-	g_outfile_path_clearing = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_certcleared_output.pdf';
-
-	g_DocTimeStamp_trusted_root_cert_path = '../../TestFiles/GlobalSignRootForTST.cer';
-	g_outfile_path_DocTimeStamp_LTV = '../../TestFiles/Output/tiger_DocTimeStamp_LTV.pdf';
-
-	g_certification_field_name = 'PDFTronCertificationSig';
-	g_approval_field_name = 'PDFTronApprovalSig';
-	g_clearing_field_name = 'PDFTronCertificationSig';
-
-	# For your local self-signed certificates to work in Acrobat: Create them in Acrobat, so that they're registered in it (or just register them)
-	g_private_key_file_path_1 = '../../TestFiles/pdftron.pfx';
-	g_private_key_file_path_2 = '../../TestFiles/pdftron.pfx';
-	g_keyfile_1_password = 'password';
-	g_keyfile_2_password = 'password';
-
-	g_appearance_img_path_1 = '../../TestFiles/pdftron.bmp';
-	g_appearance_img_path_2 = '../../TestFiles/signature.jpg';
-
-	g_public_key_file_path = '../../TestFiles/pdftron.cer';
-	g_infile_path_verification = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf';
+	input_path = '../../TestFiles/';
+	output_path = '../../TestFiles/Output/';
 	
 	#################### TEST 0:
 	# Create an approval signature field that we can sign after certifying.
 	# (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
 	# Open an existing PDF
 	begin
-		doc = PDFDoc.new(g_infile_path_fieldaddition);
+		doc = PDFDoc.new(input_path + 'tiger.pdf');
 		
-		approval_signature_field = doc.CreateDigitalSignatureField(g_approval_field_name);
-		widgetAnnotApproval = SignatureWidget.Create(doc, Rect.new(300, 300, 500, 200), approval_signature_field);
+		widgetAnnotApproval = SignatureWidget.Create(doc, Rect.new(300, 300, 500, 200), 'PDFTronApprovalSig');
 		page1 = doc.GetPage(1);
 		page1.AnnotPushBack(widgetAnnotApproval);
-		doc.Save(g_outfile_path_fieldaddition, SDFDoc::E_remove_unused);
+		doc.Save(output_path + 'tiger_withApprovalField_output.pdf', SDFDoc::E_remove_unused);
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)
@@ -614,13 +509,13 @@ def main()
 	
 	#################### TEST 1: certify a PDF.
 	begin
-		CertifyPDF(g_infile_path_certification,
-			g_certification_field_name,
-			g_private_key_file_path_1,
-			g_keyfile_1_password,
-			g_appearance_img_path_1,
-			g_outfile_path_certification);
-		PrintSignaturesInfo(g_outfile_path_certification);
+		CertifyPDF(input_path + 'tiger_withApprovalField.pdf',
+			'PDFTronCertificationSig',
+			input_path + 'pdftron.pfx',
+			'password',
+			input_path + 'pdftron.bmp',
+			output_path + 'tiger_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_output.pdf');
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)
@@ -628,34 +523,35 @@ def main()
     end
 	#################### TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	begin
-		SignPDF(g_infile_path_approval,
-			g_approval_field_name,
-			g_private_key_file_path_2,
-			g_keyfile_2_password,
-			g_appearance_img_path_2,
-			g_outfile_path_approval);
-		PrintSignaturesInfo(g_outfile_path_approval);
+		SignPDF(input_path + 'tiger_withApprovalField_certified.pdf',
+			'PDFTronApprovalSig',
+			input_path + 'pdftron.pfx',
+			'password',
+			input_path + 'signature.jpg',
+			output_path + 'tiger_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_output.pdf');
 	rescue Exception => e
-        puts(e.message);
-        puts(e.backtrace.inspect);
-		result = false;
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
     end
 
 	#################### TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	begin
-		ClearSignature(g_infile_path_clearing,
-			g_clearing_field_name,
-			g_outfile_path_clearing);
-		PrintSignaturesInfo(g_outfile_path_clearing);
+		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
+			'PDFTronCertificationSig',
+			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
 	rescue Exception => e
-        puts(e.message);
-        puts(e.backtrace.inspect);
-		result = false;
+        puts(e.message)
+        puts(e.backtrace.inspect)
+		result = false
     end
 
 	#################### TEST 4: Verify a document's digital signatures.
 	begin
-		if !VerifyAllAndPrint(g_infile_path_verification, g_public_key_file_path)
+		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+		if !VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
 			return false;
 		end
 	rescue Exception => e
@@ -665,7 +561,7 @@ def main()
 
 	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	begin
-		if !VerifySimple(g_infile_path_verification, g_public_key_file_path)
+		if !VerifySimple(input_path + 'tiger_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer')
 			result = false;
 		end
 	rescue Exception => e
@@ -674,10 +570,10 @@ def main()
 	end
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	begin
-		if !TimestampAndEnableLTV(g_infile_path_fieldaddition,
-			g_DocTimeStamp_trusted_root_cert_path,
-			g_appearance_img_path_2,
-			g_outfile_path_DocTimeStamp_LTV)
+		if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
+			input_path + 'GlobalSignRootForTST.cer',
+			input_path + 'signature.jpg',
+			output_path+ 'tiger_DocTimeStamp_LTV.pdf')
 			result = false;
 		end
 	rescue Exception => e

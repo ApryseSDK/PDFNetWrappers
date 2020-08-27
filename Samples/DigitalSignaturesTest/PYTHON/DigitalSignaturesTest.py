@@ -119,79 +119,13 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 			print("Signature verification failed, objnum: %lu" % curr.GetSDFObj().GetObjNum())
 			verification_status = False
 
-		digest_algorithm = result.GetDigestAlgorithm()
-		if digest_algorithm is DigestAlgorithm.e_SHA1:
-			print("Digest algorithm: SHA-1")
-		elif digest_algorithm is DigestAlgorithm.e_SHA256:
-			print("Digest algorithm: SHA-256")
-		elif digest_algorithm is DigestAlgorithm.e_SHA384:
-			print("Digest algorithm: SHA-384")
-		elif digest_algorithm is DigestAlgorithm.e_SHA512:
-			print("Digest algorithm: SHA-512")
-		elif digest_algorithm is DigestAlgorithm.e_RIPEMD160:
-			print("Digest algorithm: RIPEMD-160")
-		elif digest_algorithm is DigestAlgorithm.e_unknown_digest_algorithm:
-			print("Digest algorithm: unknown")
-		else:
-			assert False, "unrecognized document status"
-
-		print("Detailed verification result: ")
-		doc_status = result.GetDocumentStatus()
-		if doc_status is VerificationResult.e_no_error:
-			print("\tNo general error to report.")
-		elif doc_status is VerificationResult.e_corrupt_file:
-			print("\tSignatureHandler reported file corruption.")
-		elif doc_status is VerificationResult.e_unsigned:
-			print("\tThe signature has not yet been cryptographically signed.")
-		elif doc_status is VerificationResult.e_bad_byteranges:
-			print("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.")
-		elif doc_status is VerificationResult.e_corrupt_cryptographic_contents:
-			print("\tSignatureHandler reports corruption in the Contents of the digital signature.")
-		else:
-			assert False, "unrecognized document status"
-		
-		digest_status = result.GetDigestStatus()
-		if digest_status is VerificationResult.e_digest_invalid:
-			print("\tThe digest is incorrect.")
-		elif digest_status is VerificationResult.e_digest_verified:
-			print("\tThe digest is correct.")
-		elif digest_status is VerificationResult.e_digest_verification_disabled:
-			print("\tDigest verification has been disabled.")
-		elif digest_status is VerificationResult.e_weak_digest_algorithm_but_digest_verifiable:
-			print("\tThe digest is correct, but the digest algorithm is weak and not secure.")
-		elif digest_status is VerificationResult.e_no_digest_status:
-			print( "\tNo digest status to report.")
-		elif digest_status is VerificationResult.e_unsupported_encoding:
-			print("\tNo installed SignatureHandler was able to recognize the signature's encoding.")
-		else:
-			assert False, "unrecognized digest status"
-		
-		trust_status = result.GetTrustStatus()
-		if trust_status is VerificationResult.e_trust_verified:
-			print("\tEstablished trust in signer successfully.")
-		elif trust_status is VerificationResult.e_untrusted:
-			print("\tTrust could not be established.")
-		elif trust_status is VerificationResult.e_trust_verification_disabled:
-			print("\tTrust verification has been disabled.")
-		elif trust_status is VerificationResult.e_no_trust_status:
-			print("\tNo trust status to report.")
-		else:
-			assert False, "unrecognized trust status"
-		
-		permissions_status = result.GetPermissionsStatus()
-		if permissions_status is VerificationResult.e_invalidated_by_disallowed_changes:
-			print("\tThe document has changes that are disallowed by the signature's permissions settings.")
-		elif permissions_status is VerificationResult.e_has_allowed_changes:
-			print("\tThe document has changes that are allowed by the signature's permissions settings.")
-		elif permissions_status is VerificationResult.e_unmodified:
-			print("\tThe document has not been modified since it was signed.")
-		elif permissions_status is VerificationResult.e_permissions_verification_disabled:
-			print("\tPermissions verification has been disabled.")
-		elif permissions_status is VerificationResult.e_no_permissions_status:
-			print("\tNo permissions status to report.")
-		else:
-			assert False, "unrecognized modification permissions status"
-		
+	
+		print("Detailed verification result: %s %s %s %s" % ( 
+			result.GetDocumentStatusAsString(),
+			result.GetDigestStatusAsString(),
+			result.GetTrustStatusAsString(),
+			result.GetPermissionsStatusAsString()))
+			
 		changes = result.GetDisallowedChanges()
 		for it2 in changes:
 			print("\tDisallowed change: %s, objnum: %lu" % (it2.GetTypeAsString(), it2.GetObjNum()))
@@ -515,109 +449,77 @@ def main():
 	PDFNet.Initialize()
 	
 	result = True
-	g_infile_path_fieldaddition = '../../TestFiles/tiger.pdf'
-	g_outfile_path_fieldaddition = '../../TestFiles/Output/tiger_withApprovalField_output.pdf'
-
-	g_infile_path_certification = '../../TestFiles/tiger_withApprovalField.pdf'
-	g_outfile_path_certification = '../../TestFiles/Output/tiger_withApprovalField_certified_output.pdf'
-
-	g_infile_path_approval = '../../TestFiles/tiger_withApprovalField_certified.pdf'
-	g_outfile_path_approval = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_output.pdf'
-
-	g_infile_path_clearing = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf'
-	g_outfile_path_clearing = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_certcleared_output.pdf'
-
-	g_DocTimeStamp_trusted_root_cert_path = '../../TestFiles/GlobalSignRootForTST.cer'
-	g_outfile_path_DocTimeStamp_LTV = '../../TestFiles/Output/tiger_DocTimeStamp_LTV.pdf'
-
-	g_certification_field_name = 'PDFTronCertificationSig'
-	g_approval_field_name = 'PDFTronApprovalSig'
-	g_clearing_field_name = 'PDFTronCertificationSig'
-
-	# For your local self-signed certificates to work in Acrobat: Create them in Acrobat, so that they're registered in it (or just register them)
-	g_private_key_file_path_1 = '../../TestFiles/pdftron.pfx'
-	g_private_key_file_path_2 = '../../TestFiles/pdftron.pfx'
-	g_keyfile_1_password = 'password'
-	g_keyfile_2_password = 'password'
-
-	g_appearance_img_path_1 = '../../TestFiles/pdftron.bmp'
-	g_appearance_img_path_2 = '../../TestFiles/signature.jpg'
-
-	g_public_key_file_path = '../../TestFiles/pdftron.cer'
-	g_infile_path_verification = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf'
-
+	input_path = '../../TestFiles/'
+	output_path = '../../TestFiles/Output/'
 	
 	#################### TEST 0:
 	# Create an approval signature field that we can sign after certifying.
 	# (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
 	# Open an existing PDF
 	try:
-		doc = PDFDoc(g_infile_path_fieldaddition)
+		doc = PDFDoc(input_path + 'tiger.pdf')
 		
-		approval_signature_field = doc.CreateDigitalSignatureField(g_approval_field_name)
-		widgetAnnotApproval = SignatureWidget.Create(doc, Rect(300, 300, 500, 200), approval_signature_field)
+		widgetAnnotApproval = SignatureWidget.Create(doc, Rect(300, 300, 500, 200), 'PDFTronApprovalSig')
 		page1 = doc.GetPage(1)
 		page1.AnnotPushBack(widgetAnnotApproval)
-		doc.Save(g_outfile_path_fieldaddition, SDFDoc.e_remove_unused)
+		doc.Save(output_path + 'tiger_withApprovalField_output.pdf', SDFDoc.e_remove_unused)
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 1: certify a PDF.
 	try:
-		CertifyPDF(g_infile_path_certification,
-			g_certification_field_name,
-			g_private_key_file_path_1,
-			g_keyfile_1_password,
-			g_appearance_img_path_1,
-			g_outfile_path_certification)
-		PrintSignaturesInfo(g_outfile_path_certification)
+		CertifyPDF(input_path + 'tiger_withApprovalField.pdf',
+			'PDFTronCertificationSig',
+			input_path + 'pdftron.pfx',
+			'password',
+			input_path + 'pdftron.bmp',
+			output_path + 'tiger_withApprovalField_certified_output.pdf')
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_output.pdf')
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	try:
-		SignPDF(g_infile_path_approval,
-			g_approval_field_name,
-			g_private_key_file_path_2,
-			g_keyfile_2_password,
-			g_appearance_img_path_2,
-			g_outfile_path_approval)
-		PrintSignaturesInfo(g_outfile_path_approval)
-
+		SignPDF(input_path + 'tiger_withApprovalField_certified.pdf',
+			'PDFTronApprovalSig',
+			input_path + 'pdftron.pfx',
+			'password',
+			input_path + 'signature.jpg',
+			output_path + 'tiger_withApprovalField_certified_approved_output.pdf')
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_output.pdf')
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try:
-		ClearSignature(g_infile_path_clearing,
-			g_clearing_field_name,
-			g_outfile_path_clearing)
-		PrintSignaturesInfo(g_outfile_path_clearing)
-
+		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
+			'PDFTronCertificationSig',
+			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf')
+		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf')
 	except Exception as e:
 		print(e.args)
 		result = False
 
 	#################### TEST 4: Verify a document's digital signatures.
 	try:
-		if not VerifyAllAndPrint(g_infile_path_verification, g_public_key_file_path):
+		if not VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer"):
 			result = False
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try:
-		if not VerifySimple(g_infile_path_verification, g_public_key_file_path):
+		if not VerifySimple(input_path + 'tiger_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer'):
 			result = False
 	except Exception as e:
 		print(e.args)
 		result = False
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	try:
-		if not TimestampAndEnableLTV(g_infile_path_fieldaddition,
-			g_DocTimeStamp_trusted_root_cert_path,
-			g_appearance_img_path_2,
-			g_outfile_path_DocTimeStamp_LTV):
+		if not TimestampAndEnableLTV(input_path + 'tiger.pdf',
+			input_path + 'GlobalSignRootForTST.cer',
+			input_path + 'signature.jpg',
+			output_path+ 'tiger_DocTimeStamp_LTV.pdf'):
 			result = False
 	except Exception as e:
 		print(e.args)

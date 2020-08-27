@@ -121,120 +121,12 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			$verification_status = False;
 		}
 		
-		switch($result->GetDigestAlgorithm())
-		{
-			case DigestAlgorithm::e_SHA1:
-				echo(nl2br("Digest algorithm: SHA-1".PHP_EOL));
-				break;
-			case DigestAlgorithm::e_SHA256:
-				echo(nl2br("Digest algorithm: SHA-256".PHP_EOL));
-				break;
-			case DigestAlgorithm::e_SHA384:
-				echo(nl2br("Digest algorithm: SHA-384".PHP_EOL));
-				break;
-			case DigestAlgorithm::e_SHA512:
-				echo(nl2br("Digest algorithm: SHA-512".PHP_EOL));
-				break;
-			case DigestAlgorithm::e_RIPEMD160:
-				echo(nl2br("Digest algorithm: RIPEMD-160".PHP_EOL));
-				break;
-			case DigestAlgorithm::e_unknown_digest_algorithm:
-				echo(nl2br("Digest algorithm: unknown".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized digest algorithm".PHP_EOL));
-				assert(False);
-		}
+		echo(nl2br("Detailed verification result: ".$result->GetDocumentStatusAsString()." "
+		.$result->GetDigestStatusAsString()." "
+		.$result->GetTrustStatusAsString()." "
+		.$result->GetPermissionsStatusAsString().PHP_EOL));
 
-		echo(nl2br("Detailed verification result: ".PHP_EOL));
-		switch($result->GetDocumentStatus())
-		{
-			case VerificationResult::e_no_error:
-				echo(nl2br("\tNo general error to report.".PHP_EOL));
-				break;
-			case VerificationResult::e_corrupt_file:
-				echo(nl2br("\tSignatureHandler reported file corruption.".PHP_EOL));
-				break;
-			case VerificationResult::e_unsigned:
-				echo(nl2br("\tThe signature has not yet been cryptographically signed.".PHP_EOL));
-				break;
-			case VerificationResult::e_bad_byteranges:
-				echo(nl2br("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.".PHP_EOL));
-				break;
-			case VerificationResult::e_corrupt_cryptographic_contents:
-				echo(nl2br("\tSignatureHandler reports corruption in the Contents of the digital signature.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized document status".PHP_EOL));
-				assert(False);
-		}
-		
-		switch($result->GetDigestStatus())
-		{
-			case VerificationResult::e_digest_invalid:
-				echo(nl2br("\tThe digest is incorrect.".PHP_EOL));
-				break;
-			case VerificationResult::e_digest_verified:
-				echo(nl2br("\tThe digest is correct.".PHP_EOL));
-				break;
-			case VerificationResult::e_digest_verification_disabled:
-				echo(nl2br("\tDigest verification has been disabled.".PHP_EOL));
-				break;
-			case VerificationResult::e_weak_digest_algorithm_but_digest_verifiable:
-				echo(nl2br("\tThe digest is correct, but the digest algorithm is weak and not secure.".PHP_EOL));
-				break;
-			case VerificationResult::e_no_digest_status:
-				echo(nl2br( "\tNo digest status to report.".PHP_EOL));
-				break;
-			case VerificationResult::e_unsupported_encoding:
-				echo(nl2br("\tNo installed SignatureHandler was able to recognize the signature's encoding.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized digest status".PHP_EOL));
-				assert(False);
-		}
-		
-		switch($result->GetTrustStatus())
-		{
-			case VerificationResult::e_trust_verified:
-				echo(nl2br("\tEstablished trust in signer successfully.".PHP_EOL));
-				break;
-			case VerificationResult::e_untrusted:
-				echo(nl2br("\tTrust could not be established.".PHP_EOL));
-				break;
-			case VerificationResult::e_trust_verification_disabled:
-				echo(nl2br("\tTrust verification has been disabled.".PHP_EOL));
-				break;
-			case VerificationResult::e_no_trust_status:
-				echo(nl2br("\tNo trust status to report.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized trust status".PHP_EOL));
-				assert(False);
-		}
-		
-		switch($result->GetPermissionsStatus())
-		{
-			case VerificationResult::e_invalidated_by_disallowed_changes:
-				echo(nl2br("\tThe document has changes that are disallowed by the signature's permissions settings.".PHP_EOL));
-				break;
-			case VerificationResult::e_has_allowed_changes:
-				echo(nl2br("\tThe document has changes that are allowed by the signature's permissions settings.".PHP_EOL));
-				break;
-			case VerificationResult::e_unmodified:
-				echo(nl2br("\tThe document has not been modified since it was signed.".PHP_EOL));
-				break;
-			case VerificationResult::e_permissions_verification_disabled:
-				echo(nl2br("\tPermissions verification has been disabled.".PHP_EOL));
-				break;
-			case VerificationResult::e_no_permissions_status:
-				echo(nl2br("\tNo permissions status to report.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br('unrecognized modification permissions status'.PHP_EOL));
-				assert(False);
-		}
-		
+
 		$changes = $result->GetDisallowedChanges();
 		for ($i = 0; $i < $changes->size(); $i++)
 		{
@@ -652,37 +544,8 @@ function main()
 	PDFNet::Initialize();
 	
 	$result = true;
-
-	$g_infile_path_fieldaddition = '../../TestFiles/tiger.pdf';
-	$g_outfile_path_fieldaddition = '../../TestFiles/Output/tiger_withApprovalField_output.pdf';
-
-	$g_infile_path_certification = '../../TestFiles/tiger_withApprovalField.pdf';
-	$g_outfile_path_certification = '../../TestFiles/Output/tiger_withApprovalField_certified_output.pdf';
-
-	$g_infile_path_approval = '../../TestFiles/tiger_withApprovalField_certified.pdf';
-	$g_outfile_path_approval = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_output.pdf';
-
-	$g_infile_path_clearing = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf';
-	$g_outfile_path_clearing = '../../TestFiles/Output/tiger_withApprovalField_certified_approved_certcleared_output.pdf';
-
-	$g_DocTimeStamp_trusted_root_cert_path = '../../TestFiles/GlobalSignRootForTST.cer';
-	$g_outfile_path_DocTimeStamp_LTV = '../../TestFiles/Output/tiger_DocTimeStamp_LTV.pdf';
-
-	$g_certification_field_name = 'PDFTronCertificationSig';
-	$g_approval_field_name = 'PDFTronApprovalSig';
-	$g_clearing_field_name = 'PDFTronCertificationSig';
-
-	// For your local self-signed certificates to work in Acrobat: Create them in Acrobat, so that they're registered in it (or just register them)
-	$g_private_key_file_path_1 = '../../TestFiles/pdftron.pfx';
-	$g_private_key_file_path_2 = '../../TestFiles/pdftron.pfx';
-	$g_keyfile_1_password = 'password';
-	$g_keyfile_2_password = 'password';
-
-	$g_appearance_img_path_1 = '../../TestFiles/pdftron.bmp';
-	$g_appearance_img_path_2 = '../../TestFiles/signature.jpg';
-
-	$g_public_key_file_path = '../../TestFiles/pdftron.cer';
-	$g_infile_path_verification = '../../TestFiles/tiger_withApprovalField_certified_approved.pdf';
+	$input_path = '../../TestFiles/';
+	$output_path = '../../TestFiles/Output/';
 	
 	//////////////////// TEST 0:
 	// Create an approval signature field that we can sign after certifying.
@@ -690,12 +553,11 @@ function main()
 	// Open an existing PDF
 	try
 	{
-		$doc = new PDFDoc($g_infile_path_fieldaddition);
-		$approval_signature_field = $doc->CreateDigitalSignatureField($g_approval_field_name);
-		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), $approval_signature_field);
+		$doc = new PDFDoc($input_path.'tiger.pdf');
+		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
-		$doc->Save($g_outfile_path_fieldaddition, SDFDoc::e_remove_unused);
+		$doc->Save($output_path.'tiger_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
 	}
 	catch (Exception $e)
 	{
@@ -706,13 +568,13 @@ function main()
 	//////////////////// TEST 1: certify a PDF.
 	try
 	{
-		CertifyPDF($g_infile_path_certification,
-			$g_certification_field_name,
-			$g_private_key_file_path_1,
-			$g_keyfile_1_password,
-			$g_appearance_img_path_1,
-			$g_outfile_path_certification);
-		PrintSignaturesInfo($g_outfile_path_certification);
+		CertifyPDF($input_path.'tiger_withApprovalField.pdf',
+			'PDFTronCertificationSig',
+			$input_path.'pdftron.pfx',
+			'password',
+			$input_path.'pdftron.bmp',
+			$output_path.'tiger_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -723,13 +585,13 @@ function main()
 	//////////////////// TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	try
 	{
-		SignPDF($g_infile_path_approval,
-			$g_approval_field_name,
-			$g_private_key_file_path_2,
-			$g_keyfile_2_password,
-			$g_appearance_img_path_2,
-			$g_outfile_path_approval);
-		PrintSignaturesInfo($g_outfile_path_approval);
+		SignPDF($input_path.'tiger_withApprovalField_certified.pdf',
+			'PDFTronApprovalSig',
+			$input_path.'pdftron.pfx',
+			'password',
+			$input_path.'signature.jpg',
+			$output_path.'tiger_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -740,10 +602,10 @@ function main()
 	//////////////////// TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try
 	{
-		ClearSignature($g_infile_path_clearing,
-			$g_clearing_field_name,
-			$g_outfile_path_clearing);
-		PrintSignaturesInfo($g_outfile_path_clearing);
+		ClearSignature($input_path.'tiger_withApprovalField_certified_approved.pdf',
+			'PDFTronCertificationSig',
+			$output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -754,9 +616,10 @@ function main()
 	//////////////////// TEST 4: Verify a document's digital signatures.
 	try
 	{
-		if (!VerifyAllAndPrint($g_infile_path_verification, $g_public_key_file_path))
+		// EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+		if (!VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
-	        $result = false;
+			$result = false;
 		}
 	}
 	catch (Exception $e)
@@ -768,7 +631,7 @@ function main()
 	//////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try
 	{
-		if (!VerifySimple($g_infile_path_verification, $g_public_key_file_path))
+		if (!VerifySimple($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
 			$result = false;
 		}
@@ -783,10 +646,10 @@ function main()
 	//////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	try
 	{
-		if (!TimestampAndEnableLTV($g_infile_path_fieldaddition,
-			$g_DocTimeStamp_trusted_root_cert_path,
-			$g_appearance_img_path_2,
-			$g_outfile_path_DocTimeStamp_LTV))
+		if(!TimestampAndEnableLTV($input_path.'tiger.pdf',
+					$input_path.'GlobalSignRootForTST.cer',
+					$input_path.'signature.jpg',
+					$output_path.'tiger_DocTimeStamp_LTV.pdf'))
 		{
 			$result = false;
 		}
