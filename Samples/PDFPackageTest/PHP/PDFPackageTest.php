@@ -89,7 +89,7 @@ function AddCoverPage($doc)
 			$stm = new Filter($file_spec->GetFileData());
 			if ($stm) 
 			{
-				$stm->WriteToFile($output_path."extract_".$counter.".pdf", false);
+				$stm->WriteToFile($output_path."extract_".$counter.".".pathinfo($entry_name, PATHINFO_EXTENSION), false);
 			}
 		}
 	}

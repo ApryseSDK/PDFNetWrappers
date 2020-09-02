@@ -5,7 +5,7 @@
 
 import site
 site.addsitedir("../../../PDFNetC/Lib")
-import sys
+import sys, os
 from PDFNetPython import *
 
 #-----------------------------------------------------------------------------------
@@ -86,7 +86,7 @@ def main():
             file_spec = FileSpec(i.Value())
             stm = Filter(file_spec.GetFileData())
             if stm != None:
-                stm.WriteToFile(output_path + "extract_" + str(counter) + ".pdf", False)
+                stm.WriteToFile(output_path + "extract_" + str(counter) + os.path.splitext(entry_name)[1], False)
             
             i.Next()
             counter = counter + 1
