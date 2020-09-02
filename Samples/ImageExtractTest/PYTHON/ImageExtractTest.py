@@ -73,7 +73,7 @@ def main():
     
     doc = PDFDoc(input_path + "newsletter.pdf")
     doc.InitSecurityHandler()
-    print('')   
+    
     reader = ElementReader()
     
     # Read every page
@@ -94,7 +94,6 @@ def main():
     
     doc = PDFDoc(input_path + "newsletter.pdf")
     doc.InitSecurityHandler()
-    print('')
     image_counter= 0
     
     cos_doc = doc.GetSDFDoc()
@@ -136,6 +135,7 @@ def main():
             #image.ExportAsPng(path)
         i = i + 1
     doc.Close()
+    print("Done.")
     
 if __name__ == '__main__':
     main()

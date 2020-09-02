@@ -41,7 +41,7 @@ function ImageExtract($reader)
 				$y2=1.0;
 				$point = $ctm->Mult(new Point($x2, $y2));
 				printf("\n    Coords: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f", $ctm->m_h, $ctm->m_v, $point->x, $point->y);
-				echo nl2br("");
+
 				if ($element->GetType() == Element::e_image) 
 				{
 					$image = new Image($element->GetXObject());
@@ -89,9 +89,9 @@ function ImageExtract($reader)
 	}
 
 	$doc->Close();
-	echo nl2br("\nDone.\n");
+	echo nl2br("\nDone.");
 
-	echo nl2br("----------------------------------------------------------------\n");
+	echo nl2br("\n----------------------------------------------------------------");
 
 	// Example 2: 
 	// Extract images by scanning the low-level document.
@@ -139,6 +139,6 @@ function ImageExtract($reader)
 	}
 
 	$doc->Close();
-	
+	echo nl2br("\nDone.");	
 	
 ?>
