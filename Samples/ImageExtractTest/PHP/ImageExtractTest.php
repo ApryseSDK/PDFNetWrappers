@@ -31,17 +31,16 @@ function ImageExtract($reader)
 		case Element::e_inline_image: 
 			{
 				global $image_counter;
-				echo nl2br("\n--> Image: ".++$image_counter);
-				echo nl2br("\n    Width: ".$element->GetImageWidth());
-				echo nl2br("\n    Height: ".$element->GetImageHeight());
-				echo nl2br("\n    BPC: ".$element->GetBitsPerComponent());
+				echo nl2br("--> Image: ".++$image_counter."\n");
+				echo nl2br("    Width: ".$element->GetImageWidth()."\n");
+				echo nl2br("    Height: ".$element->GetImageHeight()."\n");
+				echo nl2br("    BPC: ".$element->GetBitsPerComponent()."\n");
 
 				$ctm = $element->GetCTM();
 				$x2=1.0;
 				$y2=1.0;
 				$point = $ctm->Mult(new Point($x2, $y2));
-				printf("\n    Coords: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f", $ctm->m_h, $ctm->m_v, $point->x, $point->y);
-
+				printf("    Coords: x1=%.2f, y1=%.2f, x2=%.2f, y2=%.2f\n", $ctm->m_h, $ctm->m_v, $point->x, $point->y);
 				if ($element->GetType() == Element::e_image) 
 				{
 					$image = new Image($element->GetXObject());
@@ -89,9 +88,9 @@ function ImageExtract($reader)
 	}
 
 	$doc->Close();
-	echo nl2br("\nDone.");
+	echo nl2br("Done.\n");
 
-	echo nl2br("\n----------------------------------------------------------------");
+	echo nl2br("----------------------------------------------------------------\n");
 
 	// Example 2: 
 	// Extract images by scanning the low-level document.
@@ -121,10 +120,10 @@ function ImageExtract($reader)
 			}
 				
 			$image = new Image($obj);
-			echo nl2br("\n--> Image: ".++$image_counter);
-			echo nl2br("\n    Width: ".$image->GetImageWidth());
-			echo nl2br("\n    Height: ".$image->GetImageHeight());
-			echo nl2br("\n    BPC: ".$image->GetBitsPerComponent());
+			echo nl2br("--> Image: ".++$image_counter."\n");
+			echo nl2br("    Width: ".$image->GetImageWidth()."\n");
+			echo nl2br("    Height: ".$image->GetImageHeight()."\n");
+			echo nl2br("    BPC: ".$image->GetBitsPerComponent()."\n");
 
 			$fname = "image_extract2_".$image_counter;
 			$path = $output_path.$fname;
@@ -139,6 +138,6 @@ function ImageExtract($reader)
 	}
 
 	$doc->Close();
-	echo nl2br("\nDone.");	
+	echo nl2br("Done.\n");
 	
 ?>
