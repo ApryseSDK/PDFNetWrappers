@@ -85,7 +85,7 @@ end
 			file_spec = FileSpec.new(i.Value)
 			stm = Filter.new(file_spec.GetFileData)
 			if !stm.nil?
-				stm.WriteToFile(output_path + "extract_" + counter.to_s + ".pdf", false)
+				stm.WriteToFile(output_path + "extract_" + counter.to_s + File.extname(entry_name), false)
 			end
 			i.Next
 			counter = counter + 1

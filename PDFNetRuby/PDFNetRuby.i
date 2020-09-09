@@ -125,13 +125,24 @@
     #include "PDF/ContentReplacer.h" 
     #include "PDF/Date.h"
     #include "PDF/Destination.h"
-    #include "PDF/DigestAlgorithm.h"
-    #include "PDF/DisallowedChange.h"
     #include "PDF/Element.h"
     #include "PDF/ElementBuilder.h"
     #include "PDF/ElementReader.h"
     #include "PDF/ElementWriter.h"
     #include "PDF/Field.h"
+    #include "PDF/TimestampingTestResult.h"
+    #include "PDF/TimestampingConfiguration.h"
+    #include "PDF/ObjectIdentifier.h"
+    #include "PDF/X501DistinguishedName.h"
+    #include "PDF/X501AttributeTypeAndValue.h"
+    #include "PDF/X509Extension.h"
+    #include "PDF/X509Certificate.h"
+    #include "PDF/DisallowedChange.h"
+    #include "PDF/VerificationOptions.h"
+    #include "PDF/TrustVerificationResult.h"
+    #include "PDF/VerificationResult.h"
+    #include "PDF/EmbeddedTimestampVerificationResult.h"
+    #include "PDF/DigestAlgorithm.h"
     #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
@@ -157,6 +168,7 @@
     #include "PDF/OfficeToPDFOptions.h"
     #include "PDF/WordToPDFOptions.h"
     #include "PDF/CADConvertOptions.h"
+    #include "PDF/RefreshOptions.h"
     #include "PDF/DocumentConversion.h"
     #include "PDF/PDFDoc.h"
     #include "PDF/Convert.h"
@@ -175,9 +187,6 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
-    #include "PDF/TrustVerificationResult.h"
-    #include "PDF/VerificationOptions.h"
-    #include "PDF/VerificationResult.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -223,6 +232,11 @@ namespace std {
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;
    %template(VectorDisallowedChange) vector<pdftron::PDF::DisallowedChange>;
    %template(VectorAnnot) vector<pdftron::PDF::Annot>;
+   %template(VectorX509Extension) vector<pdftron::PDF::X509Extension>;
+   %template(VectorX501AttributeTypeAndValue) vector<pdftron::PDF::X501AttributeTypeAndValue>;
+   %template(VectorX509Certificate) vector<pdftron::PDF::X509Certificate>;
+   %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
+   %template(VectorVectorX509Certificate) vector<vector<pdftron::PDF::X509Certificate> >;
 };
 
 /**
@@ -237,6 +251,12 @@ namespace pdftron {
         class Font;
         class ColorPt;
         class Field;
+		class PatternColor;
+        class ViewerOptimizedOptions;
+        class EmbeddedTimestampVerificationResult;
+        class TrustVerificationResult;
+        class DigestAlgorithm;
+        class ObjectIdentifier;
         namespace Struct {
             class SElement;
         }
@@ -605,11 +625,19 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
-%include "PDF/DigestAlgorithm.h"
+%include "PDF/TimestampingTestResult.h"
+%include "PDF/TimestampingConfiguration.h"
+%include "PDF/ObjectIdentifier.h"
+%include "PDF/X501DistinguishedName.h"
+%include "PDF/X501AttributeTypeAndValue.h"
+%include "PDF/X509Extension.h"
+%include "PDF/X509Certificate.h"
 %include "PDF/DisallowedChange.h"
 %include "PDF/VerificationOptions.h"
 %include "PDF/TrustVerificationResult.h"
 %include "PDF/VerificationResult.h"
+%include "PDF/EmbeddedTimestampVerificationResult.h"
+%include "PDF/DigestAlgorithm.h"
 %include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
@@ -655,6 +683,7 @@ namespace pdftron {
 %include "PDF/PageLabel.h"
 %include "PDF/PDFRasterizer.h"
 %include "PDF/ViewerOptimizedOptions.h"
+%include "PDF/RefreshOptions.h"
 %include "PDF/PDFDocViewPrefs.h"
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"

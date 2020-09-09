@@ -62,7 +62,7 @@ def main():
     filename = "fish.pdf"
     pdf_a = PDFACompliance(True, input_path + filename, None, PDFACompliance.e_Level2B, 0, 0, 10)
     filename = "pdfa.pdf"
-    pdf_a.SaveAs(output_path + filename, True)
+    pdf_a.SaveAs(output_path + filename, False)
     pdf_a.Destroy()
     
     # Re-validate the document after the conversion...

@@ -76,10 +76,6 @@ function AnnotationHighLevelAPI($doc) {
 	// Create an intra-document link...
 	$goto_page_3 = Action::CreateGoto(Destination::CreateFitH($doc->GetPage(3), 0));
 	$link = Link::Create($doc->GetSDFDoc(), new Rect(85.0, 458.0, 503.0, 502.0), $goto_page_3);
-
-	// Set the annotation border width to 3 points...
-	$border_style = new BorderStyle(BorderStyle::e_solid, 3.0, 0.0, 0.0);
-	$link->SetBorderStyle($border_style);
 	$link->SetColor(new ColorPt(0.0, 0.0, 1.0));
 
 	// Add the new annotation to the first page
@@ -92,7 +88,7 @@ function AnnotationHighLevelAPI($doc) {
 
 	// Create a file attachment annotation (embed the 'peppers.jpg').
 	global $input_path;
-	$file_attach = FileAttachment::Create($doc->GetSDFDoc(), new Rect(80.0, 280.0, 200.0, 320.0), ($input_path."peppers.jpg"));
+	$file_attach = FileAttachment::Create($doc->GetSDFDoc(), new Rect(80.0, 280.0, 108.0, 320.0), ($input_path."peppers.jpg"));
 	$first_page->AnnotPushBack($file_attach);
 
 	$ink = Ink::Create($doc->GetSDFDoc(), new Rect(110.0, 10.0, 300.0, 200.0));
@@ -119,32 +115,7 @@ function AnnotationHighLevelAPI($doc) {
 	$ink->SetColor(new ColorPt(0.0, 1.0, 1.0), 3);
 	$first_page->AnnotPushBack($ink);
 
-	//Create a Polygon annotation..
-	//$poly2=Polygon::Create($doc->GetSDFDoc, new Rect(100.0, 60.0, 300.0, 480.0));
-	//$pllp = new Point();
-	//$pllp->x=105;
-	//$pllp->y=68;
-	//$poly2->SetVertex(0, $pllp);
-	//$pllp->x=155;
-	//$pllp->y=92;
-	//$poly2->SetVertex(1, $pllp);
-	//$pllp->x=189;
-	//$pllp->y=133;
-	//$poly2->SetVertex(2, $pllp);
-	//$pllp->x=200;
-	//$pllp->y=140;
-	//$poly2->SetVertex(3, $pllp);
-	//$pllp->x=230;
-	//$pllp->y=389;
-	//$poly2->SetVertex(4, $pllp);
-	//$pllp->x=300;
-	//$pllp->y=405;
-	//$poly2->SetVertex(5, $pllp);
-	//$poly2->SetColor(new ColorPt(0.0, 0.0, 1.0), 3);
-	//$poly2->SetInteriorColor(new ColorPt(1.0, 0.0, 0.0), 3);
-	//$first_page->AnnotPushBack($poly2);
 
-	// ...
 }
 
 function AnnotationLowLevelAPI($doc) {

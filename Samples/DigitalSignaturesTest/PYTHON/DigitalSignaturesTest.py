@@ -24,7 +24,7 @@
 ##		
 ##	[3. (OPTIONAL) Add digital signature restrictions to the document using the field modification permissions (SetFieldPermissions) 
 ##		or document modification permissions functions (SetDocumentPermissions) of DigitalSignatureField. These features disallow 
-##		certain types of changes to be made to the document without invalidating the cryptographic digital signature's hash once it
+##		certain types of changes to be made to the document without invalidating the cryptographic digital signature once it
 ##		is signed.]
 ##		
 ##	4. 	Call either CertifyOnNextSave or SignOnNextSave. There are three overloads for each one (six total):
@@ -39,9 +39,9 @@
 ##			iii)	Call SignOnNextSaveWithCustomHandler/CertifyOnNextSaveWithCustomHandler with the SignatureHandlerId.
 ##		NOTE: It is only possible to sign/certify one signature per call to the Save function.
 ##	
-##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic hash to it.
+##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic signature to it.
 ##		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
-##		so as to not invalidate the other signature's('s) cryptographic hashes. 
+##		so as to not invalidate the other signature(s). 
 ##
 ## Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 ## of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
@@ -58,7 +58,41 @@ site.addsitedir('../../../PDFNetC/Lib')
 
 from PDFNetPython import *
 
-# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+def VerifySimple(in_docpath, in_public_key_file_path):
+	doc = PDFDoc(in_docpath)
+	print("==========")
+	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
+
+	# Add trust root to store of trusted certificates contained in VerificationOptions.
+	opts.AddTrustedCertificate(in_public_key_file_path)
+
+	result = doc.VerifySignedDigitalSignatures(opts)
+		
+	if result is PDFDoc.e_unsigned:
+		print("Document has no signed signature fields.")
+		return False
+		# e_failure == bad doc status, digest status, or permissions status
+		# (i.e. does not include trust issues, because those are flaky due to being network/config-related)
+	elif result is PDFDoc.e_failure:
+		print("Hard failure in verification on at least one signature.")
+		return False
+	elif result is PDFDoc.e_untrusted:
+		print("Could not verify trust for at least one signature.")
+		return False
+	elif result is PDFDoc.e_unsupported:
+		# If necessary, call GetUnsupportedFeatures on VerificationResult to check which
+		# unsupported features were encountered (requires verification using 'detailed' APIs)
+		print("At least one signature contains unsupported features.")
+		return False
+		# unsigned sigs skipped; parts of document may be unsigned (check GetByteRanges on signed sigs to find out)
+	elif result is PDFDoc.e_verified:
+		print("All signed signatures in document verified.")
+		return True
+	else:
+		print("unrecognized document verification status")
+		assert False, "unrecognized document status"
+
+
 def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	doc = PDFDoc(in_docpath)
 	print("==========")
@@ -70,7 +104,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	file_sz = trusted_cert_file.FileSize()
 	file_reader = FilterReader(trusted_cert_file)
 	trusted_cert_buf = file_reader.Read(file_sz)
-	opts.AddTrustedCertificate(trusted_cert_buf)
+	opts.AddTrustedCertificate(trusted_cert_buf, len(trusted_cert_buf))
 
 	# Iterate over the signatures and verify all of them.
 	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
@@ -84,7 +118,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 			print("Signature verification failed, objnum: %lu" % curr.GetSDFObj().GetObjNum())
 			verification_status = False
 
-		digest_algorithm = result.GetSignersDigestAlgorithm()
+		digest_algorithm = result.GetDigestAlgorithm()
 		if digest_algorithm is DigestAlgorithm.e_SHA1:
 			print("Digest algorithm: SHA-1")
 		elif digest_algorithm is DigestAlgorithm.e_SHA256:
@@ -100,63 +134,12 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 		else:
 			assert False, "unrecognized document status"
 
-		print("Detailed verification result: ")
-		doc_status = result.GetDocumentStatus()
-		if doc_status is VerificationResult.e_no_error:
-			print("\tNo general error to report.")
-		elif doc_status is VerificationResult.e_corrupt_file:
-			print("\tSignatureHandler reported file corruption.")
-		elif doc_status is VerificationResult.e_unsigned:
-			print("\tThe signature has not yet been cryptographically signed.")
-		elif doc_status is VerificationResult.e_bad_byteranges:
-			print("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.")
-		elif doc_status is VerificationResult.e_corrupt_cryptographic_contents:
-			print("\tSignatureHandler reports corruption in the Contents of the digital signature.")
-		else:
-			assert False, "unrecognized document status"
-		
-		digest_status = result.GetDigestStatus()
-		if digest_status is VerificationResult.e_digest_invalid:
-			print("\tThe digest is incorrect.")
-		elif digest_status is VerificationResult.e_digest_verified:
-			print("\tThe digest is correct.")
-		elif digest_status is VerificationResult.e_digest_verification_disabled:
-			print("\tDigest verification has been disabled.")
-		elif digest_status is VerificationResult.e_weak_digest_algorithm_but_digest_verifiable:
-			print("\tThe digest is correct, but the digest algorithm is weak and not secure.")
-		elif digest_status is VerificationResult.e_no_digest_status:
-			print( "\tNo digest status to report.")
-		elif digest_status is VerificationResult.e_unsupported_encoding:
-			print("\tNo installed SignatureHandler was able to recognize the signature's encoding.")
-		else:
-			assert False, "unrecognized digest status"
-		
-		trust_status = result.GetTrustStatus()
-		if trust_status is VerificationResult.e_trust_verified:
-			print("\tEstablished trust in signer successfully.")
-		elif trust_status is VerificationResult.e_untrusted:
-			print("\tTrust could not be established.")
-		elif trust_status is VerificationResult.e_trust_verification_disabled:
-			print("\tTrust verification has been disabled.")
-		elif trust_status is VerificationResult.e_no_trust_status:
-			print("\tNo trust status to report.")
-		else:
-			assert False, "unrecognized trust status"
-		
-		permissions_status = result.GetPermissionsStatus()
-		if permissions_status is VerificationResult.e_invalidated_by_disallowed_changes:
-			print("\tThe document has changes that are disallowed by the signature's permissions settings.")
-		elif permissions_status is VerificationResult.e_has_allowed_changes:
-			print("\tThe document has changes that are allowed by the signature's permissions settings.")
-		elif permissions_status is VerificationResult.e_unmodified:
-			print("\tThe document has not been modified since it was signed.")
-		elif permissions_status is VerificationResult.e_permissions_verification_disabled:
-			print("\tPermissions verification has been disabled.")
-		elif permissions_status is VerificationResult.e_no_permissions_status:
-			print("\tNo permissions status to report.")
-		else:
-			assert False, "unrecognized modification permissions status"
-		
+		print("Detailed verification result: \n\t%s\n\t%s\n\t%s\n\t%s" % ( 
+			result.GetDocumentStatusAsString(),
+			result.GetDigestStatusAsString(),
+			result.GetTrustStatusAsString(),
+			result.GetPermissionsStatusAsString()))
+			
 		changes = result.GetDisallowedChanges()
 		for it2 in changes:
 			print("\tDisallowed change: %s, objnum: %lu" % (it2.GetTypeAsString(), it2.GetObjNum()))
@@ -165,7 +148,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 		if result.HasTrustVerificationResult():
 			trust_verification_result = result.GetTrustVerificationResult()
 			print("Trust verified." if trust_verification_result.WasSuccessful() else "Trust not verifiable.")
-			print("Trust verification result string: %s" % trust_verification_result.GetResultString())
+			print(trust_verification_result.GetResultString())
 			
 			tmp_time_t = trust_verification_result.GetTimeOfTrustVerification()
 			
@@ -179,14 +162,40 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 				print("Trust verification attempted with respect to secure embedded timestamp (as epoch time): " + str(tmp_time_t))
 			else:
 				assert False, "unrecognized time enum value"
-			
+
+			if not trust_verification_result.GetCertPath():
+				print("Could not print certificate path.")
+			else:
+				print("Certificate path:")
+				cert_path = trust_verification_result.GetCertPath()
+				for j in range(len(cert_path)):
+					print("\tCertificate:")
+					full_cert = cert_path[j]
+					print("\t\tIssuer names:")
+					issuer_dn  = full_cert.GetIssuerField().GetAllAttributesAndValues()
+					for i in range(len(issuer_dn)):  
+						print("\t\t\t" + issuer_dn[i].GetStringValue())
+
+					print("\t\tSubject names:")
+					subject_dn = full_cert.GetSubjectField().GetAllAttributesAndValues()
+					for s in subject_dn:
+						print("\t\t\t" + s.GetStringValue())
+
+					print("\t\tExtensions:")
+					for x in full_cert.GetExtensions():
+						print("\t\t\t" + x.ToString())
+					
 		else:
 			print("No detailed trust verification result available.")
 		
+			unsupported_features = result.GetUnsupportedFeatures()
+			if not unsupported_features:
+				print("Unsupported features:")
+				for unsupported_feature in unsupported_features:
+					print("\t" + unsupported_feature)
 		print("==========")
 		
 		digsig_fitr.Next()
-
 	return verification_status
 
 def CertifyPDF(in_docpath,
@@ -292,7 +301,7 @@ def ClearSignature(in_docpath,
 	if not digsig.HasCryptographicSignature():
 		print('Cryptographic signature cleared properly.')
 
-	# Save incrementally so as to not invalidate other signatures' hashes from previous saves.
+	# Save incrementally so as to not invalidate other signatures from previous saves.
 	doc.Save(in_outpath, SDFDoc.e_incremental)
 
 	print('================================================================================')
@@ -333,7 +342,7 @@ def PrintSignaturesInfo(in_docpath):
 		digsigfield = current
 		if not digsigfield.HasCryptographicSignature():
 			print("Either digital signature field lacks a digital signature dictionary, " +
-				"or digital signature dictionary lacks a cryptographic hash entry. " +
+				"or digital signature dictionary lacks a cryptographic Contents entry. " +
 				"Digital signature field is not presently considered signed.\n" +
 				"==========")
 			digsig_fitr.Next()
@@ -354,7 +363,7 @@ def PrintSignaturesInfo(in_docpath):
 
 			signing_time = digsigfield.GetSigningTime()
 			if signing_time.IsValid():
-				print('Signing day: ' + signing_time.GetDay())
+				print('Signing time is valid.')
 
 			print('Location: ' + digsigfield.GetLocation())
 			print('Reason: ' + digsigfield.GetReason())
@@ -387,6 +396,67 @@ def PrintSignaturesInfo(in_docpath):
 		digsig_fitr.Next()
 
 	print('================================================================================')
+
+def TimestampAndEnableLTV(in_docpath, 
+	in_trusted_cert_path, 
+	in_appearance_img_path,
+	in_outpath):
+	doc = PDFDoc(in_docpath)
+	doctimestamp_signature_field = doc.CreateDigitalSignatureField()
+	tst_config = TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2")
+	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
+#	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
+#	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
+#	response to be verifiable during DocTimeStamp signing. It is also necessary in the context of this 
+#	function to do this for the later LTV section, because one needs to be able to verify the DocTimeStamp 
+#	in order to enable LTV for it, and we re-use the VerificationOptions opts object in that part.
+
+	opts.AddTrustedCertificate(in_trusted_cert_path)
+#   	By default, we only check online for revocation of certificates using the newer and lighter 
+#	OCSP protocol as opposed to CRL, due to lower resource usage and greater reliability. However, 
+#	it may be necessary to enable online CRL revocation checking in order to verify some timestamps
+#	(i.e. those that do not have an OCSP responder URL for all non-trusted certificates).
+
+	opts.EnableOnlineCRLRevocationChecking(True)
+
+	widgetAnnot = SignatureWidget.Create(doc, Rect(0.0, 100.0, 200.0, 150.0), doctimestamp_signature_field)
+	doc.GetPage(1).AnnotPushBack(widgetAnnot)
+
+	# (OPTIONAL) Add an appearance to the signature field.
+	img = Image.Create(doc.GetSDFDoc(), in_appearance_img_path)
+	widgetAnnot.CreateSignatureAppearance(img)
+
+	print('Testing timestamping configuration.')
+	config_result = tst_config.TestConfiguration(opts)
+	if config_result.GetStatus():
+		print('Success: timestamping configuration usable. Attempting to timestamp.')
+	else:
+		# Print details of timestamping failure.
+		print(config_result.GetString())
+		if config_result.HasResponseVerificationResult():
+			tst_result = config_result.GetResponseVerificationResult()
+			print('CMS digest status: '+ tst_result.GetCMSDigestStatusAsString())
+			print('Message digest status: ' + tst_result.GetMessageImprintDigestStatusAsString())
+			print('Trust status: ' + tst_result.GetTrustStatusAsString())
+		return False
+	
+
+	doctimestamp_signature_field.TimestampOnNextSave(tst_config, opts)
+
+	# Save/signing throws if timestamping fails.
+	doc.Save(in_outpath, SDFDoc.e_incremental)
+
+	print('Timestamping successful. Adding LTV information for DocTimeStamp signature.')
+
+	# Add LTV information for timestamp signature to document.
+	timestamp_verification_result = doctimestamp_signature_field.Verify(opts)
+	if not doctimestamp_signature_field.EnableLTVOfflineVerification(timestamp_verification_result):
+		print('Could not enable LTV for DocTimeStamp.')
+		return False
+	doc.Save(in_outpath, SDFDoc.e_incremental)
+	print('Added LTV information for DocTimeStamp signature successfully.')
+
+	return True
 
 def main():
 	# Initialize PDFNet
@@ -446,8 +516,25 @@ def main():
 
 	#################### TEST 4: Verify a document's digital signatures.
 	try:
-		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
-		VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
+		if not VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer"):
+			result = False
+	except Exception as e:
+		print(e.args)
+		result = False
+	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
+	try:
+		if not VerifySimple(input_path + 'tiger_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer'):
+			result = False
+	except Exception as e:
+		print(e.args)
+		result = False
+	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
+	try:
+		if not TimestampAndEnableLTV(input_path + 'tiger.pdf',
+			input_path + 'GlobalSignRootForTST.cer',
+			input_path + 'signature.jpg',
+			output_path+ 'tiger_DocTimeStamp_LTV.pdf'):
+			result = False
 	except Exception as e:
 		print(e.args)
 		result = False

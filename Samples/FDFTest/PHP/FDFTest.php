@@ -67,10 +67,9 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$doc->InitSecurityHandler();
 	$doc->FDFMerge($fdf_doc1);
 	
-	// To use PDFNet form field appearance generation instead of relying on 
-	// Acrobat, uncomment the following two lines:
-	// $doc->RefreshFieldAppearances();
-	// $doc->GetAcroForm()->Put("NeedAppearances", false);
+	// Refreshing missing appearances is not required here, but is recommended to make them 
+	// visible in PDF viewers with incomplete annotation viewing support. (such as Chrome)
+	$doc->RefreshAnnotAppearances();
 	
 	$doc->Save(($output_path."form1_filled.pdf"), SDFDoc::e_linearized);
 	
@@ -78,6 +77,9 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	echo nl2br("Merge annotations from FDF.\n");
 	
 	$doc->FDFMerge($fdf_doc2);	
+	// Refreshing missing appearances is not required here, but is recommended to make them 
+	// visible in PDF viewers with incomplete annotation viewing support. (such as Chrome)
+	$doc->RefreshAnnotAppearances();
 	$doc->Save(($output_path."form1_filled_with_annots.pdf"), SDFDoc::e_linearized);
 	$doc->Close();
 	echo nl2br("Done.\n");

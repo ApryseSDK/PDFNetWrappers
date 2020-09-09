@@ -24,7 +24,7 @@
 ##		
 ##	[3. (OPTIONAL) Add digital signature restrictions to the document using the field modification permissions (SetFieldPermissions) 
 ##		or document modification permissions functions (SetDocumentPermissions) of DigitalSignatureField. These features disallow 
-##		certain types of changes to be made to the document without invalidating the cryptographic digital signature's hash once it
+##		certain types of changes to be made to the document without invalidating the cryptographic digital signature once it
 ##		is signed.]
 ##		
 ##	4. 	Call either CertifyOnNextSave or SignOnNextSave. There are three overloads for each one (six total):
@@ -39,9 +39,9 @@
 ##			iii)	Call SignOnNextSaveWithCustomHandler/CertifyOnNextSaveWithCustomHandler with the SignatureHandlerId.
 ##		NOTE: It is only possible to sign/certify one signature per call to the Save function.
 ##	
-##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic hash to it.
+##	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic signature to it.
 ##		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
-##		so as to not invalidate the other signature's('s) cryptographic hashes. 
+##		so as to not invalidate the other signature(s). 
 ##
 ## Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 ## of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
@@ -56,8 +56,42 @@ require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
 
 $stdout.sync = true
+def VerifySimple(in_docpath, in_public_key_file_path)
+	doc = PDFDoc.new(in_docpath)
+	puts("==========")
+	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving)
 
-# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+	# Add trust root to store of trusted certificates contained in VerificationOptions.
+	opts.AddTrustedCertificate(in_public_key_file_path)
+
+	result = doc.VerifySignedDigitalSignatures(opts)
+	case result	
+	when PDFDoc::E_unsigned
+		puts("Document has no signed signature fields.")
+		return false
+		# e_failure == bad doc status, digest status, or permissions status
+		# (i.e. does not include trust issues, because those are flaky due to being network/config-related)
+	when PDFDoc::E_failure
+		puts("Hard failure in verification on at least one signature.")
+		return false
+	when PDFDoc::E_untrusted
+		puts("Could not verify trust for at least one signature.")
+		return false
+	when PDFDoc::E_unsupported
+		# If necessary, call GetUnsupportedFeatures on VerificationResult to check which
+		# unsupported features were encountered (requires verification using 'detailed' APIs)
+		puts("At least one signature contains unsupported features.")
+		return false
+		# unsigned sigs skipped; parts of document may be unsigned (check GetByteRanges on signed sigs to find out)
+	when PDFDoc::E_verified
+		puts("All signed signatures in document verified.")
+		return true
+	else
+		puts("unrecognized document verification status")
+		assert(false)
+	end
+end # VerifySimple()
+	
 def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 	doc = PDFDoc.new(in_docpath)
 	puts("==========")
@@ -69,7 +103,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 	file_sz = trusted_cert_file.FileSize()
 	file_reader = FilterReader.new(trusted_cert_file)
 	trusted_cert_buf = file_reader.Read(file_sz)
-	opts.AddTrustedCertificate(trusted_cert_buf)
+	opts.AddTrustedCertificate(trusted_cert_buf, trusted_cert_buf.length)
 
 	# Iterate over the signatures and verify all of them.
 	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
@@ -84,7 +118,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			verification_status = false
 		end
 
-		case result.GetSignersDigestAlgorithm()
+		case result.GetDigestAlgorithm()
 		when DigestAlgorithm::E_SHA1
 			puts("Digest algorithm: SHA-1")
 		when DigestAlgorithm::E_SHA256
@@ -101,72 +135,13 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			puts("unrecognized digest algorithm")
 			assert(false)
 		end
-
-		puts("Detailed verification result: ")
-		case result.GetDocumentStatus()
-		when VerificationResult::E_no_error
-			puts("\tNo general error to report.")
-		when VerificationResult::E_corrupt_file
-			puts("\tSignatureHandler reported file corruption.")
-		when  VerificationResult::E_unsigned
-			puts("\tThe signature has not yet been cryptographically signed.")
-		when VerificationResult::E_bad_byteranges
-			puts("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.")
-		when VerificationResult::E_corrupt_cryptographic_contents
-			puts("\tSignatureHandler reports corruption in the Contents of the digital signature.")
-		else
-			puts("unrecognized document status")
-			assert(false)
-		end
-		
-		case result.GetDigestStatus()
-		when VerificationResult::E_digest_invalid
-			puts("\tThe digest is incorrect.")
-		when VerificationResult::E_digest_verified
-			puts("\tThe digest is correct.")
-		when VerificationResult::E_digest_verification_disabled
-			puts("\tDigest verification has been disabled.")
-		when VerificationResult::E_weak_digest_algorithm_but_digest_verifiable
-			puts("\tThe digest is correct, but the digest algorithm is weak and not secure.")
-		when VerificationResult::E_no_digest_status
-			puts( "\tNo digest status to report.")
-		when VerificationResult::e_unsupported_encoding
-			puts("\tNo installed SignatureHandler was able to recognize the signature's encoding.")
-		else
-			puts("unrecognized digest status")
-			assert(false)
-		end
-		
-		case result.GetTrustStatus()
-		when VerificationResult::E_trust_verified
-			puts("\tEstablished trust in signer successfully.")
-		when VerificationResult::E_untrusted
-			puts("\tTrust could not be established.")
-		when VerificationResult::E_trust_verification_disabled
-			puts("\tTrust verification has been disabled.")
-		when VerificationResult::E_no_trust_status
-			puts("\tNo trust status to report.")
-		else
-			puts("unrecognized trust status")
-			assert(false)
-		end
-		
-		case result.GetPermissionsStatus()
-		when VerificationResult::E_invalidated_by_disallowed_changes
-			puts("\tThe document has changes that are disallowed by the signature's permissions settings.")
-		when VerificationResult::E_has_allowed_changes
-			puts("\tThe document has changes that are allowed by the signature's permissions settings.")
-		when VerificationResult::E_unmodified
-			puts("\tThe document has not been modified since it was signed.")
-		when VerificationResult::E_permissions_verification_disabled
-			puts("\tPermissions verification has been disabled.")
-		when VerificationResult::E_no_permissions_status
-			puts("\tNo permissions status to report.")
-		else
-			puts("unrecognized modification permissions status")
-			assert(false)
-		end
-		
+	
+		puts("Detailed verification result: \n\t" +
+			result.GetDocumentStatusAsString() + "\n\t" +
+			result.GetDigestStatusAsString() + "\n\t" +
+			result.GetTrustStatusAsString() + "\n\t" +
+			result.GetPermissionsStatusAsString() )
+			
 		changes = result.GetDisallowedChanges()
 		for it2 in changes
 			puts("\tDisallowed change: " + it2.GetTypeAsString() + ", objnum: " + it2.GetObjNum().to_s)
@@ -180,7 +155,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 			else
 				puts("Trust not verifiable.")
 			end
-			puts("Trust verification result string: " + trust_verification_result.GetResultString())
+			puts(trust_verification_result.GetResultString())
 			
 			tmp_time_t = trust_verification_result.GetTimeOfTrustVerification()
 			
@@ -195,12 +170,44 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 				puts("unrecognized time enum value")
 				assert(false)
 			end
-			
+			if trust_verification_result.GetCertPath().length() == 0
+				puts("Could not print certificate path.")
+			else
+				puts("Certificate path:")
+				cert_path = trust_verification_result.GetCertPath()
+				for j in 0..cert_path.length()-1
+					full_cert = cert_path[j]
+					puts("\tCertificate:")
+					puts("\t\tIssuer names:")
+					issuer_dn  = full_cert.GetIssuerField().GetAllAttributesAndValues()
+					for i in 0..issuer_dn.length()-1  
+						puts("\t\t\t" + issuer_dn[i].GetStringValue())
+					end
+
+					puts("\t\tSubject names:")
+					subject_dn = full_cert.GetSubjectField().GetAllAttributesAndValues()
+					for i in 0..subject_dn.length()-1
+						puts("\t\t\t" + subject_dn[i].GetStringValue())
+					end
+					puts("\t\tExtensions:")
+					ex = full_cert.GetExtensions()
+					for i in 0..ex.length()-1
+						puts("\t\t\t" + ex[i].ToString())
+					end
+				end
+			end
 		else
 			puts("No detailed trust verification result available.")
 		end
 		
-		puts("==========")
+		unsupported_features = result.GetUnsupportedFeatures()
+		if unsupported_features.length()>0
+			puts("Unsupported features:")
+			for i in 0..unsupported_features.length()-1
+				puts("\t" + unsupported_features[i])		
+			end
+		end
+	puts("==========")
 		
 		digsig_fitr.Next()
 	end
@@ -316,7 +323,7 @@ def ClearSignature(in_docpath,
 		puts('Cryptographic signature cleared properly.');
 	end
 
-	# Save incrementally so as to not invalidate other signatures' hashes from previous saves.
+	# Save incrementally so as to not invalidate other signatures from previous saves.
 	doc.Save(in_outpath, SDFDoc::E_incremental);
 
 	puts('================================================================================');
@@ -362,7 +369,7 @@ def PrintSignaturesInfo(in_docpath)
 		digsigfield = current;
 		if (!digsigfield.HasCryptographicSignature())
 			puts("Either digital signature field lacks a digital signature dictionary, " +
-				"or digital signature dictionary lacks a cryptographic hash entry. " +
+				"or digital signature dictionary lacks a cryptographic Contents entry. " +
 				"Digital signature field is not presently considered signed.\n" +
 				"==========");
 			digsig_fitr.Next()
@@ -385,7 +392,7 @@ def PrintSignaturesInfo(in_docpath)
 
 			signing_time = digsigfield.GetSigningTime();
 			if (signing_time.IsValid())
-				puts('Signing day: ' + signing_time.GetDay());
+				puts('Signing time is valid.');
 			end
 
 			puts('Location: ' + digsigfield.GetLocation());
@@ -427,13 +434,77 @@ def PrintSignaturesInfo(in_docpath)
 	puts('================================================================================');
 end # def PrintSignaturesInfo
 
+def TimestampAndEnableLTV(in_docpath, 
+	in_trusted_cert_path, 
+	in_appearance_img_path,
+	in_outpath)
+	doc = PDFDoc.new(in_docpath);
+	doctimestamp_signature_field = doc.CreateDigitalSignatureField();
+	tst_config = TimestampingConfiguration.new('http://adobe-timestamp.globalsign.com/?signature=sha2');
+	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving);
+#	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
+#	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
+#	response to be verifiable during DocTimeStamp signing. It is also necessary in the context of this 
+#	function to do this for the later LTV section, because one needs to be able to verify the DocTimeStamp 
+#	in order to enable LTV for it, and we re-use the VerificationOptions opts object in that part.
+
+	opts.AddTrustedCertificate(in_trusted_cert_path);
+#   	By default, we only check online for revocation of certificates using the newer and lighter 
+#	OCSP protocol as opposed to CRL, due to lower resource usage and greater reliability. However, 
+#	it may be necessary to enable online CRL revocation checking in order to verify some timestamps
+#	(i.e. those that do not have an OCSP responder URL for all non-trusted certificates).
+
+	opts.EnableOnlineCRLRevocationChecking(true);
+
+	widgetAnnot = SignatureWidget.Create(doc, Rect.new(0.0, 100.0, 200.0, 150.0), doctimestamp_signature_field);
+	doc.GetPage(1).AnnotPushBack(widgetAnnot);
+
+	# (OPTIONAL) Add an appearance to the signature field.
+	img = Image.Create(doc.GetSDFDoc(), in_appearance_img_path);
+	widgetAnnot.CreateSignatureAppearance(img);
+
+	puts('Testing timestamping configuration.');
+	config_result = tst_config.TestConfiguration(opts);
+	if (config_result.GetStatus())
+		puts('Success: timestamping configuration usable. Attempting to timestamp.');
+	else
+		# Print details of timestamping failure.
+		puts(config_result.GetString());
+		if config_result.HasResponseVerificationResult()
+			tst_result = config_result.GetResponseVerificationResult();
+			puts('CMS digest status: '+ tst_result.GetCMSDigestStatusAsString());
+			puts('Message digest status: ' + tst_result.GetMessageImprintDigestStatusAsString());
+			puts('Trust status: ' + tst_result.GetTrustStatusAsString());
+		end
+		return false;
+	end
+
+	doctimestamp_signature_field.TimestampOnNextSave(tst_config, opts);
+
+	# Save/signing throws if timestamping fails.
+	doc.Save(in_outpath, SDFDoc::E_incremental);
+
+	puts('Timestamping successful. Adding LTV information for DocTimeStamp signature.');
+
+	# Add LTV information for timestamp signature to document.
+	timestamp_verification_result = doctimestamp_signature_field.Verify(opts);
+	if !doctimestamp_signature_field.EnableLTVOfflineVerification(timestamp_verification_result)
+		puts('Could not enable LTV for DocTimeStamp.');
+		return false;
+	end
+	doc.Save(in_outpath, SDFDoc::E_incremental);
+	puts('Added LTV information for DocTimeStamp signature successfully.');
+
+	return true;
+end
+
 def main()
     # Initialize PDFNet
     PDFNet.Initialize
 	
     result = true
 	input_path = '../../TestFiles/';
-    output_path = '../../TestFiles/Output/';
+	output_path = '../../TestFiles/Output/';
 	
 	#################### TEST 0:
 	# Create an approval signature field that we can sign after certifying.
@@ -495,19 +566,41 @@ def main()
 
 	#################### TEST 4: Verify a document's digital signatures.
 	begin
-		# EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
-		result &= VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer");
+		if !VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
+			return false;
+		end
 	rescue Exception => e
-        puts(e.message)
-        puts(e.backtrace.inspect)
-		result = false
-    end
+        puts(e.message);
+        puts(e.backtrace.inspect);
+	end
+
+	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
+	begin
+		if !VerifySimple(input_path + 'tiger_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer')
+			result = false;
+		end
+	rescue Exception => e
+        puts(e.message);
+        puts(e.backtrace.inspect);
+	end
+	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
+	begin
+		if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
+			input_path + 'GlobalSignRootForTST.cer',
+			input_path + 'signature.jpg',
+			output_path+ 'tiger_DocTimeStamp_LTV.pdf')
+			result = false;
+		end
+	rescue Exception => e
+        puts(e.message);
+        puts(e.backtrace.inspect);
+	end
 
 	#################### End of tests. ####################
 
 	if (!result)
-        puts("Tests FAILED!!!\n==========")
-        return
+        	puts("Tests FAILED!!!\n==========")
+        	return
 	end # if (!result)
 	
 	puts("Tests successful.\n==========")

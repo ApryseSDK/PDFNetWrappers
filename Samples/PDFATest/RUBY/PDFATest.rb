@@ -68,7 +68,7 @@ end
 	filename = "fish.pdf"
 	pdf_a = PDFACompliance.new(true, input_path + filename, nil, PDFACompliance::E_Level2B, 0, 0, 10)
 	filename = "pdfa.pdf"
-	pdf_a.SaveAs(output_path + filename, true)
+	pdf_a.SaveAs(output_path + filename, false)
 	pdf_a.Destroy
 	
 	# Re-validate the document after the conversion...

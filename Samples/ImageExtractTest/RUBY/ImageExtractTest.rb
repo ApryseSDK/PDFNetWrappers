@@ -143,4 +143,4 @@ end
 		i = i + 1
 	end
 	doc.Close()
-
+	puts "Done."

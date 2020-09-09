@@ -136,6 +136,7 @@ def main():
             #image.ExportAsPng(path)
         i = i + 1
     doc.Close()
+    print("Done.")
     
 if __name__ == '__main__':
     main()

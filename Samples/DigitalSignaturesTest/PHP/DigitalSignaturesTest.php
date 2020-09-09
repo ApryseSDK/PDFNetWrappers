@@ -23,7 +23,7 @@
 //		
 //	[3. (OPTIONAL) Add digital signature restrictions to the document using the field modification permissions (SetFieldPermissions) 
 //		or document modification permissions functions (SetDocumentPermissions) of DigitalSignatureField. These features disallow 
-//		certain types of changes to be made to the document without invalidating the cryptographic digital signature's hash once it
+//		certain types of changes to be made to the document without invalidating the cryptographic digital signature once it
 //		is signed.]
 //		
 //	4. 	Call either CertifyOnNextSave or SignOnNextSave. There are three overloads for each one (six total):
@@ -38,9 +38,9 @@
 //			iii)	Call SignOnNextSaveWithCustomHandler/CertifyOnNextSaveWithCustomHandler with the SignatureHandlerId.
 //		NOTE: It is only possible to sign/certify one signature per call to the Save function.
 //	
-//	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic hash to it.
+//	5.	Call pdfdoc.Save(). This will also create the digital signature dictionary and write a cryptographic signature to it.
 //		IMPORTANT: If there are already signed/certified digital signature(s) in the document, you must save incrementally
-//		so as to not invalidate the other signature's('s) cryptographic hashes. 
+//		so as to not invalidate the other signature(s). 
 //
 // Additional processing can be done before document is signed. For example, UseSignatureHandler() returns an instance
 // of SDF dictionary which represents the signature dictionary (or the /V entry of the form field). This can be used to
@@ -52,7 +52,44 @@
 
 include('../../../PDFNetC/Lib/PDFNetPHP.php');
 
-// EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
+function VerifySimple($in_docpath, $in_public_key_file_path)
+{
+	$doc = new PDFDoc($in_docpath);
+	echo(nl2br("==========".PHP_EOL));
+	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
+
+	// Add trust root to store of trusted certificates contained in VerificationOptions.
+	$opts->AddTrustedCertificate($in_public_key_file_path);
+
+	$result = $doc->VerifySignedDigitalSignatures($opts);
+	switch ($result)
+	{
+	case PDFDoc::e_unsigned:
+		echo(nl2br("Document has no signed signature fields.".PHP_EOL));
+		return False;
+		/* e_failure == bad doc status, digest status, or permissions status
+		(i.e. does not include trust issues, because those are flaky due to being network/config-related) */
+	case PDFDoc::e_failure:
+		echo(nl2br("Hard failure in verification on at least one signature.".PHP_EOL));
+		return False;
+	case PDFDoc::e_untrusted:
+		echo(nl2br("Could not verify trust for at least one signature.".PHP_EOL));
+		return False;
+	case PDFDoc::e_unsupported:
+		/* If necessary, call GetUnsupportedFeatures on VerificationResult to check which
+		unsupported features were encountered (requires verification using 'detailed' APIs) */
+		echo(nl2br("At least one signature contains unsupported features.".PHP_EOL));
+		return False;
+		// unsigned sigs skipped; parts of document may be unsigned (check GetByteRanges on signed sigs to find out)
+	case PDFDoc::e_verified:
+		echo(nl2br("All signed signatures in document verified.".PHP_EOL));
+		return True;
+	default:
+		echo(nl2br("unrecognized document verification status".PHP_EOL));
+		assert(False);
+	}
+}
+
 function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 {
 	$doc = new PDFDoc($in_docpath);
@@ -64,7 +101,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 	$file_sz = $trusted_cert_file->FileSize();
 	$file_reader = new FilterReader($trusted_cert_file);
 	$trusted_cert_buf = $file_reader->Read($file_sz);
-	$opts->AddTrustedCertificate($trusted_cert_buf);
+	$opts->AddTrustedCertificate($trusted_cert_buf, strlen($trusted_cert_buf));
 
 	// Iterate over the signatures and verify all of them.
 	$digsig_fitr = $doc->GetDigitalSignatureFieldIterator();
@@ -83,7 +120,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			$verification_status = False;
 		}
 		
-		switch($result->GetSignersDigestAlgorithm())
+		switch($result->GetDigestAlgorithm())
 		{
 			case DigestAlgorithm::e_SHA1:
 				echo(nl2br("Digest algorithm: SHA-1".PHP_EOL));
@@ -107,96 +144,12 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 				echo(nl2br("unrecognized digest algorithm".PHP_EOL));
 				assert(False);
 		}
+		echo(nl2br("Detailed verification result: \n\t".$result->GetDocumentStatusAsString()."\n\t"
+		.$result->GetDigestStatusAsString()."\n\t"
+		.$result->GetTrustStatusAsString()."\n\t"
+		.$result->GetPermissionsStatusAsString().PHP_EOL));
 
-		echo(nl2br("Detailed verification result: ".PHP_EOL));
-		switch($result->GetDocumentStatus())
-		{
-			case VerificationResult::e_no_error:
-				echo(nl2br("\tNo general error to report.".PHP_EOL));
-				break;
-			case VerificationResult::e_corrupt_file:
-				echo(nl2br("\tSignatureHandler reported file corruption.".PHP_EOL));
-				break;
-			case VerificationResult::e_unsigned:
-				echo(nl2br("\tThe signature has not yet been cryptographically signed.".PHP_EOL));
-				break;
-			case VerificationResult::e_bad_byteranges:
-				echo(nl2br("\tSignatureHandler reports corruption in the ByteRanges in the digital signature.".PHP_EOL));
-				break;
-			case VerificationResult::e_corrupt_cryptographic_contents:
-				echo(nl2br("\tSignatureHandler reports corruption in the Contents of the digital signature.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized document status".PHP_EOL));
-				assert(False);
-		}
-		
-		switch($result->GetDigestStatus())
-		{
-			case VerificationResult::e_digest_invalid:
-				echo(nl2br("\tThe digest is incorrect.".PHP_EOL));
-				break;
-			case VerificationResult::e_digest_verified:
-				echo(nl2br("\tThe digest is correct.".PHP_EOL));
-				break;
-			case VerificationResult::e_digest_verification_disabled:
-				echo(nl2br("\tDigest verification has been disabled.".PHP_EOL));
-				break;
-			case VerificationResult::e_weak_digest_algorithm_but_digest_verifiable:
-				echo(nl2br("\tThe digest is correct, but the digest algorithm is weak and not secure.".PHP_EOL));
-				break;
-			case VerificationResult::e_no_digest_status:
-				echo(nl2br( "\tNo digest status to report.".PHP_EOL));
-				break;
-			case VerificationResult::e_unsupported_encoding:
-				echo(nl2br("\tNo installed SignatureHandler was able to recognize the signature's encoding.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized digest status".PHP_EOL));
-				assert(False);
-		}
-		
-		switch($result->GetTrustStatus())
-		{
-			case VerificationResult::e_trust_verified:
-				echo(nl2br("\tEstablished trust in signer successfully.".PHP_EOL));
-				break;
-			case VerificationResult::e_untrusted:
-				echo(nl2br("\tTrust could not be established.".PHP_EOL));
-				break;
-			case VerificationResult::e_trust_verification_disabled:
-				echo(nl2br("\tTrust verification has been disabled.".PHP_EOL));
-				break;
-			case VerificationResult::e_no_trust_status:
-				echo(nl2br("\tNo trust status to report.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br("unrecognized trust status".PHP_EOL));
-				assert(False);
-		}
-		
-		switch($result->GetPermissionsStatus())
-		{
-			case VerificationResult::e_invalidated_by_disallowed_changes:
-				echo(nl2br("\tThe document has changes that are disallowed by the signature's permissions settings.".PHP_EOL));
-				break;
-			case VerificationResult::e_has_allowed_changes:
-				echo(nl2br("\tThe document has changes that are allowed by the signature's permissions settings.".PHP_EOL));
-				break;
-			case VerificationResult::e_unmodified:
-				echo(nl2br("\tThe document has not been modified since it was signed.".PHP_EOL));
-				break;
-			case VerificationResult::e_permissions_verification_disabled:
-				echo(nl2br("\tPermissions verification has been disabled.".PHP_EOL));
-				break;
-			case VerificationResult::e_no_permissions_status:
-				echo(nl2br("\tNo permissions status to report.".PHP_EOL));
-				break;
-			default:
-				echo(nl2br('unrecognized modification permissions status'.PHP_EOL));
-				assert(False);
-		}
-		
+
 		$changes = $result->GetDisallowedChanges();
 		for ($i = 0; $i < $changes->size(); $i++)
 		{
@@ -216,7 +169,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 			{
 				echo(nl2br("Trust not verifiable.".PHP_EOL));
 			}
-			echo(nl2br("Trust verification result string: ".$trust_verification_result->GetResultString().PHP_EOL));
+			echo(nl2br($trust_verification_result->GetResultString().PHP_EOL));
 			
 			$tmp_time_t = $trust_verification_result->GetTimeOfTrustVerification();
 			
@@ -235,12 +188,55 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 					echo(nl2br('unrecognized time enum value'.PHP_EOL));
 					assert(False);
 			}
+
+			if ($trust_verification_result->GetCertPath()->Size() == 0)
+			{
+				echo(nl2br("Could not print certificate path.\n"));
+			}
+			else
+			{
+				echo(nl2br("Certificate path:\n"));
+				$cert_path = $trust_verification_result->GetCertPath();
+				for ($j = 0; $j < $cert_path->Size(); $j++)
+				{
+					echo(nl2br("\tCertificate:\n"));
+					$full_cert = $cert_path->Get($j);
+					echo(nl2br("\t\tIssuer names:\n"));
+										
+					$issuer_dn = $full_cert->GetIssuerField()->GetAllAttributesAndValues();
+					for ($i = 0; $i < $issuer_dn->Size(); $i++)
+					{
+						echo(nl2br("\t\t\t". $issuer_dn->Get($i)->GetStringValue()."\n"));
+					}
+					echo(nl2br("\t\tSubject names:\n"));
+					$subject_dn = $full_cert->GetSubjectField()->GetAllAttributesAndValues();
+					for ($i = 0; $i < $subject_dn->Size(); $i++)
+					{
+						echo(nl2br("\t\t\t".$subject_dn->Get($i)->GetStringValue()."\n"));
+					}
+					echo(nl2br("\t\tExtensions:\n"));
+					$ex = $full_cert->GetExtensions();
+					for ($i = 0; $i < $ex->Size(); $i++)
+					{	
+						echo(nl2br("\t\t\t".$ex->Get($i)->ToString()."\n"));
+					}
+				}
+			}
 		}	
 		else
 		{
 			echo(nl2br("No detailed trust verification result available."));
 		}
-		
+
+		$unsupported_features = $result->GetUnsupportedFeatures();
+		if (count($unsupported_features) > 0)
+		{
+			echo(nl2br("Unsupported features:\n"));
+			for ($i = 0; $i < count($unsupported_features); $i++)
+			{
+				echo(nl2br("\t".$unsupported_features[$i]."\n"));
+			}
+		}		
 		echo(nl2br("==========".PHP_EOL));
 		
 		$digsig_fitr->Next();
@@ -361,7 +357,7 @@ function ClearSignature($in_docpath,
 		echo(nl2br('Cryptographic signature cleared properly.'.PHP_EOL));
 	}
 
-	// Save incrementally so as to not invalidate other signatures' hashes from previous saves.
+	// Save incrementally so as to not invalidate other signatures from previous saves.
 	$doc->Save($in_outpath, SDFDoc::e_incremental);
 
 	echo(nl2br('================================================================================'.PHP_EOL));
@@ -418,7 +414,7 @@ function PrintSignaturesInfo($in_docpath)
 		if (!$digsigfield->HasCryptographicSignature())
 		{
 			echo(nl2br("Either digital signature field lacks a digital signature dictionary, ".
-				"or digital signature dictionary lacks a cryptographic hash entry. ".
+				"or digital signature dictionary lacks a cryptographic Contents entry. ".
 				"Digital signature field is not presently considered signed.\n".
 				"==========".PHP_EOL));
 			$digsig_fitr->Next();
@@ -444,7 +440,7 @@ function PrintSignaturesInfo($in_docpath)
 			$signing_time = $digsigfield->GetSigningTime();
 			if ($signing_time->IsValid())
 			{
-				echo(nl2br('Signing day: '.$signing_time->GetDay().PHP_EOL));
+				echo(nl2br('Signing time is valid.'.PHP_EOL));
 			}
 
 			echo(nl2br('Location: '.$digsigfield->GetLocation().PHP_EOL));
@@ -498,6 +494,73 @@ function PrintSignaturesInfo($in_docpath)
 	echo(nl2br('================================================================================'.PHP_EOL));
 }
 
+function TimestampAndEnableLTV($in_docpath, 
+	$in_trusted_cert_path, 
+	$in_appearance_img_path,
+	$in_outpath)
+{
+	$doc = new PDFDoc($in_docpath);
+	$doctimestamp_signature_field = $doc->CreateDigitalSignatureField();
+	$tst_config = new TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2");
+	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
+	/* It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
+	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
+	response to be verifiable during DocTimeStamp signing. It is also necessary in the context of this 
+	function to do this for the later LTV section, because one needs to be able to verify the DocTimeStamp 
+	in order to enable LTV for it, and we re-use the VerificationOptions opts object in that part. */
+	$opts->AddTrustedCertificate($in_trusted_cert_path);
+	/* By default, we only check online for revocation of certificates using the newer and lighter 
+	OCSP protocol as opposed to CRL, due to lower resource usage and greater reliability. However, 
+	it may be necessary to enable online CRL revocation checking in order to verify some timestamps
+	(i.e. those that do not have an OCSP responder URL for all non-trusted certificates). */
+	$opts->EnableOnlineCRLRevocationChecking(true);
+
+	$widgetAnnot = SignatureWidget::Create($doc, new Rect(0.0, 100.0, 200.0, 150.0), $doctimestamp_signature_field);
+	$doc->GetPage(1)->AnnotPushBack($widgetAnnot);
+
+	// (OPTIONAL) Add an appearance to the signature field.
+	$img = Image::Create($doc->GetSDFDoc(), $in_appearance_img_path);
+	$widgetAnnot->CreateSignatureAppearance($img);
+
+	echo(nl2br('Testing timestamping configuration.'.PHP_EOL));
+	$config_result = $tst_config->TestConfiguration($opts);
+	if ($config_result->GetStatus())
+	{
+		echo(nl2br('Success: timestamping configuration usable. Attempting to timestamp.'.PHP_EOL));
+	}
+	else
+	{
+		// Print details of timestamping failure.
+		echo(nl2br($config_result->GetString().PHP_EOL));
+		if ($config_result->HasResponseVerificationResult())
+		{
+			$tst_result = $config_result->GetResponseVerificationResult();
+			echo(nl2br('CMS digest status: '.$tst_result->GetCMSDigestStatusAsString().PHP_EOL));
+			echo(nl2br('Message digest status: '.$tst_result->GetMessageImprintDigestStatusAsString().PHP_EOL));
+			echo(nl2br('Trust status: '.$tst_result->GetTrustStatusAsString().PHP_EOL));
+		}
+		return false;
+	}
+
+	$doctimestamp_signature_field->TimestampOnNextSave($tst_config, $opts);
+
+	// Save/signing throws if timestamping fails.
+	$doc->Save($in_outpath, SDFDoc::e_incremental);
+
+	echo(nl2br('Timestamping successful. Adding LTV information for DocTimeStamp signature.'.PHP_EOL));
+
+	// Add LTV information for timestamp signature to document.
+	$timestamp_verification_result = $doctimestamp_signature_field->Verify($opts);
+	if (!$doctimestamp_signature_field->EnableLTVOfflineVerification($timestamp_verification_result))
+	{
+		echo(nl2br('Could not enable LTV for DocTimeStamp.'.PHP_EOL));
+		return false;
+	}
+	$doc->Save($in_outpath, SDFDoc::e_incremental);
+	echo(nl2br('Added LTV information for DocTimeStamp signature successfully.'.PHP_EOL));
+
+	return true;
+}
 function main()
 {
 	// Initialize PDFNet
@@ -514,7 +577,6 @@ function main()
 	try
 	{
 		$doc = new PDFDoc($input_path.'tiger.pdf');
-		
 		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
@@ -577,8 +639,10 @@ function main()
 	//////////////////// TEST 4: Verify a document's digital signatures.
 	try
 	{
-		// EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/
-		$result &= VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer');
+		if (!VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
+		{
+			$result = false;
+		}
 	}
 	catch (Exception $e)
 	{
@@ -586,6 +650,39 @@ function main()
         echo(nl2br($e->getTraceAsString().PHP_EOL));
         $result = false;
     }
+	//////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
+	try
+	{
+		if (!VerifySimple($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
+		{
+			$result = false;
+		}
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+
+	//////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
+	try
+	{
+		if(!TimestampAndEnableLTV($input_path.'tiger.pdf',
+					$input_path.'GlobalSignRootForTST.cer',
+					$input_path.'signature.jpg',
+					$output_path.'tiger_DocTimeStamp_LTV.pdf'))
+		{
+			$result = false;
+		}
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
+
 	//////////////////// End of tests. ////////////////////
 
 	if (!$result)

@@ -67,10 +67,6 @@ def AnnotationHighLevelAPI(doc):
     # Create an intra-document link...
     goto_page_3 = Action.CreateGoto(Destination.CreateFitH(doc.GetPage(3), 0))
     link = Link.Create(doc.GetSDFDoc(), Rect(85, 458, 503, 502), goto_page_3)
-
-    # Set the annotation border width to 3 points...
-    border_style = BorderStyle(BorderStyle.e_solid, 3, 0, 0)
-    #link.SetBorderStyle(border_style)
     link.SetColor(ColorPt(0, 0, 1))
     
     # Add the new annotation to the first page
@@ -82,7 +78,7 @@ def AnnotationHighLevelAPI(doc):
     first_page.AnnotPushBack(stamp)
     
     # Create a file attachment annotation (embed the 'peppers.jpg').
-    file_attach = FileAttachment.Create(doc.GetSDFDoc(), Rect(80, 280, 200, 320), (input_path + "peppers.jpg"))
+    file_attach = FileAttachment.Create(doc.GetSDFDoc(), Rect(80, 280, 108, 320), (input_path + "peppers.jpg"))
     first_page.AnnotPushBack(file_attach)
 
 
