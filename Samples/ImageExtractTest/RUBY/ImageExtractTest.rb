@@ -76,7 +76,7 @@ end
 	
 	doc = PDFDoc.new($input_path + "newsletter.pdf")
 	doc.InitSecurityHandler()
-	puts ""	
+	
 	reader = ElementReader.new()
 	
 	# Read every page
@@ -98,7 +98,6 @@ end
 	
 	doc = PDFDoc.new($input_path + "newsletter.pdf")
 	doc.InitSecurityHandler()
-	puts ""
 	$image_counter= 0
 	
 	cos_doc = doc.GetSDFDoc()
