@@ -69,6 +69,7 @@ def main():
     AddCoverPage(doc)
     doc.Save(output_path + "package.pdf", SDFDoc.e_linearized)
     doc.Close()
+    print("Done.")
     
     # Extract parts from a PDF Package
     doc = PDFDoc(output_path + "package.pdf")
@@ -81,7 +82,7 @@ def main():
         counter = 0
         while i.HasNext():
             entry_name = i.Key().GetAsPDFText()
-            # print("Part: " + entry_name)
+            print("Part: " + entry_name)
             file_spec = FileSpec(i.Value())
             stm = Filter(file_spec.GetFileData())
             if stm != None:
