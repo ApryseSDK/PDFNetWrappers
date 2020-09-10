@@ -175,11 +175,11 @@ Make sure that your interpreter can find the PDFNetC library. The following info
 
 In order to change the install location, modify the top level CMakelists.txt. Remove the forced setting of the `CMAKE_INSTALL_PREFIX` variable.
 
-## How can I build wrappers for PDFNet 7.0.x and under?
+## How can I build wrappers for PDFNet 7.1.x and under?
 
-The master branch supports PDFNet 7.1.x. In order to build wrappers using PDFNet 7.0.x and under, please use the following command to clone 7.0 branch instead (line 3 in `Example`): 
+The master branch supports PDFNet 8.0.x. In order to build wrappers using PDFNet 7.1.x and under, please use the following command to clone 7.1 branch instead (line 3 in `Example`): 
 
-    git clone -b 7.0 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone -b 7.1 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
 ## I'm seeing a line-ending (control character) issue.
 
