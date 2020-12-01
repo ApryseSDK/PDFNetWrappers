@@ -9,8 +9,8 @@ if [ -z "$file" ] ; then
 fi
 
 # Get Python version's info from PDFNetPyLibInfo
-count=$(grep -c "^python2" $file)
-count3=$(grep -c "^python3" $file)
+count=$(grep -c "^Python 2" $file)
+count3=$(grep -c "^Python 3" $file)
 
 if [ $(($count+$count3)) -ne 1 ] ; then 
 	echo Error: No Python2 or Python3 was found from PDFNetPyLibInfo! 1>&2

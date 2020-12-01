@@ -9,7 +9,7 @@ if not exist %file% (
 )
 
 set pdfnet_py_ver=2
-findstr /b /c:"python3" %file% >nul
+findstr /b /c:"Python 3" %file% >nul
 if %ERRORLEVEL% EQU 0 (
 	set PYTHONIOENCODING=UTF-8
 	set pdfnet_py_ver=3
