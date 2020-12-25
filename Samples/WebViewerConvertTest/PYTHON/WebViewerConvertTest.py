@@ -41,25 +41,32 @@ def main():
 
     # Sample 1:
     # Directly convert from PDF to XOD.
-    print("Converting: " + inputPath + "newsletter.pdf" + " to " + outputPath + "from_pdf.xod")
     Convert.ToXod(inputPath + "newsletter.pdf", outputPath + "from_pdf.xod")
 
     # Sample 2:
     # Directly convert from generic XPS to XOD.
-    print("Converting: " + inputPath + "simple-xps.xps" + " to " + outputPath + "from_xps.xod")
     Convert.ToXod(inputPath + "simple-xps.xps", outputPath + "from_xps.xod")
 
     # Sample 3:
     # Directly convert from PNG to XOD.
-    print("Converting: " + inputPath + "butterfly.png" + " to " + outputPath + "butterfly.xod")
-    Convert.ToXod(inputPath + "butterfly.png", outputPath + "butterfly.xod");
+    print("Converting: " + inputPath + "butterfly.png" + " to: " + outputPath + "butterfly.xod")
+    Convert.ToXod(inputPath + "butterfly.png", outputPath + "butterfly.xod")
 
     # Sample 4:
-    # Directly convert from JPG to XOD.
-    print("Converting: " + inputPath + "dice.jpg" + " to " + outputPath + "dice.xod")
-    Convert.ToXod(inputPath + "dice.jpg", outputPath + "dice.xod");
+    print("Converting: " + inputPath + "numbered.pdf" + " to: " + outputPath + "numbered.xod")
+    Convert.ToXod(inputPath + "numbered.pdf", outputPath + "numbered.xod")
 
-    print("Done.");
+    # Sample 5:
+    # Directly convert from JPG to XOD.
+    print("Converting: " + inputPath + "dice.jpg" + " to: " + outputPath + "dice.xod")
+    Convert.ToXod(inputPath + "dice.jpg", outputPath + "dice.xod")
+
+    # Sample 6:
+    # Directly convert from generic XPS to XOD.
+    print("Converting: " + inputPath + "simple-xps.xps" + " to: " + outputPath + "simple-xps.xod")
+    Convert.ToXod(inputPath + "simple-xps.xps", outputPath + "simple-xps.xod")
+
+    print("Done.")
 
 if __name__ == '__main__':
     main()

@@ -34,25 +34,28 @@ def main()
 	doc = PDFDoc.new
 	eb = ElementBuilder.new
 	writer = ElementWriter.new
-
 	# Start a new page ------------------------------------
 	page = doc.PageCreate(Rect.new(0, 0, 612, 794))
-    
 	writer.Begin(page)    # begin writing to this page
 
 	# Embed and subset the font
-    font_program = $input_path + "ARIALUNI.TTF"
-    if not File.file?(font_program)
+	font_program = $input_path + "ARIALUNI.TTF"
+	if not File.file?(font_program)
 		if ENV['OS'] == "Windows_NT"
-            font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
+			font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
 			print "Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory."
-        else
-            print "Error: Cannot find ARIALUNI.TTF."
-            return
 		end
 	end
-    fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc, font_program, true, true)
-	
+	begin
+		fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, True, True)
+	rescue
+		fnt = Font.Create(doc.GetSDFDoc(), "Helvetica", "")
+	end
+
+	if fnt.nil?
+		return
+	end
+
 	element = eb.CreateTextBegin(fnt, 1)
 	element.SetTextMatrix(10, 0, 0, 10, 50, 600)
 	element.GetGState.SetLeading(2)         # Set the spacing between lines
@@ -122,7 +125,9 @@ def main()
 	doc.PagePushBack(page)
     
 	doc.Save($output_path + "unicodewrite.pdf", SDFDoc::E_remove_unused | SDFDoc::E_hex_strings)
-	puts "Done. Result saved in unicodewrite.pdf"
+	puts "Done. Result saved in unicodewrite.pdf..."
     
 	doc.Close
 end
+
+main()

@@ -32,8 +32,8 @@ def ProcessStructElement(element, indent):
         return
     
     # Print out the type and title info, if any.
-    indent = indent + 1
     PrintIndent(indent)
+    indent = indent + 1
     sys.stdout.write("Type: " + element.GetType())
     if element.HasTitle():
         sys.stdout.write(". Title:" + element.GetTitle())
@@ -95,7 +95,7 @@ def ProcessElements(reader):
             if type == Element.e_path:      # Process path ...
                 sys.stdout.write("\nPATH: ")
             elif type == Element.e_text:    # Process text ...
-                sys.stdout.write("\nTEXT: " + element.GetTextString() + "\n  ")
+                sys.stdout.write("\nTEXT: " + element.GetTextString() + "\n")
             elif type == Element.e_path:    # Process from XObjects
                 sys.stdout.write("\nFORM XObject: ")
             
@@ -134,7 +134,7 @@ def ProcessStructElement2(element, mcid_doc_map, indent):
                     mcid_page_map = mcid_doc_map[page_num]
                     mcid_key = cont.GetMCID()
                     if mcid_key in mcid_page_map:
-                        print(mcid_page_map[mcid_key])
+                        sys.stdout.write(mcid_page_map[mcid_key])
         else: # the kid is another StructElement node.
             ProcessStructElement2(element.GetAsStructElem(i), mcid_doc_map, indent+1)      
         i = i + 1
@@ -168,11 +168,11 @@ def main():
     else:
         print("This document does not contain any logical structure.")
     
-    print("Done 1.")
-    
+    print("\nDone 1.")
+
     print("____________________________________________________________")
     print("Sample 2 - Get parent logical structure elements from")
-    print("layout elements")
+    print("layout elements.")
     
     reader = ElementReader()
     itr = doc.GetPageIterator()
@@ -182,7 +182,7 @@ def main():
         reader.End()
         itr.Next()
     
-    print("Done 2.")
+    print("\nDone 2.")
     
     print("____________________________________________________________")
     print("Sample 3 - 'XML style' extraction of PDF logical structure and page content.")
@@ -205,8 +205,8 @@ def main():
         while i < tree.GetNumKids():
             ProcessStructElement2(tree.GetKid(i), mcid_doc_map, 0)
             i = i + 1  
-    print("Done 3.")
-    
+    print("\nDone 3.")
+    doc.Save((output_path + "LogicalStructure.pdf"), SDFDoc.e_linearized)
     doc.Close()        
 
 if __name__ == '__main__':

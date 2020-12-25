@@ -36,20 +36,33 @@ $outputPath = "../../TestFiles/Output/"
 
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile()
-    testfiles = [
-       ["butterfly.png", "png2pdf.pdf"],
-       ["simple-xps.xps", "xps2pdf.pdf"]
-    ]
-    
-    for testfile in testfiles
-		pdfdoc = PDFDoc.new()
-		inputFile = $inputPath + testfile[0]
-		outputFile = $outputPath + testfile[1]
-		Convert.ToPdf(pdfdoc, inputFile)
-		pdfdoc.Save(outputFile, SDFDoc::E_compatibility)
-		pdfdoc.Close()
-		puts "Converted file: " + inputFile + "\n\tto: " + outputFile
-    end
+	testfiles = [
+	[ "simple-word_2007.docx","docx2pdf.pdf"],
+	[ "simple-powerpoint_2007.pptx","pptx2pdf.pdf"],
+	[ "simple-excel_2007.xlsx","xlsx2pdf.pdf"],
+	[ "simple-publisher.pub","pub2pdf.pdf"],
+	# { "simple-visio.vsd","vsd2pdf.pdf"],# requires Microsoft Office Visio
+	[ "simple-text.txt","txt2pdf.pdf"],
+	[ "simple-rtf.rtf","rtf2pdf.pdf"],
+	[ "butterfly.png","png2pdf.pdf"],
+	[ "simple-emf.emf","emf2pdf.pdf"],
+	[ "simple-xps.xps","xps2pdf.pdf"],
+	# { "simple-webpage.mht","mht2pdf.pdf",],
+	[ "simple-webpage.html","html2pdf.pdf"]
+	]
+	
+	for testfile in testfiles
+		begin
+			pdfdoc = PDFDoc.new()
+			inputFile = testfile[0]
+			outputFile = testfile[1]
+			Convert.ToPdf(pdfdoc,  $inputPath + inputFile)
+			pdfdoc.Save($outputPath + outputFile, SDFDoc::E_compatibility)
+			pdfdoc.Close()
+			puts "Converted file: " + inputFile + "\nto: " + outputFile
+		rescue
+		end
+	end
 end
 
 def ConvertSpecificFormats()
@@ -59,44 +72,48 @@ def ConvertSpecificFormats()
 	
 	puts "Converting from XPS " + s1
 	Convert.FromXps(pdfdoc, s1)
-	outputFile = $outputPath + "pdf_from_xps.pdf"
-	pdfdoc.Save(outputFile, SDFDoc::E_remove_unused)
+	outputFile = "xps2pdf v2.pdf"
+	pdfdoc.Save($outputPath + outputFile, SDFDoc::E_remove_unused)
+	puts "Saved " + outputFile
+	
+	# Convert the EMF document to PDF
+	s1 = $inputPath + "simple-emf.emf"
+	puts "Converting from EMS " + s1
+	Convert.FromEmf(pdfdoc, s1)
+	outputFile = "emf2pdf v2.pdf"
+	pdfdoc.Save($outputPath + outputFile, SDFDoc::E_remove_unused)
 	puts "Saved " + outputFile
 	
 	# Convert the two page PDF document to SVG
 	puts "Converting pdfdoc to SVG"
-	outputFile = $outputPath + "pdfdoc2svg.svg"
-	Convert.ToSvg(pdfdoc, outputFile)
+	outputFile = "pdf2svg v2.svg"
+	pdfdoc = PDFDoc.new($inputPath + "newsletter.pdf")
+	Convert.ToSvg(pdfdoc, $outputPath + outputFile)
 	puts "Saved " + outputFile
 	
-	# Convert the PDF document to XPS
-	puts "Converting pdfdoc to XPS"
-	outputFile = $outputPath + "pdfdoc2xps.xps"
-	Convert.ToXps(pdfdoc, outputFile)
-	puts "Saved " + outputFile
 	
 	# Convert the PNG image to XPS
 	puts "Converting PNG to XPS"
-	outputFile = $outputPath + "png2xps.xps"
-	Convert.ToXps($inputPath + "butterfly.png", outputFile)
+	outputFile = "butterfly.xps"
+	Convert.ToXps($inputPath + "butterfly.png", $outputPath + outputFile)
 	puts "Saved " + outputFile
 	
 	# Convert PDF document to XPS
 	puts "Converting PDF to XPS"
-	outputFile = $outputPath + "pdf2xps.xps"
-	Convert.ToXps($inputPath + "newsletter.pdf", outputFile)
+	outputFile = "newsletter.xps"
+	Convert.ToXps($inputPath + "newsletter.pdf", $outputPath + outputFile)
 	puts "Saved " + outputFile
 
 	# Convert PDF document to HTML
 	puts "Converting PDF to HTML"
-	outputFile = $outputPath + "pdf2html"
-	Convert.ToHtml($inputPath + "newsletter.pdf", outputFile)
+	outputFile = "newsletter"
+	Convert.ToHtml($inputPath + "newsletter.pdf", $outputPath + outputFile)
 	puts "Saved " + outputFile
 
 	# Convert PDF document to EPUB
 	puts "Converting PDF to EPUB"
-	outputFile = $outputPath + "pdf2epub.epub"
-	Convert.ToEpub($inputPath + "newsletter.pdf", outputFile)
+	outputFile = "newsletter.epub"
+	Convert.ToEpub($inputPath + "newsletter.pdf", $outputPath + outputFile)
 	puts "Saved " + outputFile
 end
 	

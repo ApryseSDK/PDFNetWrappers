@@ -46,12 +46,13 @@ def main():
     if not os.path.isfile(font_program):
         if sys.platform == 'win32':
             font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
-            print("Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory.")
-        else:
-            print("Error: Cannot find ARIALUNI.TTF.")
-            return
-    fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, True, True)
-    
+            #print("Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory.")
+    try:
+        fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, True, True)
+    except:
+        fnt = Font.Create(doc.GetSDFDoc(), "Helvetica", "")
+    if not fnt:
+        return
     element = eb.CreateTextBegin(fnt, 1)
     element.SetTextMatrix(10, 0, 0, 10, 50, 600)
     element.GetGState().SetLeading(2)         # Set the spacing between lines
@@ -113,15 +114,15 @@ def main():
     chinese_simplified = [0x4e16, 0x754c, 0x60a8, 0x597d]
     writer.WriteElement(eb.CreateUnicodeTextRun((chinese_simplified), len(chinese_simplified)))
     writer.WriteElement(eb.CreateTextNewLine())
-    
+
     # Finish the block of text
     writer.WriteElement(eb.CreateTextEnd())
-    
+
     writer.End()    # save changes to the current page
     doc.PagePushBack(page)
     
     doc.Save(output_path + "unicodewrite.pdf", SDFDoc.e_remove_unused | SDFDoc.e_hex_strings)
-    print("Done. Result saved in unicodewrite.pdf")
+    print("Done. Result saved in unicodewrite.pdf...")
     
     doc.Close()
 

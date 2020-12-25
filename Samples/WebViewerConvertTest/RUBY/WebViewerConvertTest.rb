@@ -37,27 +37,34 @@ $outputPath = "../../TestFiles/Output/"
 
 def main()
 	PDFNet.Initialize
-	
-	# Sample 1:
-	# Directly convert from PDF to XOD.
-    puts "Converting: " + $inputPath + "newsletter.pdf" + " to " + $outputPath + "from_pdf.xod"
-	Convert.ToXod($inputPath + "newsletter.pdf", $outputPath + "from_pdf.xod")
-	
-	# Sample 2:
-	# Directly convert from generic XPS to XOD.
-    puts "Converting: " + $inputPath + "simple-xps.xps" + " to " + $outputPath + "from_xps.xod"
-	Convert.ToXod($inputPath + "simple-xps.xps", $outputPath + "from_xps.xod")
-	
+
+    # Sample 1:
+    # Directly convert from PDF to XOD.
+    Convert.ToXod($inputPath + "newsletter.pdf", $outputPath + "from_pdf.xod")
+
+    # Sample 2:
+    # Directly convert from generic XPS to XOD.
+    Convert.ToXod($inputPath + "simple-xps.xps", $outputPath + "from_xps.xod")
+
 	# Sample 3:
 	# Directly convert from PNG to XOD.
     puts "Converting: " + $inputPath + "butterfly.png" + " to " + $outputPath + "butterfly.xod"
 	Convert.ToXod($inputPath + "butterfly.png", $outputPath + "butterfly.xod")
 
 	# Sample 4:
+	# Directly convert from PDF to XOD.
+    puts "Converting: " + $inputPath + "numbered.pdf" + " to " + $outputPath + "numbered.xod"
+	Convert.ToXod($inputPath + "numbered.pdf", $outputPath + "numbered.xod")
+
+	# Sample 5:
 	# Directly convert from JPG to XOD.
     puts "Converting: " + $inputPath + "dice.jpg" + " to " + $outputPath + "dice.xod"
 	Convert.ToXod($inputPath + "dice.jpg", $outputPath + "dice.xod")
 	
+	# Sample 6:
+	# Directly convert from generic XPS to XOD.
+    puts "Converting: " + $inputPath + "simple-xps.xps" + " to " + $outputPath + "simple-xps.xod"
+	Convert.ToXod($inputPath + "simple-xps.xps", $outputPath + "simple-xps.xod")
 	puts "Done."
 end
 
