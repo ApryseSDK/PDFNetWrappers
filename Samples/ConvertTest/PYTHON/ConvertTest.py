@@ -53,6 +53,7 @@ def ConvertToPdfFromFile():
     # { "simple-webpage.mht","mht2pdf.pdf",],
     [ "simple-webpage.html","html2pdf.pdf"]
     ]
+    ret = 0
     for testfile in testfiles:
         try:
             pdfdoc = PDFDoc()
@@ -63,61 +64,80 @@ def ConvertToPdfFromFile():
             pdfdoc.Close()
             print("Converted file: " + inputFile + "\nto: " + outputFile)
         except:
-            pass
+            ret = 1
+    return ret
 
 def ConvertSpecificFormats():
-    # Start with a PDFDoc to collect the converted documents
-    pdfdoc = PDFDoc()
-    s1 = inputPath + "simple-xps.xps"
-    
-    # Convert the XPS document to PDF
-    print("Converting from XPS " + s1)
-    Convert.FromXps(pdfdoc, s1)
-    outputFile = "xps2pdf v2.pdf"
-    pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
-    print("Saved " + outputFile)
-    s1 = inputPath + "simple-xps.xps"
-    
-    # Convert the EMF document to PDF
-    s1 = inputPath + "simple-emf.emf"
-    print("Converting from EMS " + s1)
-    Convert.FromEmf(pdfdoc, s1)
-    outputFile = "emf2pdf v2.pdf"
-    pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
-    print("Saved " + outputFile)
-
-    # Convert the two page PDF document to SVG
-    print("Converting pdfdoc to SVG")
-    outputFile = "pdf2svg v2.svg"
-    pdfdoc = PDFDoc(inputPath + "newsletter.pdf")
-    Convert.ToSvg(pdfdoc, outputPath + outputFile)
-    print("Saved " + outputFile)
-    
-    
-    # Convert the PNG image to XPS
-    print("Converting PNG to XPS")
-    outputFile = "butterfly.xps"
-    Convert.ToXps(inputPath + "butterfly.png", outputPath +outputFile)
-    print("Saved " + outputFile)
+    ret = 0
+    try: 
+        # Start with a PDFDoc to collect the converted documents
+        pdfdoc = PDFDoc()
+        s1 = inputPath + "simple-xps.xps"
         
-    # Convert PDF document to XPS
-    print("Converting PDF to XPS")
-    outputFile = "newsletter.xps"
-    Convert.ToXps(inputPath + "newsletter.pdf", outputPath + outputFile)
-    print("Saved " + outputFile)
-    
-    # Convert PDF document to HTML
-    print("Converting PDF to HTML")
-    outputFile = outputPath + "newsletter"
-    Convert.ToHtml(inputPath + "newsletter.pdf", outputPath + outputFile)
-    print("Saved " + outputFile)
+        # Convert the XPS document to PDF
+        print("Converting from XPS")
+        Convert.FromXps(pdfdoc, s1)
+        outputFile = "xps2pdf v2.pdf"
+        pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
+        print("Saved " + outputFile)
+        
+        # Convert the EMF document to PDF
+        s1 = inputPath + "simple-emf.emf"
+        print("Converting from EMF")
+        Convert.FromEmf(pdfdoc, s1)
+        outputFile = "emf2pdf v2.pdf"
+        pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
+        print("Saved " + outputFile)
 
-    # Convert PDF document to EPUB
-    print("Converting PDF to EPUB")
-    outputFile = "newsletter.epub"
-    Convert.ToEpub(inputPath + "newsletter.pdf", outputPath + outputFile)
-    print("Saved " + outputFile)
+        # Convert the TXT document to PDF
+        s1 = inputPath + "simple-text.txt"
+        print("Converting from txt")
+        Convert.FromText(pdfdoc, s1)
+        outputFile = "simple-text.pdf"
+        pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
+        print("Saved " + outputFile)
+        
+        # Convert the two page PDF document to SVG
+        print("Converting pdfdoc to SVG")
+        outputFile = "pdf2svg v2.svg"
+        pdfdoc = PDFDoc(inputPath + "newsletter.pdf")
+        Convert.ToSvg(pdfdoc, outputPath + outputFile)
+        print("Saved " + outputFile)
+        
+        # Convert the PNG image to XPS
+        print("Converting PNG to XPS")
+        outputFile = "butterfly.xps"
+        Convert.ToXps(inputPath + "butterfly.png", outputPath +outputFile)
+        print("Saved " + outputFile)
+            
+        # Convert PDF document to XPS
+        print("Converting PDF to XPS")
+        outputFile = "newsletter.xps"
+        Convert.ToXps(inputPath + "newsletter.pdf", outputPath + outputFile)
+        print("Saved " + outputFile)
+        
+        # Convert PDF document to HTML
+        print("Converting PDF to HTML")
+        outputFile = "newsletter"
+        Convert.ToHtml(inputPath + "newsletter.pdf", outputPath + outputFile)
+        print("Saved " + outputFile)
 
+        # Convert PDF document to EPUB
+        print("Converting PDF to EPUB")
+        outputFile = "newsletter.epub"
+        Convert.ToEpub(inputPath + "newsletter.pdf", outputPath + outputFile)
+        print("Saved " + outputFile)
+
+        print("Converting PDF to multipage TIFF")
+        tiff_options = TiffOutputOptions()
+        tiff_options.SetDPI(200)
+        tiff_options.SetDither(True)
+        tiff_options.SetMono(True)
+        Convert.ToTiff(inputPath + "newsletter.pdf", outputPath + "newsletter.tiff", tiff_options)
+        print("Saved newsletter.tiff")
+    except:
+        ret = 1
+    return ret
 def main():
     # The first step in every application using PDFNet is to initialize the 
     # library. The library is usually initialized only once, but calling 
@@ -125,11 +145,18 @@ def main():
     PDFNet.Initialize()
     
     # Demonstrate Convert.ToPdf and Convert.Printer
-    ConvertToPdfFromFile()
-    
-    # Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
-    ConvertSpecificFormats()
+    err = ConvertToPdfFromFile()
+    if err:
+        print("ConvertFile failed")
+    else:
+        print("ConvertFile succeeded")
 
+    # Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
+    err = ConvertSpecificFormats()
+    if err:
+        print("ConvertSpecificFormats failed")
+    else:
+        print("ConvertSpecificFormats succeeded")
     print("Done.")
     
 if __name__ == '__main__':
