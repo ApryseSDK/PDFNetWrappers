@@ -90,6 +90,14 @@ def ConvertSpecificFormats()
 		puts "Saved " + outputFile
 
 		# Convert the TXT document to PDF
+		set =  ObjSet.new
+		options = set.CreateDict()
+		# Put options
+		options.PutNumber("FontSize", 15)
+		options.PutBool("UseSourceCodeFormatting", true)
+		options.PutNumber("PageWidth", 12)
+		options.PutNumber("PageHeight", 6)
+
 		s1 = $inputPath + "simple-text.txt"
 		puts "Converting from txt"
 		Convert.FromText(pdfdoc, s1)
