@@ -88,7 +88,7 @@ function ProcessElements($reader)
 				echo nl2br("\nPATH: ");
 				break; 
 			case Element::e_text: 				// Process text ...
-				echo nl2br("\nTEXT: ".$element->GetTextString()."\n  ");
+				echo nl2br("\nTEXT: ".$element->GetTextString()."\n");
 				break;
 			case Element::e_form:				// Process form XObjects
 				echo nl2br("\nFORM XObject: ");
@@ -232,4 +232,6 @@ function ProcessStructElement2($element, &$mcid_doc_map, $ident)
 	}
 	
 	echo nl2br("\nDone 3.\n");	
+	$doc->Save(($output_path ."LogicalStructure.pdf"), SDFDoc::e_linearized);
+	$doc->Close();        
 ?>

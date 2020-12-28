@@ -40,13 +40,15 @@ function main()
             $font_program = "C:/Windows/Fonts/ARIALUNI.TTF";
             echo(nl2br("Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory.\n"));
         }
-        else {
-            echo(nl2br("Error: Cannot find ARIALUNI.TTF.\n"));
-            exit(1);
-        }
     }
-    $fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
-
+	try {
+    	$fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
+	}
+	catch(Exception $e){
+        $fnt = Font::Create($doc->GetSDFDoc(), "Helvetica", "");
+	}
+	if(!$fnt)
+		return;
 	$element = $builder->CreateTextBegin($fnt, 1.0);
 	$element->SetTextMatrix(10.0, 0.0, 0.0, 10.0, 50.0, 600.0);
 	$element->GetGState()->SetLeading(2);		 // Set the spacing between lines
