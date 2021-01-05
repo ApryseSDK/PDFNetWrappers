@@ -43,17 +43,19 @@ def main()
 	if not File.file?(font_program)
 		if ENV['OS'] == "Windows_NT"
 			font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
-			print "Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory."
+			puts "Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory."
 		end
 	end
 	begin
-		fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, True, True)
+		fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, true, true)
 	rescue
-		fnt = Font.Create(doc.GetSDFDoc(), "Helvetica", "")
 	end
 
-	if fnt.nil?
-		return
+	if not fnt.nil?
+		puts "Note: using " + font_program + " for unshaped unicode text"
+	else
+		puts "Note: using system font substitution for unshaped unicode text"
+		fnt = Font.Create(doc.GetSDFDoc(), "Helvetica", "")
 	end
 
 	element = eb.CreateTextBegin(fnt, 1)
@@ -117,7 +119,48 @@ def main()
 	chinese_simplified = [0x4e16, 0x754c, 0x60a8, 0x597d]
 	writer.WriteElement(eb.CreateUnicodeTextRun(chinese_simplified, chinese_simplified.length))
 	writer.WriteElement(eb.CreateTextNewLine)
-    
+
+	puts "Now using text shaping logic to place text"
+
+	# Create a font in indexed encoding mode 
+	# normally this would mean that we are required to provide glyph indices
+	# directly to CreateUnicodeTextRun, but instead, we will use the GetShapedText
+	# method to take care of this detail for us.
+	indexed_font = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), $input_path + "NotoSans_with_hindi.ttf", true, true, Font::E_Indices)
+	element = eb.CreateTextBegin(indexed_font, 10)
+	writer.WriteElement(element)
+
+	line_pos = 350.0
+	line_space = 20.0
+
+	# Transform unicode text into an abstract collection of glyph indices and positioning info 
+	shaped_text = indexed_font.GetShapedText("Shaped Hindi Text:")
+
+	# transform the shaped text info into a PDF element and write it to the page
+	element = eb.CreateShapedTextRun(shaped_text)
+	element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos)
+	writer.WriteElement(element)
+
+	# read in unicode text lines from a file 
+	line_num=0
+	File.open($input_path +"hindi_sample_utf16le.txt", "rb:UTF-16LE").each do |line|
+		line_num += 1
+	end
+	puts "Read in %d lines of Unicode text from file" % line_num
+
+	i=0
+	File.open($input_path + "hindi_sample_utf16le.txt", "rb:UTF-16LE").each do |line|
+		shaped_text = indexed_font.GetShapedText(line)
+		element = eb.CreateShapedTextRun(shaped_text)
+		element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos-line_space*(i+1))
+		writer.WriteElement(element)
+		puts "Wrote shaped line to page"
+		i+=1
+	end
+
+	# Finish the block of text
+	writer.WriteElement(eb.CreateTextEnd())
+
 	# Finish the block of text
 	writer.WriteElement(eb.CreateTextEnd)
     

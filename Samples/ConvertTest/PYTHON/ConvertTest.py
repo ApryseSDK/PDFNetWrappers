@@ -54,11 +54,30 @@ def ConvertToPdfFromFile():
     [ "simple-webpage.html","html2pdf.pdf"]
     ]
     ret = 0
+
+    if platform.system() == 'Windows':
+        try:
+            if ConvertPrinter.IsInstalled("PDFTron PDFNet"):
+                ConvertPrinter.SetPrinterName("PDFTron PDFNet");
+            elif not ConvertPrinter.isInstalled():
+                try:
+                    print "Installing printer (requires Windows platform and administrator)"
+                    ConvertPrinter.Install()
+                    print "Installed printer " + ConvertPrinter.getPrinterName()
+                    # the function ConvertToXpsFromFile may require the printer so leave it installed
+                    # uninstallPrinterWhenDone = true;
+                except:
+                    print "ERROR: Unable to install printer."
+        except:
+            print "ERROR: Unable to install printer."
+
     for testfile in testfiles:
         try:
             pdfdoc = PDFDoc()
             inputFile = testfile[0]
             outputFile = testfile[1]
+            if Convert.RequiresPrinter(inputPath + inputFile):
+                print("Using PDFNet printer to convert file " + inputFile)
             Convert.ToPdf(pdfdoc, inputPath + inputFile)
             pdfdoc.Save(outputPath + outputFile, SDFDoc.e_compatibility)
             pdfdoc.Close()
@@ -164,6 +183,15 @@ def main():
         print("ConvertSpecificFormats failed")
     else:
         print("ConvertSpecificFormats succeeded")
+
+    if platform.system() == 'Windows':
+        try:
+            print("Uninstalling printer (requires Windows platform and administrator)")
+            ConvertPrinter.Uninstall()
+            print("Uninstalled printer " + ConvertPrinter.getPrinterName())
+        except:
+            print "Unable to uninstall printer"
+
     print("Done.")
     
 if __name__ == '__main__':
