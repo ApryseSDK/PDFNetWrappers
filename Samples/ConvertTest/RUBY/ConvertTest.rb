@@ -37,19 +37,11 @@ $outputPath = "../../TestFiles/Output/"
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile()
 	testfiles = [
-	[ "simple-word_2007.docx","docx2pdf.pdf"],
-	[ "simple-powerpoint_2007.pptx","pptx2pdf.pdf"],
-	[ "simple-excel_2007.xlsx","xlsx2pdf.pdf"],
-	[ "simple-publisher.pub","pub2pdf.pdf"],
-	# { "simple-visio.vsd","vsd2pdf.pdf"],# requires Microsoft Office Visio
-	[ "simple-text.txt","txt2pdf.pdf"],
-	[ "simple-rtf.rtf","rtf2pdf.pdf"],
-	[ "butterfly.png","png2pdf.pdf"],
-	[ "simple-emf.emf","emf2pdf.pdf"],
-	[ "simple-xps.xps","xps2pdf.pdf"],
-	# { "simple-webpage.mht","mht2pdf.pdf",],
-	[ "simple-webpage.html","html2pdf.pdf"]
+		["butterfly.png", "png2pdf.pdf"],
+		["simple-xps.xps", "xps2pdf.pdf"]
 	]
+	
+
 	
 	ret = 0
 	for testfile in testfiles
@@ -81,13 +73,6 @@ def ConvertSpecificFormats()
 		outputFile = "xps2pdf v2.pdf"
 		pdfdoc.Save($outputPath + outputFile, SDFDoc::E_remove_unused)
 		puts "Saved " + outputFile
-		# Convert the EMF document to PDF
-		s1 = $inputPath + "simple-emf.emf"
-		puts "Converting from EMF"
-		Convert.FromEmf(pdfdoc, s1)
-		outputFile = "emf2pdf v2.pdf"
-		pdfdoc.Save($outputPath + outputFile, SDFDoc::E_remove_unused)
-		puts "Saved " + outputFile
 
 		# Convert the TXT document to PDF
 		set =  ObjSet.new
@@ -106,9 +91,9 @@ def ConvertSpecificFormats()
 		puts("Saved " + outputFile)
 
 		# Convert the two page PDF document to SVG
-		puts "Converting pdfdoc to SVG"
 		outputFile = "pdf2svg v2.svg"
 		pdfdoc = PDFDoc.new($inputPath + "newsletter.pdf")
+		puts "Converting pdfdoc to SVG"
 		Convert.ToSvg(pdfdoc, $outputPath + outputFile)
 		puts "Saved " + outputFile
 		
@@ -128,7 +113,7 @@ def ConvertSpecificFormats()
 		puts "Converting PDF to HTML"
 		outputFile = "newsletter"
 		Convert.ToHtml($inputPath + "newsletter.pdf", $outputPath + outputFile)
-		puts "Saved " + outputFile
+		puts "Saved newsletter as HTML"
 
 		# Convert PDF document to EPUB
 		puts "Converting PDF to EPUB"

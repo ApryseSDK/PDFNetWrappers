@@ -132,7 +132,7 @@ function ConvertSpecificFormats()
 		echo(nl2br("Converting PDF to HTML\n"));
 		$outputFile = "pdf2html";
 		Convert::ToHtml($inputPath."newsletter.pdf", $outputPath.$outputFile);
-		echo(nl2br("Saved ".$outputFile."\n"));
+		echo(nl2br("Saved newsletter as HTML\n"));
 
 		// Convert PDF document to EPUB
 		echo(nl2br("Converting PDF to EPUB\n"));

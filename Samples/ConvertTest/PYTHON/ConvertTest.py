@@ -40,18 +40,18 @@ outputPath = "../../TestFiles/Output/"
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile():
     testfiles = [
-    [ "simple-word_2007.docx","docx2pdf.pdf"],
-    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf"],
-    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf"],
-    [ "simple-publisher.pub","pub2pdf.pdf"],
-    # { "simple-visio.vsd","vsd2pdf.pdf"],# requires Microsoft Office Visio
-    [ "simple-text.txt","txt2pdf.pdf"],
-    [ "simple-rtf.rtf","rtf2pdf.pdf"],
-    [ "butterfly.png","png2pdf.pdf"],
-    [ "simple-emf.emf","emf2pdf.pdf"],
-    [ "simple-xps.xps","xps2pdf.pdf"],
-    # { "simple-webpage.mht","mht2pdf.pdf",],
-    [ "simple-webpage.html","html2pdf.pdf"]
+    [ "simple-word_2007.docx","docx2pdf.pdf", True],
+    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf", True],
+    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf", True],
+    [ "simple-publisher.pub","pub2pdf.pdf", True],
+    # [ "simple-visio.vsd","vsd2pdf.pdf"],# requires Microsoft Office Visio
+    [ "simple-text.txt","txt2pdf.pdf", True],
+    [ "simple-rtf.rtf","rtf2pdf.pdf", True],
+    [ "butterfly.png","png2pdf.pdf", False],
+    [ "simple-emf.emf","emf2pdf.pdf", True],
+    [ "simple-xps.xps","xps2pdf.pdf", False],
+    # [ "simple-webpage.mht","mht2pdf.pdf", True],
+    [ "simple-webpage.html","html2pdf.pdf", True]
     ]
     ret = 0
 
@@ -72,6 +72,9 @@ def ConvertToPdfFromFile():
             print "ERROR: Unable to install printer."
 
     for testfile in testfiles:
+        if platform.system() != 'Windows':
+            if testfile[2]:
+                continue
         try:
             pdfdoc = PDFDoc()
             inputFile = testfile[0]
@@ -101,12 +104,13 @@ def ConvertSpecificFormats():
         print("Saved " + outputFile)
         
         # Convert the EMF document to PDF
-        s1 = inputPath + "simple-emf.emf"
-        print("Converting from EMF")
-        Convert.FromEmf(pdfdoc, s1)
-        outputFile = "emf2pdf v2.pdf"
-        pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
-        print("Saved " + outputFile)
+        if platform.system() == 'Windows':
+            s1 = inputPath + "simple-emf.emf"
+            print("Converting from EMF")
+            Convert.FromEmf(pdfdoc, s1)
+            outputFile = "emf2pdf v2.pdf"
+            pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
+            print("Saved " + outputFile)
 
         # Convert the TXT document to PDF
         set =  ObjSet()
@@ -124,9 +128,9 @@ def ConvertSpecificFormats():
         print("Saved " + outputFile)
         
         # Convert the two page PDF document to SVG
-        print("Converting pdfdoc to SVG")
         outputFile = "pdf2svg v2.svg"
         pdfdoc = PDFDoc(inputPath + "newsletter.pdf")
+        print("Converting pdfdoc to SVG")
         Convert.ToSvg(pdfdoc, outputPath + outputFile)
         print("Saved " + outputFile)
         
@@ -146,7 +150,7 @@ def ConvertSpecificFormats():
         print("Converting PDF to HTML")
         outputFile = "newsletter"
         Convert.ToHtml(inputPath + "newsletter.pdf", outputPath + outputFile)
-        print("Saved " + outputFile)
+        print("Saved newsletter as HTML")
 
         # Convert PDF document to EPUB
         print("Converting PDF to EPUB")
