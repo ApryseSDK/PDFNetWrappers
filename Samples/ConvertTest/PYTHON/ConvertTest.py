@@ -58,18 +58,18 @@ def ConvertToPdfFromFile():
     if platform.system() == 'Windows':
         try:
             if ConvertPrinter.IsInstalled("PDFTron PDFNet"):
-                ConvertPrinter.SetPrinterName("PDFTron PDFNet");
+                ConvertPrinter.SetPrinterName("PDFTron PDFNet")
             elif not ConvertPrinter.isInstalled():
                 try:
-                    print "Installing printer (requires Windows platform and administrator)"
+                    print("Installing printer (requires Windows platform and administrator)")
                     ConvertPrinter.Install()
-                    print "Installed printer " + ConvertPrinter.getPrinterName()
+                    print("Installed printer " + ConvertPrinter.getPrinterName())
                     # the function ConvertToXpsFromFile may require the printer so leave it installed
                     # uninstallPrinterWhenDone = true;
                 except:
-                    print "ERROR: Unable to install printer."
+                    print("ERROR: Unable to install printer.")
         except:
-            print "ERROR: Unable to install printer."
+            print("ERROR: Unable to install printer.")
 
     for testfile in testfiles:
         if platform.system() != 'Windows':
