@@ -194,7 +194,7 @@ def main():
             ConvertPrinter.Uninstall()
             print("Uninstalled printer " + ConvertPrinter.getPrinterName())
         except:
-            print "Unable to uninstall printer"
+            print("Unable to uninstall printer")
 
     print("Done.")
     
