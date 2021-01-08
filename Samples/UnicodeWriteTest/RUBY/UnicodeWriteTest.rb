@@ -149,13 +149,18 @@ def main()
 	puts "Read in %d lines of Unicode text from file" % line_num
 
 	i=0
-	File.open($input_path + "hindi_sample_utf16le.txt", "rb:UTF-16LE").each do |line|
-		shaped_text = indexed_font.GetShapedText(line)
-		element = eb.CreateShapedTextRun(shaped_text)
-		element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos-line_space*(i+1))
-		writer.WriteElement(element)
-		puts "Wrote shaped line to page"
-		i+=1
+	File.open($input_path + "hindi_sample_utf16le.txt", "rb:UTF-16LE") do |f|
+	f.each_line do |line|
+		begin
+			shaped_text = indexed_font.GetShapedText(line[0..-2].encode('utf-8'))
+			element = eb.CreateShapedTextRun(shaped_text)
+			element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos-line_space*(i+1))
+			writer.WriteElement(element)
+			puts "Wrote shaped line to page"
+			i+=1
+		rescue
+		end
+	end
 	end
 
 	# Finish the block of text

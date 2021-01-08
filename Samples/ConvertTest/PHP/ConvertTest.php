@@ -35,19 +35,9 @@ function ConvertToPdfFromFile()
 {
 	global $inputPath, $outputPath;
 
-    $testfiles = array(
-    	array("simple-word_2007.docx","docx2pdf.pdf"),
-        array("simple-powerpoint_2007.pptx","pptx2pdf.pdf"),
-        array("simple-excel_2007.xlsx","xlsx2pdf.pdf"),
-        array("simple-publisher.pub","pub2pdf.pdf"),
-		//array("simple-visio.vsd","vsd2pdf.pdf"),// requires Microsoft Office Visio
-        array("simple-text.txt","txt2pdf.pdf"),
-        array("simple-rtf.rtf","rtf2pdf.pdf"),
-        array("butterfly.png", "png2pdf.pdf"),
-        array("simple-emf.emf","emf2pdf.pdf"),
-		array("simple-xps.xps", "xps2pdf.pdf"),
-        //array("simple-webpage.mht","mht2pdf.pdf"),
-        array("simple-webpage.html","html2pdf.pdf")
+	$testfiles = array(
+	array("butterfly.png", "png2pdf.pdf"),
+	array("simple-xps.xps", "xps2pdf.pdf"),
     );
     $ret = 0;
     foreach ($testfiles as &$testfile) {
@@ -57,9 +47,9 @@ function ConvertToPdfFromFile()
 			$outputFile = $testfile[1];
 			Convert::ToPdf($pdfdoc, $inputPath.$inputFile);
 			$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_compatibility);
-	        $pdfdoc->Close();
+	        	$pdfdoc->Close();
 			echo(nl2br("Converted file: ".$inputFile."\n"));
-			echo(nl2br("    to: ".$outputFile."\n"));
+			echo(nl2br("to: ".$outputFile."\n"));
 		}
 		catch(Exception $e)
 		{
@@ -85,13 +75,6 @@ function ConvertSpecificFormats()
 		$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_remove_unused);
 		echo(nl2br("Saved ".$outputFile."\n"));
 
-		//Convert the EMF document to PDF
-		$s1 = $inputPath."simple-emf.emf";
-		echo(nl2br("Converting from EMF\n"));
-		Convert::FromEmf($pdfdoc, $s1);
-		$outputFile = "emf2pdf v2.pdf";
-		$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_remove_unused);
-		echo(nl2br("Saved " .$outputFile."\n"));
 
 		// Convert the TXT document to PDF
 		$set = new ObjSet();
@@ -109,6 +92,7 @@ function ConvertSpecificFormats()
 		echo(nl2br("Saved ".$outputFile ."\n"));
 		
 		// Convert the two page PDF document to SVG
+		$pdfdoc = new PDFDoc($inputPath . "newsletter.pdf");
 		echo(nl2br("Converting pdfdoc to SVG\n"));
 		$outputFile = "pdf2svg.svg";
 		Convert::ToSvg($pdfdoc, $outputPath.$outputFile);
@@ -140,13 +124,13 @@ function ConvertSpecificFormats()
 		Convert::ToEpub($inputPath."newsletter.pdf", $outputPath.$outputFile);
 		echo(nl2br("Saved ".$outputFile."\n"));
 
-	    echo(nl2br("Converting PDF to multipage TIFF\n"));
-	    $tiff_options = new TiffOutputOptions();
-	    $tiff_options->SetDPI(200);
-	    $tiff_options->SetDither(true);
-	    $tiff_options->SetMono(true);
-	    Convert::ToTiff($inputPath . "newsletter.pdf", $outputPath. "newsletter.tiff", $tiff_options);
-	    echo(nl2br("Saved newsletter.tiff\n"));
+		echo(nl2br("Converting PDF to multipage TIFF\n"));
+		$tiff_options = new TiffOutputOptions();
+		$tiff_options->SetDPI(200);
+		$tiff_options->SetDither(true);
+		$tiff_options->SetMono(true);
+		Convert::ToTiff($inputPath . "newsletter.pdf", $outputPath. "newsletter.tiff", $tiff_options);
+		echo(nl2br("Saved newsletter.tiff\n"));
 	}
     catch(Exception $e){
         $ret = 1;
@@ -164,18 +148,18 @@ function main()
 	
 	// Demonstrate Convert::ToPdf and Convert::Printer
 	$err = ConvertToPdfFromFile();
-    if ($err)
-    	echo(nl2br("ConvertFile failed\n"));
-    else
-    	echo(nl2br("ConvertFile succeeded\n"));
+	if ($err)
+		echo(nl2br("ConvertFile failed\n"));
+	else
+		echo(nl2br("ConvertFile succeeded\n"));
 	
 	// Demonstrate Convert::[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
 	$err = ConvertSpecificFormats();
-    if ($err)
-    	echo(nl2br("ConvertSpecificFormats failed\n"));
-    else
-    	echo(nl2br("ConvertSpecificFormats succeeded\n"));
-    echo(nl2br("Done."));
+	if ($err)
+		echo(nl2br("ConvertSpecificFormats failed\n"));
+	else
+		echo(nl2br("ConvertSpecificFormats succeeded\n"));
+	echo(nl2br("Done.\n"));
 }
 
 main();

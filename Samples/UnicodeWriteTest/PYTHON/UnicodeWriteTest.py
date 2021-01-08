@@ -149,7 +149,7 @@ def main():
         hindi_text = f.readlines()
         print("Read in " + str(len(hindi_text)) + " lines of Unicode text from file")
         for i in range(len(hindi_text)):
-            shaped_text = indexed_font.GetShapedText(hindi_text[i])
+            shaped_text = indexed_font.GetShapedText(hindi_text[i][:-1])
             element = eb.CreateShapedTextRun(shaped_text)
             element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos-line_space*(i+1))
             writer.WriteElement(element)
