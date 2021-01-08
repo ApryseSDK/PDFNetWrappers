@@ -163,7 +163,7 @@ function main()
 		if ($i == 0)
 			$tmp1 = substr($hindi_text,0,-1);
 		else if($i == 1)
-			$tmp1 = substr($hindi_text,1,-2);
+			$tmp1 = substr($hindi_text,1,-2); // remove the first and the last 2 characters so encoding to UTF-8 looks correct in PHP 
 		$tmp = iconv($in_charset = "UTF-16LE", $out_charset="UTF-8", $tmp1);
 		$shaped_text = $indexed_font->GetShapedText($tmp);
 		$element = $builder->CreateShapedTextRun($shaped_text);
