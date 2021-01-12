@@ -36,12 +36,18 @@ def main():
         type = itr.Current().GetType()
         if type == Field.e_button:
             print("Button")
+        elif type == Field.e_check:
+            print("Check")
+        elif type == Field.e_radio:
+            print("Radio")
         elif type == Field.e_text:
             print("Text")
         elif type == Field.e_choice:
             print("Choice")
         elif type == Field.e_signature:
             print("Signiture")
+        elif type == Field.e_null:
+            print("Null")
             
         print("------------------------------")
         itr.Next()

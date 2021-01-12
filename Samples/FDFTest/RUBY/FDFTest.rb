@@ -35,12 +35,18 @@ $stdout.sync = true
 		type = itr.Current().GetType()
 		if type == Field::E_button
 			puts "Button"
+		elsif type == Field::E_check
+			puts "Check"
+		elsif type == Field::E_radio
+			puts "Radio"
 		elsif type == Field::E_text
 			puts "Text"
 		elsif type == Field::E_choice
 			puts "Choice"
 		elsif type == Field::E_signature
 			puts "Signiture"
+		elsif type == Field::E_null
+			puts "Null"
 		end
 			
 		puts "------------------------------"
