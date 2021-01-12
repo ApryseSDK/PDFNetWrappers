@@ -40,6 +40,7 @@ function main()
 			$font_program = "C:/Windows/Fonts/ARIALUNI.TTF";
 		}
 	}
+	$fnt = NULL;
 	try {
 		$fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
 	}
