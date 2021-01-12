@@ -94,7 +94,7 @@ function ConvertSpecificFormats()
 		// Convert the two page PDF document to SVG
 		$pdfdoc = new PDFDoc($inputPath . "newsletter.pdf");
 		echo(nl2br("Converting pdfdoc to SVG\n"));
-		$outputFile = "pdf2svg.svg";
+		$outputFile = "pdf2svg v2.svg";
 		Convert::ToSvg($pdfdoc, $outputPath.$outputFile);
 		echo(nl2br("Saved ".$outputFile."\n"));
 
@@ -102,25 +102,25 @@ function ConvertSpecificFormats()
 
 		// Convert the PNG image to XPS
 		echo(nl2br("Converting PNG to XPS\n"));
-		$outputFile = "png2xps.xps";
+		$outputFile = "butterfly.xps";
 		Convert::ToXps($inputPath."butterfly.png", $outputPath.$outputFile);
 		echo(nl2br("Saved ".$outputFile."\n"));
 
 		// Convert PDF document to XPS
 		echo(nl2br("Converting PDF to XPS\n"));
-		$outputFile = "pdf2xps.xps";
+		$outputFile = "newsletter.xps";
 		Convert::ToXps($inputPath."newsletter.pdf", $outputPath.$outputFile);
 		echo(nl2br("Saved ".$outputFile."\n"));
 
 		// Convert PDF document to HTML
 		echo(nl2br("Converting PDF to HTML\n"));
-		$outputFile = "pdf2html";
+		$outputFile = "newsletter";
 		Convert::ToHtml($inputPath."newsletter.pdf", $outputPath.$outputFile);
 		echo(nl2br("Saved newsletter as HTML\n"));
 
 		// Convert PDF document to EPUB
 		echo(nl2br("Converting PDF to EPUB\n"));
-		$outputFile = "pdf2epub.epub";
+		$outputFile = "newsletter.epub";
 		Convert::ToEpub($inputPath."newsletter.pdf", $outputPath.$outputFile);
 		echo(nl2br("Saved ".$outputFile."\n"));
 
