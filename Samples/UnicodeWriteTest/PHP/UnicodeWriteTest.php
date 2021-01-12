@@ -38,17 +38,24 @@ function main()
 	if (!file_exists($font_program)) {
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$font_program = "C:/Windows/Fonts/ARIALUNI.TTF";
-			echo(nl2br("Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory.\n"));
 		}
 	}
 	try {
 		$fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
 	}
 	catch(Exception $e){
-		$fnt = Font::Create($doc->GetSDFDoc(), "Helvetica", "");
+
 	}
-	if(!$fnt)
-		return;
+	if($fnt)
+	{
+		echo(nl2br("Note: using " . $font_program . " for unshaped unicode text\n"));
+	}
+	else
+	{
+		echo(nl2br("Note: using system font substitution for unshaped unicode text\n"));
+		$fnt = Font::Create($doc->GetSDFDoc(), "Helvetica", "");		
+	}
+
 	$element = $builder->CreateTextBegin($fnt, 1.0);
 	$element->SetTextMatrix(10.0, 0.0, 0.0, 10.0, 50.0, 600.0);
 	$element->GetGState()->SetLeading(2);		 // Set the spacing between lines
