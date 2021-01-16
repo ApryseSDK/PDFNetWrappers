@@ -180,6 +180,7 @@
     #include "PDF/OfficeToPDFOptions.h"
     #include "PDF/WordToPDFOptions.h"
     #include "PDF/CADConvertOptions.h"
+    #include "PDF/CADModule.h"
     #include "PDF/RefreshOptions.h"
     #include "PDF/DocumentConversion.h"
     #include "PDF/PDFDoc.h"
@@ -653,7 +654,6 @@ namespace pdftron {
 %feature("compactdefaultargs") pdftron::PDF::ElementBuilder::Reset;
 %feature("compactdefaultargs") pdftron::PDF::Rect::Update;
 
-
 //----------------------------------------------------------------------------------------------
 
 // header files in /PDFNetC/Headers/Common
@@ -758,6 +758,7 @@ namespace pdftron {
 %include "PDF/OfficeToPDFOptions.h"
 %include "PDF/WordToPDFOptions.h"
 %include "PDF/DocumentConversion.h"
+%include "PDF/CADConvertOptions.h"
 %include "PDF/Convert.h"
 %include "PDF/PathData.h"
 %include "PDF/ShapedText.h"
@@ -813,6 +814,7 @@ namespace pdftron {
 %include "PDF/Highlights.h"
 %include "PDF/OCROptions.h"
 %include "PDF/OCRModule.h"
+%include "PDF/CADModule.h"
 %include "PDF/Optimizer.h"
 %include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
