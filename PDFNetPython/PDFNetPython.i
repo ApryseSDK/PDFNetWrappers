@@ -654,6 +654,7 @@ namespace pdftron {
 %feature("compactdefaultargs") pdftron::PDF::ElementBuilder::Reset;
 %feature("compactdefaultargs") pdftron::PDF::Rect::Update;
 
+
 //----------------------------------------------------------------------------------------------
 
 // header files in /PDFNetC/Headers/Common
