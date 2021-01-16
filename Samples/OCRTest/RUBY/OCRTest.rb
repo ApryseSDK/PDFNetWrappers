@@ -26,9 +26,6 @@ output_path = "../../TestFiles/Output/"
 	
 	#Example 1) Convert the first page to PNG and TIFF at 92 DPI.
 	
-	# The location of the OCR Module
-        PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
-
 	begin  
 		if !OCRModule.IsModuleAvailable
 
