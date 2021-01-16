@@ -22,29 +22,25 @@ output_path = "../../TestFiles/Output/"
 	PDFNet.Initialize
 	
 	# The location of the CAD Module
-    PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
+	PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
 	
 	begin  
 		if !CADModule.IsModuleAvailable
-
 			puts 'Unable to run CAD2PDFTest: PDFTron SDK CAD module not available.'
 			puts '---------------------------------------------------------------'
 			puts 'The CAD module is an optional add-on, available for download'
 			puts 'at http://www.pdftron.com/. If you have already downloaded this'
 			puts 'module, ensure that the SDK is able to find the required files'
 			puts 'using the PDFNet::AddResourceSearchPath() function.'
-
 		else
-		    inputFileName = "construction drawings color-28.05.18.dwg"
+			inputFileName = "construction drawings color-28.05.18.dwg"
 			outputFileName = inputFileName + ".pdf"
-			doc = PDFDoc.new	
+			doc = PDFDoc.new
 			Convert.FromCAD(doc, input_path + inputFileName)
 			doc.Save(output_path + outputFileName, 0)
 			puts "CAD2PDF conversion example"
-
 			doc.Close
-
-			end
+		end
 	rescue Exception=>e
 		puts e
 
