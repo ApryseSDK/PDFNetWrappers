@@ -104,7 +104,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	file_sz = trusted_cert_file.FileSize()
 	file_reader = FilterReader(trusted_cert_file)
 	trusted_cert_buf = file_reader.Read(file_sz)
-	opts.AddTrustedCertificate(trusted_cert_buf, len(trusted_cert_buf), VerificationOptions.e_default_trust | VerificationOptions.e_default_trust)
+	opts.AddTrustedCertificate(trusted_cert_buf, len(trusted_cert_buf), VerificationOptions.e_default_trust | VerificationOptions.e_certification_trust)
 
 	# Iterate over the signatures and verify all of them.
 	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
