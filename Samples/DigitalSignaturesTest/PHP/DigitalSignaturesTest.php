@@ -59,7 +59,7 @@ function VerifySimple($in_docpath, $in_public_key_file_path)
 	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
 
 	// Add trust root to store of trusted certificates contained in VerificationOptions.
-	$opts->AddTrustedCertificate($in_public_key_file_path);
+	$opts->AddTrustedCertificate($in_public_key_file_path, VerificationOptions::e_default_trust | VerificationOptions::e_certification_trust);
 
 	$result = $doc->VerifySignedDigitalSignatures($opts);
 	switch ($result)
@@ -101,7 +101,7 @@ function VerifyAllAndPrint($in_docpath, $in_public_key_file_path)
 	$file_sz = $trusted_cert_file->FileSize();
 	$file_reader = new FilterReader($trusted_cert_file);
 	$trusted_cert_buf = $file_reader->Read($file_sz);
-	$opts->AddTrustedCertificate($trusted_cert_buf, strlen($trusted_cert_buf));
+	$opts->AddTrustedCertificate($trusted_cert_buf, strlen($trusted_cert_buf), VerificationOptions::e_default_trust | VerificationOptions::e_default_trust);
 
 	// Iterate over the signatures and verify all of them.
 	$digsig_fitr = $doc->GetDigitalSignatureFieldIterator();
