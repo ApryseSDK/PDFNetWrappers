@@ -387,7 +387,7 @@ def PrintSignaturesInfo(in_docpath):
 			print('Page template instantiation, form filling, and signing digital signatures are allowed without invalidating this digital signature.')
 		elif digsig_doc_perms is DigitalSignatureField.e_annotating_formfilling_signing_allowed:
 			print('Annotating, page template instantiation, form filling, and signing digital signatures are allowed without invalidating this digital signature.')
-		elif DigitalSignatureField.e_unrestricted:
+		elif digsig_doc_perms is DigitalSignatureField.e_unrestricted:
 			print('Document not restricted by this digital signature.')
 		else:
 			print('Unrecognized digital signature document permission level.')
