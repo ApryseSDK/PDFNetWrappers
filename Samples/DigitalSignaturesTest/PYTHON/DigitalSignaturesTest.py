@@ -529,15 +529,15 @@ def main():
 		print(e.args)
 		result = False
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	try:
-		if not TimestampAndEnableLTV(input_path + 'tiger.pdf',
-			input_path + 'GlobalSignRootForTST.cer',
-			input_path + 'signature.jpg',
-			output_path+ 'tiger_DocTimeStamp_LTV.pdf'):
-			result = False
-	except Exception as e:
-		print(e.args)
-		result = False
+	#try:
+	#	if not TimestampAndEnableLTV(input_path + 'tiger.pdf',
+	#		input_path + 'GlobalSignRootForTST.cer',
+	#		input_path + 'signature.jpg',
+	#		output_path+ 'tiger_DocTimeStamp_LTV.pdf'):
+	#		result = False
+	#except Exception as e:
+	#	print(e.args)
+	#	result = False
 	
 	#################### End of tests. ####################
 

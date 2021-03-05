@@ -584,17 +584,17 @@ def main()
         puts(e.backtrace.inspect);
 	end
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	begin
-		if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
-			input_path + 'GlobalSignRootForTST.cer',
-			input_path + 'signature.jpg',
-			output_path+ 'tiger_DocTimeStamp_LTV.pdf')
-			result = false;
-		end
-	rescue Exception => e
-        puts(e.message);
-        puts(e.backtrace.inspect);
-	end
+	#begin
+	#	if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
+	#		input_path + 'GlobalSignRootForTST.cer',
+	#		input_path + 'signature.jpg',
+	#		output_path+ 'tiger_DocTimeStamp_LTV.pdf')
+	#		result = false;
+	#	end
+	#rescue Exception => e
+    #    puts(e.message);
+    #    puts(e.backtrace.inspect);
+	#end
 
 	#################### End of tests. ####################
 
