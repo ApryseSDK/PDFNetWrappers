@@ -165,4 +165,3 @@ func main(){
     fmt.Println("of the file produced using individual page copy operations")
     fmt.Println("between two documents")
 }
-

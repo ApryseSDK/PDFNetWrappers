@@ -67,5 +67,3 @@ execute_process(
     ERROR_FILE ${PROJECT_BINARY_DIR}/go.err.log
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
-
-
