@@ -60,7 +60,8 @@ The following steps describe how to build a language binding for PDFNetC using t
 
   c. PHP `cd Build cmake -D BUILD_PDFNetPHP=ON ..`
 
-  d. Go `cd Build cmake -D BUILD_PDFTronGo=ON ..` for Linux; `cd Build cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..` for Windows
+  d. Go `cd Build cmake -D BUILD_PDFTronGo=ON ..` for Linux. 
+        `cd Build cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..` for Windows.
 
 4. Run make or the IDE's build command
         `make`
