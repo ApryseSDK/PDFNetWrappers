@@ -62,7 +62,7 @@ def VerifySimple(in_docpath, in_public_key_file_path)
 	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving)
 
 	# Add trust root to store of trusted certificates contained in VerificationOptions.
-	opts.AddTrustedCertificate(in_public_key_file_path, VerificationOptions.CertificateTrustFlag[VerificationOptions::E_default_trust] | VerificationOptions.CertificateTrustFlag[VerificationOptions::E_certification_trust])
+	opts.AddTrustedCertificate(in_public_key_file_path, VerificationOptions::E_default_trust | VerificationOptions::E_certification_trust)
 
 	result = doc.VerifySignedDigitalSignatures(opts)
 	case result	
@@ -103,7 +103,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 	file_sz = trusted_cert_file.FileSize()
 	file_reader = FilterReader.new(trusted_cert_file)
 	trusted_cert_buf = file_reader.Read(file_sz)
-	opts.AddTrustedCertificate(trusted_cert_buf, trusted_cert_buf.length, VerificationOptions.CertificateTrustFlag[VerificationOptions::E_default_trust] | VerificationOptions.CertificateTrustFlag[VerificationOptions::E_certification_trust])
+	opts.AddTrustedCertificate(trusted_cert_buf, trusted_cert_buf.length, VerificationOptions::E_default_trust | VerificationOptions::E_certification_trust)
 
 	# Iterate over the signatures and verify all of them.
 	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
