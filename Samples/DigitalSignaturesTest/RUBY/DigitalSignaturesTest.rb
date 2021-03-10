@@ -440,7 +440,7 @@ def TimestampAndEnableLTV(in_docpath,
 	in_outpath)
 	doc = PDFDoc.new(in_docpath);
 	doctimestamp_signature_field = doc.CreateDigitalSignatureField();
-	tst_config = TimestampingConfiguration.new('http://adobe-timestamp.globalsign.com/?signature=sha2');
+	tst_config = TimestampingConfiguration.new('http://rfc3161timestamp.globalsign.com/advanced');
 	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving);
 #	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 #	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -584,17 +584,17 @@ def main()
         puts(e.backtrace.inspect);
 	end
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	#begin
-	#	if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
-	#		input_path + 'GlobalSignRootForTST.cer',
-	#		input_path + 'signature.jpg',
-	#		output_path+ 'tiger_DocTimeStamp_LTV.pdf')
-	#		result = false;
-	#	end
-	#rescue Exception => e
-    #    puts(e.message);
-    #    puts(e.backtrace.inspect);
-	#end
+	begin
+		if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
+			input_path + 'GlobalSignRootForTST.cer',
+			input_path + 'signature.jpg',
+			output_path+ 'tiger_DocTimeStamp_LTV.pdf')
+			result = false;
+		end
+	rescue Exception => e
+        puts(e.message);
+        puts(e.backtrace.inspect);
+	end
 
 	#################### End of tests. ####################
 

@@ -501,7 +501,7 @@ function TimestampAndEnableLTV($in_docpath,
 {
 	$doc = new PDFDoc($in_docpath);
 	$doctimestamp_signature_field = $doc->CreateDigitalSignatureField();
-	$tst_config = new TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2");
+	$tst_config = new TimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced");
 	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
 	/* It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -666,22 +666,22 @@ function main()
     }
 
 	//////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	//try
-	//{
-	//	if(!TimestampAndEnableLTV($input_path.'tiger.pdf',
-	//				$input_path.'GlobalSignRootForTST.cer',
-	//				$input_path.'signature.jpg',
-	//				$output_path.'tiger_DocTimeStamp_LTV.pdf'))
-	//	{
-	//		$result = false;
-	//	}
-	//}
-	//catch (Exception $e)
-	//{
-    //    echo(nl2br($e->getMessage().PHP_EOL));
-    //    echo(nl2br($e->getTraceAsString().PHP_EOL));
-    //    $result = false;
-    //}
+	try
+	{
+		if(!TimestampAndEnableLTV($input_path.'tiger.pdf',
+					$input_path.'GlobalSignRootForTST.cer',
+					$input_path.'signature.jpg',
+					$output_path.'tiger_DocTimeStamp_LTV.pdf'))
+		{
+			$result = false;
+		}
+	}
+	catch (Exception $e)
+	{
+        echo(nl2br($e->getMessage().PHP_EOL));
+        echo(nl2br($e->getTraceAsString().PHP_EOL));
+        $result = false;
+    }
 
 	//////////////////// End of tests. ////////////////////
 

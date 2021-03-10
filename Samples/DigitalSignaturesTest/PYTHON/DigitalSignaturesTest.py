@@ -403,7 +403,7 @@ def TimestampAndEnableLTV(in_docpath,
 	in_outpath):
 	doc = PDFDoc(in_docpath)
 	doctimestamp_signature_field = doc.CreateDigitalSignatureField()
-	tst_config = TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2")
+	tst_config = TimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced")
 	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
 #	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 #	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -529,15 +529,15 @@ def main():
 		print(e.args)
 		result = False
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	#try:
-	#	if not TimestampAndEnableLTV(input_path + 'tiger.pdf',
-	#		input_path + 'GlobalSignRootForTST.cer',
-	#		input_path + 'signature.jpg',
-	#		output_path+ 'tiger_DocTimeStamp_LTV.pdf'):
-	#		result = False
-	#except Exception as e:
-	#	print(e.args)
-	#	result = False
+	try:
+		if not TimestampAndEnableLTV(input_path + 'tiger.pdf',
+			input_path + 'GlobalSignRootForTST.cer',
+			input_path + 'signature.jpg',
+			output_path+ 'tiger_DocTimeStamp_LTV.pdf'):
+			result = False
+	except Exception as e:
+		print(e.args)
+		result = False
 	
 	#################### End of tests. ####################
 
