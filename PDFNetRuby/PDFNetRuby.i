@@ -634,6 +634,8 @@ namespace pdftron {
 %include "PDF/X509Extension.h"
 %include "PDF/X509Certificate.h"
 %include "PDF/DisallowedChange.h"
+// Forward percent-inclusion of FDFDoc for VerificationOptions::LoadTrustList
+%include "FDF/FDFDoc.h"
 %include "PDF/VerificationOptions.h"
 %include "PDF/TrustVerificationResult.h"
 %include "PDF/VerificationResult.h"
