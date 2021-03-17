@@ -132,17 +132,17 @@
     #include "PDF/Field.h"
     #include "PDF/TimestampingTestResult.h"
     #include "PDF/TimestampingConfiguration.h"
-    #include "PDF/ObjectIdentifier.h"
-    #include "PDF/X501DistinguishedName.h"
-    #include "PDF/X501AttributeTypeAndValue.h"
-    #include "PDF/X509Extension.h"
-    #include "PDF/X509Certificate.h"
+    #include "Crypto/ObjectIdentifier.h"
+    #include "Crypto/X501DistinguishedName.h"
+    #include "Crypto/X501AttributeTypeAndValue.h"
+    #include "Crypto/X509Extension.h"
+    #include "Crypto/X509Certificate.h"
     #include "PDF/DisallowedChange.h"
     #include "PDF/VerificationOptions.h"
     #include "PDF/TrustVerificationResult.h"
     #include "PDF/VerificationResult.h"
     #include "PDF/EmbeddedTimestampVerificationResult.h"
-    #include "PDF/DigestAlgorithm.h"
+    #include "Crypto/DigestAlgorithm.h"
     #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
@@ -233,11 +233,11 @@ namespace std {
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;
    %template(VectorDisallowedChange) vector<pdftron::PDF::DisallowedChange>;
    %template(VectorAnnot) vector<pdftron::PDF::Annot>;
-   %template(VectorX509Extension) vector<pdftron::PDF::X509Extension>;
-   %template(VectorX501AttributeTypeAndValue) vector<pdftron::PDF::X501AttributeTypeAndValue>;
-   %template(VectorX509Certificate) vector<pdftron::PDF::X509Certificate>;
+   %template(VectorX509Extension) vector<pdftron::Crypto::X509Extension>;
+   %template(VectorX501AttributeTypeAndValue) vector<pdftron::Crypto::X501AttributeTypeAndValue>;
+   %template(VectorX509Certificate) vector<pdftron::Crypto::X509Certificate>;
    %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
-   %template(VectorVectorX509Certificate) vector<vector<pdftron::PDF::X509Certificate> >;
+   %template(VectorVectorX509Certificate) vector<vector<pdftron::Crypto::X509Certificate> >;
 };
 
 /**
@@ -628,11 +628,11 @@ namespace pdftron {
 %include "PDF/Field.h"
 %include "PDF/TimestampingTestResult.h"
 %include "PDF/TimestampingConfiguration.h"
-%include "PDF/ObjectIdentifier.h"
-%include "PDF/X501DistinguishedName.h"
-%include "PDF/X501AttributeTypeAndValue.h"
-%include "PDF/X509Extension.h"
-%include "PDF/X509Certificate.h"
+%include "Crypto/ObjectIdentifier.h"
+%include "Crypto/X501DistinguishedName.h"
+%include "Crypto/X501AttributeTypeAndValue.h"
+%include "Crypto/X509Extension.h"
+%include "Crypto/X509Certificate.h"
 %include "PDF/DisallowedChange.h"
 %include "FDF/FDFField.h"
 %include "FDF/FDFDoc.h"
@@ -640,7 +640,7 @@ namespace pdftron {
 %include "PDF/TrustVerificationResult.h"
 %include "PDF/VerificationResult.h"
 %include "PDF/EmbeddedTimestampVerificationResult.h"
-%include "PDF/DigestAlgorithm.h"
+%include "Crypto/DigestAlgorithm.h"
 %include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
