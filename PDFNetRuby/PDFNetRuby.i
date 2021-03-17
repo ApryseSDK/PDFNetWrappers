@@ -248,6 +248,10 @@ namespace std {
  * of one of the classes.
  */
 namespace pdftron {
+	namespace Crypto
+	{
+        class DigestAlgorithm;
+	}
     namespace PDF {
         class Font;
         class ColorPt;
@@ -256,7 +260,6 @@ namespace pdftron {
         class ViewerOptimizedOptions;
         class EmbeddedTimestampVerificationResult;
         class TrustVerificationResult;
-        class DigestAlgorithm;
         class ObjectIdentifier;
         namespace Struct {
             class SElement;
