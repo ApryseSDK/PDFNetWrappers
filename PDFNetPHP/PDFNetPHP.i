@@ -207,6 +207,7 @@
     #include "SDF/ObjSet.h"
     #include "SDF/SDFDoc.h"
     #include "SDF/SecurityHandler.h"
+    #include "SDF/PDFTronCustomSecurityHandler.h"
     #include "SDF/UndoManager.h"
     #include "SDF/ResultSnapshot.h"
     #include "SDF/DocSnapshot.h"
@@ -825,6 +826,7 @@ namespace pdftron {
 %include "SDF/UndoManager.h"
 #define Clone CloneHandler
 %include "SDF/SecurityHandler.h"
+%include "SDF/PDFTronCustomSecurityHandler.h"
 #undef
 %include "PDF/Point.h"
 #define Function PDFFunction
