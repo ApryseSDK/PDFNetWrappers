@@ -117,6 +117,37 @@ $stdout.sync = true
 	doc.RemoveSecurity()
 	doc.Save(output_path + "not_secured.pdf", 0)
 	doc.Close()
-	
+
+	# Example 3:
+	# Encrypt/Decrypt a PDF using PDFTron custom security handler
+	puts "-------------------------------------------------"
+	puts "Encrypt a document using PDFTron Custom Security handler with a custom id and password..."
+	doc = PDFDoc.new(input_path + "BusinessCardTemplate.pdf")
+
+	# Create PDFTron custom security handler with a custom id. Replace this with your own integer
+	custom_id = 123456789
+	custom_handler = PDFTronCustomSecurityHandler.new(custom_id)
+
+	# Add a password to the custom security handler
+	password = "test"
+	custom_handler.ChangeUserPassword(password)
+
+	# Save the encrypted document
+	doc.SetSecurityHandler(custom_handler)
+	doc.Save(output_path + "BusinessCardTemplate_enc.pdf", 0)
+	doc.Close()
+
+	puts "Decrypt the PDFTron custom security encrypted document above..."
+	# Register the PDFTron Custom Security handler with the same custom id used in encryption
+	PDFNet.AddPDFTronCustomHandler(custom_id)
+
+	doc_enc = PDFDoc.new(output_path + "BusinessCardTemplate_enc.pdf")
+	doc_enc.InitStdSecurityHandler(password)
+	doc_enc.RemoveSecurity()
+	# Save the decrypted document
+	doc_enc.Save(output_path + "BusinessCardTemplate_enc_dec.pdf", 0)
+	doc_enc.Close()
+	puts "Done. Result saved in BusinessCardTemplate_enc_dec.pdf"
+	puts "-------------------------------------------------"
 	puts "Test completed."
 		

@@ -121,5 +121,35 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$doc->Save($output_path."not_secured.pdf", 0);
 	$doc->Close();
 
+	// Example 3: 
+	echo "-------------------------------------------------\n";
+	echo "Encrypt a document using PDFTron Custom Security handler with a custom id and password...\n";
+	$doc = new PDFDoc($input_path . "BusinessCardTemplate.pdf");
+
+	// Create PDFTron custom security handler with a custom id. Replace this with your own integer
+	$custom_id = 123456789;
+	$custom_handler = new PDFTronCustomSecurityHandler($custom_id);
+
+	// Add a password to the custom security handler
+	$pass = "test";
+	$custom_handler->ChangeUserPassword($pass);
+
+	// Save the encrypted document
+	$doc->SetSecurityHandler($custom_handler);
+	$doc->Save($output_path . "BusinessCardTemplate_enc.pdf", 0);
+	$doc->Close();
+
+	echo "Decrypt the PDFTron custom security encrypted document above...\n";
+	// Register the PDFTron Custom Security handler with the same custom id used in encryption
+	PDFNet::AddPDFTronCustomHandler($custom_id);
+
+	$doc_enc = new PDFDoc($output_path . "BusinessCardTemplate_enc.pdf");
+	$doc_enc->InitStdSecurityHandler($pass);
+	$doc_enc->RemoveSecurity();
+	// Save the decrypted document
+	$doc_enc->Save($output_path . "BusinessCardTemplate_enc_dec.pdf", 0);
+	$doc->Close();
+	echo "Done. Result saved in BusinessCardTemplate_enc_dec.pdf\n";
+	echo "-------------------------------------------------\n";
 	echo "Test Completed.\n";
 ?>
