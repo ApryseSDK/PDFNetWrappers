@@ -5,6 +5,7 @@ This project demonstrates how to bind PDFNetC with other languages. This project
     PHP
     Python
     Ruby
+    Go
 
 # Requirements
 
@@ -15,7 +16,7 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 * **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.0.12
 * **CMake** version 2.8+
 * **Linux**: GCC 4.6 and above
-* **Windows**: Visual Studio 2012 and above
+* **Windows**: Visual Studio 2012 and above or mingw-w64 (for Go only)
 * **macOS**: XCode 5.0 and above
 
 ## Get PDFNetC
@@ -59,8 +60,12 @@ The following steps describe how to build a language binding for PDFNetC using t
 
   c. PHP `cd Build cmake -D BUILD_PDFNetPHP=ON ..`
 
+  d. Go `cd Build cmake -D BUILD_PDFTronGo=ON ..` for Linux; `cd Build cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..` for Windows.
+
 4. Run make or the IDE's build command
         `make`
+
+* For Go, instead of running make command, copy `pdftron` directory under `Build/PDFTronGo/` to `GOPATH/src/`, change working directory to `GOPATH/src/pdftron` and then run `go build`
 
 NOTE: To rebuild the bindings, you may need to delete the files in Build and re-run cmake.  This is because the CMake script itself compiles the SWIG bindings.
 
@@ -70,6 +75,7 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
         `make install`
     
 * This should place the bridge files to the `PDFNetC/Lib` folder (where the PDFNetC library was extracted from the previous section).
+* For Go, go to `GOPATH/src/pdftron` directory and run `go install`
 
 2. Navigate to `Samples` folder and either run the `runall` scripts, or go into the individual samples folder and run the `RunTest` scripts.
 3. Navigate to `Samples/TestFiles/Output` for outputs.
@@ -150,6 +156,7 @@ Within PDFTron, we have successfully built language bindings for the following v
     - PHP 5.3.x to 5.5.x, PHP 7.x
     - Python 2.7.x to 3.3.x
     - Ruby 2.x
+    - Go 1.15.x
 
 ## Does this project support UCS4 builds of Python?
 
