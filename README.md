@@ -43,6 +43,14 @@ Having a **single version of SWIG and PYTHON installed** on the server is prefer
 
     * **PYTHON3** with developer extensions and **SWIG3 (3.0.12)** or above
 
+## Strict GO and SWIG3 version compatibility for Go wrapper
+
+Having a **single version of SWIG and GO installed** on the server is preferred.  Any other combinations of SWIG and GO versions not listed below is likely to encounter problems.  If your build is not working as expected then please double check the version numbers.  Installing multiple versions of SWIG and Go may also produce issues.
+
+* Targeting **GO**
+
+    * **GO** verified with version 1.15, **MINGW-W64** verified with version 4.3 and **SWIG3 (3.0.12)** or above
+
 # Building
 
 The following steps describe how to build a language binding for PDFNetC using this source package. This guide assumes you are familiar with CMake project generation. For more information, please visit http://www.cmake.org/
@@ -59,6 +67,8 @@ The following steps describe how to build a language binding for PDFNetC using t
   b. Ruby `cd Build cmake -D BUILD_PDFNetRuby=ON ..`
 
   c. PHP `cd Build cmake -D BUILD_PDFNetPHP=ON ..`
+  
+  d. GO `cd Build cmake -D BUILD_PDFNetGO=ON ..`
 
   d. Go `cd Build cmake -D BUILD_PDFTronGo=ON ..` for Linux; `cd Build cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..` for Windows.
 
@@ -80,6 +90,32 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
 2. Navigate to `Samples` folder and either run the `runall` scripts, or go into the individual samples folder and run the `RunTest` scripts.
 3. Navigate to `Samples/TestFiles/Output` for outputs.
 # Example 
+
+## Windows
+Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You could run the following set of commands:
+
+    md wrappers_build # Make a directory to build the wrappers in.
+    cd wrappers_build # Move to that directory.
+    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
+    curl -L -O http://www.pdftron.com/downloads/PDFNetC64.zip # Download PDFNet.
+    tar -xf PDFNetC64.zip # Unpack PDFNet.
+    move PDFNetC64/Headers . # Move PDFNet Headers/ into place.
+    move PDFNetC64/Lib . # Move PDFNet Lib/ into place.
+    cd .. # Go back up.
+    md Build # Create a directory to create the Makefiles in.
+    cd Build # Move to that directory.
+    cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON .. # Create the pdftron directory under Build/PDFTronGo/ directory.
+    make # Build the GO wrappers with SWIG.
+    cd PDFTronGo # Move to that directory.
+    go env # Find the go path in GOPATH environment variable.
+    xcopy /E pdftron GOPATH\src\pdftron\ # Copy pdftron directory to GOPATH/src directory.
+    cd GOPATH\src\pdftron # Move to pdftron directory.
+    go install # Build and install pdftron package for Go
+    cd ../Samples # Move to the Samples directory.
+    ./runall_go.bat # Run all PHP code samples, using the new wrappers.
+
+More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/go)
 
 ## Linux 
 Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You could run the following set of commands:
@@ -106,6 +142,8 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
+More information at [PDFTron SDK for PHP](https://www.pdftron.com/documentation/php)
+
 ## macOS 
 Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could run the following set of commands:
 
@@ -128,6 +166,8 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
     sudo sh ./fix_rpaths.sh 
     cd ../../Samples # Move to the Samples directory.
     ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
+	
+More information at [PDFTron SDK for Ruby](https://www.pdftron.com/documentation/ruby)
 	
 # Pre-built Binaries
 
@@ -156,7 +196,7 @@ Within PDFTron, we have successfully built language bindings for the following v
     - PHP 5.3.x to 5.5.x, PHP 7.x
     - Python 2.7.x to 3.3.x
     - Ruby 2.x
-    - Go 1.15.x
+    - Go 1.15
 
 ## Does this project support UCS4 builds of Python?
 
