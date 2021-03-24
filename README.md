@@ -110,6 +110,8 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
     cd ../Samples # Move to the Samples directory.
     ./runall_go.bat # Run all PHP code samples, using the new wrappers.
 
+More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/go)
+
 ## Linux 
 Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You could run the following set of commands:
 
@@ -135,6 +137,8 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
+More information at [PDFTron SDK for PHP](https://www.pdftron.com/documentation/php)
+
 ## macOS 
 Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could run the following set of commands:
 
@@ -157,6 +161,8 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
     sudo sh ./fix_rpaths.sh 
     cd ../../Samples # Move to the Samples directory.
     ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
+	
+More information at [PDFTron SDK for Ruby](https://www.pdftron.com/documentation/ruby)
 	
 # Pre-built Binaries
 
