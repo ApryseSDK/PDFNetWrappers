@@ -16,7 +16,7 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 * **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.0.12
 * **CMake** version 2.8+
 * **Linux**: GCC 4.6 and above
-* **Windows**: Visual Studio 2012 and above
+* **Windows**: Visual Studio 2012 and above or mingw-w64 (for Go only)
 * **macOS**: XCode 5.0 and above
 
 ## Get PDFNetC
@@ -67,11 +67,13 @@ The following steps describe how to build a language binding for PDFNetC using t
   b. Ruby `cd Build cmake -D BUILD_PDFNetRuby=ON ..`
 
   c. PHP `cd Build cmake -D BUILD_PDFNetPHP=ON ..`
-  
-  d. GO `cd Build cmake -D BUILD_PDFNetGO=ON ..`
+
+  d. Go `cd Build cmake -D BUILD_PDFTronGo=ON ..` for Linux; `cd Build cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..` for Windows.
 
 4. Run make or the IDE's build command
         `make`
+
+* For Go, instead of running make command, copy `pdftron` directory under `Build/PDFTronGo/` to `GOPATH/src/`, change working directory to `GOPATH/src/pdftron` and then run `go build`
 
 NOTE: To rebuild the bindings, you may need to delete the files in Build and re-run cmake.  This is because the CMake script itself compiles the SWIG bindings.
 
@@ -81,6 +83,7 @@ NOTE: To rebuild the bindings, you may need to delete the files in Build and re-
         `make install`
     
 * This should place the bridge files to the `PDFNetC/Lib` folder (where the PDFNetC library was extracted from the previous section).
+* For Go, go to `GOPATH/src/pdftron` directory and run `go install`
 
 2. Navigate to `Samples` folder and either run the `runall` scripts, or go into the individual samples folder and run the `RunTest` scripts.
 3. Navigate to `Samples/TestFiles/Output` for outputs.
@@ -93,8 +96,8 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
     cd wrappers_build # Move to that directory.
     git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    curl -L -O http://www.pdftron.com/downloads/PDFNetC64.zip # Download PDFNet.
-    tar -xf PDFNetC64.zip # Unpack PDFNet.
+    download PDFNetC64.zip from http://www.pdftron.com/downloads/PDFNetC64.zip # Download PDFNet.
+    unzip PDFNetC64.zip # Unzip PDFNet.
     move PDFNetC64/Headers . # Move PDFNet Headers/ into place.
     move PDFNetC64/Lib . # Move PDFNet Lib/ into place.
     cd .. # Go back up.
@@ -108,7 +111,7 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
     cd GOPATH\src\pdftron # Move to pdftron directory.
     go install # Build and install pdftron package for Go
     cd ../Samples # Move to the Samples directory.
-    ./runall_go.bat # Run all PHP code samples, using the new wrappers.
+    ./runall_go.bat # Run all Go code samples, using the new wrappers.
 
 More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/go)
 
@@ -137,8 +140,6 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
-More information at [PDFTron SDK for PHP](https://www.pdftron.com/documentation/php)
-
 ## macOS 
 Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could run the following set of commands:
 
@@ -161,8 +162,6 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
     sudo sh ./fix_rpaths.sh 
     cd ../../Samples # Move to the Samples directory.
     ./runall_ruby.sh # Run all Ruby code samples, using the new wrappers.
-	
-More information at [PDFTron SDK for Ruby](https://www.pdftron.com/documentation/ruby)
 	
 # Pre-built Binaries
 
