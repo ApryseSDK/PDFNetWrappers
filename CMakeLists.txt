@@ -9,6 +9,7 @@ cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 set(BUILD_PDFNetPython OFF CACHE BOOL "Build PDFNet language bindings for Python.")
 set(BUILD_PDFNetRuby OFF CACHE BOOL "Build PDFNet language bindings for Ruby.")
 set(BUILD_PDFNetPHP OFF CACHE BOOL "Build PDFNet language bindings for PHP.")
+set(BUILD_PDFTronGo OFF CACHE BOOL "Build PDFNet language bindings for GO.")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/PDFNetC" CACHE PATH "CMAKE_INSTALL_PREFIX" FORCE)
 
 if ("${CMAKE_INSTALL_PREFIX}" STREQUAL "${CMAKE_SOURCE_DIR}/PDFNetC")
@@ -58,4 +59,8 @@ endif ()
 
 if (BUILD_PDFNetPHP)
     add_subdirectory(${CMAKE_SOURCE_DIR}/PDFNetPHP)
+endif ()
+
+if (BUILD_PDFTronGo)
+    add_subdirectory(${CMAKE_SOURCE_DIR}/PDFTronGo)
 endif ()
