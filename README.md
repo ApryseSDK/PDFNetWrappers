@@ -1,3 +1,7 @@
+## NOTE FOR DEVELOPERS
+
+Please commit changes to `next_release`. Notice that `master` is the current stable and should not have changes unless applicable.
+
 # About
 
 This project demonstrates how to bind PDFNetC with other languages. This project provides the necessary files to generate language bindings between PDFNetC and the following:
