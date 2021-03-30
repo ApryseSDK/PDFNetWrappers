@@ -1,0 +1,102 @@
+This document shows a simple guide on how to build Golang bindings of PDFNet for Windows x64 and Linux x64. 
+
+For Widnows x64:
+1. Currently we have only tested this project under Windows 10 x64 and mingw-64.
+
+2. Download PDFNetC for Windows x64: https://www.pdftron.com/downloads/PDFNetC64.zip
+   Download the Github repository for the wrappers: https://github.com/PDFTron/PDFNetWrappers/archive/master.zip
+   Download and install CMake: http://www.cmake.org/download/ (version 2.8+)
+   Download SWIG: https://sourceforge.net/projects/swig/files/swigwin/swigwin-4.0.2/
+   Download and install MINGW-64: https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win32/Personal%20Builds/mingw-builds/installer/mingw-w64-install.exe
+
+3. If you don't have Go installed, download and install Go 1.15.6: https://golang.org/dl/go1.15.6.windows-amd64.msi
+
+4. Extract the Github repository file: PDFNetWrappers-master.zip. Let us call this the GITHUB_REPO_DIR.
+
+5. Extract PDFNetC64.zip. Copy both the "Headers" and "Lib" folders into GITHUB_REPO_DIR/PDFNetC. You should have:
+    - GITHUB_REPO_DIR/PDFNetC/Headers/...
+    - GITHUB_REPO_DIR/PDFNetC/Lib/...
+
+6. Extract swig, let us call the extracted folder as SWIG_DIR, add SWIG_DIR to PATH environment variable
+
+7. Go to GITHUB_REPO_DIR/Build (create the directory if it does not exist) and run CMake using following cmake arguments:
+   cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..
+
+8. The pdftron directory should have been generated at the GITHUB_REPO_DIR/Build/PDFTronGo. This directory should contain the followings:
+   - pdftron.go
+   - pdftron_wrap.cxx
+   - pdftron_wrap.h
+   - PDFNetC
+   - Samples
+
+9. Follow the below steps to build GO pdftron package:
+   a. Copy pdftron directory to GOPATH/src directory.
+   b. Run "go install" when working directory is GOPATH/src/pdftron in command prompt.
+   c. Done.
+
+10. You now can run the PDFNetC samples:
+    a. Change working directory to pdftron/samples in command prompt.
+    b. Choose one specific sample, let's say "AddImageTest", and change working directory to AddImageTest/GO.
+    c. Run "RunTest.bat"
+    e. The output will be in pdftron/Samples/TestFiles/Output directory and compiled EXE will be in pdftron/Samples/bin
+
+11. You will need to make sure to add PDFNetC.dll (it's in pdftron\PDFNetC\Lib directory) to your project directory or the same one along with your EXE.
+
+For Linux x64:
+
+1. To download the Go binary use either wget or curl if go is not installed:
+   wget https://golang.org/dl/go1.15.6.linux-amd64.tar.gz
+   
+   Use the tar command to extract the tarball to the /usr/local directory:
+   sudo tar -C /usr/local -xzf go1.15.6.linux-amd64.tar.gz
+
+   Add /usr/local/go/bin to the PATH environment variable.
+   You can do this by appending the following line to the /etc/profile file (for a system-wide installation) or to the $HOME/.bash_profile file (for a current user installation): ~/.bash_profile
+   export PATH=$PATH:/usr/local/go/bin
+   Save the file, and load the new PATH environment variable into the current shell session with the following command:
+   source ~/.bash_profile
+
+2. Download and install SWIG:
+   wget https://downloads.sourceforge.net/swig/swig-4.0.2.tar.gz
+
+   Change zip file permission:
+   chmod 777 swig-4.0.2.tar.gz
+
+   Unzip the swig zip source code to a local directory.
+   sudo tar -C /usr/local -xzvf swig-4.0.2.tar.gz
+
+   Specify swig install directory:
+   cd swig-4.0.2 (unzip folder) and run 
+   ./configure --prefix=/usr/local/swig
+
+   Compile and install.
+   sudo make
+   sudo make install
+
+3. mkdir wrappers_build # Make a directory to build the wrappers in.
+   cd wrappers_build # Move to that directory.
+   git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+   cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
+   wget http://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
+   tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
+   mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
+   mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
+   cd .. # Go back up.
+   mkdir Build # Create a directory to create the Makefiles in.
+   cd Build # Move to that directory.
+   cmake -D BUILD_PDFTronGo=ON .. # Create the pdftron directory.
+
+4. Follow the below steps to build GO pdftron package:
+   a. Copy pdftron directory to GOPATH/src directory.
+   b. Run "go install" when working directory is GOPATH/src/pdftron in terminal.
+   c. Done.
+
+5. You now can run the PDFNetC samples:
+   a. Change working directory to pdftron/samples in terminal.
+   b. Choose one specific sample, let's say "AddImageTest", and change working directory to AddImageTest/GO.
+   c. Run "./RunTest.sh"
+   e. The output will be in pdftron/Samples/TestFiles/Output directory and compiled EXE will be in pdftron/Samples/bin
+
+
+
+
