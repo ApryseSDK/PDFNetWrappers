@@ -11,6 +11,7 @@ go build -o $BIN_PATH/$TEST_NAME.exe
 
 if [ $? -eq 0 ] 
 then
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../../../PDFNetC/Lib
     $BIN_PATH/$TEST_NAME.exe
 fi
 
