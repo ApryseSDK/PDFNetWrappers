@@ -3,10 +3,10 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
-import site
-site.addsitedir("../../../PDFNetC/Lib")
+
+
 import sys
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to parse and check if a PDF document meets the

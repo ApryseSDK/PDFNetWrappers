@@ -3,10 +3,10 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
-import site
-site.addsitedir("../../../PDFNetC/Lib")
+
+
 import sys
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 #---------------------------------------------------------------------------------------
 # This sample explores the structure and content of a tagged PDF document and dumps 

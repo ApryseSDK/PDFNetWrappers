@@ -3,10 +3,10 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
-import site
-site.addsitedir("../../../PDFNetC/Lib")
+
+
 import sys
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 # Relative path to the folder containing test files.
 input_path = "../../TestFiles/OCR/"

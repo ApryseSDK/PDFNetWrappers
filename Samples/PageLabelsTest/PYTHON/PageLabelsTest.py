@@ -3,10 +3,10 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
-import site
-site.addsitedir("../../../PDFNetC/Lib")
+
+
 import sys
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 #-----------------------------------------------------------------------------------
 # The sample illustrates how to work with PDF page labels.

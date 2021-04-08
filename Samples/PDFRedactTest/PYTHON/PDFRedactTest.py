@@ -3,10 +3,10 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
-import site
-site.addsitedir("../../../PDFNetC/Lib")
+
+
 import sys
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 
 # PDF Redactor is a separately licensable Add-on that offers options to remove 

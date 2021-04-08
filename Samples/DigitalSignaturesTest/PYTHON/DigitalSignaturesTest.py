@@ -52,11 +52,9 @@
 ##----------------------------------------------------------------------------------------------------------------------
 
 
-import site, sys
+import sys
 
-site.addsitedir('../../../PDFNetC/Lib')
-
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 def VerifySimple(in_docpath, in_public_key_file_path):
 	doc = PDFDoc(in_docpath)

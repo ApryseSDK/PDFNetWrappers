@@ -3,10 +3,10 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
-import site
-site.addsitedir("../../../PDFNetC/Lib")
+
+
 import sys, os
-from PDFNetPython import *
+from PDFNetPython3 import *
 
 #-----------------------------------------------------------------------------------
 # This sample illustrates how to create, extract, and manipulate PDF Portfolios
