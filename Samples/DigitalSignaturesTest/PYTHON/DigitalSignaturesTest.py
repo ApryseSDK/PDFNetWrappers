@@ -1,7 +1,7 @@
 #!/usr/bin/python
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ def VerifySimple(in_docpath, in_public_key_file_path):
 	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
 
 	# Add trust root to store of trusted certificates contained in VerificationOptions.
-	opts.AddTrustedCertificate(in_public_key_file_path)
+	opts.AddTrustedCertificate(in_public_key_file_path, VerificationOptions.e_default_trust | VerificationOptions.e_certification_trust)
 
 	result = doc.VerifySignedDigitalSignatures(opts)
 		
@@ -104,7 +104,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path):
 	file_sz = trusted_cert_file.FileSize()
 	file_reader = FilterReader(trusted_cert_file)
 	trusted_cert_buf = file_reader.Read(file_sz)
-	opts.AddTrustedCertificate(trusted_cert_buf, len(trusted_cert_buf))
+	opts.AddTrustedCertificate(trusted_cert_buf, len(trusted_cert_buf), VerificationOptions.e_default_trust | VerificationOptions.e_certification_trust)
 
 	# Iterate over the signatures and verify all of them.
 	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
@@ -403,7 +403,7 @@ def TimestampAndEnableLTV(in_docpath,
 	in_outpath):
 	doc = PDFDoc(in_docpath)
 	doctimestamp_signature_field = doc.CreateDigitalSignatureField()
-	tst_config = TimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2")
+	tst_config = TimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced")
 	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
 #	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 #	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp

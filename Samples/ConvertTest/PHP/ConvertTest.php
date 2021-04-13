@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -35,21 +35,28 @@ function ConvertToPdfFromFile()
 {
 	global $inputPath, $outputPath;
 
-    $testfiles = array(
-        array("butterfly.png", "png2pdf.pdf"),
-		array("simple-xps.xps", "xps2pdf.pdf")
+	$testfiles = array(
+	array("butterfly.png", "png2pdf.pdf"),
+	array("simple-xps.xps", "xps2pdf.pdf"),
     );
-    
+    $ret = 0;
     foreach ($testfiles as &$testfile) {
-		$pdfdoc = new PDFDoc();
-		$inputFile = $inputPath.($testfile[0]);
-		$outputFile = $outputPath.($testfile[1]);
-		Convert::ToPdf($pdfdoc, $inputFile);
-		$pdfdoc->Save($outputFile, SDFDoc::e_compatibility);
-        $pdfdoc->Close();
-		echo(nl2br("Converted file: ".$inputFile."\n"));
-		echo(nl2br("    to: ".$outputFile."\n"));
+		try{
+			$pdfdoc = new PDFDoc();
+			$inputFile = $testfile[0];
+			$outputFile = $testfile[1];
+			Convert::ToPdf($pdfdoc, $inputPath.$inputFile);
+			$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_compatibility);
+	        	$pdfdoc->Close();
+			echo(nl2br("Converted file: ".$inputFile."\n"));
+			echo(nl2br("to: ".$outputFile."\n"));
+		}
+		catch(Exception $e)
+		{
+			$ret = 1;
+		}
     }
+	return $ret;
 }
 
 function ConvertSpecificFormats()
@@ -59,48 +66,76 @@ function ConvertSpecificFormats()
 	$pdfdoc = new PDFDoc();
 	$s1 = $inputPath."simple-xps.xps";
 
-	// Convert the XPS document to PDF
-	echo(nl2br("Converting from XPS " .$s1."\n"));
-	Convert::FromXps($pdfdoc, $s1 );
-	$outputFile = $outputPath."pdf_from_xps.pdf";
-	$pdfdoc->Save($outputFile, SDFDoc::e_remove_unused);
-	echo(nl2br("Saved ".$outputFile."\n"));
+	$ret = 0;
+	try{
+		// Convert the XPS document to PDF
+		echo(nl2br("Converting from XPS\n"));
+		Convert::FromXps($pdfdoc, $s1 );
+		$outputFile = "xps2pdf v2.pdf";
+		$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_remove_unused);
+		echo(nl2br("Saved ".$outputFile."\n"));
 
-	// Convert the two page PDF document to SVG
-	echo(nl2br("Converting pdfdoc to SVG\n"));
-	$outputFile = $outputPath."pdf2svg.svg";
-	Convert::ToSvg($pdfdoc, $outputFile);
-	echo(nl2br("Saved ".$outputFile."\n"));
 
-	// Convert the PDF document to XPS
-	echo(nl2br("Converting pdfdoc to XPS\n"));
-	$outputFile = $outputPath."pdfdoc2xps.xps";
-	Convert::ToXps($pdfdoc, $outputFile);
-	echo(nl2br("Saved ".$outputFile."\n"));
+		// Convert the TXT document to PDF
+		$set = new ObjSet();
+		$options = $set->CreateDict();
+		// Put options
+		$options->PutNumber("FontSize", 15);
+		$options->PutBool("UseSourceCodeFormatting", true);
+		$options->PutNumber("PageWidth", 12);
+		$options->PutNumber("PageHeight", 6);
+		$s1 = $inputPath . "simple-text.txt";
+		echo(nl2br("Converting from txt\n"));
+		Convert::FromText($pdfdoc, $s1);
+		$outputFile = "simple-text.pdf";
+		$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_remove_unused);
+		echo(nl2br("Saved ".$outputFile ."\n"));
+		
+		// Convert the two page PDF document to SVG
+		$pdfdoc = new PDFDoc($inputPath . "newsletter.pdf");
+		echo(nl2br("Converting pdfdoc to SVG\n"));
+		$outputFile = "pdf2svg v2.svg";
+		Convert::ToSvg($pdfdoc, $outputPath.$outputFile);
+		echo(nl2br("Saved ".$outputFile."\n"));
 
-	// Convert the PNG image to XPS
-	echo(nl2br("Converting PNG to XPS\n"));
-	$outputFile = $outputPath."png2xps.xps";
-	Convert::ToXps($inputPath."butterfly.png", $outputFile);
-	echo(nl2br("Saved ".$outputFile."\n"));
 
-	// Convert PDF document to XPS
-	echo(nl2br("Converting PDF to XPS\n"));
-	$outputFile = $outputPath."pdf2xps.xps";
-	Convert::ToXps($inputPath."newsletter.pdf", $outputFile);
-	echo(nl2br("Saved ".$outputFile."\n"));
 
-	// Convert PDF document to HTML
-	echo(nl2br("Converting PDF to HTML\n"));
-	$outputFile = $outputPath."pdf2html";
-	Convert::ToHtml($inputPath."newsletter.pdf", $outputFile);
-	echo(nl2br("Saved ".$outputFile."\n"));
+		// Convert the PNG image to XPS
+		echo(nl2br("Converting PNG to XPS\n"));
+		$outputFile = "butterfly.xps";
+		Convert::ToXps($inputPath."butterfly.png", $outputPath.$outputFile);
+		echo(nl2br("Saved ".$outputFile."\n"));
 
-	// Convert PDF document to EPUB
-	echo(nl2br("Converting PDF to EPUB\n"));
-	$outputFile = $outputPath."pdf2epub.epub";
-	Convert::ToEpub($inputPath."newsletter.pdf", $outputFile);
-	echo(nl2br("Saved ".$outputFile."\n"));
+		// Convert PDF document to XPS
+		echo(nl2br("Converting PDF to XPS\n"));
+		$outputFile = "newsletter.xps";
+		Convert::ToXps($inputPath."newsletter.pdf", $outputPath.$outputFile);
+		echo(nl2br("Saved ".$outputFile."\n"));
+
+		// Convert PDF document to HTML
+		echo(nl2br("Converting PDF to HTML\n"));
+		$outputFile = "newsletter";
+		Convert::ToHtml($inputPath."newsletter.pdf", $outputPath.$outputFile);
+		echo(nl2br("Saved newsletter as HTML\n"));
+
+		// Convert PDF document to EPUB
+		echo(nl2br("Converting PDF to EPUB\n"));
+		$outputFile = "newsletter.epub";
+		Convert::ToEpub($inputPath."newsletter.pdf", $outputPath.$outputFile);
+		echo(nl2br("Saved ".$outputFile."\n"));
+
+		echo(nl2br("Converting PDF to multipage TIFF\n"));
+		$tiff_options = new TiffOutputOptions();
+		$tiff_options->SetDPI(200);
+		$tiff_options->SetDither(true);
+		$tiff_options->SetMono(true);
+		Convert::ToTiff($inputPath . "newsletter.pdf", $outputPath. "newsletter.tiff", $tiff_options);
+		echo(nl2br("Saved newsletter.tiff\n"));
+	}
+    catch(Exception $e){
+        $ret = 1;
+	}
+    return $ret;
 }
 
 function main()
@@ -112,11 +147,18 @@ function main()
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Demonstrate Convert::ToPdf and Convert::Printer
-	ConvertToPdfFromFile();
+	$err = ConvertToPdfFromFile();
+	if ($err)
+		echo(nl2br("ConvertFile failed\n"));
+	else
+		echo(nl2br("ConvertFile succeeded\n"));
 	
 	// Demonstrate Convert::[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
-	ConvertSpecificFormats();
-
+	$err = ConvertSpecificFormats();
+	if ($err)
+		echo(nl2br("ConvertSpecificFormats failed\n"));
+	else
+		echo(nl2br("ConvertSpecificFormats succeeded\n"));
 	echo(nl2br("Done.\n"));
 }
 

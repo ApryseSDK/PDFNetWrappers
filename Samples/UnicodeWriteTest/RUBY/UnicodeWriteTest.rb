@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -34,25 +34,30 @@ def main()
 	doc = PDFDoc.new
 	eb = ElementBuilder.new
 	writer = ElementWriter.new
-
 	# Start a new page ------------------------------------
 	page = doc.PageCreate(Rect.new(0, 0, 612, 794))
-    
 	writer.Begin(page)    # begin writing to this page
 
 	# Embed and subset the font
-    font_program = $input_path + "ARIALUNI.TTF"
-    if not File.file?(font_program)
+	font_program = $input_path + "ARIALUNI.TTF"
+	if not File.file?(font_program)
 		if ENV['OS'] == "Windows_NT"
-            font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
-			print "Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory."
-        else
-            print "Error: Cannot find ARIALUNI.TTF."
-            return
+			font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
+			puts "Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory."
 		end
 	end
-    fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc, font_program, true, true)
-	
+	begin
+		fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, true, true)
+	rescue
+	end
+
+	if not fnt.nil?
+		puts "Note: using " + font_program + " for unshaped unicode text"
+	else
+		puts "Note: using system font substitution for unshaped unicode text"
+		fnt = Font.Create(doc.GetSDFDoc(), "Helvetica", "")
+	end
+
 	element = eb.CreateTextBegin(fnt, 1)
 	element.SetTextMatrix(10, 0, 0, 10, 50, 600)
 	element.GetGState.SetLeading(2)         # Set the spacing between lines
@@ -114,7 +119,53 @@ def main()
 	chinese_simplified = [0x4e16, 0x754c, 0x60a8, 0x597d]
 	writer.WriteElement(eb.CreateUnicodeTextRun(chinese_simplified, chinese_simplified.length))
 	writer.WriteElement(eb.CreateTextNewLine)
-    
+
+	puts "Now using text shaping logic to place text"
+
+	# Create a font in indexed encoding mode 
+	# normally this would mean that we are required to provide glyph indices
+	# directly to CreateUnicodeTextRun, but instead, we will use the GetShapedText
+	# method to take care of this detail for us.
+	indexed_font = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), $input_path + "NotoSans_with_hindi.ttf", true, true, Font::E_Indices)
+	element = eb.CreateTextBegin(indexed_font, 10)
+	writer.WriteElement(element)
+
+	line_pos = 350.0
+	line_space = 20.0
+
+	# Transform unicode text into an abstract collection of glyph indices and positioning info 
+	shaped_text = indexed_font.GetShapedText("Shaped Hindi Text:")
+
+	# transform the shaped text info into a PDF element and write it to the page
+	element = eb.CreateShapedTextRun(shaped_text)
+	element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos)
+	writer.WriteElement(element)
+
+	# read in unicode text lines from a file 
+	line_num=0
+	File.open($input_path +"hindi_sample_utf16le.txt", "rb:UTF-16LE").each do |line|
+		line_num += 1
+	end
+	puts "Read in %d lines of Unicode text from file" % line_num
+
+	i=0
+	File.open($input_path + "hindi_sample_utf16le.txt", "rb:UTF-16LE") do |f|
+	f.each_line do |line|
+		begin
+			shaped_text = indexed_font.GetShapedText(line[0..-2].encode('utf-8'))
+			element = eb.CreateShapedTextRun(shaped_text)
+			element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos-line_space*(i+1))
+			writer.WriteElement(element)
+			puts "Wrote shaped line to page"
+			i+=1
+		rescue
+		end
+	end
+	end
+
+	# Finish the block of text
+	writer.WriteElement(eb.CreateTextEnd())
+
 	# Finish the block of text
 	writer.WriteElement(eb.CreateTextEnd)
     
@@ -122,7 +173,9 @@ def main()
 	doc.PagePushBack(page)
     
 	doc.Save($output_path + "unicodewrite.pdf", SDFDoc::E_remove_unused | SDFDoc::E_hex_strings)
-	puts "Done. Result saved in unicodewrite.pdf"
+	puts "Done. Result saved in unicodewrite.pdf..."
     
 	doc.Close
 end
+
+main()

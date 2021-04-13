@@ -1,6 +1,6 @@
 <?php
 //------------------------------------------------------------------------------
-// Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult legal.txt regarding legal and license information.
 //------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");

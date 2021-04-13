@@ -1,7 +1,7 @@
 #!/usr/bin/ruby
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -62,7 +62,7 @@ def VerifySimple(in_docpath, in_public_key_file_path)
 	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving)
 
 	# Add trust root to store of trusted certificates contained in VerificationOptions.
-	opts.AddTrustedCertificate(in_public_key_file_path)
+	opts.AddTrustedCertificate(in_public_key_file_path, VerificationOptions::E_default_trust | VerificationOptions::E_certification_trust)
 
 	result = doc.VerifySignedDigitalSignatures(opts)
 	case result	
@@ -103,7 +103,7 @@ def VerifyAllAndPrint(in_docpath, in_public_key_file_path)
 	file_sz = trusted_cert_file.FileSize()
 	file_reader = FilterReader.new(trusted_cert_file)
 	trusted_cert_buf = file_reader.Read(file_sz)
-	opts.AddTrustedCertificate(trusted_cert_buf, trusted_cert_buf.length)
+	opts.AddTrustedCertificate(trusted_cert_buf, trusted_cert_buf.length, VerificationOptions::E_default_trust | VerificationOptions::E_certification_trust)
 
 	# Iterate over the signatures and verify all of them.
 	digsig_fitr = doc.GetDigitalSignatureFieldIterator()
@@ -440,7 +440,7 @@ def TimestampAndEnableLTV(in_docpath,
 	in_outpath)
 	doc = PDFDoc.new(in_docpath);
 	doctimestamp_signature_field = doc.CreateDigitalSignatureField();
-	tst_config = TimestampingConfiguration.new('http://adobe-timestamp.globalsign.com/?signature=sha2');
+	tst_config = TimestampingConfiguration.new('http://rfc3161timestamp.globalsign.com/advanced');
 	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving);
 #	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 #	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp

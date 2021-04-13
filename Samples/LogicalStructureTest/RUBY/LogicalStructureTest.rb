@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -35,8 +35,8 @@ def ProcessStructElement(element, indent)
 	end
 	
 	# Print out the type and title info, if any.
-	indent = indent + 1
 	PrintIndent(indent)
+	indent = indent + 1
 	print "Type: " + element.GetType
 	if element.HasTitle
 		print ". Title:" + element.GetTitle
@@ -111,7 +111,7 @@ def ProcessElements(reader)
 			when Element::E_path	# Process path ...
 				print "\nPATH: "
 			when Element::E_text	# Process text ...
-				print "\nTEXT: " + element.GetTextString + "\n  "
+				print "\nTEXT: " + element.GetTextString + "\n"
 			when Element::E_path	# Process from XObjects
 				print "\nFORM XObject: "
 			end
@@ -156,7 +156,7 @@ def ProcessStructElement2(element, mcid_doc_map, indent)
 					mcid_page_map = mcid_doc_map[page_num]
 					mcid_key = cont.GetMCID
 					if mcid_page_map.has_key?(mcid_key)
-						puts mcid_page_map[mcid_key]
+						print mcid_page_map[mcid_key]
 					end
 				end
 			end
@@ -196,11 +196,11 @@ end
 		puts "This document does not contain any logical structure."
 	end
 	
-	puts "Done 1."
+	puts "\nDone 1."
 	
 	puts "____________________________________________________________"
 	puts "Sample 2 - Get parent logical structure elements from"
-	puts "layout elements"
+	puts "layout elements."
 	
 	reader = ElementReader.new
 	itr = doc.GetPageIterator
@@ -211,7 +211,7 @@ end
 		itr.Next
 	end
 	
-	puts "Done 2."
+	puts "\nDone 2."
 	
 	puts "____________________________________________________________"
 	puts "Sample 3 - 'XML style' extraction of PDF logical structure and page content."
@@ -237,6 +237,6 @@ end
 			i = i + 1  
 		end
 	end
-	puts "Done 3."
-	
+	puts "\nDone 3."
+	doc.Save((output_path + "LogicalStructure.pdf"), SDFDoc::E_linearized)
 	doc.Close

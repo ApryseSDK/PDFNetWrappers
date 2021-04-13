@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -36,68 +36,102 @@ $outputPath = "../../TestFiles/Output/"
 
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile()
-    testfiles = [
-       ["butterfly.png", "png2pdf.pdf"],
-       ["simple-xps.xps", "xps2pdf.pdf"]
-    ]
-    
-    for testfile in testfiles
-		pdfdoc = PDFDoc.new()
-		inputFile = $inputPath + testfile[0]
-		outputFile = $outputPath + testfile[1]
-		Convert.ToPdf(pdfdoc, inputFile)
-		pdfdoc.Save(outputFile, SDFDoc::E_compatibility)
-		pdfdoc.Close()
-		puts "Converted file: " + inputFile + "\n\tto: " + outputFile
-    end
+	testfiles = [
+		["butterfly.png", "png2pdf.pdf"],
+		["simple-xps.xps", "xps2pdf.pdf"]
+	]
+	
+
+	
+	ret = 0
+	for testfile in testfiles
+		begin
+			pdfdoc = PDFDoc.new()
+			inputFile = testfile[0]
+			outputFile = testfile[1]
+			Convert.ToPdf(pdfdoc,  $inputPath + inputFile)
+			pdfdoc.Save($outputPath + outputFile, SDFDoc::E_compatibility)
+			pdfdoc.Close()
+			puts "Converted file: " + inputFile + "\nto: " + outputFile
+		rescue
+			ret = 1
+		end
+	end
+	
+	return ret
 end
 
 def ConvertSpecificFormats()
-	# Start with a PDFDoc to collect the converted documents
-	pdfdoc = PDFDoc.new()
-	s1 = $inputPath + "simple-xps.xps"
-	
-	puts "Converting from XPS " + s1
-	Convert.FromXps(pdfdoc, s1)
-	outputFile = $outputPath + "pdf_from_xps.pdf"
-	pdfdoc.Save(outputFile, SDFDoc::E_remove_unused)
-	puts "Saved " + outputFile
-	
-	# Convert the two page PDF document to SVG
-	puts "Converting pdfdoc to SVG"
-	outputFile = $outputPath + "pdfdoc2svg.svg"
-	Convert.ToSvg(pdfdoc, outputFile)
-	puts "Saved " + outputFile
-	
-	# Convert the PDF document to XPS
-	puts "Converting pdfdoc to XPS"
-	outputFile = $outputPath + "pdfdoc2xps.xps"
-	Convert.ToXps(pdfdoc, outputFile)
-	puts "Saved " + outputFile
-	
-	# Convert the PNG image to XPS
-	puts "Converting PNG to XPS"
-	outputFile = $outputPath + "png2xps.xps"
-	Convert.ToXps($inputPath + "butterfly.png", outputFile)
-	puts "Saved " + outputFile
-	
-	# Convert PDF document to XPS
-	puts "Converting PDF to XPS"
-	outputFile = $outputPath + "pdf2xps.xps"
-	Convert.ToXps($inputPath + "newsletter.pdf", outputFile)
-	puts "Saved " + outputFile
+	ret = 0
+	begin
+		# Start with a PDFDoc to collect the converted documents
+		pdfdoc = PDFDoc.new()
+		s1 = $inputPath + "simple-xps.xps"
+		
+		puts "Converting from XPS"
+		Convert.FromXps(pdfdoc, s1)
+		outputFile = "xps2pdf v2.pdf"
+		pdfdoc.Save($outputPath + outputFile, SDFDoc::E_remove_unused)
+		puts "Saved " + outputFile
 
-	# Convert PDF document to HTML
-	puts "Converting PDF to HTML"
-	outputFile = $outputPath + "pdf2html"
-	Convert.ToHtml($inputPath + "newsletter.pdf", outputFile)
-	puts "Saved " + outputFile
+		# Convert the TXT document to PDF
+		set =  ObjSet.new
+		options = set.CreateDict()
+		# Put options
+		options.PutNumber("FontSize", 15)
+		options.PutBool("UseSourceCodeFormatting", true)
+		options.PutNumber("PageWidth", 12)
+		options.PutNumber("PageHeight", 6)
 
-	# Convert PDF document to EPUB
-	puts "Converting PDF to EPUB"
-	outputFile = $outputPath + "pdf2epub.epub"
-	Convert.ToEpub($inputPath + "newsletter.pdf", outputFile)
-	puts "Saved " + outputFile
+		s1 = $inputPath + "simple-text.txt"
+		puts "Converting from txt"
+		Convert.FromText(pdfdoc, s1)
+		outputFile = "simple-text.pdf"
+		pdfdoc.Save($outputPath + outputFile, SDFDoc::E_remove_unused)
+		puts("Saved " + outputFile)
+
+		# Convert the two page PDF document to SVG
+		outputFile = "pdf2svg v2.svg"
+		pdfdoc = PDFDoc.new($inputPath + "newsletter.pdf")
+		puts "Converting pdfdoc to SVG"
+		Convert.ToSvg(pdfdoc, $outputPath + outputFile)
+		puts "Saved " + outputFile
+		
+		# Convert the PNG image to XPS
+		puts "Converting PNG to XPS"
+		outputFile = "butterfly.xps"
+		Convert.ToXps($inputPath + "butterfly.png", $outputPath + outputFile)
+		puts "Saved " + outputFile
+		
+		# Convert PDF document to XPS
+		puts "Converting PDF to XPS"
+		outputFile = "newsletter.xps"
+		Convert.ToXps($inputPath + "newsletter.pdf", $outputPath + outputFile)
+		puts "Saved " + outputFile
+
+		# Convert PDF document to HTML
+		puts "Converting PDF to HTML"
+		outputFile = "newsletter"
+		Convert.ToHtml($inputPath + "newsletter.pdf", $outputPath + outputFile)
+		puts "Saved newsletter as HTML"
+
+		# Convert PDF document to EPUB
+		puts "Converting PDF to EPUB"
+		outputFile = "newsletter.epub"
+		Convert.ToEpub($inputPath + "newsletter.pdf", $outputPath + outputFile)
+		puts "Saved " + outputFile
+		
+		puts "Converting PDF to multipage TIFF"
+		tiff_options = TiffOutputOptions.new
+		tiff_options.SetDPI(200)
+		tiff_options.SetDither(true)
+		tiff_options.SetMono(true)
+		Convert.ToTiff($inputPath + "newsletter.pdf", $outputPath + "newsletter.tiff", tiff_options)
+		puts "Saved newsletter.tiff"
+	rescue
+		ret = 1
+	end
+	return ret
 end
 	
 def main()
@@ -107,11 +141,19 @@ def main()
 	PDFNet.Initialize()
 	
 	# Demonstrate Convert.ToPdf and Convert.Printer
-	ConvertToPdfFromFile()
-	
+	err = ConvertToPdfFromFile()
+	if err == 1
+		puts "ConvertFile failed"
+	else
+		puts "ConvertFile succeeded"
+	end
 	# Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
-	ConvertSpecificFormats()
-
+	err = ConvertSpecificFormats()
+	if err == 1
+		puts "ConvertSpecificFormats failed"
+	else
+		puts "ConvertSpecificFormats succeeded"
+	end
 	puts "Done."
 end
 

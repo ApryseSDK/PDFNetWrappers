@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -25,7 +25,7 @@ function main()
 
 	$doc = new PDFDoc();
 
-	$builder = new ElementBuilder();	
+	$builder = new ElementBuilder();
 	$writer = new ElementWriter();	
 
 	// Start a new page ------------------------------------
@@ -34,18 +34,28 @@ function main()
 	$writer->Begin($page);	// begin writing to this page
 
 	// Embed and subset the font
-    $font_program = $input_path."ARIALUNI.TTF";
-    if (!file_exists($font_program)) {
-        if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
-            $font_program = "C:/Windows/Fonts/ARIALUNI.TTF";
-            echo(nl2br("Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory.\n"));
-        }
-        else {
-            echo(nl2br("Error: Cannot find ARIALUNI.TTF.\n"));
-            exit(1);
-        }
-    }
-    $fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
+	$font_program = $input_path."ARIALUNI.TTF";
+	if (!file_exists($font_program)) {
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			$font_program = "C:/Windows/Fonts/ARIALUNI.TTF";
+		}
+	}
+	$fnt = NULL;
+	try {
+		$fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
+	}
+	catch(Exception $e){
+
+	}
+	if($fnt)
+	{
+		echo(nl2br("Note: using " . $font_program . " for unshaped unicode text\n"));
+	}
+	else
+	{
+		echo(nl2br("Note: using system font substitution for unshaped unicode text\n"));
+		$fnt = Font::Create($doc->GetSDFDoc(), "Helvetica", "");		
+	}
 
 	$element = $builder->CreateTextBegin($fnt, 1.0);
 	$element->SetTextMatrix(10.0, 0.0, 0.0, 10.0, 50.0, 600.0);
@@ -72,7 +82,7 @@ function main()
 	$writer->WriteElement($builder->CreateUnicodeTextRun($greek, count($greek)));
 	$writer->WriteElement($builder->CreateTextNewLine());
 
-        // Cyrillic
+	// Cyrillic
 	$cyrillic = array(   
 		0x0409, 0x040A, 0x040B, 0x040C, 0x040E, 0x040F, 0x0410, 0x0411,
 		0x0412, 0x0413, 0x0414, 0x0415, 0x0416, 0x0417, 0x0418, 0x0419 // etc.
@@ -80,7 +90,7 @@ function main()
 	$writer->WriteElement($builder->CreateUnicodeTextRun($cyrillic, count($cyrillic)));
 	$writer->WriteElement($builder->CreateTextNewLine());
 
-        // Hebrew
+	// Hebrew
 	$hebrew = array(
 		0x05D0, 0x05D1, 0x05D3, 0x05D3, 0x05D4, 0x05D5, 0x05D6, 0x05D7, 0x05D8, 
 		0x05D9, 0x05DA, 0x05DB, 0x05DC, 0x05DD, 0x05DE, 0x05DF, 0x05E0, 0x05E1 // etc. 
@@ -88,7 +98,7 @@ function main()
 	$writer->WriteElement($builder->CreateUnicodeTextRun($hebrew, count($hebrew)));
 	$writer->WriteElement($builder->CreateTextNewLine());
 
-        // Arabic
+	// Arabic
 	$arabic = array(
 		0x0624, 0x0625, 0x0626, 0x0627, 0x0628, 0x0629, 0x062A, 0x062B, 0x062C, 
 		0x062D, 0x062E, 0x062F, 0x0630, 0x0631, 0x0632, 0x0633, 0x0634, 0x0635 // etc. 
@@ -127,8 +137,54 @@ function main()
 	$writer->WriteElement($builder->CreateUnicodeTextRun($chinese_simplified, count($chinese_simplified)));
 	$writer->WriteElement($builder->CreateTextNewLine());
 
+	echo("Now using text shaping logic to place text\n");
+
+	// Create a font in indexed encoding mode 
+	// normally this would mean that we are required to provide glyph indices
+	// directly to CreateUnicodeTextRun, but instead, we will use the GetShapedText
+	// method to take care of this detail for us.
+	$indexed_font = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $input_path . "NotoSans_with_hindi.ttf", true, true, Font::e_Indices);
+	$element = $builder->CreateTextBegin($indexed_font, 10.0);
+	$writer->WriteElement($element);
+
+	$line_pos = 350.0;
+	$line_space = 20.0;
+
+	// Transform unicode text into an abstract collection of glyph indices and positioning info 
+	$shaped_text = $indexed_font->GetShapedText("Shaped Hindi Text:");
+
+	// transform the shaped text info into a PDF element and write it to the page
+	$element = $builder->CreateShapedTextRun($shaped_text);
+	$element->SetTextMatrix(1.5, 0.0, 0.0, 1.5, 50.0, $line_pos);
+	$writer->WriteElement($element);
+
+	# read in unicode text lines from a file 
+	$f = fopen($input_path . "hindi_sample_utf16le.txt", "r");
+	$i = 0;
+	while($hindi_text = fgets($f)){$i++;}
+	fclose($f);
+	echo("Read in " . $i . " lines of Unicode text from file\n");
+
+	$f = fopen($input_path . "hindi_sample_utf16le.txt", "r");
+	$i = 0;
+	while($hindi_text = fgets($f)){
+		if ($i == 0)
+			$tmp1 = substr($hindi_text,0,-1);
+		else if($i == 1)
+			$tmp1 = substr($hindi_text,1,-2); // remove the first and the last 2 characters so encoding to UTF-8 looks correct in PHP 
+		$tmp = iconv($in_charset = "UTF-16LE", $out_charset="UTF-8", $tmp1);
+		$shaped_text = $indexed_font->GetShapedText($tmp);
+		$element = $builder->CreateShapedTextRun($shaped_text);
+		$element->SetTextMatrix(1.5, 0.0, 0.0, 1.5, 50.0, $line_pos-$line_space*($i+1));
+		$writer->WriteElement($element);
+		echo("Wrote shaped line to page\n");
+		$i++;
+
+	}
+	fclose($f);
+
 	// Finish the block of text
-	$writer->WriteElement($builder->CreateTextEnd());		
+	$writer->WriteElement($builder->CreateTextEnd());
 
 	$writer->End();  // save changes to the current page
 	$doc->PagePushBack($page);

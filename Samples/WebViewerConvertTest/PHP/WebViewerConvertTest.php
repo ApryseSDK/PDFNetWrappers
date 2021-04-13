@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -41,24 +41,32 @@ function main()
 
 	// Sample 1:
 	// Directly convert from PDF to XOD.
-    echo(nl2br("Converting: ".$inputPath."newsletter.pdf"." to ".$outputPath."from_pdf.xod"."\n"));
+	echo(nl2br("Converting: ".$inputPath."newsletter.pdf"." to ".$outputPath."from_pdf.xod"."\n"));
 	Convert::ToXod($inputPath."newsletter.pdf", $outputPath."from_pdf.xod");
 
 	// Sample 2:
 	// Directly convert from generic XPS to XOD.
-    echo(nl2br("Converting: ".$inputPath."simple-xps.xps"." to ".$outputPath."from_xps.xod"."\n"));
+	echo(nl2br("Converting: ".$inputPath."simple-xps.xps"." to ".$outputPath."from_xps.xod"."\n"));
 	Convert::ToXod($inputPath."simple-xps.xps", $outputPath."from_xps.xod");
 
 	// Sample 3:
 	// Directly convert from PNG to XOD.
-    echo(nl2br("Converting: ".$inputPath."butterfly.png"." to ".$outputPath."butterfly.xod"."\n"));
+	echo(nl2br("Converting: ".$inputPath."butterfly.png"." to ".$outputPath."butterfly.xod"."\n"));
 	Convert::ToXod($inputPath."butterfly.png", $outputPath."butterfly.xod");
 
 	// Sample 4:
+   	echo(nl2br("Converting: " . $inputPath . "numbered.pdf" . " to: " . $outputPath . "numbered.xod\n"));
+	Convert::ToXod($inputPath . "numbered.pdf", $outputPath . "numbered.xod");
+	
+	// Sample 5:
 	// Directly convert from JPG to XOD.
-    echo(nl2br("Converting: ".$inputPath."dice.jpg"." to ".$outputPath."dice.xod"."\n"));
+	echo(nl2br("Converting: ".$inputPath."dice.jpg"." to ".$outputPath."dice.xod"."\n"));
 	Convert::ToXod($inputPath."dice.jpg", $outputPath."dice.xod");
 
+	// Sample 6:
+	// Directly convert from generic XPS to XOD.
+   	echo(nl2br("Converting: " . $inputPath . "simple-xps.xps" . " to: " . $outputPath . "simple-xps.xod\n"));
+	Convert::ToXod($inputPath . "simple-xps.xps", $outputPath . "simple-xps.xod");
 	echo(nl2br("Done.\n"));
 }
 

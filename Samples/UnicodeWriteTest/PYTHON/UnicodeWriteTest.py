@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+# Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -7,7 +7,7 @@ import site
 site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
-import os
+import os, io
 
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
@@ -46,12 +46,18 @@ def main():
     if not os.path.isfile(font_program):
         if sys.platform == 'win32':
             font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
-            print("Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory.")
-        else:
-            print("Error: Cannot find ARIALUNI.TTF.")
-            return
-    fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, True, True)
-    
+    fnt = None
+    try:
+        fnt = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), font_program, True, True)
+    except:
+        pass
+
+    if fnt:
+        print("Note: using " + font_program + " for unshaped unicode text")
+    else:
+        print("Note: using system font substitution for unshaped unicode text")
+        fnt = Font.Create(doc.GetSDFDoc(), "Helvetica", "")
+
     element = eb.CreateTextBegin(fnt, 1)
     element.SetTextMatrix(10, 0, 0, 10, 50, 600)
     element.GetGState().SetLeading(2)         # Set the spacing between lines
@@ -113,15 +119,50 @@ def main():
     chinese_simplified = [0x4e16, 0x754c, 0x60a8, 0x597d]
     writer.WriteElement(eb.CreateUnicodeTextRun((chinese_simplified), len(chinese_simplified)))
     writer.WriteElement(eb.CreateTextNewLine())
-    
+
     # Finish the block of text
     writer.WriteElement(eb.CreateTextEnd())
-    
+
+    print("Now using text shaping logic to place text")
+
+    # Create a font in indexed encoding mode 
+    # normally this would mean that we are required to provide glyph indices
+    # directly to CreateUnicodeTextRun, but instead, we will use the GetShapedText
+    # method to take care of this detail for us.
+    indexed_font = Font.CreateCIDTrueTypeFont(doc.GetSDFDoc(), input_path + "NotoSans_with_hindi.ttf", True, True, Font.e_Indices)
+    element = eb.CreateTextBegin(indexed_font, 10)
+    writer.WriteElement(element)
+
+    line_pos = 350.0
+    line_space = 20.0
+
+    # Transform unicode text into an abstract collection of glyph indices and positioning info 
+    shaped_text = indexed_font.GetShapedText("Shaped Hindi Text:")
+
+    # transform the shaped text info into a PDF element and write it to the page
+    element = eb.CreateShapedTextRun(shaped_text);
+    element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos);
+    writer.WriteElement(element);
+
+    # read in unicode text lines from a file 
+    with io.open(input_path + "hindi_sample_utf16le.txt", "r", encoding='utf-16-le') as f:
+        hindi_text = f.readlines()
+        print("Read in " + str(len(hindi_text)) + " lines of Unicode text from file")
+        for i in range(len(hindi_text)):
+            shaped_text = indexed_font.GetShapedText(hindi_text[i][:-1])
+            element = eb.CreateShapedTextRun(shaped_text)
+            element.SetTextMatrix(1.5, 0, 0, 1.5, 50, line_pos-line_space*(i+1))
+            writer.WriteElement(element)
+            print("Wrote shaped line to page")
+
+    # Finish the block of text
+    writer.WriteElement(eb.CreateTextEnd())
+
     writer.End()    # save changes to the current page
     doc.PagePushBack(page)
     
     doc.Save(output_path + "unicodewrite.pdf", SDFDoc.e_remove_unused | SDFDoc.e_hex_strings)
-    print("Done. Result saved in unicodewrite.pdf")
+    print("Done. Result saved in unicodewrite.pdf...")
     
     doc.Close()
 

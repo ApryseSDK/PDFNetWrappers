@@ -57,7 +57,7 @@ namespace pdftron {
 	%typemap(out) const UString &
 	%{ 
 		{
-			std::string str = $1.ConvertToUtf8();
+			std::string str = $1->ConvertToUtf8();
 			_gostring_ ret;
 			ret.p = (char*)malloc(str.length());
 			memcpy(ret.p, str.c_str(), str.length());
@@ -74,6 +74,11 @@ namespace pdftron {
 		delete($1);
 	%}
 
+	%typemap(freearg) const char*&
+	%{
+		free(*$1);
+	%}
+
     /**
      * directorout typemaps maps types for directors (C++ classes that can be extended/inherited in Golang)
      */
@@ -82,7 +87,8 @@ namespace pdftron {
 	%typemap(directorout) UString, const UString
 	{
 		{
-			std::string str = $1.ConvertToUtf8();
+			std::string str;
+			str.assign($input.p, $input.n);
 			$result = UString(str.c_str());
 		}
 	}

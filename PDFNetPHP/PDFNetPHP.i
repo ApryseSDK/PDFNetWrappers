@@ -142,21 +142,22 @@
     #include "PDF/Field.h"
     #include "PDF/TimestampingTestResult.h"
     #include "PDF/TimestampingConfiguration.h"
-    #include "PDF/ObjectIdentifier.h"
-    #include "PDF/X501DistinguishedName.h"
-    #include "PDF/X501AttributeTypeAndValue.h"
-    #include "PDF/X509Extension.h"
-    #include "PDF/X509Certificate.h"
+    #include "Crypto/ObjectIdentifier.h"
+    #include "Crypto/X501DistinguishedName.h"
+    #include "Crypto/X501AttributeTypeAndValue.h"
+    #include "Crypto/X509Extension.h"
+    #include "Crypto/X509Certificate.h"
     #include "PDF/DisallowedChange.h"
     #include "PDF/VerificationOptions.h"
     #include "PDF/TrustVerificationResult.h"
     #include "PDF/VerificationResult.h"
     #include "PDF/EmbeddedTimestampVerificationResult.h"
-    #include "PDF/DigestAlgorithm.h"
+    #include "Crypto/DigestAlgorithm.h"
     #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
     #include "PDF/PathData.h"
+    #include "PDF/ShapedText.h"
     #include "PDF/Font.h"
     #include "PDF/Function.h"
     #include "PDF/GState.h"
@@ -179,6 +180,9 @@
     #include "PDF/WordToPDFOptions.h"
     #include "PDF/CADConvertOptions.h"
     #include "PDF/CADModule.h"
+    #include "PDF/AdvancedImagingModule.h"
+    #include "PDF/PDF2HtmlReflowParagraphsModule.h"
+    #include "PDF/PDF2WordModule.h"
     #include "PDF/RefreshOptions.h"
     #include "PDF/DocumentConversion.h"
     #include "PDF/PDFDoc.h"
@@ -207,6 +211,7 @@
     #include "SDF/ObjSet.h"
     #include "SDF/SDFDoc.h"
     #include "SDF/SecurityHandler.h"
+    #include "SDF/PDFTronCustomSecurityHandler.h"
     #include "SDF/UndoManager.h"
     #include "SDF/ResultSnapshot.h"
     #include "SDF/DocSnapshot.h"
@@ -243,11 +248,11 @@ namespace std {
    %template(VectorSeparation) vector<pdftron::PDF::Separation>;
    %template(VectorDisallowedChange) vector<pdftron::PDF::DisallowedChange>;
    %template(VectorAnnot) vector<pdftron::PDF::Annot>;
-   %template(VectorX509Extension) vector<pdftron::PDF::X509Extension>;
-   %template(VectorX501AttributeTypeAndValue) vector<pdftron::PDF::X501AttributeTypeAndValue>;
-   %template(VectorX509Certificate) vector<pdftron::PDF::X509Certificate>;
+   %template(VectorX509Extension) vector<pdftron::Crypto::X509Extension>;
+   %template(VectorX501AttributeTypeAndValue) vector<pdftron::Crypto::X501AttributeTypeAndValue>;
+   %template(VectorX509Certificate) vector<pdftron::Crypto::X509Certificate>;
    %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
-   %template(VectorVectorX509Certificate) vector<vector<pdftron::PDF::X509Certificate> >;
+   %template(VectorVectorX509Certificate) vector<vector<pdftron::Crypto::X509Certificate> >;
 };
 
 /**
@@ -258,6 +263,10 @@ namespace std {
  * of one of the classes.
  */
 namespace pdftron {
+	namespace Crypto
+	{
+        class DigestAlgorithm;
+	}
     namespace PDF {
         class Font;
         class ColorPt;
@@ -266,7 +275,6 @@ namespace pdftron {
         class ViewerOptimizedOptions;
         class EmbeddedTimestampVerificationResult;
         class TrustVerificationResult;
-        class DigestAlgorithm;
         class ObjectIdentifier;
         namespace Struct {
             class SElement;
@@ -822,6 +830,7 @@ namespace pdftron {
 %include "SDF/UndoManager.h"
 #define Clone CloneHandler
 %include "SDF/SecurityHandler.h"
+%include "SDF/PDFTronCustomSecurityHandler.h"
 #undef
 %include "PDF/Point.h"
 #define Function PDFFunction
@@ -837,17 +846,19 @@ namespace pdftron {
 %include "PDF/Field.h"
 %include "PDF/TimestampingTestResult.h"
 %include "PDF/TimestampingConfiguration.h"
-%include "PDF/ObjectIdentifier.h"
-%include "PDF/X501DistinguishedName.h"
-%include "PDF/X501AttributeTypeAndValue.h"
-%include "PDF/X509Extension.h"
-%include "PDF/X509Certificate.h"
+%include "Crypto/ObjectIdentifier.h"
+%include "Crypto/X501DistinguishedName.h"
+%include "Crypto/X501AttributeTypeAndValue.h"
+%include "Crypto/X509Extension.h"
+%include "Crypto/X509Certificate.h"
 %include "PDF/DisallowedChange.h"
+%include "FDF/FDFField.h"
+%include "FDF/FDFDoc.h"
 %include "PDF/VerificationOptions.h"
 %include "PDF/TrustVerificationResult.h"
 %include "PDF/VerificationResult.h"
 %include "PDF/EmbeddedTimestampVerificationResult.h"
-%include "PDF/DigestAlgorithm.h"
+%include "Crypto/DigestAlgorithm.h"
 %include "PDF/DigitalSignatureField.h"
 %include "PDF/FileSpec.h"
 %include "PDF/Flattener.h"
@@ -860,8 +871,6 @@ namespace pdftron {
 %include "PDF/Annots/Ink.h"
 %include "PDF/Destination.h"
 %include "PDF/Action.h"
-%include "FDF/FDFField.h"
-%include "FDF/FDFDoc.h"
 
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
@@ -884,6 +893,7 @@ namespace pdftron {
 %include "PDF/CADConvertOptions.h"
 %include "PDF/Convert.h"
 %include "PDF/PathData.h"
+%include "PDF/ShapedText.h"
 %include "PDF/Font.h"
 %include "PDF/Shading.h"
 %include "PDF/PatternColor.h"
@@ -937,6 +947,9 @@ namespace pdftron {
 %include "PDF/OCROptions.h"
 %include "PDF/OCRModule.h"
 %include "PDF/CADModule.h"
+%include "PDF/AdvancedImagingModule.h"
+%include "PDF/PDF2HtmlReflowParagraphsModule.h"
+%include "PDF/PDF2WordModule.h"
 %include "PDF/Optimizer.h"
 %include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"

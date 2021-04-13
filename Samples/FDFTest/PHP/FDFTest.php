@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2020 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
@@ -33,9 +33,12 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 		switch($type)
 		{
 		case Field::e_button: echo nl2br("Button"."\n"); break;
+		case Field::e_check: echo nl2br("Check"."\n"); break;
+		case Field::e_radio: echo nl2br("Radio"."\n"); break;
 		case Field::e_text: echo nl2br("Text"."\n"); break;
 		case Field::e_choice: echo nl2br("Choice"."\n"); break;
 		case Field::e_signature: echo nl2br("Signature"."\n"); break;
+		case Field::e_null: echo nl2br("Null"."\n"); break;
 		}
 
 		echo nl2br("------------------------------\n");
