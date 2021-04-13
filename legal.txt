@@ -1,0 +1,378 @@
+
+Legal Notices:
+-----------------------------------------------------------------------------
+
+Copyright (c) 2001-2021 by PDFTron Systems, Inc. All Rights Reserved.
+PDFTron and PDFNet SDK are either trademarks and/or service marks 
+and/or registered trademarks of PDFTron Systems Incorporated 
+in Canada and/or other countries.
+
+The Software and information contained herein are proprietary to, and
+comprise valuable trade secrets of, PDFTron Systems Inc., which
+intends to preserve as trade secrets such Software and information.
+
+This Software is furnished pursuant to a written license agreement and
+may be used, copied, distributed, and stored only in accordance with
+the terms of such license and with the inclusion of the above copyright
+notice. This Software and information or any other copies thereof may
+not be provided or otherwise made available to any other person.
+ 
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OR CONDITION OF ANY KIND,
+EITHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, THE IMPLIED 
+WARRANTIES OR CONDITIONS OF DESIGN, MERCHANTIBILITY, DURABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND THE WARRANTY AGAINST INFRINGEMENT. THE ENTIRE 
+RISK AS TO THE QUALITY AND PERFORMACE OF THE SOFTWARE IS BORNE BY THE USER.
+
+IN NO EVENT WILL PDFTRON’S AGGREGATE LIABILITY WITH RESPECT TO ANY AND ALL 
+CLAIMS AT ANY AND ALL TIMES ARISING FROM OR RELATED TO THE SOFTWARE, IN 
+CONTRACT, TORT (INCLUDING NEGLIGENCE OR BREACH OF ANY DUTY) OR OTHERWISE 
+EXCEED THE CONSIDERATION PAID TO PDFTRON, IF ANY, FOR A LICENSE TO THE 
+SOFTWARE. IN NO EVENT WILL PDFTRON BE LIABLE FOR ANY CONSEQUENTIAL, INDIRECT, 
+SPECIAL, PUNITIVE, EXEMPLARY OR INCIDENTAL DAMAGES, LOSS OF GOODWILL OR 
+BUSINESS PROFITS, EVEN IF PDFTRON HAS BEEN ADVISED OF THE POSSIBILITY OF ANY
+SUCH LOSS OR DAMAGES. THE FOREGOING LIMITATION OF LIABILITY AND EXCLUSION 
+OF CERTAIN DAMAGES WILL APPLY TO THE EXTENT PERMITTED BY APPLICABLE LAW 
+REGARDLESS OF THE SUCCESS OR EFFECTIVENESS OF OTHER REMEDIES. 
+
+-----------------------------------------------------------------------------
+
+Portions include software under the following terms:
+-----------------------------------------------------------------------------
+
+Copyright (c) 1988-1997 Sam Leffler
+Copyright (c) 1991-1997 Silicon Graphics, Inc.
+
+Permission to use, copy, modify, distribute, and sell this software and 
+its documentation for any purpose is hereby granted without fee, provided
+that (i) the above copyright notices and this permission notice appear in
+all copies of the software and related documentation, and (ii) the names of
+Sam Leffler and Silicon Graphics may not be used in any advertising or
+publicity relating to the software without the specific, prior written
+permission of Sam Leffler and Silicon Graphics.
+
+THE SOFTWARE IS PROVIDED "AS-IS" AND WITHOUT WARRANTY OF ANY KIND, 
+EXPRESS, IMPLIED OR OTHERWISE, INCLUDING WITHOUT LIMITATION, ANY 
+WARRANTY OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.  
+
+IN NO EVENT SHALL SAM LEFFLER OR SILICON GRAPHICS BE LIABLE FOR
+ANY SPECIAL, INCIDENTAL, INDIRECT OR CONSEQUENTIAL DAMAGES OF ANY KIND,
+OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
+WHETHER OR NOT ADVISED OF THE POSSIBILITY OF DAMAGE, AND ON ANY THEORY OF 
+LIABILITY, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE 
+OF THIS SOFTWARE.
+
+-----------------------------------------------------------------------------
+
+This software is based in part on the work of the Independent JPEG Group.
+
+-----------------------------------------------------------------------------
+
+Anti-Grain Geometry - Version 2.4
+Copyright (C) 2002-2004 Maxim Shemanarev (McSeem)
+
+Permission to copy, use, modify, sell and distribute this software 
+is granted provided this copyright notice appears in all copies. 
+This software is provided "as is" without express or implied
+warranty, and with no claim as to its suitability for any purpose.
+
+-----------------------------------------------------------------------------
+
+Copyright (C) 1999-2019 The Botan Authors
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+   this list of conditions, and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright
+   notice, this list of conditions, and the following disclaimer in the
+   documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+
+---------------------------------------------------------------------------
+AEC
+
+Copyright (c) 1998-2018, Brian Gladman, Worcester, UK. All rights reserved.
+
+The redistribution and use of this software (with or without changes)
+is allowed without the payment of fees or royalties provided that:
+
+  source code distributions include the above copyright notice, this
+  list of conditions and the following disclaimer;
+
+  binary distributions include the above copyright notice, this list
+  of conditions and the following disclaimer in their documentation.
+
+This software is provided 'as is' with no explicit or implied warranties
+in respect of its operation, including, but not limited to, correctness
+and fitness for purpose.
+
+---------------------------------------------------------------------------
+Boost
+
+CopyRight (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
+CopyRight Aaron W. LaFramboise, Roland Schwarz, Michael Glassford 2004.
+CopyRight Anthony Williams 2007
+CopyRight Beman Dawes 2002-2010
+CopyRight Bertolt Mildner 2004.
+CopyRight Craig Henderson 2002
+CopyRight CrystalClear Software, Inc. 2002-2005
+CopyRight David Deakins 2007
+CopyRight Dietmar Kuehl 2001
+CopyRight Jonathan Graehl 2004.
+CopyRight Jonathan Turkanis 2004.
+CopyRight Jorge Lodos 2008.
+CopyRight Michael Glassford 2004.
+CopyRight Roland Schwarz 2007
+CopyRight Sascha Ochsenknecht 2009.
+CopyRight Vladimir Prus 2002-2004.
+
+Boost Software License - Version 1.0 - August 17th, 2003
+
+Permission is hereby granted, free of charge, to any person or organization
+obtaining a copy of the software and accompanying documentation covered by
+this license (the "Software") to use, reproduce, display, distribute,
+execute, and transmit the Software, and to prepare derivative works of the
+Software, and to permit third-parties to whom the Software is furnished to
+do so, all subject to the following:
+
+The copyright notices in the Software and this entire statement, including
+the above license grant, this restriction and the following disclaimer,
+must be included in all copies of the Software, in whole or in part, and
+all derivative works of the Software, unless such copies or derivative
+works are solely in the form of machine-executable object code generated by
+a source language processor.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
+FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+
+---------------------------------------------------------------------------
+Brotli
+
+Copyright 2013 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+---------------------------------------------------------------------------
+Expat
+
+Copyright (c) 1997-2000 Thai Open Source Software Center Ltd
+Copyright (c) 2000-2017 Expat development team
+Licensed under the MIT license:
+
+Permission is  hereby granted,  free of charge,  to any  person obtaining
+a  copy  of  this  software   and  associated  documentation  files  (the
+"Software"),  to  deal in  the  Software  without restriction,  including
+without  limitation the  rights  to use,  copy,  modify, merge,  publish,
+distribute, sublicense, and/or sell copies of the Software, and to permit
+persons  to whom  the Software  is  furnished to  do so,  subject to  the
+following conditions:
+
+The above copyright  notice and this permission notice  shall be included
+in all copies or substantial portions of the Software.
+
+THE  SOFTWARE  IS  PROVIDED  "AS  IS",  WITHOUT  WARRANTY  OF  ANY  KIND,
+EXPRESS  OR IMPLIED,  INCLUDING  BUT  NOT LIMITED  TO  THE WARRANTIES  OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR  OTHER LIABILITY, WHETHER  IN AN  ACTION OF CONTRACT,  TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---------------------------------------------------------------------------
+FreeType2
+
+This software makes use of The FreeType Project, copyright (C) 1996-2000 
+by David Turner, obert Wilhelm, and Werner Lemberg. 
+
+---------------------------------------------------------------------------
+DukTape
+
+(http://opensource.org/licenses/MIT)
+
+Copyright (c) 2013-2016 by Duktape authors (see AUTHORS.rst)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+---------------------------------------------------------------------------
+Leptonica
+
+Copyright (C) 2001-2016 Leptonica.  All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+1. Redistributions of source code must retain the above copyright
+   notice, this list of conditions and the following disclaimer.
+2. Redistributions in binary form must reproduce the above
+   copyright notice, this list of conditions and the following
+   disclaimer in the documentation and/or other materials
+   provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL ANY
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
+OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+---------------------------------------------------------------------------
+Little Color Management System
+
+Copyright (c) 1998-2011 Marti Maria Saguer
+
+Permission is hereby granted, free of charge, to any person obtaining 
+a copy of this software and associated documentation files (the "Software"), 
+to deal in the Software without restriction, including without limitation 
+the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Software, and to permit persons to whom the Software 
+is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in 
+all copies or substantial portions of the Software.
+
+
+---------------------------------------------------------------------------
+Lightning MDB
+
+Copyright 2011-2013 Howard Chu, Symas Corp.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted only as authorized by the OpenLDAP
+Public License.
+
+A copy of this license is available in the file LICENSE in the
+top-level directory of the distribution or, alternatively, at
+<http://www.OpenLDAP.org/license.html>.
+
+This code is derived from btree.c written by Martin Hedenfalk.
+
+Copyright (c) 2009, 2010 Martin Hedenfalk <martin@bzero.se>
+
+Permission to use, copy, modify, and distribute this software for any
+purpose with or without fee is hereby granted, provided that the above
+copyright notice and this permission notice appear in all copies.
+
+---------------------------------------------------------------------------
+Adobe XMP Toolkit
+
+The BSD License
+
+Copyright (c) 1999 - 2008, Adobe Systems Incorporated
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or 
+without modification, are permitted provided that the following 
+conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, 
+this list of conditions and the following disclaimer.
+ 
+* Redistributions in binary form must reproduce the above copyright notice, 
+this list of conditions and the following disclaimer in the documentation 
+and/or other materials provided with the distribution.
+ 
+* Neither the name of Adobe Systems Incorporated, nor the names of its 
+contributors may be used to endorse or promote products derived from this 
+software without specific prior written permission. 
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
+PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF
+LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+---------------------------------------------------------------------------
+ZStd
+
+Common functions of New Generation Entropy library
+Copyright (C) 2016, Yann Collet, facebook
+
+BSD 2-Clause License (http://www.opensource.org/licenses/bsd-license.php)
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+ * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+ * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+ You can contact the author at :
+ - FSE+HUF source repository : https://github.com/Cyan4973/FiniteStateEntropy
+ - Public forum : https://groups.google.com/forum/#!forum/lz4c
+ 
+---------------------------------------------------------------------------
+WX Widgets
+
+This software makes use of the WX Widgets library
+(C) Copyright 2005-2006, Kirix Corporation, All Rights Reserved
+under the wxWindows Library Licence, Version 3.1
+
+---------------------------------------------------------------------------
+
+If you have any questions regarding the above information, 
+please contact PDFTron Systems Inc. directly via: info@pdftron.com.
