@@ -511,12 +511,12 @@ def main()
 	# (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
 	# Open an existing PDF
 	begin
-		doc = PDFDoc.new(input_path + 'tiger.pdf');
+		doc = PDFDoc.new(input_path + 'waiver.pdf');
 		
 		widgetAnnotApproval = SignatureWidget.Create(doc, Rect.new(300, 300, 500, 200), 'PDFTronApprovalSig');
 		page1 = doc.GetPage(1);
 		page1.AnnotPushBack(widgetAnnotApproval);
-		doc.Save(output_path + 'tiger_withApprovalField_output.pdf', SDFDoc::E_remove_unused);
+		doc.Save(output_path + 'waiver_withApprovalField_output.pdf', SDFDoc::E_remove_unused);
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)
@@ -525,13 +525,13 @@ def main()
 	
 	#################### TEST 1: certify a PDF.
 	begin
-		CertifyPDF(input_path + 'tiger_withApprovalField.pdf',
+		CertifyPDF(input_path + 'waiver_withApprovalField.pdf',
 			'PDFTronCertificationSig',
 			input_path + 'pdftron.pfx',
 			'password',
 			input_path + 'pdftron.bmp',
-			output_path + 'tiger_withApprovalField_certified_output.pdf');
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_output.pdf');
+			output_path + 'waiver_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo(output_path + 'waiver_withApprovalField_certified_output.pdf');
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)
@@ -539,13 +539,13 @@ def main()
     end
 	#################### TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	begin
-		SignPDF(input_path + 'tiger_withApprovalField_certified.pdf',
+		SignPDF(input_path + 'waiver_withApprovalField_certified.pdf',
 			'PDFTronApprovalSig',
 			input_path + 'pdftron.pfx',
 			'password',
 			input_path + 'signature.jpg',
-			output_path + 'tiger_withApprovalField_certified_approved_output.pdf');
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_output.pdf');
+			output_path + 'waiver_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo(output_path + 'waiver_withApprovalField_certified_approved_output.pdf');
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)
@@ -554,10 +554,10 @@ def main()
 
 	#################### TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	begin
-		ClearSignature(input_path + 'tiger_withApprovalField_certified_approved.pdf',
+		ClearSignature(input_path + 'waiver_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
-			output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
-		PrintSignaturesInfo(output_path + 'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+			output_path + 'waiver_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo(output_path + 'waiver_withApprovalField_certified_approved_certcleared_output.pdf');
 	rescue Exception => e
         puts(e.message)
         puts(e.backtrace.inspect)
@@ -566,7 +566,7 @@ def main()
 
 	#################### TEST 4: Verify a document's digital signatures.
 	begin
-		if !VerifyAllAndPrint(input_path + "tiger_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
+		if !VerifyAllAndPrint(input_path + "waiver_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
 			return false;
 		end
 	rescue Exception => e
@@ -576,7 +576,7 @@ def main()
 
 	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	begin
-		if !VerifySimple(input_path + 'tiger_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer')
+		if !VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer')
 			result = false;
 		end
 	rescue Exception => e
@@ -585,10 +585,10 @@ def main()
 	end
 	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	#begin
-	#	if !TimestampAndEnableLTV(input_path + 'tiger.pdf',
+	#	if !TimestampAndEnableLTV(input_path + 'waiver.pdf',
 	#		input_path + 'GlobalSignRootForTST.cer',
 	#		input_path + 'signature.jpg',
-	#		output_path+ 'tiger_DocTimeStamp_LTV.pdf')
+	#		output_path+ 'waiver_DocTimeStamp_LTV.pdf')
 	#		result = false;
 	#	end
 	#rescue Exception => e

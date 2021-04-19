@@ -576,11 +576,11 @@ function main()
 	// Open an existing PDF
 	try
 	{
-		$doc = new PDFDoc($input_path.'tiger.pdf');
+		$doc = new PDFDoc($input_path.'waiver.pdf');
 		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
-		$doc->Save($output_path.'tiger_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
+		$doc->Save($output_path.'waiver_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
 	}
 	catch (Exception $e)
 	{
@@ -591,13 +591,13 @@ function main()
 	//////////////////// TEST 1: certify a PDF.
 	try
 	{
-		CertifyPDF($input_path.'tiger_withApprovalField.pdf',
+		CertifyPDF($input_path.'waiver_withApprovalField.pdf',
 			'PDFTronCertificationSig',
 			$input_path.'pdftron.pfx',
 			'password',
 			$input_path.'pdftron.bmp',
-			$output_path.'tiger_withApprovalField_certified_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_output.pdf');
+			$output_path.'waiver_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo($output_path.'waiver_withApprovalField_certified_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -608,13 +608,13 @@ function main()
 	//////////////////// TEST 2: sign a PDF with a certification and an unsigned signature field in it.
 	try
 	{
-		SignPDF($input_path.'tiger_withApprovalField_certified.pdf',
+		SignPDF($input_path.'waiver_withApprovalField_certified.pdf',
 			'PDFTronApprovalSig',
 			$input_path.'pdftron.pfx',
 			'password',
 			$input_path.'signature.jpg',
-			$output_path.'tiger_withApprovalField_certified_approved_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_output.pdf');
+			$output_path.'waiver_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo($output_path.'waiver_withApprovalField_certified_approved_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -625,10 +625,10 @@ function main()
 	//////////////////// TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try
 	{
-		ClearSignature($input_path.'tiger_withApprovalField_certified_approved.pdf',
+		ClearSignature($input_path.'waiver_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
-			$output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+			$output_path.'waiver_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo($output_path.'waiver_withApprovalField_certified_approved_certcleared_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -639,7 +639,7 @@ function main()
 	//////////////////// TEST 4: Verify a document's digital signatures.
 	try
 	{
-		if (!VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
+		if (!VerifyAllAndPrint($input_path.'waiver_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
 			$result = false;
 		}
@@ -653,7 +653,7 @@ function main()
 	//////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try
 	{
-		if (!VerifySimple($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
+		if (!VerifySimple($input_path.'waiver_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
 			$result = false;
 		}
@@ -668,10 +668,10 @@ function main()
 	//////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	//try
 	//{
-	//	if(!TimestampAndEnableLTV($input_path.'tiger.pdf',
+	//	if(!TimestampAndEnableLTV($input_path.'waiver.pdf',
 	//				$input_path.'GlobalSignRootForTST.cer',
 	//				$input_path.'signature.jpg',
-	//				$output_path.'tiger_DocTimeStamp_LTV.pdf'))
+	//				$output_path.'waiver_DocTimeStamp_LTV.pdf'))
 	//	{
 	//		$result = false;
 	//	}
