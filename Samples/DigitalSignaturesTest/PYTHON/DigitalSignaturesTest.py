@@ -492,7 +492,7 @@ def main():
 	except Exception as e:
 		print(e.args)
 		result = False
-	#################### TEST 2: sign a PDF with a certification and an unsigned signature field in it.
+	#################### TEST 2: approval-sign an existing, unsigned signature field in a PDF that already has a certified signature field.
 	try:
 		SignPDF(input_path + 'waiver_withApprovalField_certified.pdf',
 			'PDFTronApprovalSig',
