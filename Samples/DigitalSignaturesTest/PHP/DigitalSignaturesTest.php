@@ -271,7 +271,7 @@ function CertifyPDF($in_docpath,
 	$page1 = $doc->GetPage(1);
 
 	// Create a text field that we can lock using the field permissions feature.
-	$annot1 = TextWidget::Create($doc, new Rect(50.0, 550.0, 350.0, 600.0), "asdf_test_field");
+	$annot1 = TextWidget::Create($doc, new Rect(143.0, 440.0, 350.0, 460.0), "asdf_test_field");
 	$page1->AnnotPushBack($annot1);
 
 	// Create a new signature form field in the PDFDoc. The name argument is optional;
@@ -279,7 +279,7 @@ function CertifyPDF($in_docpath,
 	// Acrobat doesn't show digsigfield in side panel if it's without a widget. Using a
 	// Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
 	$certification_sig_field = $doc->CreateDigitalSignatureField($in_cert_field_name);
-	$widgetAnnot = SignatureWidget::Create($doc, new Rect(0.0, 100.0, 200.0, 150.0), $certification_sig_field);
+	$widgetAnnot = SignatureWidget::Create($doc, new Rect(143.0, 287.0, 219.0, 306.0), $certification_sig_field);
 	$page1->AnnotPushBack($widgetAnnot);
 
 	// (OPTIONAL) Add an appearance to the signature field.
@@ -577,7 +577,7 @@ function main()
 	try
 	{
 		$doc = new PDFDoc($input_path.'waiver.pdf');
-		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
+		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 287.0, 376.0, 306.0), 'PDFTronApprovalSig');
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
 		$doc->Save($output_path.'waiver_withApprovalField_output.pdf', SDFDoc::e_remove_unused);

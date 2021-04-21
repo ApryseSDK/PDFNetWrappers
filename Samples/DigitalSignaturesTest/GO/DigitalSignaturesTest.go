@@ -235,7 +235,7 @@ func CertifyPDF(inDocpath string,
     page1 := doc.GetPage(1)
 
     // Create a text field that we can lock using the field permissions feature.
-    annot1 := TextWidgetCreate(doc, NewRect(50.0, 550.0, 350.0, 600.0), "asdf_test_field")
+    annot1 := TextWidgetCreate(doc, NewRect(143.0, 440.0, 350.0, 460.0), "asdf_test_field")
     page1.AnnotPushBack(annot1)
 
     // Create a new signature form field in the PDFDoc. The name argument is optional;
@@ -243,7 +243,7 @@ func CertifyPDF(inDocpath string,
     // Acrobat doesn"t show digsigfield in side panel if it's without a widget. Using a
     // Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
     certificationSigField := doc.CreateDigitalSignatureField(inCertFieldName)
-    widgetAnnot := SignatureWidgetCreate(doc, NewRect(0.0, 100.0, 200.0, 150.0), certificationSigField)
+    widgetAnnot := SignatureWidgetCreate(doc, NewRect(143.0, 287.0, 219.0, 306.0), certificationSigField)
     page1.AnnotPushBack(widgetAnnot)
 
     // (OPTIONAL) Add an appearance to the signature field.
@@ -500,7 +500,7 @@ func main(){
     // Open an existing PDF
     doc := NewPDFDoc(inputPath + "waiver.pdf")
         
-    widgetAnnotApproval := SignatureWidgetCreate(doc, NewRect(300.0, 300.0, 500.0, 200.0), "PDFTronApprovalSig")
+    widgetAnnotApproval := SignatureWidgetCreate(doc, NewRect(300.0, 287.0, 376.0, 306.0), "PDFTronApprovalSig")
     page1 := doc.GetPage(1)
     page1.AnnotPushBack(widgetAnnotApproval)
     doc.Save(outputPath + "waiver_withApprovalField_output.pdf", uint(SDFDocE_remove_unused))

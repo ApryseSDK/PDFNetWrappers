@@ -237,7 +237,7 @@ def CertifyPDF(in_docpath,
 	page1 = doc.GetPage(1);
 
 	# Create a text field that we can lock using the field permissions feature.
-	annot1 = TextWidget.Create(doc, Rect.new(50, 550, 350, 600), "asdf_test_field");
+	annot1 = TextWidget.Create(doc, Rect.new(143, 440, 350, 460), "asdf_test_field");
 	page1.AnnotPushBack(annot1);
 
 	# Create a new signature form field in the PDFDoc. The name argument is optional;
@@ -245,7 +245,7 @@ def CertifyPDF(in_docpath,
 	# Acrobat doesn't show digsigfield in side panel if it's without a widget. Using a
 	# Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
 	certification_sig_field = doc.CreateDigitalSignatureField(in_cert_field_name);
-	widgetAnnot = SignatureWidget.Create(doc, Rect.new(0, 100, 200, 150), certification_sig_field);
+	widgetAnnot = SignatureWidget.Create(doc, Rect.new(143, 287, 219, 306), certification_sig_field);
 	page1.AnnotPushBack(widgetAnnot);
 
 	# (OPTIONAL) Add an appearance to the signature field.
@@ -513,7 +513,7 @@ def main()
 	begin
 		doc = PDFDoc.new(input_path + 'waiver.pdf');
 		
-		widgetAnnotApproval = SignatureWidget.Create(doc, Rect.new(300, 300, 500, 200), 'PDFTronApprovalSig');
+		widgetAnnotApproval = SignatureWidget.Create(doc, Rect.new(300, 287, 376, 306), 'PDFTronApprovalSig');
 		page1 = doc.GetPage(1);
 		page1.AnnotPushBack(widgetAnnotApproval);
 		doc.Save(output_path + 'waiver_withApprovalField_output.pdf', SDFDoc::E_remove_unused);
