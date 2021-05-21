@@ -8,7 +8,9 @@ import (
 	"fmt"
 	. "pdftron"
 )
- 
+
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------
 // This sample illustrates how to embed various raster image formats
 // (e.g. TIFF, JPEG, JPEG2000, JBIG2, GIF, PNG, BMP, etc.) in a PDF document.
@@ -18,7 +20,7 @@ import (
 //-----------------------------------------------------------------------------------
 
 func main(){
-	PDFNetInitialize()
+	PDFNetInitialize(PDFTronLicense.Key)
 	// Relative path to the folder containing test files.
 	var inputPath = "../../TestFiles/"
 	var outputPath = "../../TestFiles/Output/"
@@ -100,5 +102,7 @@ func main(){
 
 	doc.Save((outputPath + "addimage.pdf"), uint(SDFDocE_linearized));
     doc.Close()
+
+	PDFNetTerminate()
     fmt.Println("Done. Result saved in addimage.pdf...")
 }
