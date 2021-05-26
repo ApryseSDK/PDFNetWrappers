@@ -10,6 +10,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------
 // The sample illustrates how to work with PDF page labels.
 //
@@ -29,7 +31,7 @@ var outputPath = "../../TestFiles/Output/"
 
 func main(){
     // Initialize PDFNet
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     //-----------------------------------------------------------
     // Example 1: Add page labels to an existing or newly created PDF
@@ -134,4 +136,5 @@ func main(){
     doc.Save(outputPath + "newsletter_with_pagelabels_removed.pdf", uint(SDFDocE_linearized))
     
     doc.Close()    
+    PDFNetTerminate()
 }

@@ -9,11 +9,13 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // This sample illustrates how to use basic SDF API (also known as Cos) to edit an 
 // existing document.
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -76,6 +78,7 @@ func main(){
     doc.Save(outputPath + "sdftest_out.pdf", uint(0), "%PDF-1.4")
     doc.Close()
     
+    PDFNetTerminate()
     fmt.Println("Test Completed")
     
 }

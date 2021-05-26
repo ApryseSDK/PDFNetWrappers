@@ -10,6 +10,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF.Convert utility class to convert 
 // documents and files to PDF, XPS, SVG, or EMF.
@@ -166,7 +168,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
     // Demonstrate Convert.ToPdf and Convert.Printer
     err := ConvertToPdfFromFile()
@@ -187,5 +189,6 @@ func main(){
         PrinterUninstall()
         fmt.Println("Uninstalled printer " + PrinterGetPrinterName())
 	}
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

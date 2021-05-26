@@ -7,6 +7,8 @@ package main
 import (
 	. "pdftron"
 )
+
+import  "pdftron/Samples/LicenseKey/GO"
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to reduce PDF file size using 'pdftron.PDF.Optimizer'.
 // The sample also shows how to simplify and optimize PDF documents for viewing on mobile devices 
@@ -45,7 +47,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     //--------------------------------------------------------------------------------
     // Example 1) Simple optimization of a pdf with default settings.
@@ -160,4 +162,5 @@ func main(){
 
     doc.SaveViewerOptimized(outputPath + inputFileName + "_SaveViewerOptimized.pdf", opts)
     doc.Close()
+    PDFNetTerminate()
 }

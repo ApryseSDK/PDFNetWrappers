@@ -9,8 +9,10 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func main(){
-	PDFNetInitialize()
+	PDFNetInitialize(PDFTronLicense.Key)
 	// Relative path to the folder containing test files.
 	var inputPath = "../../TestFiles/"
 	var outputPath = "../../TestFiles/Output/"
@@ -32,5 +34,6 @@ func main(){
     inputDoc.Save(outputPath + "tiger_shift.pdf", uint(0))
     inputDoc.Close()
     
+    PDFNetTerminate()
     fmt.Println("Done. Result saved in tiger_shift...")    
 }

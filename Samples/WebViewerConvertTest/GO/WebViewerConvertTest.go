@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to convert PDF, XPS, image, MS Office, and 
 // other image document formats to XOD format.
@@ -37,7 +39,7 @@ var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
     // Sample 1:
     // Directly convert from PDF to XOD.
@@ -66,5 +68,6 @@ func main(){
     fmt.Println("Converting: " + inputPath + "simple-xps.xps" + " to: " + outputPath + "simple-xps.xod")
     ConvertToXod(inputPath + "simple-xps.xps", outputPath + "simple-xps.xod")
 
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

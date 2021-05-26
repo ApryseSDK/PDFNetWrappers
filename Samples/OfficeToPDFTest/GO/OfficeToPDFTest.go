@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF.Convert utility class 
 // to convert MS Office files to PDF
@@ -91,7 +93,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     PDFNetSetResourcesPath("../../Resources")
 
     // first the one-line conversion function
@@ -99,5 +101,6 @@ func main(){
 
     // then the more flexible line-by-line conversion API
     FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf")
+    PDFNetTerminate()
 
 }

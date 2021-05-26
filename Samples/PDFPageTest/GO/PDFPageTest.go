@@ -10,8 +10,10 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func main(){
-	PDFNetInitialize()
+	PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -160,6 +162,7 @@ func main(){
     inDoc.Close()
     newDoc.Close()
     
+    PDFNetTerminate()
     fmt.Println("Done. Result saved in newsletter_import_pages.pdf...\n")
     fmt.Println("Note that the output file size is less than half the size")
     fmt.Println("of the file produced using individual page copy operations")

@@ -10,6 +10,9 @@ import (
     "os"
     . "pdftron"
 )
+
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------------
 // The sample code illustrates how to read and edit existing outline items and create 
 // new bookmarks using the high-level API.
@@ -63,7 +66,7 @@ func PrintOutlineTree (item Bookmark){
 }            
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
     // The following example illustrates how to create and edit the outline tree
     // using high-level Bookmark methods.
@@ -195,5 +198,6 @@ func main(){
     
     doc.Save(outputPath + "bookmark_remote.pdf", uint(SDFDocE_linearized))
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done. Result saved in bookmark_remote.pdf")
 }

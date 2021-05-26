@@ -11,6 +11,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------
 // This sample illustrates how to create, extract, and manipulate PDF Portfolios
 // (a.k.a. PDF Packages) using PDFNet SDK.
@@ -64,7 +66,7 @@ func AddCoverPage(doc PDFDoc){
 }    
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -103,5 +105,6 @@ func main(){
         }
     }
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

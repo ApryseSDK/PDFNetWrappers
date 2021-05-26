@@ -11,6 +11,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // This sample explores the structure and content of a tagged PDF document and dumps 
 // the structure information to the console window.
@@ -166,7 +168,7 @@ func ProcessStructElement2(element SElement, mcidDocMap map[int](map[int]string)
 }        
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -237,4 +239,5 @@ func main(){
     fmt.Println("\nDone 3.")
     doc.Save(outputPath + "LogicalStructure.pdf", uint(SDFDocE_linearized))
     doc.Close()        
+    PDFNetTerminate()
 }

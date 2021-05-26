@@ -10,6 +10,8 @@ import (
     . "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to parse and check if a PDF document meets the
 //    PDFA standard, using the PDFACompliance class object. 
@@ -51,7 +53,7 @@ func main(){
     inputPath := "../../TestFiles/"
     outputPath := "../../TestFiles/Output/"
     
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     PDFNetSetColorManagement()     // Enable color management (required for PDFA validation).
     
     //-----------------------------------------------------------
@@ -80,5 +82,6 @@ func main(){
     PrintResults(pdfa, filename)
     pdfa.Destroy()
 	
+    PDFNetTerminate()
     fmt.Println("PDFACompliance test completed.")
 }

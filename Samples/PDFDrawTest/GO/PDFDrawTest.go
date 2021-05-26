@@ -11,6 +11,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing test files.
 var inputPath =  "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -19,7 +21,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Optional: Set ICC color profiles to fine tune color conversion 
     // for PDF 'device' color spaces...
@@ -278,4 +280,5 @@ func main(){
     filename = "separation_NChannel.tif";
     draw.Export(separationDoc.GetPageIterator().Current(), outputPath + filename, "TIFF", separationHint);
     fmt.Println("Example 10 c): " + filename + ". Done.");
+    PDFNetTerminate()
 }

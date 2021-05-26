@@ -10,6 +10,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -546,7 +548,7 @@ func CreateTestAnnots(doc PDFDoc){
 }    
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
    
     doc := NewPDFDoc(inputPath + "numbered.pdf")
     doc.InitSecurityHandler()
@@ -567,5 +569,6 @@ func main(){
     outfname := outputPath + "new_annot_test_api.pdf"
     doc1.Save(outfname, uint(SDFDocE_linearized))
     fmt.Println("Saved new_annot_test_api.pdf")
+    PDFNetTerminate()
 }
 
