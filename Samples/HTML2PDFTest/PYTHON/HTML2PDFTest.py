@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to convert HTML pages to PDF format using
 # the HTML2PDF class.
@@ -36,7 +39,7 @@ def main():
     # The first step in every application using PDFNet is to initialize the 
     # library and set the path to common PDF resources. The library is usually 
     # initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # For HTML2PDF we need to locate the html2pdf module. If placed with the 
     # PDFNet library, or in the current working directory, it will be loaded
@@ -127,6 +130,7 @@ def main():
         doc.Save(output_path + "_04.pdf", SDFDoc.e_linearized)
     else:
         print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
+    PDFNet.Terminate()
         
 if __name__ == '__main__':
     main()

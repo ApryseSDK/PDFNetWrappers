@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to reduce PDF file size using 'pdftron.PDF.Optimizer'.
 # The sample also shows how to simplify and optimize PDF documents for viewing on mobile devices 
@@ -47,7 +50,7 @@ def main():
     # The first step in every application using PDFNet is to initialize the 
     # library and set the path to common PDF resources. The library is usually 
     # initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     #--------------------------------------------------------------------------------
     # Example 1) Simple optimization of a pdf with default settings.
@@ -162,6 +165,7 @@ def main():
 
     doc.SaveViewerOptimized(output_path + input_filename + "_SaveViewerOptimized.pdf", opts)
     doc.Close()
+    PDFNet.Terminate()
     
 if __name__ == '__main__':
     main()

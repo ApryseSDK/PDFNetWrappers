@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # PDFNet includes a full support for FDF (Forms Data Format) and capability to merge/extract 
 # forms data (FDF) with/from PDF. This sample illustrates basic FDF merge/extract functionality 
@@ -15,7 +18,7 @@ from PDFNetPython import *
 #---------------------------------------------------------------------------------------
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -196,6 +199,7 @@ def main():
     
     doc.Save(output_path + "sample_output.fdf")
     doc.Close()
+    PDFNet.Terminate()
     print("Done. Results saved in sample_output.fdf")
 
 if __name__ == '__main__':

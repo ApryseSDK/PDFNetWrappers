@@ -9,6 +9,9 @@ import sys
 from PDFNetPython import *
 import math
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
@@ -68,7 +71,7 @@ def CreateCustomButtonAppearance(doc, button_down):
 
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # The vector used to store the name and count of all fields.
     # This is used later on to clone the fields
@@ -341,6 +344,7 @@ def main():
 
     doc.Save(output_path + "forms_test1_flattened.pdf", 0)
     doc.Close()
+    PDFNet.Terminate()
     print("Done.")
         
 if __name__ == '__main__':

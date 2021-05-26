@@ -8,8 +8,11 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -158,6 +161,8 @@ def main():
     in_doc.Close()
     new_doc.Close()
     
+    PDFNet.Terminate()
+
     print("Done. Result saved in newsletter_import_pages.pdf...\n")
     print("Note that the output file size is less than half the size")
     print("of the file produced using individual page copy operations")

@@ -8,12 +8,15 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     doc = PDFDoc()
     
@@ -447,6 +450,7 @@ def main():
 
     doc.Save((output_path + "element_builder.pdf"), SDFDoc.e_remove_unused)
     doc.Close()
+    PDFNet.Terminate()
     print("Done. Result saved in element_builder.pdf...")
     
 if __name__ == '__main__':

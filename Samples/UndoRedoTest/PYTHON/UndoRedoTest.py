@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing test files.
 input_path =  "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
@@ -20,7 +23,7 @@ def main():
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
 	# initialized only once, but calling Initialize() multiple times is also fine.
-	PDFNet.Initialize()
+	PDFNet.Initialize(LicenseKey)
 	
 	# Open the PDF document.
 	doc = PDFDoc(input_path + "newsletter.pdf")
@@ -86,6 +89,7 @@ def main():
 			print("Problem encountered - cannot redo.")
 	else:
 		print("Problem encountered - cannot undo.")
+    PDFNet.Terminate()
 	
 if __name__ == '__main__':
     main()

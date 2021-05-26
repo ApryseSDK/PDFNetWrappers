@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The following sample shows how to add new content (or watermark) PDF pages
 # using 'pdftron.PDF.Stamper' utility class. 
@@ -26,7 +29,7 @@ input_filename = "newsletter"
 
 def main():
     # Initialize PDFNet
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     #--------------------------------------------------------------------------------
     # Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 
@@ -190,6 +193,7 @@ def main():
 
     doc.Save(output_path + input_filename + ".ex8.pdf", SDFDoc.e_linearized)
     doc.Close()
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()
