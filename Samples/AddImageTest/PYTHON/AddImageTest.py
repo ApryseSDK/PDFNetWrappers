@@ -108,8 +108,7 @@ def main():
     
     doc.Save((output_path + "addimage.pdf"), SDFDoc.e_linearized);
     doc.Close()
-	
-	PDFNet.Terminate()
+    PDFNet.Terminate()
 
     print("Done. Result saved in addimage.pdf...")
 
