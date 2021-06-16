@@ -548,8 +548,7 @@ def main():
 		print("Tests FAILED!!!\n==========")
         PDFNet.Terminate()
 		return
-	
-    PDFNet.Terminate()
+	PDFNet.Terminate()
 	print("Tests successful.\n==========")
 
 if __name__ == '__main__':

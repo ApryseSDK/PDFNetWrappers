@@ -154,7 +154,7 @@ def CreateGroup3(doc, layer):
     return grp_obj
 
 def main():
-    PDFNet.LicenseKey)
+    PDFNet.Initialize(LicenseKey)
     
     # Create three layers...
     doc = PDFDoc()

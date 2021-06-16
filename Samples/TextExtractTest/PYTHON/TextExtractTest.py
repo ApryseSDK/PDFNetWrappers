@@ -77,8 +77,7 @@ def RectTextSearch (reader, pos):
             
 
 def main():
-from LicenseKey import *
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing test files.
     input_path =  "../../TestFiles/newsletter.pdf"
@@ -231,6 +230,7 @@ from LicenseKey import *
         
         doc.Close()
         PDFNet.Terminate()
+        
         print("Done.")
         
 if __name__ == '__main__':

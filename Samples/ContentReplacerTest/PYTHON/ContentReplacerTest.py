@@ -64,8 +64,7 @@ def main():
 	doc.Close()
 
 	print("Done. Result saved in ContentReplaced.pdf")
-	
-    PDFNet.Terminate()
+	PDFNet.Terminate()
 	print("Done.")
 
 if __name__ == '__main__':
