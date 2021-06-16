@@ -542,11 +542,11 @@ def main():
 	#	print(e.args)
 	#	result = False
 	
-	#################### End of tests. ####################
+	#################### End of tests. #####################
 
 	if not result:
 		print("Tests FAILED!!!\n==========")
-        PDFNet.Terminate()
+		PDFNet.Terminate()
 		return
 	PDFNet.Terminate()
 	print("Tests successful.\n==========")
