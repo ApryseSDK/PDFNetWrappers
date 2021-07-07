@@ -89,7 +89,7 @@ def main():
 			print("Problem encountered - cannot redo.")
 	else:
 		print("Problem encountered - cannot undo.")
-    PDFNet.Terminate()
+    #PDFNet.Terminate()
 	
 if __name__ == '__main__':
     main()
