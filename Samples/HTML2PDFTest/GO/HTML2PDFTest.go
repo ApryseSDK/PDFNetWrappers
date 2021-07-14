@@ -29,11 +29,11 @@ import (
 
 func main(){
     outputPath := "../../TestFiles/Output/html2pdf_example"
-    host := "http://www.gutenberg.org/"
-    page0 := "wiki/Main_Page"
-    page1 := "catalog/"
-    page2 := "browse/recent/last1"
-    page3 := "wiki/Gutenberg:The_Sheet_Music_Project"
+    host := "http://www.swig.org/"
+    page0 := ""
+    page1 := "doc.html"
+    page2 := "history.html"
+    page3 := "survey.html"
     
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
