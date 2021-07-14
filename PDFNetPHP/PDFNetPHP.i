@@ -871,7 +871,7 @@ namespace pdftron {
 %include "PDF/Annots/Ink.h"
 %include "PDF/Destination.h"
 %include "PDF/Action.h"
-
+%include "PDF/PageSet.h"
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
@@ -951,7 +951,6 @@ namespace pdftron {
 %include "PDF/PDF2HtmlReflowParagraphsModule.h"
 %include "PDF/PDF2WordModule.h"
 %include "PDF/Optimizer.h"
-%include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
