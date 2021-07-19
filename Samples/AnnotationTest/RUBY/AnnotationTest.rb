@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -543,7 +544,7 @@ def CreateTestAnnots(doc)
 	st.RefreshAppearance()
 end
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	doc = PDFDoc.new($input_path + "numbered.pdf")
 	doc.InitSecurityHandler()

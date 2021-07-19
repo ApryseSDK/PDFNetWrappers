@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -60,7 +61,7 @@ def PrintOutlineTree (item)
 	end
 end
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 
 
 	# The following example illustrates how to create and edit the outline tree
