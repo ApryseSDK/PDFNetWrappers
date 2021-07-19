@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing test files.
 $input_path = getcwd()."/../../TestFiles/";
@@ -160,7 +161,7 @@ function CreateGroup3($doc, $layer)
 	return $grp_obj;
 }
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	$doc = new PDFDoc();

@@ -4,6 +4,7 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 # This sample illustrates how to edit existing text strings.
 
@@ -11,7 +12,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 $input_path = getcwd()."/../../TestFiles/";
 $output_path = $input_path."Output/";
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	$doc = new PDFDoc();
 	$builder = new ElementBuilder();	// ElementBuilder is used to build new Element objects

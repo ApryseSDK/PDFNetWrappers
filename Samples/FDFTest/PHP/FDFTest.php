@@ -4,13 +4,14 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // PDFNet includes a full support for FDF (Forms Data Format) and capability to merge/extract 
 // forms data (FDF) with/from PDF. This sample illustrates basic FDF merge/extract functionality 
 // available in PDFNet.
 //---------------------------------------------------------------------------------------
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Relative path to the folder containing the test files.

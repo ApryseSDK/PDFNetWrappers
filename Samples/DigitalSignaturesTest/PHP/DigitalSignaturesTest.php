@@ -51,6 +51,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 include('../../../PDFNetC/Lib/PDFNetPHP.php');
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 function VerifySimple($in_docpath, $in_public_key_file_path)
 {
@@ -564,7 +565,7 @@ function TimestampAndEnableLTV($in_docpath,
 function main()
 {
 	// Initialize PDFNet
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	
 	$result = true;
 	$input_path = '../../TestFiles/';

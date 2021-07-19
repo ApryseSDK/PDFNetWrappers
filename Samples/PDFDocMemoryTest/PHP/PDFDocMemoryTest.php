@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/";
@@ -13,7 +14,7 @@ $output_path = $input_path."Output/";
 	// a memory buffer.  This is useful for applications that work with dynamic PDF
 	// documents that don't need to be saved/read from a disk.
 	
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Read a PDF document in a memory buffer.

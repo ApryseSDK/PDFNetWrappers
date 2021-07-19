@@ -5,6 +5,7 @@
 //---------------------------------------------------------------------------------------
 
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // The sample code illustrates how to read and edit existing outline items and create 
@@ -48,7 +49,7 @@ function PrintOutlineTree($item) {
 		}
 	}
 }
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// Relative path to the folder containing the test files.
