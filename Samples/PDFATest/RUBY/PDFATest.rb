@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -48,7 +49,7 @@ def PrintResults(pdf_a, filename)
 	end
 end
 	
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	PDFNet.SetColorManagement	 # Enable color management (required for PDFA validation).
 	
 	#-----------------------------------------------------------

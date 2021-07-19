@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -84,7 +85,7 @@ def Create3DAnnotation(doc, annots)
 	ap_dict.Put("N", normal_ap_stream)
 end
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	doc = PDFDoc.new
 	page = doc.PageCreate

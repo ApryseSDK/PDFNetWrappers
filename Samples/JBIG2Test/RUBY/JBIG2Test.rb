@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -15,7 +16,7 @@ $stdout.sync = true
 # You can download the entire document using the following link:
 #   http://www.pdftron.com/net/samplecode/data/US061222892.pdf
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	pdf_doc = PDFDoc.new("../../TestFiles/US061222892-a.pdf")
 	pdf_doc.InitSecurityHandler

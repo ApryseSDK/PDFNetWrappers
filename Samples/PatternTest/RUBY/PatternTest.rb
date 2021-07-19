@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -139,7 +140,7 @@ def CreateAxialShading(doc)
 	return pattern_dict
 end
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	  
 	doc = PDFDoc.new
 	writer = ElementWriter.new

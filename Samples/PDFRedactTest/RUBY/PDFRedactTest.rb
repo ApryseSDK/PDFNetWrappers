@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -50,7 +51,7 @@ end
 	input_path = "../../TestFiles/"
 	output_path = "../../TestFiles/Output/"
 	
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	vec = [Redaction.new(1, Rect.new(100, 100, 550, 600), false, "Top Secret"),
 		Redaction.new(2, Rect.new(30, 30, 450, 450), true, "Negative Redaction"),

@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -29,7 +30,7 @@ $output_path = "../../TestFiles/Output/"
 # In case you don't have access to Arial Unicode MS you can use cyberbit.ttf 
 # (http://ftp.netscape.com/pub/communicator/extras/fonts/windows/) instead.
 def main()
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
     
 	doc = PDFDoc.new
 	eb = ElementBuilder.new

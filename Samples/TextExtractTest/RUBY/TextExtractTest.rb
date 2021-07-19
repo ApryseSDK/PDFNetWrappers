@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -78,7 +79,7 @@ def RectTextSearch (reader, pos)
 	return srch_str2
 end			
 	
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing test files.
 	input_path =  "../../TestFiles/newsletter.pdf"

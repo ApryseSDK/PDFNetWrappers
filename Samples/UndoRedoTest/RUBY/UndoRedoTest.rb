@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -15,7 +16,7 @@ $stdout.sync = true
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
 	# initialized only once, but calling Initialize multiple times is also fine.
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 
 	# Relative path to the folder containing test files.
 	input_path = "../../TestFiles/"

@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -21,7 +22,7 @@ output_path = "../../TestFiles/Output/"
 # The sample code illustrates how to use the ContentReplacer class to make using 
 # 'template' pdf documents easier.
 #-----------------------------------------------------------------------------------------
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Example 1) Update a business card template with personalized info
 	

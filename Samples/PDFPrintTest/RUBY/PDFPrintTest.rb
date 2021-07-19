@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -22,7 +23,7 @@ $stdout.sync = true
 # should use PDFRasterizer or PDFNet vector output instead of PDFDraw.
 
 	if ENV['OS'] == 'Windows_NT' 
-		PDFNet.Initialize
+		PDFNet.Initialize(PDFTronLicense.Key)
 	
 		# Relative path to the folder containing the test files.
 		input_path = "../../TestFiles/"

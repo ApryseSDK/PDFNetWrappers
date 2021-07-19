@@ -52,6 +52,7 @@
 ##----------------------------------------------------------------------------------------------------------------------
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
+require '../../LicenseKey/RUBY/LicenseKey'
 
 include PDFNetRuby
 
@@ -500,7 +501,7 @@ end
 
 def main()
     # Initialize PDFNet
-    PDFNet.Initialize
+    PDFNet.Initialize(PDFTronLicense.Key)
 	
     result = true
 	input_path = '../../TestFiles/';
