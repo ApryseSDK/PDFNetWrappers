@@ -564,6 +564,7 @@ function TimestampAndEnableLTV($in_docpath,
 }
 function main()
 {
+	global $LicenseKey;
 	// Initialize PDFNet
 	PDFNet::Initialize($LicenseKey);
 	
