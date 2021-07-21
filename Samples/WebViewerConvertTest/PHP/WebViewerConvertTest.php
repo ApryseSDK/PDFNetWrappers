@@ -35,7 +35,7 @@ $outputPath = "../../TestFiles/Output/";
 
 function main()
 {
-    global $inputPath, $outputPath;
+    global $inputPath, $outputPath, $LicenseKey;
 
 	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
