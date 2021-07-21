@@ -144,22 +144,23 @@ function main()
 	// The first step in every application using PDFNet is to initialize the 
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
-	PDFNet::Initialize($LicenseKey);
-	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
+	echo $LicenseKey;
+	//PDFNet::Initialize($LicenseKey);
+	//PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Demonstrate Convert::ToPdf and Convert::Printer
-	$err = ConvertToPdfFromFile();
-	if ($err)
-		echo(nl2br("ConvertFile failed\n"));
-	else
-		echo(nl2br("ConvertFile succeeded\n"));
+	//$err = ConvertToPdfFromFile();
+	//if ($err)
+	//	echo(nl2br("ConvertFile failed\n"));
+	//else
+	//	echo(nl2br("ConvertFile succeeded\n"));
 	
 	// Demonstrate Convert::[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
-	$err = ConvertSpecificFormats();
-	if ($err)
-		echo(nl2br("ConvertSpecificFormats failed\n"));
-	else
-		echo(nl2br("ConvertSpecificFormats succeeded\n"));
+	//$err = ConvertSpecificFormats();
+	//if ($err)
+	//	echo(nl2br("ConvertSpecificFormats failed\n"));
+	//else
+	//	echo(nl2br("ConvertSpecificFormats succeeded\n"));
 	echo(nl2br("Done.\n"));
 }
 
