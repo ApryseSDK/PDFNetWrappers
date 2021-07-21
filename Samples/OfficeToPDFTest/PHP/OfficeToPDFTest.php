@@ -109,6 +109,7 @@ function main()
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
 
+	global $LicenseKey;
 	PDFNet::Initialize($LicenseKey);
 	PDFNet::SetResourcesPath("../../../Resources");
 
