@@ -40,12 +40,12 @@ outputPath = "../../TestFiles/Output/"
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile():
     testfiles = [
-    [ "simple-word_2007.docx","docx2pdf.pdf", True],
-    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf", True],
-    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf", True],
+    [ "simple-word_2007.docx","docx2pdf.pdf", False],
+    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf", False],
+    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf", False],
     [ "simple-publisher.pub","pub2pdf.pdf", True],
     # [ "simple-visio.vsd","vsd2pdf.pdf"],# requires Microsoft Office Visio
-    [ "simple-text.txt","txt2pdf.pdf", True],
+    [ "simple-text.txt","txt2pdf.pdf", False],
     [ "simple-rtf.rtf","rtf2pdf.pdf", True],
     [ "butterfly.png","png2pdf.pdf", False],
     [ "simple-emf.emf","emf2pdf.pdf", True],

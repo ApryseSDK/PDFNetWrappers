@@ -38,12 +38,12 @@ var outputPath = "../../TestFiles/Output/"
 
 func ConvertToPdfFromFile() bool{
 	testFiles := [][]string{	
-	{"simple-word_2007.docx","docx2pdf.pdf", "true"}, 
-	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf", "true"}, 
-	{"simple-excel_2007.xlsx","xlsx2pdf.pdf", "true"}, 
+	{"simple-word_2007.docx","docx2pdf.pdf", "false"}, 
+	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf", "false"}, 
+	{"simple-excel_2007.xlsx","xlsx2pdf.pdf", "false"}, 
 	{"simple-publisher.pub","pub2pdf.pdf", "true"},
 	//{"simple-visio.vsd","vsd2pdf.pdf}, // requires Microsoft Office Visio 
-	{"simple-text.txt","txt2pdf.pdf", "true"}, 
+	{"simple-text.txt","txt2pdf.pdf", "false"}, 
 	{"simple-rtf.rtf","rtf2pdf.pdf", "true"}, 
 	{"butterfly.png","png2pdf.pdf", "false"}, 
 	{"simple-emf.emf","emf2pdf.pdf", "true"}, 
