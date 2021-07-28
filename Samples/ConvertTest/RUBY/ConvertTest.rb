@@ -37,6 +37,10 @@ $outputPath = "../../TestFiles/Output/"
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile()
 	testfiles = [
+		["simple-word_2007.docx","docx2pdf.pdf"],
+		["simple-powerpoint_2007.pptx","pptx2pdf.pdf"],
+		["simple-excel_2007.xlsx","xlsx2pdf.pdf"],
+		["simple-text.txt","txt2pdf.pdf"],
 		["butterfly.png", "png2pdf.pdf"],
 		["simple-xps.xps", "xps2pdf.pdf"]
 	]

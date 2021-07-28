@@ -36,6 +36,10 @@ function ConvertToPdfFromFile()
 	global $inputPath, $outputPath;
 
 	$testfiles = array(
+	array("simple-word_2007.docx","docx2pdf.pdf"),
+	array("simple-powerpoint_2007.pptx","pptx2pdf.pdf"),
+	array("simple-excel_2007.xlsx","xlsx2pdf.pdf"),
+	array("simple-text.txt","txt2pdf.pdf"),
 	array("butterfly.png", "png2pdf.pdf"),
 	array("simple-xps.xps", "xps2pdf.pdf"),
     );
