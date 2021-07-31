@@ -54,4 +54,5 @@ end
 	
 	# Close the open document to free up document memory sooner.	
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done."

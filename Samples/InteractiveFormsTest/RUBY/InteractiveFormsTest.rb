@@ -345,4 +345,5 @@ end
 
 	doc.Save(output_path + "forms_test1_flattened.pdf", 0)
 	doc.Close
+	PDFNet.Terminate
 	puts "Done."

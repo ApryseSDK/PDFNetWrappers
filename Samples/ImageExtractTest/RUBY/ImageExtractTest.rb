@@ -143,4 +143,5 @@ end
 		i = i + 1
 	end
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done."

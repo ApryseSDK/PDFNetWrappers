@@ -162,3 +162,4 @@ $stdout.sync = true
 
 	doc.SaveViewerOptimized(output_path + input_filename + "_SaveViewerOptimized.pdf", opts)
 	doc.Close
+	PDFNet.Terminate

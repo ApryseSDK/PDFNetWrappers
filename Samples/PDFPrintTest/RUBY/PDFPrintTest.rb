@@ -49,7 +49,7 @@ $stdout.sync = true
 		# name, send the file to the printer not to an output file, print all pages, set the printerMode
 		# and don't provide a cancel flag.
 		Print.StartPrintJob(doc, "", doc.GetFileName(), "", nil, printerMode, nil)
-		
+		PDFNet.Terminate
 		puts "Done."
 	else
 		puts "This sample cannot be executed on this platform."

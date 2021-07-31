@@ -66,6 +66,7 @@ def main()
 	# Directly convert from generic XPS to XOD.
     puts "Converting: " + $inputPath + "simple-xps.xps" + " to " + $outputPath + "simple-xps.xod"
 	Convert.ToXod($inputPath + "simple-xps.xps", $outputPath + "simple-xps.xod")
+	PDFNet.Terminate
 	puts "Done."
 end
 

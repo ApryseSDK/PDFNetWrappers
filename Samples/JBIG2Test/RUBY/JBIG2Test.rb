@@ -87,3 +87,4 @@ $stdout.sync = true
 			
 	pdf_doc.Save("../../TestFiles/Output/US061222892_JBIG2.pdf", SDFDoc::E_remove_unused)
 	pdf_doc.Close
+	PDFNet.Terminate

@@ -267,4 +267,5 @@ output_path = "../../TestFiles/Output/"
 	filename = "separation_NChannel.tif"
 	draw.Export(separation_doc.GetPageIterator.Current, output_path + filename, "TIFF", separation_hint)
 	puts "Example 10 c): " + filename + ". Done."
+	PDFNet.Terminate
 

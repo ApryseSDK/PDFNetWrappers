@@ -297,5 +297,6 @@ end
 		itr.Next
 	end
 	doc.Close
+	PDFNet.Terminate
 	puts "Done."
 

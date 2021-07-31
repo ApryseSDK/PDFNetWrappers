@@ -133,3 +133,4 @@ output_path = "../../TestFiles/Output/"
 	doc.Save(output_path + "newsletter_with_pagelabels_removed.pdf", SDFDoc::E_linearized)
 	
 	doc.Close
+	PDFNet.Terminate

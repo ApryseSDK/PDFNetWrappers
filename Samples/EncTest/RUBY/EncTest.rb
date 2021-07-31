@@ -148,6 +148,7 @@ $stdout.sync = true
 	# Save the decrypted document
 	doc_enc.Save(output_path + "BusinessCardTemplate_enc_dec.pdf", 0)
 	doc_enc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in BusinessCardTemplate_enc_dec.pdf"
 	puts "-------------------------------------------------"
 	puts "Test completed."

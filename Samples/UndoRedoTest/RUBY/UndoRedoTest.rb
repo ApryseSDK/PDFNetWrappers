@@ -92,4 +92,5 @@ $stdout.sync = true
 	else
 		puts "Problem encountered - cannot undo."
 	end
+	PDFNet.Terminate
 

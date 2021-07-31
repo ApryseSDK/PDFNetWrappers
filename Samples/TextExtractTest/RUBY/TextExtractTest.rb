@@ -254,3 +254,4 @@ end
 		doc.Close
 		puts "Done."
 	end
+	PDFNet.Terminate

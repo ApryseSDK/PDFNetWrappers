@@ -46,4 +46,5 @@ output_path = "../../TestFiles/Output/"
 		puts e
 
 	end
+	PDFNet.Terminate
 

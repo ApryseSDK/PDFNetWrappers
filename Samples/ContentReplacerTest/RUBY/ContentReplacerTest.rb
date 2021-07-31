@@ -64,5 +64,5 @@ output_path = "../../TestFiles/Output/"
 	doc.Save(output_path + "ContentReplaced.pdf", SDFDoc::E_linearized)
 	doc.Close()
 	puts "Done. Result saved in ContentReplaced.pdf"
-
+	PDFNet.Terminate
 	puts "Done."

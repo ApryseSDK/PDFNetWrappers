@@ -132,4 +132,5 @@ $stdout.sync = true
 	else
 		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
 	end
+	PDFNet.Terminate
 

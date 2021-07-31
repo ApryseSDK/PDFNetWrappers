@@ -155,6 +155,7 @@ def main()
 	else
 		puts "ConvertSpecificFormats succeeded"
 	end
+	PDFNet.Terminate
 	puts "Done."
 end
 

@@ -216,4 +216,5 @@ end
 	puts "Done. Result saved in patterns.pdf..."
 	
 	doc.Close
+	PDFNet.Terminate
 

@@ -196,4 +196,5 @@ end
 	
 	doc.Save(output_path + "bookmark_remote.pdf", SDFDoc::E_linearized)
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in bookmark_remote.pdf"

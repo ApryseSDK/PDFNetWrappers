@@ -197,5 +197,6 @@ $stdout.sync = true
 	
 	doc.Save(output_path + "sample_output.fdf")
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Results saved in sample_output.fdf"
 

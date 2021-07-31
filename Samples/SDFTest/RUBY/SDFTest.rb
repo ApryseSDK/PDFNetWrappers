@@ -74,6 +74,6 @@ $stdout.sync = true
 	puts "Saving modified test file..."
 	doc.Save(output_path + "sdftest_out.pdf", 0, "%PDF-1.4")
 	doc.Close
-	
+	PDFNet.Terminate
 	puts "Test Completed"
 	

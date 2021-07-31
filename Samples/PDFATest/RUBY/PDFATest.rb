@@ -76,4 +76,5 @@ end
 	pdf_a = PDFACompliance.new(false, output_path + filename, nil, PDFACompliance::E_Level2B, 0, 0, 10)
 	PrintResults(pdf_a, filename)
 	pdf_a.Destroy
+	PDFNet.Terminate
 	puts "PDFACompliance test completed."

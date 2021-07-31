@@ -566,4 +566,5 @@ end
 	outfname = $output_path + "new_annot_test_api.pdf"
 	doc1.Save(outfname, SDFDoc::E_linearized)
 	doc1.Close()
+	PDFNet.Terminate
 	puts "Saved new_annot_test_api.pdf"

@@ -83,5 +83,6 @@ output_path = "../../TestFiles/Output/newsletter_booklet.pdf"
 	end
 		
 	new_doc.Save(output_path, SDFDoc::E_linearized)
+	PDFNet.Terminate
 	puts "Done. Result saved in newsletter_booklet.pdf..."
 

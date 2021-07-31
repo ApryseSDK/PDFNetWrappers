@@ -96,5 +96,6 @@ end
 	Create3DAnnotation(doc, annots)
 	doc.Save($output_path + "dice_u3d.pdf", SDFDoc::E_linearized)
 	doc.Close
+	PDFNet.Terminate
 	puts "Done."
 

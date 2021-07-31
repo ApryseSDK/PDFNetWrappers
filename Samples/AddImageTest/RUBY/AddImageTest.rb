@@ -104,5 +104,6 @@ $stdout.sync = true
 
 	doc.Save((output_path + "addimage.pdf"), SDFDoc::E_linearized);
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in addimage.pdf..."
 

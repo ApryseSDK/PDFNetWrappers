@@ -98,5 +98,6 @@ end
 		
 	doc.Save(output_path + output_filename, SDFDoc::E_remove_unused)
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in " + output_filename + "..."
 	

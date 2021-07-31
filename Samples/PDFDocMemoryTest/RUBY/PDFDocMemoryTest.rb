@@ -77,6 +77,6 @@ $stdout.sync = true
 		element = reader.Next
 	end
 	reader.End
-	
+	PDFNet.Terminate
 	puts "\n\nDone. Result saved in doc_memory_edit.pdf and doc_memory_edit.txt ..."
 

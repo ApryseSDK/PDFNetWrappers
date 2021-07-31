@@ -177,6 +177,7 @@ def main()
 	puts "Done. Result saved in unicodewrite.pdf..."
     
 	doc.Close
+	PDFNet.Terminate
 end
 
 main()

@@ -598,7 +598,7 @@ def main()
 	#end
 
 	#################### End of tests. ####################
-
+	PDFNet.Terminate
 	if (!result)
         	puts("Tests FAILED!!!\n==========")
         	return

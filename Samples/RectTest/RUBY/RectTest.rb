@@ -32,5 +32,5 @@ $stdout.sync = true
 	
 	input_doc.Save(output_path + "tiger_shift.pdf", 0)
 	input_doc.Close
-	
+	PDFNet.Terminate
 	puts "Done. Result saved in tiger_shift..."

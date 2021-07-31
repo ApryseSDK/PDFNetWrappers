@@ -114,3 +114,4 @@ output_path = "../../TestFiles/Output/"
 		end
 	end	
 	doc.Close
+	PDFNet.Terminate

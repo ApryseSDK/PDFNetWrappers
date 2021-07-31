@@ -241,3 +241,4 @@ end
 	puts "\nDone 3."
 	doc.Save((output_path + "LogicalStructure.pdf"), SDFDoc::E_linearized)
 	doc.Close
+	PDFNet.Terminate

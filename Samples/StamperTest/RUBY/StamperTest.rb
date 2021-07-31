@@ -191,3 +191,4 @@ input_filename = "newsletter"
 
 	doc.Save(output_path + input_filename + ".ex8.pdf", SDFDoc::E_linearized)
 	doc.Close
+	PDFNet.Terminate
