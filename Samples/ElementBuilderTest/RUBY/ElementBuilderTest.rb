@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -12,7 +13,7 @@ $stdout.sync = true
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	doc = PDFDoc.new()
 	
@@ -452,5 +453,6 @@ output_path = "../../TestFiles/Output/"
 
 	doc.Save((output_path + "element_builder.pdf"), SDFDoc::E_remove_unused)
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in element_builder.pdf..."
 

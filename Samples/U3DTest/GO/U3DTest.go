@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -85,7 +87,7 @@ func Create3DAnnotation(doc PDFDoc, annots Obj){
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     doc := NewPDFDoc()
     page := doc.PageCreate()
@@ -96,5 +98,6 @@ func main(){
     Create3DAnnotation(doc, annots)
     doc.Save(outputPath + "dice_u3d.pdf", uint(SDFDocE_linearized))
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

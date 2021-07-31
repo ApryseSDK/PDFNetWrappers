@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -94,7 +95,7 @@ def main()
     # The first step in every application using PDFNet is to initialize the 
     # library. The library is usually initialized only once, but calling 
     # Initialize() multiple times is also fine.
-    PDFNet.Initialize()
+    PDFNet.Initialize(PDFTronLicense.Key)
     PDFNet.SetResourcesPath("../../../Resources")
 
     # first the one-line conversion function
@@ -102,7 +103,7 @@ def main()
 
     # then the more flexible line-by-line conversion API
     FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf")
-
+    PDFNet.Terminate
     puts "Done."
 end
 

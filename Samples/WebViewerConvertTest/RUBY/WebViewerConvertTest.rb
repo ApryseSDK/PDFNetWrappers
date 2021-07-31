@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -36,7 +37,7 @@ $inputPath = "../../TestFiles/"
 $outputPath = "../../TestFiles/Output/"
 
 def main()
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 
     # Sample 1:
     # Directly convert from PDF to XOD.
@@ -65,6 +66,7 @@ def main()
 	# Directly convert from generic XPS to XOD.
     puts "Converting: " + $inputPath + "simple-xps.xps" + " to " + $outputPath + "simple-xps.xod"
 	Convert.ToXod($inputPath + "simple-xps.xps", $outputPath + "simple-xps.xod")
+	PDFNet.Terminate
 	puts "Done."
 end
 

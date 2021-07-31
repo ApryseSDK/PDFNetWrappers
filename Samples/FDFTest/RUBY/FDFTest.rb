@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -14,7 +15,7 @@ $stdout.sync = true
 # available in PDFNet.
 #---------------------------------------------------------------------------------------
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -196,5 +197,6 @@ $stdout.sync = true
 	
 	doc.Save(output_path + "sample_output.fdf")
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Results saved in sample_output.fdf"
 

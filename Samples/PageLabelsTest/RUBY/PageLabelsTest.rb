@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -26,7 +27,7 @@ input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
 
 	# Initialize PDFNet
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	#-----------------------------------------------------------
 	# Example 1: Add page labels to an existing or newly created PDF
@@ -132,3 +133,4 @@ output_path = "../../TestFiles/Output/"
 	doc.Save(output_path + "newsletter_with_pagelabels_removed.pdf", SDFDoc::E_linearized)
 	
 	doc.Close
+	PDFNet.Terminate

@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"    
 
@@ -18,7 +20,7 @@ var outputPath = "../../TestFiles/Output/"
 //-----------------------------------------------------------------------------------------
 
 func main(){
-	PDFNetInitialize()
+	PDFNetInitialize(PDFTronLicense.Key)
 
 	// Example 1) Update a business card template with personalized info
 
@@ -63,5 +65,6 @@ func main(){
 
 	fmt.Println("Done. Result saved in ContentReplaced.pdf")
 	
+    PDFNetTerminate()
 	fmt.Println("Done.")
 }

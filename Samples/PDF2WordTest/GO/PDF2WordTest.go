@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
 // documents and files to Word.
@@ -80,7 +82,7 @@ func main() {
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
 	//-----------------------------------------------------------------------------------
 
@@ -116,5 +118,6 @@ func main() {
 
 	//-----------------------------------------------------------------------------------
 
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

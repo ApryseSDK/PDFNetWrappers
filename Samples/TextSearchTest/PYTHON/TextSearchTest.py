@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # This sample illustrates the basic text search capabilities of PDFNet.
 
 # Relative path to the folder containing the test files.
@@ -16,7 +19,7 @@ output_path = "../../TestFiles/Output/"
 
 def main():
     # Initialize PDFNet
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     doc = PDFDoc(input_path + "credit card numbers.pdf")
     doc.InitSecurityHandler()
     
@@ -109,6 +112,7 @@ def main():
             break
         
     doc.Close()
+    PDFNet.Terminate()
         
 if __name__ == '__main__':
     main()

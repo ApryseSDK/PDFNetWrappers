@@ -10,8 +10,10 @@ import (
     . "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -95,5 +97,6 @@ func main(){
     }
     reader.End()
     
+    PDFNetTerminate()
     fmt.Println("\n\nDone. Result saved in doc_memory_edit.pdf and doc_memory_edit.txt ...")
 }

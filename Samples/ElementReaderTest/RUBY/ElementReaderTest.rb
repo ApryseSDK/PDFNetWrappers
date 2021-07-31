@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -29,7 +30,7 @@ def ProcessElements(reader)
 	end
 end
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Extract text data from all pages in the document
 	puts "-------------------------------------------------"
@@ -53,4 +54,5 @@ end
 	
 	# Close the open document to free up document memory sooner.	
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done."

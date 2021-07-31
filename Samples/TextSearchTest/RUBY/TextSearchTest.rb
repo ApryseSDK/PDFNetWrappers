@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -15,7 +16,7 @@ input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
 
 	# Initialize PDFNet
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	doc = PDFDoc.new(input_path + "credit card numbers.pdf")
 	doc.InitSecurityHandler
 	
@@ -113,3 +114,4 @@ output_path = "../../TestFiles/Output/"
 		end
 	end	
 	doc.Close
+	PDFNet.Terminate

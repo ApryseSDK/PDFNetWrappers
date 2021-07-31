@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 
 # PDF Redactor is a separately licensable Add-on that offers options to remove 
 # (not just covering or obscuring) content within a region of PDF. 
@@ -50,7 +53,7 @@ def main():
     input_path = "../../TestFiles/"
     output_path = "../../TestFiles/Output/"
     
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     vec = VectorRedaction()
     vec.append(Redaction(1, Rect(100, 100, 550, 600), False, "Top Secret"))
@@ -67,6 +70,7 @@ def main():
     app.ShowRedactedContentRegions = True
     Redact(input_path + "newsletter.pdf", output_path + "redacted.pdf", vec, app)
     
+    PDFNet.Terminate()
     print("Done...")
 
 if __name__ == '__main__':

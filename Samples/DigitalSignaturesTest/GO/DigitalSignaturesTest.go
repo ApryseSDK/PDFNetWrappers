@@ -56,6 +56,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func VerifySimple(inDocpath string, inPublicKeyFilePath string) bool{
     doc := NewPDFDoc(inDocpath)
     fmt.Println("==========")
@@ -488,7 +490,7 @@ func TimestampAndEnableLTV(inDocpath string,
 
 func main(){
     // Initialize PDFNet
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     result := true
     inputPath := "../../TestFiles/"
@@ -545,7 +547,9 @@ func main(){
 
     if !result{
         fmt.Println("Tests FAILED!!!\n==========")
+        PDFNetTerminate()
         return
     }
+    PDFNetTerminate()
     fmt.Println("Tests successful.\n==========")
 }

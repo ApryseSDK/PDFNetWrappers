@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The sample code shows how to edit the page display list and how to modify graphics state 
 # attributes on existing Elements. In particular the sample program strips all images from 
@@ -46,7 +49,7 @@ def ProcessElements(reader, writer, map):
         element = reader.Next()
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -92,6 +95,7 @@ def main():
         
     doc.Save(output_path + output_filename, SDFDoc.e_remove_unused)
     doc.Close()
+    PDFNet.Terminate()
     print("Done. Result saved in " + output_filename +"...")
     
 if __name__ == '__main__':

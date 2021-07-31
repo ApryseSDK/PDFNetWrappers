@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 /** 
  * The following sample is a used to illustrate how to print 
@@ -22,7 +23,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
  * should use PDFRasterizer or PDFNet vector output instead of PDFDraw. 
  */
  
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Relative path to the folder containing test files.
@@ -48,6 +49,6 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	// name, send the file to the printer not to an output file, print all pages, set the printerMode
 	// and don't provide a cancel flag.
 	PDFPrint::StartPrintJob($doc, "", $doc->GetFileName(), "", null, $printerMode, null);
-	
+	PDFNet::Terminate();
 ?>
 

@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing test files.
 var inputPath =  "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -21,7 +23,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Open the PDF document.
     doc := NewPDFDoc(inputPath + "newsletter.pdf")
@@ -92,4 +94,5 @@ func main(){
     }else{
         fmt.Println("Problem encountered - cannot undo.")
     }
+    PDFNetTerminate()
 }

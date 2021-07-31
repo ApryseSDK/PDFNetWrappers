@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
@@ -147,7 +148,8 @@ function main()
 	// The first step in every application using PDFNet is to initialize the 
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
-	PDFNet::Initialize();
+	global $LicenseKey;
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 	// Demonstrate Convert::ToPdf and Convert::Printer
@@ -163,6 +165,8 @@ function main()
 		echo(nl2br("ConvertSpecificFormats failed\n"));
 	else
 		echo(nl2br("ConvertSpecificFormats succeeded\n"));
+	
+	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
 

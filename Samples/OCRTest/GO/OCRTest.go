@@ -8,6 +8,8 @@ import (
 	"fmt"
 	. "pdftron"
 )
+
+import  "pdftron/Samples/LicenseKey/GO"
 // Relative path to the folder containing test files.
 var inputPath = "../../TestFiles/OCR/"
 var outputPath = "../../TestFiles/Output/"
@@ -21,7 +23,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the
     // library and set the path to common PDF resources. The library is usually
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
     // The location of the OCR Module
     PDFNetAddResourceSearchPath("../../../PDFNetC/Lib/");
@@ -225,6 +227,7 @@ func main(){
 
         // E) Check the result
         doc.Save(outputPath + "corrupted_dpi.pdf", uint(0))
+        PDFNetTerminate()
         fmt.Println("Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text")
     }
 }

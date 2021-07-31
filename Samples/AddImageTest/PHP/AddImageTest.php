@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 //-----------------------------------------------------------------------------------
 // This sample illustrates how to embed various raster image formats
@@ -13,7 +14,7 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 // be present in the system path.
 //-----------------------------------------------------------------------------------
 	
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// Relative path to the folder containing the test files.
@@ -101,5 +102,6 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
     
     	$doc->Save(($output_path."addimage.pdf"), SDFDoc::e_linearized);
     	$doc->Close();
+		PDFNet::Terminate();
     	echo nl2br("Done. Result saved in addimage.pdf...\n");
 ?>

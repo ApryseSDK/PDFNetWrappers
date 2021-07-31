@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -143,7 +145,7 @@ func CreateAxialShading(doc PDFDoc) Obj{
 }    
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
       
     doc := NewPDFDoc()
     writer := NewElementWriter()
@@ -219,4 +221,5 @@ func main(){
     fmt.Println("Done. Result saved in patterns.pdf...")
     
     doc.Close()
+    PDFNetTerminate()
 }

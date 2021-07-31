@@ -11,6 +11,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func ProcessPath(reader ElementReader, path Element){
     if path.IsClippingPath(){
         fmt.Println("This is a clipping path")
@@ -275,7 +277,7 @@ func ProcessElements(reader ElementReader){
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -302,5 +304,6 @@ func main(){
         itr.Next()
     }
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

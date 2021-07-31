@@ -7,6 +7,8 @@ package main
 import (
     . "pdftron"
 )
+
+import  "pdftron/Samples/LicenseKey/GO"
 //---------------------------------------------------------------------------------------
 // The following sample shows how to add new content (or watermark) PDF pages
 // using 'pdftron.PDF.Stamper' utility class. 
@@ -25,7 +27,7 @@ var inputFilename = "newsletter"
 
 func main(){
     // Initialize PDFNet
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     //--------------------------------------------------------------------------------
     // Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 
@@ -189,4 +191,5 @@ func main(){
 
     doc.Save(outputPath + inputFilename + "E_x8.pdf", uint(SDFDocE_linearized))
     doc.Close()
+    PDFNetTerminate()
 }

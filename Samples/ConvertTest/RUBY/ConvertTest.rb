@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -142,7 +143,7 @@ def main()
 	# The first step in every application using PDFNet is to initialize the 
 	# library. The library is usually initialized only once, but calling 
 	# Initialize() multiple times is also fine.
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Demonstrate Convert.ToPdf and Convert.Printer
 	err = ConvertToPdfFromFile()
@@ -158,6 +159,7 @@ def main()
 	else
 		puts "ConvertSpecificFormats succeeded"
 	end
+	PDFNet.Terminate
 	puts "Done."
 end
 

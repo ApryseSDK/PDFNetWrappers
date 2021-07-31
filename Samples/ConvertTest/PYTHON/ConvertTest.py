@@ -10,6 +10,9 @@ from PDFNetPython import *
 	
 import platform
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to use the PDF.Convert utility class to convert 
 # documents and files to PDF, XPS, SVG, or EMF.
@@ -172,7 +175,7 @@ def main():
     # The first step in every application using PDFNet is to initialize the 
     # library. The library is usually initialized only once, but calling 
     # Initialize() multiple times is also fine.
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Demonstrate Convert.ToPdf and Convert.Printer
     err = ConvertToPdfFromFile()
@@ -196,6 +199,7 @@ def main():
         except:
             print("Unable to uninstall printer")
 
+    PDFNet.Terminate()
     print("Done.")
     
 if __name__ == '__main__':

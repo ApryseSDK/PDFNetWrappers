@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -16,7 +17,7 @@ $stdout.sync = true
 # be present in the system path.
 #-----------------------------------------------------------------------------------
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
     
 	# Relative path to the folder containing test files.
 	input_path = "../../TestFiles/"
@@ -103,5 +104,6 @@ $stdout.sync = true
 
 	doc.Save((output_path + "addimage.pdf"), SDFDoc::E_linearized);
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in addimage.pdf..."
 

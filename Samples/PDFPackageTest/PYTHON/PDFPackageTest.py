@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys, os
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------
 # This sample illustrates how to create, extract, and manipulate PDF Portfolios
 # (a.k.a. PDF Packages) using PDFNet SDK.
@@ -55,7 +58,7 @@ def AddCoverPage(doc):
     
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -91,6 +94,7 @@ def main():
             i.Next()
             counter = counter + 1
     doc.Close()
+    PDFNet.Terminate()
     print("Done.")
 
 if __name__ == '__main__':

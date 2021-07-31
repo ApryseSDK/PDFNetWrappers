@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -47,7 +48,7 @@ def ProcessElements(reader, writer, map)
 	end
 end
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -97,5 +98,6 @@ end
 		
 	doc.Save(output_path + output_filename, SDFDoc::E_remove_unused)
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in " + output_filename + "..."
 	

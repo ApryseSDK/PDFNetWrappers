@@ -8,8 +8,11 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -80,6 +83,7 @@ def main():
         element = reader.Next()
     reader.End()
     
+    PDFNet.Terminate()
     print("\n\nDone. Result saved in doc_memory_edit.pdf and doc_memory_edit.txt ...")
 
 if __name__ == '__main__':

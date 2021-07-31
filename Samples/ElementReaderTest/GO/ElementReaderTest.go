@@ -8,6 +8,8 @@ import (
     "fmt"
     . "pdftron"
 )
+
+import  "pdftron/Samples/LicenseKey/GO"
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 
@@ -31,7 +33,7 @@ func ProcessElements(reader ElementReader){
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Extract text data from all pages in the document
     fmt.Println("-------------------------------------------------")
@@ -54,5 +56,6 @@ func main(){
     }
     // Close the open document to free up document memory sooner.    
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

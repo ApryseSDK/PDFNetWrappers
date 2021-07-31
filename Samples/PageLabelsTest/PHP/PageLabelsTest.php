@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/";
@@ -22,7 +23,7 @@ $output_path = $input_path."Output/";
 // example, "A-" to generate "A-1", "A-2", "A-3", and so forth.)
 //-----------------------------------------------------------------------------------
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	//-----------------------------------------------------------
@@ -122,6 +123,7 @@ $output_path = $input_path."Output/";
 	$doc = new PDFDoc ($output_path."newsletter_with_pagelabels.pdf");
 	$doc->GetRoot()->Erase("PageLabels");
 	$doc->Save($output_path."newsletter_with_pagelabels_removed.pdf", SDFDoc::e_linearized);
+	PDFNet::Terminate();
 	echo nl2br("Done. Result saved in newsletter_with_pagelabels_removed.pdf...\n");
 	// ...
 ?>

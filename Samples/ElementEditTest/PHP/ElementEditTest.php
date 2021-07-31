@@ -4,6 +4,7 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 #---------------------------------------------------------------------------------------
 # The sample code shows how to edit the page display list and how to modify graphics state 
@@ -59,7 +60,7 @@ function ProcessElements($reader, $writer, $map) {
 	}
 }
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
 
@@ -106,6 +107,7 @@ function ProcessElements($reader, $writer, $map) {
 		$itr->Next();
 	}
 
-	$doc->Save($output_path.$output_filename, SDFDoc::e_remove_unused);		
+	$doc->Save($output_path.$output_filename, SDFDoc::e_remove_unused);	
+	PDFNet::Terminate();	
 	echo nl2br("Done. Result saved in ".$output_filename."...\n");
 ?>

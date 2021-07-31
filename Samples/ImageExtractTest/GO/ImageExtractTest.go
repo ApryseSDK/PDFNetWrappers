@@ -10,6 +10,8 @@ import (
     . "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------
 // This sample illustrates one approach to PDF image extraction 
 // using PDFNet.
@@ -70,7 +72,7 @@ func ImageExtract(reader ElementReader){
 
 func main(){
     // Initialize PDFNet
-    PDFNetInitialize()    
+    PDFNetInitialize(PDFTronLicense.Key)    
     
     // Example 1: 
     // Extract images by traversing the display list for 
@@ -144,5 +146,6 @@ func main(){
         i = i + 1
     }
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

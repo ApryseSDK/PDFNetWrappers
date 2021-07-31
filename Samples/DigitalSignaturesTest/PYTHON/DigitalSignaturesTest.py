@@ -58,6 +58,9 @@ site.addsitedir('../../../PDFNetC/Lib')
 
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 def VerifySimple(in_docpath, in_public_key_file_path):
 	doc = PDFDoc(in_docpath)
 	print("==========")
@@ -460,7 +463,7 @@ def TimestampAndEnableLTV(in_docpath,
 
 def main():
 	# Initialize PDFNet
-	PDFNet.Initialize()
+	PDFNet.Initialize(LicenseKey)
 	
 	result = True
 	input_path = '../../TestFiles/'
@@ -539,12 +542,13 @@ def main():
 	#	print(e.args)
 	#	result = False
 	
-	#################### End of tests. ####################
+	#################### End of tests. #####################
 
 	if not result:
 		print("Tests FAILED!!!\n==========")
+		PDFNet.Terminate()
 		return
-	
+	PDFNet.Terminate()
 	print("Tests successful.\n==========")
 
 if __name__ == '__main__':

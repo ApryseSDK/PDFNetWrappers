@@ -5,10 +5,11 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -31,5 +32,5 @@ $stdout.sync = true
 	
 	input_doc.Save(output_path + "tiger_shift.pdf", 0)
 	input_doc.Close
-	
+	PDFNet.Terminate
 	puts "Done. Result saved in tiger_shift..."

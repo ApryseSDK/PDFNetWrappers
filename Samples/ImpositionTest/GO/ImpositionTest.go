@@ -10,6 +10,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------
 // The sample illustrates how multiple pages can be combined/imposed 
 // using PDFNet. Page imposition can be used to arrange/order pages 
@@ -20,7 +22,7 @@ import (
 //-----------------------------------------------------------------------------------
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
     //var resource_path = ""
     //if len(os.Args) > 3{
@@ -112,5 +114,6 @@ func main(){
         i = i + 1
     }    
     newDoc.Save(fileout, uint(SDFDocE_linearized))
+    PDFNetTerminate()
     fmt.Println("Done. Result saved in newsletter_booklet.pdf...")
 }

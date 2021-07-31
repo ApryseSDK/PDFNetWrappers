@@ -9,6 +9,8 @@ import (
     . "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //-----------------------------------------------------------------------------------
 // This sample demonstrates how to create layers in PDF.
 // The sample also shows how to extract and render PDF layers in documents 
@@ -154,7 +156,7 @@ func CreateGroup3(doc PDFDoc, layer Obj) Obj{
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Create three layers...
     doc := NewPDFDoc()
@@ -253,6 +255,7 @@ func main(){
         pdfdraw.Export(page, outputPath + "pdf_layers_non_oc.png")
         
         doc.Close()
+        PDFNetTerminate()
         fmt.Println("Done.") 
     }
 }

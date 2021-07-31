@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -12,7 +13,7 @@ $stdout.sync = true
 # a memory buffer.  This is useful for applications that work with dynamic PDF
 # documents that don't need to be saved/read from a disk.
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -76,6 +77,6 @@ $stdout.sync = true
 		element = reader.Next
 	end
 	reader.End
-	
+	PDFNet.Terminate
 	puts "\n\nDone. Result saved in doc_memory_edit.pdf and doc_memory_edit.txt ..."
 

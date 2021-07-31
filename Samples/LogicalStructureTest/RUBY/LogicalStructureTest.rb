@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -169,7 +170,7 @@ def ProcessStructElement2(element, mcid_doc_map, indent)
 	print "</" + element.GetType + ">"		
 end
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -240,3 +241,4 @@ end
 	puts "\nDone 3."
 	doc.Save((output_path + "LogicalStructure.pdf"), SDFDoc::E_linearized)
 	doc.Close
+	PDFNet.Terminate

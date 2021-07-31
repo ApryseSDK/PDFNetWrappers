@@ -469,6 +469,25 @@ namespace pdftron {
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
+
+//Extend Initialize method to call overloaded one internally
+%extend pdftron::PDFNet{
+        public:
+        static void Initialize(const char* license_key = 0) { 
+            pdftron::PDFNet::Initialize(license_key, "{\"language\": \"Golang\"}");
+        }
+}
+%ignore pdftron::PDFNet::Initialize(const char* license_key = 0);
+
+//Extend Terminate method to call overloaded one internally
+%extend pdftron::PDFNet{
+        public:
+        static void Terminate() {
+            pdftron::PDFNet::Terminate(1);
+        }
+}
+%ignore pdftron::PDFNet::Terminate();
+
 %include "PDF/PDFNet.h"
 %include "PDF/PDFView.h"
 %include "PDF/Print.h"
