@@ -186,6 +186,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 	
 	$doc->Save($output_path."sample_output.fdf");
 	$doc->Close();
+	PDFNet::Terminate();
 	echo nl2br("Done. Results saved in sample_output.fdf");
 	
 	

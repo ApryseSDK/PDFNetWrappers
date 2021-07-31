@@ -57,6 +57,6 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 
 	$doc->Save($output_path."ContentReplaced.pdf", 0);
 	echo nl2br("Done. Result saved in ContentReplaced.pdf\n");
-
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");
 ?>

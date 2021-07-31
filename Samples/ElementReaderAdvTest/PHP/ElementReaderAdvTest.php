@@ -355,5 +355,6 @@ function ProcessElements($reader)
 		$page_reader->End();
 	}
 	$doc->Close();
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");		
 ?>

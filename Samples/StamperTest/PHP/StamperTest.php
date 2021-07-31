@@ -193,6 +193,6 @@ $input_filename = "newsletter";
 
 	$doc->Save($output_path.$input_filename.".ex8.pdf", SDFDoc::e_linearized);
 	$doc->Close();
-
+	PDFNet::Terminate();
 
 ?>

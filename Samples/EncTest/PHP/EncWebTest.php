@@ -80,4 +80,5 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 			
 		include "UsrInput.html";
 	}
+	PDFNet::Terminate();
 ?>

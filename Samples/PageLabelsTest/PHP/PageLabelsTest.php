@@ -123,6 +123,7 @@ $output_path = $input_path."Output/";
 	$doc = new PDFDoc ($output_path."newsletter_with_pagelabels.pdf");
 	$doc->GetRoot()->Erase("PageLabels");
 	$doc->Save($output_path."newsletter_with_pagelabels_removed.pdf", SDFDoc::e_linearized);
+	PDFNet::Terminate();
 	echo nl2br("Done. Result saved in newsletter_with_pagelabels_removed.pdf...\n");
 	// ...
 ?>

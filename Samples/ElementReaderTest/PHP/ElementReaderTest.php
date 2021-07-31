@@ -60,6 +60,6 @@ function ProcessElements($reader) {
 		ProcessElements($page_reader);
 		$page_reader->End();
 	}
-
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");
 ?>

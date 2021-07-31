@@ -191,6 +191,7 @@ function main()
 	$doc->PagePushBack($page);
 
 	$doc->Save($output_path."unicodewrite.pdf", SDFDoc::e_remove_unused | SDFDoc::e_hex_strings);
+	PDFNet::Terminate();
 	echo "Done. Result saved in unicodewrite.pdf...\n";
 }
 

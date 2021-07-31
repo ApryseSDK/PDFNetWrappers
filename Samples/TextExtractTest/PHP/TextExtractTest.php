@@ -290,4 +290,5 @@ function IsStyleEqual($style1, $style2)
 		$doc->Close();
 		echo nl2br("Done.\n");
 	}
+	PDFNet::Terminate();
 ?>

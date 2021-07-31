@@ -380,5 +380,6 @@ function CreateCustomButtonAppearance($doc, $button_down)
 
 
 	$doc->Save(($output_path."forms_test1_flattened.pdf"), 0);
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");	
 ?>

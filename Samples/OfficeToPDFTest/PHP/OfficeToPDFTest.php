@@ -118,7 +118,7 @@ function main()
 
 	// then the more flexible line-by-line conversion API
 	FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf");
-
+	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
 

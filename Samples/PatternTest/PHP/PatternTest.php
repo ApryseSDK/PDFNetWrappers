@@ -215,5 +215,6 @@ function CreateAxialShading($doc)
 	//-----------------------------------------------
 
 	$doc->Save($output_path."patterns.pdf", SDFDoc::e_remove_unused);
+	PDFNet::Terminate();
 	echo "Done. Result saved in patterns.pdf...\n";
 ?>

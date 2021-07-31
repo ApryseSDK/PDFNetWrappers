@@ -156,6 +156,7 @@ $output_path = $input_path."Output/";
 	}		
 		
 	$new_doc->Save($output_path."newsletter_import_pages.pdf", 0);
+	PDFNet::Terminate();
 	echo nl2br("Done. Result saved in newsletter_import_pages.pdf...\n\n"
 		."Note that the output file size is less than half the size\n" 
 		."of the file produced using individual page copy operations\n" 

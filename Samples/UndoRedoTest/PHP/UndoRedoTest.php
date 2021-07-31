@@ -102,5 +102,5 @@ $output_path = $input_path."Output/";
 	{
 		echo(nl2br("Problem encountered - cannot undo.\n"));
 	}
-
+	PDFNet::Terminate();
 ?>

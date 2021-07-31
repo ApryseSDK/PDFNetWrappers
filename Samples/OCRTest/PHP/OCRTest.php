@@ -231,5 +231,6 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		echo "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text \n";
 
 	}
+	PDFNet::Terminate();
 
 ?>

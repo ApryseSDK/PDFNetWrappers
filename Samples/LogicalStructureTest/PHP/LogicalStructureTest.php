@@ -234,5 +234,6 @@ function ProcessStructElement2($element, &$mcid_doc_map, $ident)
 	
 	echo nl2br("\nDone 3.\n");	
 	$doc->Save(($output_path ."LogicalStructure.pdf"), SDFDoc::e_linearized);
-	$doc->Close();        
+	$doc->Close();     
+	PDFNet::Terminate();   
 ?>

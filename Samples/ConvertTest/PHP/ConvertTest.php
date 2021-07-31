@@ -161,6 +161,8 @@ function main()
 		echo(nl2br("ConvertSpecificFormats failed\n"));
 	else
 		echo(nl2br("ConvertSpecificFormats succeeded\n"));
+	
+	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
 

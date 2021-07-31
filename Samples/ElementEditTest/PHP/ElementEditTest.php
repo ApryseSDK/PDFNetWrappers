@@ -107,6 +107,7 @@ function ProcessElements($reader, $writer, $map) {
 		$itr->Next();
 	}
 
-	$doc->Save($output_path.$output_filename, SDFDoc::e_remove_unused);		
+	$doc->Save($output_path.$output_filename, SDFDoc::e_remove_unused);	
+	PDFNet::Terminate();	
 	echo nl2br("Done. Result saved in ".$output_filename."...\n");
 ?>

@@ -49,6 +49,6 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 	// name, send the file to the printer not to an output file, print all pages, set the printerMode
 	// and don't provide a cancel flag.
 	PDFPrint::StartPrintJob($doc, "", $doc->GetFileName(), "", null, $printerMode, null);
-	
+	PDFNet::Terminate();
 ?>
 

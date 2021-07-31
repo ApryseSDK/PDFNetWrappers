@@ -79,6 +79,6 @@ function PrintResults($pdf_a, $filename)
 	$pdf_a = new PDFACompliance(false, $output_path.$filename, "", PDFACompliance::e_Level2B, 0, 0, 10);		
 	PrintResults($pdf_a, $filename);
 	$pdf_a->Destroy();
-	
+	PDFNet::Terminate();	
 	echo nl2br("PDFACompliance test completed.\n");
 ?>

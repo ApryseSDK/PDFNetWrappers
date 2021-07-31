@@ -90,5 +90,6 @@ function Create3DAnnotation($doc, $annots)
 
 	Create3DAnnotation($doc, $annots);
 	$doc->Save($output_path."dice_u3d.pdf", SDFDoc::e_linearized);
+	PDFNet::Terminate();
 	echo "Done.\n";	
 ?>

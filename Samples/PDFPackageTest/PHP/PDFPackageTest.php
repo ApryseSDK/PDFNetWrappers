@@ -96,5 +96,6 @@ function AddCoverPage($doc)
 	}
 
 	$doc->Close();
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");	
 ?>

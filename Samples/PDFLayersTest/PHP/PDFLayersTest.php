@@ -266,5 +266,6 @@ function CreateGroup3($doc, $layer)
 	}
 
 	$doc->Close();
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");	
 ?>

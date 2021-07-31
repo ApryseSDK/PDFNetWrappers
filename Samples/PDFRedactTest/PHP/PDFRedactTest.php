@@ -65,6 +65,6 @@ function Redact($input, $output, $vec, $app) {
 	$app->Border = false;
 	$app->ShowRedactedContentRegions = true;
 	Redact($input_path."newsletter.pdf", $output_path."redacted.pdf", $vec, $app);
-    
+    PDFNet::Terminate();
 	echo "Done...\n";	
 ?>

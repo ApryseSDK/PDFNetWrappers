@@ -146,4 +146,5 @@ $output_path = $input_path."Output/";
 		echo printf("Conversion failed. HTTP Code: %d\n%s", $converter->GetHTTPErrorCode(), $converter->GetLog());
 	}
 	$doc->Close();
+	PDFNet::Terminate();
 ?>

@@ -686,7 +686,7 @@ function main()
     //}
 
 	//////////////////// End of tests. ////////////////////
-
+	PDFNet::Terminate();
 	if (!$result)
 	{
 		echo(nl2br("Tests FAILED!!!\n==========".PHP_EOL));

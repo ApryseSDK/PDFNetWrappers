@@ -77,5 +77,6 @@ $output_path = $input_path."Output/newsletter_booklet.pdf";
 	}		
 
 	$new_doc->Save($output_path, SDFDoc::e_linearized);
+	PDFNet::Terminate();
 	echo nl2br("Done. Result saved in newsletter_booklet.pdf...");	
 ?>

@@ -193,6 +193,6 @@ function PrintOutlineTree($item) {
 	$dest->PushBackName("Fit");
 
 	$doc->Save($output_path."bookmark_remote.pdf", SDFDoc::e_linearized);
-
+	PDFNet::Terminate();
 	echo nl2br("Done. Result saved in bookmark_remote.pdf\n");
 ?>

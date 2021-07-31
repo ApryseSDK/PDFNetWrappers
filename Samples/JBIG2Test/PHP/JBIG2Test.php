@@ -79,6 +79,6 @@ $output_path = $input_path."Output/";
 
 	$pdf_doc->Save("../../TestFiles/Output/US061222892_JBIG2.pdf", SDFDoc::e_remove_unused);
 	$pdf_doc->Close();
-
+	PDFNet::Terminate();
 	echo "Done.";
 ?>

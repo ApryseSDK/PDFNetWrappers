@@ -150,6 +150,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 	// Save the decrypted document
 	$doc_enc->Save($output_path . "BusinessCardTemplate_enc_dec.pdf", 0);
 	$doc->Close();
+	PDFNet::Terminate();
 	echo "Done. Result saved in BusinessCardTemplate_enc_dec.pdf\n";
 	echo "-------------------------------------------------\n";
 	echo "Test Completed.\n";

@@ -102,5 +102,6 @@ include("../../LicenseKey/PHP/LicenseKey.php");
     
     	$doc->Save(($output_path."addimage.pdf"), SDFDoc::e_linearized);
     	$doc->Close();
+		PDFNet::Terminate();
     	echo nl2br("Done. Result saved in addimage.pdf...\n");
 ?>

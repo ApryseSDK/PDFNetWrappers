@@ -452,5 +452,6 @@ $output_path = $input_path."Output/";
 	// End page ------------------------------------
 
 	$doc->Save($output_path."element_builder.pdf", SDFDoc::e_remove_unused);
+	PDFNet::Terminate();
 	echo "Done. Result saved in element_builder.pdf...\n";
 ?>

@@ -72,6 +72,6 @@ $output_path = $input_path."Output/";
 		if ($element->GetType() == Element::e_path) echo "Path, ";
 	}
 	$reader->End();
-
+	PDFNet::Terminate();
 	echo nl2br("\n\nDone. Result saved in doc_memory_edit.pdf and doc_memory_edit.txt ...\n");
 ?>

@@ -87,7 +87,7 @@ $output_path = $input_path."Output/";
 	echo nl2br("Saving modified test file...\n");
 	$doc->Save($output_path."sdftest_out.pdf", 0, "%PDF-1.4");
 	$doc->Close();
-
+	PDFNet::Terminate();
 	echo nl2br("Test completed.\n");
 	
 	

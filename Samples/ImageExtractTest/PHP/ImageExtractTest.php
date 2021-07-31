@@ -139,6 +139,7 @@ function ImageExtract($reader)
 	}
 
 	$doc->Close();
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");
 	
 ?>

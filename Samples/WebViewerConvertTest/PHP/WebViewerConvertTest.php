@@ -68,6 +68,7 @@ function main()
 	// Directly convert from generic XPS to XOD.
    	echo(nl2br("Converting: " . $inputPath . "simple-xps.xps" . " to: " . $outputPath . "simple-xps.xod\n"));
 	Convert::ToXod($inputPath . "simple-xps.xps", $outputPath . "simple-xps.xod");
+	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
 

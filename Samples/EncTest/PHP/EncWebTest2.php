@@ -52,6 +52,6 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 	$doc->RemoveSecurity();
 	$doc->Save($output_path."not_secured.pdf", 0);
 	$doc->Close();
-
+	PDFNet::Terminate();
 	echo "Test Completed.\n";
 ?>

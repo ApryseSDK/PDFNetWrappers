@@ -36,5 +36,5 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		$doc->Save($output_path."construction drawings color-28.05.18.dwg.pdf", 0);
 		echo "CAD2PDF conversion example \n";
 	}
-
+	PDFNet::Terminate();
 ?>

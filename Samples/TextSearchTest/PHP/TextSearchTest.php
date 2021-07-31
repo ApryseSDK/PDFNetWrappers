@@ -127,4 +127,5 @@ $output_path = $input_path."Output/";
 	}
 	
 	$doc->Close();	
+	PDFNet::Terminate();
 ?>
