@@ -229,9 +229,9 @@ def main():
         print("Field 3: " + s1)
         
         doc.Close()
-        PDFNet.Terminate()
         
         print("Done.")
+    PDFNet.Terminate()
         
 if __name__ == '__main__':
     main()
