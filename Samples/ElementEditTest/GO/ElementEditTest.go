@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // The sample code shows how to edit the page display list and how to modify graphics state 
 // attributes on existing Elements. In particular the sample program strips all images from 
@@ -48,7 +50,7 @@ func ProcessElements(reader ElementReader, writer ElementWriter, omap map[uint]O
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -103,5 +105,6 @@ func main(){
 	
     doc.Save(outputPath + outputFilename, uint(SDFDocE_remove_unused))
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done. Result saved in " + outputFilename +"...")
 }

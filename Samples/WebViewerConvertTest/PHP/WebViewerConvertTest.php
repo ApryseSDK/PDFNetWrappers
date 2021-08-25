@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to convert PDF, XPS, image, MS Office, and 
@@ -34,9 +35,9 @@ $outputPath = "../../TestFiles/Output/";
 
 function main()
 {
-    global $inputPath, $outputPath;
+    global $inputPath, $outputPath, $LicenseKey;
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// Sample 1:
@@ -67,6 +68,7 @@ function main()
 	// Directly convert from generic XPS to XOD.
    	echo(nl2br("Converting: " . $inputPath . "simple-xps.xps" . " to: " . $outputPath . "simple-xps.xod\n"));
 	Convert::ToXod($inputPath . "simple-xps.xps", $outputPath . "simple-xps.xod");
+	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
 

@@ -51,6 +51,7 @@
 //----------------------------------------------------------------------------------------------------------------------
 
 include('../../../PDFNetC/Lib/PDFNetPHP.php');
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 function VerifySimple($in_docpath, $in_public_key_file_path)
 {
@@ -271,7 +272,7 @@ function CertifyPDF($in_docpath,
 	$page1 = $doc->GetPage(1);
 
 	// Create a text field that we can lock using the field permissions feature.
-	$annot1 = TextWidget::Create($doc, new Rect(50.0, 550.0, 350.0, 600.0), "asdf_test_field");
+	$annot1 = TextWidget::Create($doc, new Rect(143.0, 440.0, 350.0, 460.0), "asdf_test_field");
 	$page1->AnnotPushBack($annot1);
 
 	// Create a new signature form field in the PDFDoc. The name argument is optional;
@@ -279,7 +280,7 @@ function CertifyPDF($in_docpath,
 	// Acrobat doesn't show digsigfield in side panel if it's without a widget. Using a
 	// Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
 	$certification_sig_field = $doc->CreateDigitalSignatureField($in_cert_field_name);
-	$widgetAnnot = SignatureWidget::Create($doc, new Rect(0.0, 100.0, 200.0, 150.0), $certification_sig_field);
+	$widgetAnnot = SignatureWidget::Create($doc, new Rect(143.0, 287.0, 219.0, 306.0), $certification_sig_field);
 	$page1->AnnotPushBack($widgetAnnot);
 
 	// (OPTIONAL) Add an appearance to the signature field.
@@ -563,8 +564,9 @@ function TimestampAndEnableLTV($in_docpath,
 }
 function main()
 {
+	global $LicenseKey;
 	// Initialize PDFNet
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	
 	$result = true;
 	$input_path = '../../TestFiles/';
@@ -576,11 +578,11 @@ function main()
 	// Open an existing PDF
 	try
 	{
-		$doc = new PDFDoc($input_path.'tiger.pdf');
-		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 300.0, 500.0, 200.0), 'PDFTronApprovalSig');
+		$doc = new PDFDoc($input_path.'waiver.pdf');
+		$widgetAnnotApproval = SignatureWidget::Create($doc, new Rect(300.0, 287.0, 376.0, 306.0), 'PDFTronApprovalSig');
 		$page1 = $doc->GetPage(1);
 		$page1->AnnotPushBack($widgetAnnotApproval);
-		$doc->Save($output_path.'tiger_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
+		$doc->Save($output_path.'waiver_withApprovalField_output.pdf', SDFDoc::e_remove_unused);
 	}
 	catch (Exception $e)
 	{
@@ -591,13 +593,13 @@ function main()
 	//////////////////// TEST 1: certify a PDF.
 	try
 	{
-		CertifyPDF($input_path.'tiger_withApprovalField.pdf',
+		CertifyPDF($input_path.'waiver_withApprovalField.pdf',
 			'PDFTronCertificationSig',
 			$input_path.'pdftron.pfx',
 			'password',
 			$input_path.'pdftron.bmp',
-			$output_path.'tiger_withApprovalField_certified_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_output.pdf');
+			$output_path.'waiver_withApprovalField_certified_output.pdf');
+		PrintSignaturesInfo($output_path.'waiver_withApprovalField_certified_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -605,16 +607,16 @@ function main()
         echo(nl2br($e->getTraceAsString().PHP_EOL));
         $result = false;
     }
-	//////////////////// TEST 2: sign a PDF with a certification and an unsigned signature field in it.
+	//////////////////// TEST 2: approval-sign an existing, unsigned signature field in a PDF that already has a certified signature field.
 	try
 	{
-		SignPDF($input_path.'tiger_withApprovalField_certified.pdf',
+		SignPDF($input_path.'waiver_withApprovalField_certified.pdf',
 			'PDFTronApprovalSig',
 			$input_path.'pdftron.pfx',
 			'password',
 			$input_path.'signature.jpg',
-			$output_path.'tiger_withApprovalField_certified_approved_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_output.pdf');
+			$output_path.'waiver_withApprovalField_certified_approved_output.pdf');
+		PrintSignaturesInfo($output_path.'waiver_withApprovalField_certified_approved_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -625,10 +627,10 @@ function main()
 	//////////////////// TEST 3: Clear a certification from a document that is certified and has an approval signature.
 	try
 	{
-		ClearSignature($input_path.'tiger_withApprovalField_certified_approved.pdf',
+		ClearSignature($input_path.'waiver_withApprovalField_certified_approved.pdf',
 			'PDFTronCertificationSig',
-			$output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
-		PrintSignaturesInfo($output_path.'tiger_withApprovalField_certified_approved_certcleared_output.pdf');
+			$output_path.'waiver_withApprovalField_certified_approved_certcleared_output.pdf');
+		PrintSignaturesInfo($output_path.'waiver_withApprovalField_certified_approved_certcleared_output.pdf');
 	}
 	catch (Exception $e)
 	{
@@ -639,7 +641,7 @@ function main()
 	//////////////////// TEST 4: Verify a document's digital signatures.
 	try
 	{
-		if (!VerifyAllAndPrint($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
+		if (!VerifyAllAndPrint($input_path.'waiver_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
 			$result = false;
 		}
@@ -653,7 +655,7 @@ function main()
 	//////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try
 	{
-		if (!VerifySimple($input_path.'tiger_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
+		if (!VerifySimple($input_path.'waiver_withApprovalField_certified_approved.pdf', $input_path.'pdftron.cer'))
 		{
 			$result = false;
 		}
@@ -668,10 +670,10 @@ function main()
 	//////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	//try
 	//{
-	//	if(!TimestampAndEnableLTV($input_path.'tiger.pdf',
+	//	if(!TimestampAndEnableLTV($input_path.'waiver.pdf',
 	//				$input_path.'GlobalSignRootForTST.cer',
 	//				$input_path.'signature.jpg',
-	//				$output_path.'tiger_DocTimeStamp_LTV.pdf'))
+	//				$output_path.'waiver_DocTimeStamp_LTV.pdf'))
 	//	{
 	//		$result = false;
 	//	}
@@ -684,7 +686,7 @@ function main()
     //}
 
 	//////////////////// End of tests. ////////////////////
-
+	PDFNet::Terminate();
 	if (!$result)
 	{
 		echo(nl2br("Tests FAILED!!!\n==========".PHP_EOL));

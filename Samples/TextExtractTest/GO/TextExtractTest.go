@@ -11,6 +11,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func PrintStyle (style Style){
     sansSerifStr := ""
     if style.IsSerif(){
@@ -84,7 +86,7 @@ func RectTextSearch (reader ElementReader, pos Rect) string{
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing test files.
     inputPath :=  "../../TestFiles/newsletter.pdf"
@@ -247,6 +249,7 @@ func main(){
         fmt.Println("Field 3: " + s1)
         
         doc.Close()
+        PDFNetTerminate()
         fmt.Println("Done.")
 	}
 }

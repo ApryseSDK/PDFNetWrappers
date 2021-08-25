@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -25,7 +26,7 @@ output_path = "../../TestFiles/Output/"
 input_filename = "newsletter"
 
 	# Initialize PDFNet
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	#--------------------------------------------------------------------------------
 	# Example 1) Add text stamp to all pages, then remove text stamp from odd pages. 
@@ -190,3 +191,4 @@ input_filename = "newsletter"
 
 	doc.Save(output_path + input_filename + ".ex8.pdf", SDFDoc::E_linearized)
 	doc.Close
+	PDFNet.Terminate

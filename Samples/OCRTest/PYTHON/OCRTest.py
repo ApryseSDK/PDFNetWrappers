@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing test files.
 input_path = "../../TestFiles/OCR/"
 output_path = "../../TestFiles/Output/"
@@ -21,7 +24,7 @@ def main():
     # The first step in every application using PDFNet is to initialize the
     # library and set the path to common PDF resources. The library is usually
     # initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
 
     # The location of the OCR Module
     PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
@@ -224,6 +227,7 @@ def main():
 
         # E) Check the result
         doc.Save(output_path + "corrupted_dpi.pdf", 0)
+        PDFNet.Terminate()
         print("Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text")
 
 

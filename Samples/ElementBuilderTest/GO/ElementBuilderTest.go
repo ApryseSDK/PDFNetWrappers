@@ -10,6 +10,8 @@ import (
     . "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -26,7 +28,7 @@ func Find(s, substr string, offset int) int {
 
 //-----------------------------------------------------------------------------------------------------------------------
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     doc := NewPDFDoc()
     
@@ -465,5 +467,6 @@ func main(){
 
     doc.Save((outputPath + "element_builder.pdf"), uint(SDFDocE_remove_unused))
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done. Result saved in element_builder.pdf...")
 }

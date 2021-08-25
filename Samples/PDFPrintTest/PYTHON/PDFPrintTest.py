@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # The following sample illustrates how to print PDF document using currently selected
 # default printer. 
 # 
@@ -22,7 +25,7 @@ from PDFNetPython import *
 # should use PDFRasterizer or PDFNet vector output instead of PDFDraw.
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -48,6 +51,7 @@ def main():
     # name, send the file to the printer not to an output file, print all pages, set the printerMode
     # and don't provide a cancel flag.
     Print.StartPrintJob(doc, "", doc.GetFileName(), "", None, printerMode, None)
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()

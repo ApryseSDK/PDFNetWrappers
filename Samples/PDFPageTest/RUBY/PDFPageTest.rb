@@ -5,10 +5,11 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -165,7 +166,7 @@ $stdout.sync = true
 	# garbage collector
 	in_doc.Close
 	new_doc.Close
-	
+	PDFNet.Terminate
 	puts "Done. Result saved in newsletter_import_pages.pdf..."
 	puts "\nNote that the output file size is less than half the size"
 	puts "of the file produced using individual page copy operations"

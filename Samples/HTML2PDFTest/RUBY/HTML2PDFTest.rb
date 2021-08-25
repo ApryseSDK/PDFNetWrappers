@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -26,16 +27,16 @@ $stdout.sync = true
 #---------------------------------------------------------------------------------------
 
 	output_path = "../../TestFiles/Output/html2pdf_example"
-	host = "http://www.gutenberg.org/"
-	page0 = "wiki/Main_Page"
-	page1 = "catalog/"
-	page2 = "browse/recent/last1"
-	page3 = "wiki/Gutenberg:The_Sheet_Music_Project"
+	host = "http://www.swig.org/"
+	page0 = ""
+	page1 = "doc.html"
+	page2 = "history.html"
+	page3 = "survey.html"
 	
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
 	# initialized only once, but calling Initialize() multiple times is also fine.
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# For HTML2PDF we need to locate the html2pdf module. If placed with the 
 	# PDFNet library, or in the current working directory, it will be loaded
@@ -131,4 +132,5 @@ $stdout.sync = true
 	else
 		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
 	end
+	PDFNet.Terminate
 

@@ -4,6 +4,7 @@
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 function ProcessPath($reader, $path)
 {
@@ -330,7 +331,7 @@ function ProcessElements($reader)
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	# Extract text data from all pages in the document
@@ -354,5 +355,6 @@ function ProcessElements($reader)
 		$page_reader->End();
 	}
 	$doc->Close();
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");		
 ?>

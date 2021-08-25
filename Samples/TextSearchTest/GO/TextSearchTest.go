@@ -11,6 +11,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // This sample illustrates the basic text search capabilities of PDFNet.
 
 // Relative path to the folder containing the test files.
@@ -19,7 +21,7 @@ var outputPath = "../../TestFiles/Output/"
 
 func main(){
     // Initialize PDFNet
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     doc := NewPDFDoc(inputPath + "credit card numbers.pdf")
     doc.InitSecurityHandler()
     
@@ -115,4 +117,5 @@ func main(){
 		}
     }    
     doc.Close()
+    PDFNetTerminate()
 }

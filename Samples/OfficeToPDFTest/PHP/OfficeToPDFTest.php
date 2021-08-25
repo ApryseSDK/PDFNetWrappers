@@ -4,6 +4,7 @@
 // Consult legal.txt regarding legal and license information.
 //------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/";
@@ -108,7 +109,8 @@ function main()
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
 
-	PDFNet::Initialize();
+	global $LicenseKey;
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::SetResourcesPath("../../../Resources");
 
 	// first the one-line conversion function
@@ -116,7 +118,7 @@ function main()
 
 	// then the more flexible line-by-line conversion API
 	FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf");
-
+	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
 

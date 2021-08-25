@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------
 # This sample illustrates one approach to PDF image extraction 
 # using PDFNet.
@@ -64,7 +67,7 @@ def ImageExtract(reader):
 
 def main():
     # Initialize PDFNet
-    PDFNet.Initialize()    
+    PDFNet.Initialize(LicenseKey)    
     
     # Example 1: 
     # Extract images by traversing the display list for 
@@ -135,6 +138,7 @@ def main():
             #image.ExportAsPng(path)
         i = i + 1
     doc.Close()
+    PDFNet.Terminate()
     print("Done.")
     
 if __name__ == '__main__':

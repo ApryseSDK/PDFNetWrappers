@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/";
@@ -16,7 +17,7 @@ $output_path = $input_path."Output/";
 // You can download the entire document using the following link:
 //   http://www.pdftron.com/net/samplecode/data/US061222892.pdf
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	$pdf_doc = new PDFDoc("../../TestFiles/US061222892-a.pdf") ;
@@ -78,6 +79,6 @@ $output_path = $input_path."Output/";
 
 	$pdf_doc->Save("../../TestFiles/Output/US061222892_JBIG2.pdf", SDFDoc::e_remove_unused);
 	$pdf_doc->Close();
-
+	PDFNet::Terminate();
 	echo "Done.";
 ?>

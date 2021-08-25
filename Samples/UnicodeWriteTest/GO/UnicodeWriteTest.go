@@ -15,6 +15,8 @@ import (
     "golang.org/x/text/transform"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -70,7 +72,7 @@ func ReadUnicodeTextLinesFromFile(  writer ElementWriter,
 }
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     doc := NewPDFDoc()
     eb := NewElementBuilder()
@@ -205,4 +207,5 @@ func main(){
     fmt.Println("Done. Result saved in unicodewrite.pdf...")
     
     doc.Close()
+    PDFNetTerminate()
 }

@@ -10,6 +10,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // This sample shows encryption support in PDFNet. The sample reads an encrypted document and 
 // sets a new SecurityHandler. The sample also illustrates how password protection can 
@@ -17,7 +19,7 @@ import (
 //---------------------------------------------------------------------------------------
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -118,5 +120,6 @@ func main(){
     doc.Save(outputPath + "not_secured.pdf", uint(0))
     doc.Close()
     
+    PDFNetTerminate()
     fmt.Println("Test completed.")
 }

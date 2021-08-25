@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/";
@@ -42,7 +43,7 @@ $input_filename = "newsletter";
 	// The first step in every application using PDFNet is to initialize the 
 	// library and set the path to common PDF resources. The library is usually 
 	// initialized only once, but calling Initialize() multiple times is also fine.
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	//--------------------------------------------------------------------------------
@@ -163,5 +164,5 @@ $input_filename = "newsletter";
 
         $doc->SaveViewerOptimized($output_path.$input_filename."_SaveViewerOptimized.pdf", $opts);
 	$doc->Close();
-	
+	PDFNet::Terminate();
 ?>

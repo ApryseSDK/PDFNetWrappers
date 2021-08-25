@@ -12,6 +12,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
@@ -70,7 +72,7 @@ func CreateCustomButtonAppearance(doc PDFDoc, buttonDown bool) Obj {
     return stm
 }    
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // The map (vector) used to store the name and count of all fields.
     // This is used later on to clone the fields
@@ -347,5 +349,6 @@ func main(){
 	}
     doc.Save(outputPath + "forms_test1_flattened.pdf", uint(0))
     doc.Close()
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

@@ -10,6 +10,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF.Convert utility class to convert 
 // documents and files to PDF, XPS, SVG, or EMF.
@@ -38,12 +40,12 @@ var outputPath = "../../TestFiles/Output/"
 
 func ConvertToPdfFromFile() bool{
 	testFiles := [][]string{	
-	{"simple-word_2007.docx","docx2pdf.pdf", "true"}, 
-	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf", "true"}, 
-	{"simple-excel_2007.xlsx","xlsx2pdf.pdf", "true"}, 
+	{"simple-word_2007.docx","docx2pdf.pdf", "false"}, 
+	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf", "false"}, 
+	{"simple-excel_2007.xlsx","xlsx2pdf.pdf", "false"}, 
 	{"simple-publisher.pub","pub2pdf.pdf", "true"},
 	//{"simple-visio.vsd","vsd2pdf.pdf}, // requires Microsoft Office Visio 
-	{"simple-text.txt","txt2pdf.pdf", "true"}, 
+	{"simple-text.txt","txt2pdf.pdf", "false"}, 
 	{"simple-rtf.rtf","rtf2pdf.pdf", "true"}, 
 	{"butterfly.png","png2pdf.pdf", "false"}, 
 	{"simple-emf.emf","emf2pdf.pdf", "true"}, 
@@ -166,7 +168,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
 
     // Demonstrate Convert.ToPdf and Convert.Printer
     err := ConvertToPdfFromFile()
@@ -187,5 +189,6 @@ func main(){
         PrinterUninstall()
         fmt.Println("Uninstalled printer " + PrinterGetPrinterName())
 	}
+    PDFNetTerminate()
     fmt.Println("Done.")
 }

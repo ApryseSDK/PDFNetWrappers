@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -19,7 +20,7 @@ output_path = "../../TestFiles/Output/"
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
 	# initialized only once, but calling Initialize multiple times is also fine.
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# The location of the CAD Module
 	PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
@@ -45,4 +46,5 @@ output_path = "../../TestFiles/Output/"
 		puts e
 
 	end
+	PDFNet.Terminate
 

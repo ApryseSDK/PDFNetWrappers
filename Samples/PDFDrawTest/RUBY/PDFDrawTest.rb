@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -21,7 +22,7 @@ output_path = "../../TestFiles/Output/"
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
 	# initialized only once, but calling Initialize multiple times is also fine.
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Optional: Set ICC color profiles to fine tune color conversion 
 	# for PDF 'device' color spaces...
@@ -266,4 +267,5 @@ output_path = "../../TestFiles/Output/"
 	filename = "separation_NChannel.tif"
 	draw.Export(separation_doc.GetPageIterator.Current, output_path + filename, "TIFF", separation_hint)
 	puts "Example 10 c): " + filename + ". Done."
+	PDFNet.Terminate
 

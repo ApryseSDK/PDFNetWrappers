@@ -8,6 +8,9 @@ site.addsitedir("../../../PDFNetC/Lib")
 import sys
 from PDFNetPython import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relattive path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"            
@@ -17,7 +20,7 @@ output_path = "../../TestFiles/Output/"
 # 'template' pdf documents easier.
 #-----------------------------------------------------------------------------------------
 def main():
-	PDFNet.Initialize()
+	PDFNet.Initialize(LicenseKey)
 
 	# Example 1) Update a business card template with personalized info
 
@@ -61,7 +64,7 @@ def main():
 	doc.Close()
 
 	print("Done. Result saved in ContentReplaced.pdf")
-	
+	PDFNet.Terminate()
 	print("Done.")
 
 if __name__ == '__main__':

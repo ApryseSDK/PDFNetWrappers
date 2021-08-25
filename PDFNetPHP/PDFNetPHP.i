@@ -140,7 +140,7 @@
     #include "PDF/ElementReader.h"
     #include "PDF/ElementWriter.h"
     #include "PDF/Field.h"
-    #include "PDF/TimestampingTestResult.h"
+    #include "PDF/TimestampingResult.h"
     #include "PDF/TimestampingConfiguration.h"
     #include "Crypto/ObjectIdentifier.h"
     #include "Crypto/X501DistinguishedName.h"
@@ -844,7 +844,7 @@ namespace pdftron {
 %include "PDF/Page.h"
 %include "PDF/Date.h"
 %include "PDF/Field.h"
-%include "PDF/TimestampingTestResult.h"
+%include "PDF/TimestampingResult.h"
 %include "PDF/TimestampingConfiguration.h"
 %include "Crypto/ObjectIdentifier.h"
 %include "Crypto/X501DistinguishedName.h"
@@ -871,7 +871,7 @@ namespace pdftron {
 %include "PDF/Annots/Ink.h"
 %include "PDF/Destination.h"
 %include "PDF/Action.h"
-
+%include "PDF/PageSet.h"
 %include "PDF/OCG/Config.h"
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
@@ -951,10 +951,28 @@ namespace pdftron {
 %include "PDF/PDF2HtmlReflowParagraphsModule.h"
 %include "PDF/PDF2WordModule.h"
 %include "PDF/Optimizer.h"
-%include "PDF/PageSet.h"
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
+
+//Extend Initialize method to call overloaded one internally
+%extend pdftron::PDFNet{
+        public:
+        static void Initialize(const char* license_key = 0) { 
+            pdftron::PDFNet::Initialize(license_key, "{\"language\": \"PHP\"}");
+        }
+}
+%ignore pdftron::PDFNet::Initialize(const char* license_key = 0);
+
+//Extend Terminate method to call overloaded one internally
+%extend pdftron::PDFNet{
+        public:
+        static void Terminate() {
+            pdftron::PDFNet::Terminate(1);
+        }
+}
+%ignore pdftron::PDFNet::Terminate();
+
 %include "PDF/PDFNet.h"
 %include "PDF/PDFView.h"
 #define Print PDFPrint

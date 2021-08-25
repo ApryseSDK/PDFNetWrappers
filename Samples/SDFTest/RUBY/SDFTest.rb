@@ -5,13 +5,14 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
 # This sample illustrates how to use basic SDF API (also known as Cos) to edit an 
 # existing document.
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -73,6 +74,6 @@ $stdout.sync = true
 	puts "Saving modified test file..."
 	doc.Save(output_path + "sdftest_out.pdf", 0, "%PDF-1.4")
 	doc.Close
-	
+	PDFNet.Terminate
 	puts "Test Completed"
 	

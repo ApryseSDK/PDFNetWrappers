@@ -4,13 +4,14 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // This sample shows encryption support in PDFNet. The sample reads an encrypted document and 
 // sets a new SecurityHandler. The sample also illustrates how password protection can 
 // be removed from an existing PDF document.
 //---------------------------------------------------------------------------------------
-	PDFNet::Initialize();	
+	PDFNet::Initialize($LicenseKey);	
 
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
@@ -51,6 +52,6 @@ include("../../../PDFNetC/Lib/PDFNetPHP.php");
 	$doc->RemoveSecurity();
 	$doc->Save($output_path."not_secured.pdf", 0);
 	$doc->Close();
-
+	PDFNet::Terminate();
 	echo "Test Completed.\n";
 ?>

@@ -4,6 +4,7 @@
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
+include("../../LicenseKey/PHP/LicenseKey.php");
 
 // PDF Redactor is a separately licensable Add-on that offers options to remove 
 // (not just covering or obscuring) content within a region of PDF. 
@@ -47,7 +48,7 @@ function Redact($input, $output, $vec, $app) {
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
 
-	PDFNet::Initialize();
+	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	$vec = new VectorRedaction();
@@ -64,6 +65,6 @@ function Redact($input, $output, $vec, $app) {
 	$app->Border = false;
 	$app->ShowRedactedContentRegions = true;
 	Redact($input_path."newsletter.pdf", $output_path."redacted.pdf", $vec, $app);
-    
+    PDFNet::Terminate();
 	echo "Done...\n";	
 ?>

@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -67,7 +68,7 @@ def ImageExtract(reader)
 end
 
 	# Initialize PDFNet
-	PDFNet.Initialize()	
+	PDFNet.Initialize(PDFTronLicense.Key)	
 	
 	# Example 1: 
 	# Extract images by traversing the display list for 
@@ -142,4 +143,5 @@ end
 		i = i + 1
 	end
 	doc.Close()
+	PDFNet.Terminate
 	puts "Done."

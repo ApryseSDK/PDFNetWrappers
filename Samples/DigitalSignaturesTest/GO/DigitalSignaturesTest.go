@@ -56,6 +56,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 func VerifySimple(inDocpath string, inPublicKeyFilePath string) bool{
     doc := NewPDFDoc(inDocpath)
     fmt.Println("==========")
@@ -235,7 +237,7 @@ func CertifyPDF(inDocpath string,
     page1 := doc.GetPage(1)
 
     // Create a text field that we can lock using the field permissions feature.
-    annot1 := TextWidgetCreate(doc, NewRect(50.0, 550.0, 350.0, 600.0), "asdf_test_field")
+    annot1 := TextWidgetCreate(doc, NewRect(143.0, 440.0, 350.0, 460.0), "asdf_test_field")
     page1.AnnotPushBack(annot1)
 
     // Create a new signature form field in the PDFDoc. The name argument is optional;
@@ -243,7 +245,7 @@ func CertifyPDF(inDocpath string,
     // Acrobat doesn"t show digsigfield in side panel if it's without a widget. Using a
     // Rect with 0 width and 0 height, or setting the NoPrint/Invisible flags makes it invisible. 
     certificationSigField := doc.CreateDigitalSignatureField(inCertFieldName)
-    widgetAnnot := SignatureWidgetCreate(doc, NewRect(0.0, 100.0, 200.0, 150.0), certificationSigField)
+    widgetAnnot := SignatureWidgetCreate(doc, NewRect(143.0, 287.0, 219.0, 306.0), certificationSigField)
     page1.AnnotPushBack(widgetAnnot)
 
     // (OPTIONAL) Add an appearance to the signature field.
@@ -488,7 +490,7 @@ func TimestampAndEnableLTV(inDocpath string,
 
 func main(){
     // Initialize PDFNet
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     result := true
     inputPath := "../../TestFiles/"
@@ -498,46 +500,46 @@ func main(){
     // Create an approval signature field that we can sign after certifying.
     // (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
     // Open an existing PDF
-    doc := NewPDFDoc(inputPath + "tiger.pdf")
+    doc := NewPDFDoc(inputPath + "waiver.pdf")
         
-    widgetAnnotApproval := SignatureWidgetCreate(doc, NewRect(300.0, 300.0, 500.0, 200.0), "PDFTronApprovalSig")
+    widgetAnnotApproval := SignatureWidgetCreate(doc, NewRect(300.0, 287.0, 376.0, 306.0), "PDFTronApprovalSig")
     page1 := doc.GetPage(1)
     page1.AnnotPushBack(widgetAnnotApproval)
-    doc.Save(outputPath + "tiger_withApprovalField_output.pdf", uint(SDFDocE_remove_unused))
-    CertifyPDF(inputPath + "tiger_withApprovalField.pdf",
+    doc.Save(outputPath + "waiver_withApprovalField_output.pdf", uint(SDFDocE_remove_unused))
+    CertifyPDF(inputPath + "waiver_withApprovalField.pdf",
             "PDFTronCertificationSig",
             inputPath + "pdftron.pfx",
             "password",
             inputPath + "pdftron.bmp",
-            outputPath + "tiger_withApprovalField_certified_output.pdf")
-    PrintSignaturesInfo(outputPath + "tiger_withApprovalField_certified_output.pdf")
-    //////////////////////////////////////// TEST 2: sign a PDF with a certification and an unsigned signature field in it.
-    SignPDF(inputPath + "tiger_withApprovalField_certified.pdf",
+            outputPath + "waiver_withApprovalField_certified_output.pdf")
+    PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_output.pdf")
+    //////////////////////////////////////// TEST 2: approval-sign an existing, unsigned signature field in a PDF that already has a certified signature field.
+    SignPDF(inputPath + "waiver_withApprovalField_certified.pdf",
             "PDFTronApprovalSig",
             inputPath + "pdftron.pfx",
             "password",
             inputPath + "signature.jpg",
-            outputPath + "tiger_withApprovalField_certified_approved_output.pdf")
-    PrintSignaturesInfo(outputPath + "tiger_withApprovalField_certified_approved_output.pdf")
+            outputPath + "waiver_withApprovalField_certified_approved_output.pdf")
+    PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_approved_output.pdf")
     //////////////////////////////////////// TEST 3: Clear a certification from a document that is certified and has an approval signature.
-    ClearSignature(inputPath + "tiger_withApprovalField_certified_approved.pdf",
+    ClearSignature(inputPath + "waiver_withApprovalField_certified_approved.pdf",
             "PDFTronCertificationSig",
-            outputPath + "tiger_withApprovalField_certified_approved_certcleared_output.pdf")
-    PrintSignaturesInfo(outputPath + "tiger_withApprovalField_certified_approved_certcleared_output.pdf")
+            outputPath + "waiver_withApprovalField_certified_approved_certcleared_output.pdf")
+    PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_approved_certcleared_output.pdf")
 
     //////////////////////////////////////// TEST 4: Verify a document"s digital signatures.
-    if !VerifyAllAndPrint(inputPath + "tiger_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
+    if !VerifyAllAndPrint(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
         result = false
     }
     //////////////////////////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
-    if !VerifySimple(inputPath + "tiger_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
+    if !VerifySimple(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
        result = false
     }
     //////////////////////////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-    if !TimestampAndEnableLTV(inputPath + "tiger.pdf",
+    if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
         inputPath + "GlobalSignRootForTST.cer",
         inputPath + "signature.jpg",
-        outputPath+ "tiger_DocTimeStamp_LTV.pdf"){
+        outputPath+ "waiver_DocTimeStamp_LTV.pdf"){
         result = false
     }
      
@@ -545,7 +547,9 @@ func main(){
 
     if !result{
         fmt.Println("Tests FAILED!!!\n==========")
+        PDFNetTerminate()
         return
     }
+    PDFNetTerminate()
     fmt.Println("Tests successful.\n==========")
 }

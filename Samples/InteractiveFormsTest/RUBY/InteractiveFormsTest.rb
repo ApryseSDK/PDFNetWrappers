@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -70,7 +71,7 @@ def CreateCustomButtonAppearance(doc, button_down)
 end
 
 
-	PDFNet.Initialize	
+	PDFNet.Initialize(PDFTronLicense.Key)	
 	
 	#----------------------------------------------------------------------------------
 	# Example 1: Programatically create new Form Fields and Widget Annotations.
@@ -344,4 +345,5 @@ end
 
 	doc.Save(output_path + "forms_test1_flattened.pdf", 0)
 	doc.Close
+	PDFNet.Terminate
 	puts "Done."

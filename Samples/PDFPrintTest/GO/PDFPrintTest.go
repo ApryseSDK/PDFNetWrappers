@@ -8,6 +8,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 // The following sample illustrates how to print PDF document using currently selected
 // default printer. 
 // 
@@ -22,7 +24,7 @@ import (
 // should use PDFRasterizer or PDFNet vector output instead of PDFDraw.
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -50,4 +52,5 @@ func main(){
     pageSet := NewPageSet(1, doc.GetPageCount())
     boolValue := true
     PrintStartPrintJob(doc, "", doc.GetFileName(), "", pageSet, printerMode, &boolValue)
+    PDFNetTerminate()
 }

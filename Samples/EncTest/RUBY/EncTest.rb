@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -14,7 +15,7 @@ $stdout.sync = true
 # be removed from an existing PDF document.
 #---------------------------------------------------------------------------------------
 
-	PDFNet.Initialize()
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Relative path to the folder containing the test files.
 	input_path = "../../TestFiles/"
@@ -147,6 +148,7 @@ $stdout.sync = true
 	# Save the decrypted document
 	doc_enc.Save(output_path + "BusinessCardTemplate_enc_dec.pdf", 0)
 	doc_enc.Close()
+	PDFNet.Terminate
 	puts "Done. Result saved in BusinessCardTemplate_enc_dec.pdf"
 	puts "-------------------------------------------------"
 	puts "Test completed."

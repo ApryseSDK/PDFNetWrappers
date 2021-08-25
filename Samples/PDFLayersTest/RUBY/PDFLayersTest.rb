@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -156,7 +157,7 @@ def CreateGroup3(doc, layer)
 	return grp_obj
 end
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	# Create three layers...
 	doc = PDFDoc.new
@@ -257,4 +258,5 @@ end
 		
 		doc.Close
 	end
+	PDFNet.Terminate
 	puts "Done."

@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -44,7 +45,7 @@ $stdout.sync = true
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
 	# initialized only once, but calling Initialize multiple times is also fine.
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	#--------------------------------------------------------------------------------
 	# Example 1) Simple optimization of a pdf with default settings.
@@ -161,3 +162,4 @@ $stdout.sync = true
 
 	doc.SaveViewerOptimized(output_path + input_filename + "_SaveViewerOptimized.pdf", opts)
 	doc.Close
+	PDFNet.Terminate

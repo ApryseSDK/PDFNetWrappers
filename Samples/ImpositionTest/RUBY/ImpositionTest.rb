@@ -5,6 +5,7 @@
 
 require '../../../PDFNetC/Lib/PDFNetRuby'
 include PDFNetRuby
+require '../../LicenseKey/RUBY/LicenseKey'
 
 $stdout.sync = true
 
@@ -21,7 +22,7 @@ output_path = "../../TestFiles/Output/newsletter_booklet.pdf"
 # when the hard copy pages are compiled and folded correctly. 
 #-----------------------------------------------------------------------------------
 
-	PDFNet.Initialize
+	PDFNet.Initialize(PDFTronLicense.Key)
 	
 	puts "-------------------------------------------------"
 	puts "Opening the input pdf..."
@@ -82,5 +83,6 @@ output_path = "../../TestFiles/Output/newsletter_booklet.pdf"
 	end
 		
 	new_doc.Save(output_path, SDFDoc::E_linearized)
+	PDFNet.Terminate
 	puts "Done. Result saved in newsletter_booklet.pdf..."
 

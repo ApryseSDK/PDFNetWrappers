@@ -9,6 +9,8 @@ import (
 	. "pdftron"
 )
 
+import  "pdftron/Samples/LicenseKey/GO"
+
 //---------------------------------------------------------------------------------------
 // PDFNet includes a full support for FDF (Forms Data Format) and capability to merge/extract 
 // forms data (FDF) with/from PDF. This sample illustrates basic FDF merge/extract functionality 
@@ -16,7 +18,7 @@ import (
 //---------------------------------------------------------------------------------------
 
 func main(){
-    PDFNetInitialize()
+    PDFNetInitialize(PDFTronLicense.Key)
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -193,5 +195,6 @@ func main(){
     
     fdoc2.Save(outputPath + "sample_output.fdf")
     fdoc2.Close()
+    PDFNetTerminate()
     fmt.Println("Done. Results saved in sample_output.fdf")
 }
