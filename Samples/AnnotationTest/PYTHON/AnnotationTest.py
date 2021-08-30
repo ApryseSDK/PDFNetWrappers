@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 def AnnotationHighLevelAPI(doc):
     # The following code snippet traverses all annotations in the document
     print("Traversing all annotations in the document...")
@@ -521,7 +524,7 @@ def CreateTestAnnots(doc):
     st.RefreshAppearance()
     
 if __name__ == '__main__':
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     output_path = "../../TestFiles/Output/"
     input_path = "../../TestFiles/"
@@ -546,6 +549,7 @@ if __name__ == '__main__':
     outfname = output_path + "new_annot_test_api.pdf"
     doc1.Save(outfname, SDFDoc.e_linearized)
     print("Saved new_annot_test_api.pdf")
+    PDFNet.Terminate()
 
 
 

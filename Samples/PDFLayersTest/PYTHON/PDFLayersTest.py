@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------
 # This sample demonstrates how to create layers in PDF.
 # The sample also shows how to extract and render PDF layers in documents 
@@ -151,7 +154,7 @@ def CreateGroup3(doc, layer):
     return grp_obj
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Create three layers...
     doc = PDFDoc()
@@ -247,6 +250,7 @@ def main():
         pdfdraw.Export(page, output_path + "pdf_layers_non_oc.png")
         
         doc.Close()
+        PDFNet.Terminate()
         print("Done.")                     
 
 if __name__ == '__main__':

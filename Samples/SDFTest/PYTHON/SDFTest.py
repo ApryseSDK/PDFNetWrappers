@@ -8,11 +8,15 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
+
 # This sample illustrates how to use basic SDF API (also known as Cos) to edit an 
 # existing document.
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -73,6 +77,7 @@ def main():
     doc.Save(output_path + "sdftest_out.pdf", 0, "%PDF-1.4")
     doc.Close()
     
+    PDFNet.Terminate()
     print("Test Completed")
     
 if __name__ == '__main__':

@@ -8,6 +8,10 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
+
 # This sample project illustrates how to recompress bi-tonal images in an 
 # existing PDF document using JBIG2 compression. The sample is not intended 
 # to be a generic PDF optimization tool.
@@ -16,7 +20,7 @@ from PDFNetPython3 import *
 #   http://www.pdftron.com/net/samplecode/data/US061222892.pdf
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     pdf_doc = PDFDoc("../../TestFiles/US061222892-a.pdf")
     pdf_doc.InitSecurityHandler()
@@ -79,6 +83,7 @@ def main():
             
     pdf_doc.Save("../../TestFiles/Output/US061222892_JBIG2.pdf", SDFDoc.e_remove_unused)
     pdf_doc.Close()                
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()

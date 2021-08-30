@@ -9,6 +9,9 @@ import sys
 from PDFNetPython3 import *
 import os, io
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
@@ -30,7 +33,7 @@ output_path = "../../TestFiles/Output/"
 # In case you don't have access to Arial Unicode MS you can use cyberbit.ttf 
 # (http://ftp.netscape.com/pub/communicator/extras/fonts/windows/) instead.
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     doc = PDFDoc()
     eb = ElementBuilder()
@@ -165,6 +168,7 @@ def main():
     print("Done. Result saved in unicodewrite.pdf...")
     
     doc.Close()
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()

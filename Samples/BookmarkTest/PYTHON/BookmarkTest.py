@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------------
 # The sample code illustrates how to read and edit existing outline items and create 
 # new bookmarks using the high-level API.
@@ -53,7 +56,7 @@ def PrintOutlineTree (item):
             
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
 
     # The following example illustrates how to create and edit the outline tree
     # using high-level Bookmark methods.
@@ -185,6 +188,7 @@ def main():
     
     doc.Save(output_path + "bookmark_remote.pdf", SDFDoc.e_linearized)
     doc.Close()
+    PDFNet.Terminate()
     print("Done. Result saved in bookmark_remote.pdf")
     
 if __name__ == '__main__':

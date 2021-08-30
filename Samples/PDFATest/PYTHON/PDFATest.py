@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to parse and check if a PDF document meets the
 #    PDFA standard, using the PDFACompliance class object. 
@@ -42,7 +45,7 @@ def main():
     input_path = "../../TestFiles/"
     output_path = "../../TestFiles/Output/"
     
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     PDFNet.SetColorManagement()     # Enable color management (required for PDFA validation).
     
     #-----------------------------------------------------------
@@ -70,6 +73,7 @@ def main():
     PrintResults(pdf_a, filename)
     pdf_a.Destroy()
 	
+    PDFNet.Terminate()
     print("PDFACompliance test completed.")
 
 if __name__ == '__main__':

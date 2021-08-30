@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # This sample shows encryption support in PDFNet. The sample reads an encrypted document and 
 # sets a new SecurityHandler. The sample also illustrates how password protection can 
@@ -15,7 +18,7 @@ from PDFNetPython3 import *
 #---------------------------------------------------------------------------------------
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -146,6 +149,7 @@ def main():
     # Save the decrypted document
     doc_enc.Save(output_path + "BusinessCardTemplate_enc_dec.pdf", 0)
     doc_enc.Close()
+    PDFNet.Terminate()
     print("Done. Result saved in BusinessCardTemplate_enc_dec.pdf")
     print("-------------------------------------------------");
     print("Test completed.")

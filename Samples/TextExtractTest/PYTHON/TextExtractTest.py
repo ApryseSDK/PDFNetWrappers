@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
  
 def printStyle (style):
     sans_serif_str = ""
@@ -74,7 +77,7 @@ def RectTextSearch (reader, pos):
             
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing test files.
     input_path =  "../../TestFiles/newsletter.pdf"
@@ -226,7 +229,9 @@ def main():
         print("Field 3: " + s1)
         
         doc.Close()
+        
         print("Done.")
+    PDFNet.Terminate()
         
 if __name__ == '__main__':
     main()

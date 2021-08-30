@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
@@ -84,7 +87,7 @@ def main():
     # The first step in every application using PDFNet is to initialize the 
     # library. The library is usually initialized only once, but calling 
     # Initialize() multiple times is also fine.
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     PDFNet.SetResourcesPath("../../../Resources")
 
     # first the one-line conversion function
@@ -92,6 +95,7 @@ def main():
 
     # then the more flexible line-by-line conversion API
     FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf")
+    PDFNet.Terminate()
 
     print("Done.")
 

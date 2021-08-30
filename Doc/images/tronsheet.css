@@ -1,0 +1,74 @@
+
+body { background-color: silver; }
+
+ul, li { list-style-image: url(dot.gif); list-style-type: square; } 
+ul ul li { list-style-image: none; list-style-type: circle; } 
+
+a:link { color: #0077AA; 	}
+a:active, a:hover { color: gray; }
+a:visited { color: #003366; }
+
+td, div, h1, h2, h3, p, li { color: black; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; }
+input, textarea, select  { color: black; font-size: 7pt; font-family: verdana, geneva, arial, sans-serif; }
+
+th { text-align: center; color: white; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; background-color: #0099cc; }
+
+table.main  { margin-top: 50px; border: solid 1px gray; width: 720px; } 
+table.footer  { margin-top: 10px; width: 720px; } 
+
+a.curtool:link { color: black !important; background-color: white !important; }
+a.curtool:active { color: black !important; background-color: white !important; }
+a.curtool:visited { color: black !important; background-color: white !important; }
+a.curtool:hover { color: black !important;  background-color: white !important; }
+
+a.listtool:link { color: white; background-color: #0099cc; }
+a.listtool:active { color: black; background-color: white; }
+a.listtool:visited { color: white; background-color: white; }
+a.listtool:hover { color: black; background-color: #0099cc; }
+a.listtool { margin: 5px; padding: 2px; font-size: 8pt; font-family: verdana, geneva, arial, sans-serif; }
+
+a.listtool:hover, a.listtool:visited, a.listtool:active, a.listtool:link,
+a.curtool:link, a.curtool:active, a.curtool:hover, 
+a.curtool:visited { text-decoration: none; }
+
+td.cont { background-color: white; padding: 25px; }
+td.toolbar { padding-top: 15px; padding-bottom: 5px; padding-left: 25px; color: white; background-color:#0099cc; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; }
+td.toolbar a:link { color: white; }
+td.toolbar a.active { color: white; }
+td.toolbar a:visited { color: white; }
+td.toolbar a:hover { color: black; background-color: white; }
+td.toolbar a:link, td.toolbar a.active, td.toolbar a:visited, td.toolbar a:hover { text-decoration: none; }
+
+td.subbar { padding-top: 15px; padding-bottom: 5px; padding-left: 25px; color: #0099cc; background-color:white; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; }
+td.subbar a:link { color: #0099cc; background-color: white; }
+td.subbar a.active { color: #0099cc; background-color: white; }
+td.subbar a:visited { color: #0099cc; background-color: white; }
+td.subbar a:hover { color: white; background-color: #0099cc; }
+td.subbar a:link, td.subbar a.active, td.subbar a:visited, td.subbar a:hover { text-decoration: none; }
+
+a.cursel:link { color: white !important; background-color: #0099cc !important; }
+a.cursel:active { color: white !important; background-color: #0099cc !important; }
+a.cursel:visited { color: white !important; background-color: #0099cc !important; }
+a.cursel:hover { color: white !important;  background-color: #0099cc !important; }
+a.cursel:link, a.cursel:active, a.cursel:hover, a.cursel:visited { text-decoration: none; }
+
+
+
+
+td.footer { padding: 10px; background-color: silver; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif;  }
+
+td {}
+address { padding-left: 45px; }
+
+.prodtitle { margin-top:0px; color: #0099cc; font-size: 12pt; font-family: verdana, geneva, arial, sans-serif; }
+.prodtitle a:link { color: #0099cc; }
+.prodtitle a.active { color: black; }
+.prodtitle a:visited { color: #0099cc; }
+.prodtitle a:hover { color: white; background-color: #0099cc; }
+.prodtitle a:link, .prodtitle a.active, .prodtitle a:visited, .prodtitle a:hover { text-decoration: none; }
+
+
+/* This is the outline around the product order tables */
+.orderline { background-color: #FFFFFF; border: 2px silver solid; }
+table.orderline td { background-color: #EFEFEF; }
+

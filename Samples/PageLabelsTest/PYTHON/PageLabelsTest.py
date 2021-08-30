@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------
 # The sample illustrates how to work with PDF page labels.
 #
@@ -27,7 +30,7 @@ output_path = "../../TestFiles/Output/"
 
 def main():
     # Initialize PDFNet
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     #-----------------------------------------------------------
     # Example 1: Add page labels to an existing or newly created PDF
@@ -128,6 +131,7 @@ def main():
     doc.Save(output_path + "newsletter_with_pagelabels_removed.pdf", SDFDoc.e_linearized)
     
     doc.Close()    
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()

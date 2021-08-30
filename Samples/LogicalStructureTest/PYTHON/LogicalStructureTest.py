@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # This sample explores the structure and content of a tagged PDF document and dumps 
 # the structure information to the console window.
@@ -143,7 +146,7 @@ def ProcessStructElement2(element, mcid_doc_map, indent):
         
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -208,6 +211,7 @@ def main():
     print("\nDone 3.")
     doc.Save((output_path + "LogicalStructure.pdf"), SDFDoc.e_linearized)
     doc.Close()        
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()

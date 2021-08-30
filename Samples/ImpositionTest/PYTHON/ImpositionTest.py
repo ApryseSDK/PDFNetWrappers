@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------
 # The sample illustrates how multiple pages can be combined/imposed 
 # using PDFNet. Page imposition can be used to arrange/order pages 
@@ -18,7 +21,7 @@ from PDFNetPython3 import *
 #-----------------------------------------------------------------------------------
 
 def main(args):
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     resource_path = args[3] if len(args) > 3 else "../../../resources"
     
@@ -85,6 +88,7 @@ def main(args):
         i = i + 1
         
     new_doc.Save(fileout, SDFDoc.e_linearized)
+    PDFNet.Terminate()
     print("Done. Result saved in newsletter_booklet.pdf...")
     
 if __name__ == '__main__':

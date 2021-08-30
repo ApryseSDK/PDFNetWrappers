@@ -9,6 +9,9 @@ import sys
 from PDFNetPython3 import *
 import unicodedata
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 
@@ -32,7 +35,7 @@ def ProcessElements(reader):
         element = reader.Next()
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Extract text data from all pages in the document
     print("-------------------------------------------------")
@@ -55,6 +58,7 @@ def main():
     
     # Close the open document to free up document memory sooner.    
     doc.Close()
+    PDFNet.Terminate()
     print("Done.")
     
 if __name__ == '__main__':

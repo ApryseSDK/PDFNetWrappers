@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #-----------------------------------------------------------------------------------
 # This sample illustrates how to embed various raster image formats
 # (e.g. TIFF, JPEG, JPEG2000, JBIG2, GIF, PNG, BMP, etc.) in a PDF document.
@@ -17,7 +20,7 @@ from PDFNetPython3 import *
 #-----------------------------------------------------------------------------------
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing test files.
     input_path = "../../TestFiles/"
@@ -105,6 +108,8 @@ def main():
     
     doc.Save((output_path + "addimage.pdf"), SDFDoc.e_linearized);
     doc.Close()
+    PDFNet.Terminate()
+
     print("Done. Result saved in addimage.pdf...")
 
 if __name__ == '__main__':

@@ -9,6 +9,9 @@ import sys
 import platform
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to convert PDF, XPS, image, MS Office, and 
 # other image document formats to XOD format.
@@ -37,7 +40,7 @@ inputPath = "../../TestFiles/"
 outputPath = "../../TestFiles/Output/"
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
 
     # Sample 1:
     # Directly convert from PDF to XOD.
@@ -66,6 +69,7 @@ def main():
     print("Converting: " + inputPath + "simple-xps.xps" + " to: " + outputPath + "simple-xps.xod")
     Convert.ToXod(inputPath + "simple-xps.xps", outputPath + "simple-xps.xod")
 
+    PDFNet.Terminate()
     print("Done.")
 
 if __name__ == '__main__':

@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 def ProcessPath(reader, path):
     if path.IsClippingPath():
         print("This is a clipping path")
@@ -256,7 +259,7 @@ def ProcessElements(reader):
         element = reader.Next()
 
 if __name__ == '__main__':
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     # Relative path to the folder containing the test files.
     input_path = "../../TestFiles/"
@@ -282,4 +285,5 @@ if __name__ == '__main__':
         page_reader.End()
         itr.Next()
     doc.Close()
+    PDFNet.Terminate()
     print("Done.")

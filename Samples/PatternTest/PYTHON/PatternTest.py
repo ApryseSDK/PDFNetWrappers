@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
@@ -142,7 +145,7 @@ def CreateAxialShading(doc):
     
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
       
     doc = PDFDoc()
     writer = ElementWriter()
@@ -218,6 +221,7 @@ def main():
     print("Done. Result saved in patterns.pdf...")
     
     doc.Close()
+    PDFNet.Terminate()
 
 if __name__ == '__main__':
     main()

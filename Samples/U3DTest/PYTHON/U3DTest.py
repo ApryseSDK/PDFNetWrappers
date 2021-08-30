@@ -8,6 +8,9 @@
 import sys
 from PDFNetPython3 import *
 
+sys.path.append("../../LicenseKey/PYTHON")
+from LicenseKey import *
+
 # Relative path to the folder containing the test files.
 input_path = "../../TestFiles/"
 output_path = "../../TestFiles/Output/"
@@ -84,7 +87,7 @@ def Create3DAnnotation(doc, annots):
     ap_dict.Put("N", normal_ap_stream)
 
 def main():
-    PDFNet.Initialize()
+    PDFNet.Initialize(LicenseKey)
     
     doc = PDFDoc()
     page = doc.PageCreate()
@@ -95,6 +98,7 @@ def main():
     Create3DAnnotation(doc, annots)
     doc.Save(output_path + "dice_u3d.pdf", SDFDoc.e_linearized)
     doc.Close()
+    PDFNet.Terminate()
     print("Done.")
 
 if __name__ == '__main__':
