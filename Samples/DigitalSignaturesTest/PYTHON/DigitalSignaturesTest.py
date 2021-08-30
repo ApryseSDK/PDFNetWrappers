@@ -52,10 +52,9 @@
 ##----------------------------------------------------------------------------------------------------------------------
 
 
-import site, sys
-
-site.addsitedir('../../../PDFNetC/Lib')
-
+import site
+site.addsitedir("../../../PDFNetC/Lib")
+import sys
 from PDFNetPython import *
 
 sys.path.append("../../LicenseKey/PYTHON")
