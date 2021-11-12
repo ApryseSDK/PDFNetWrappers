@@ -46,7 +46,7 @@ function main()
 	try {
 		$fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
 	}
-	catch(Exception $e){
+	catch(\Exception $e){
 
 	}
 	if($fnt)
