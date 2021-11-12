@@ -3,6 +3,7 @@
 // Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
+namespace pdftron;
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
 include("../../LicenseKey/PHP/LicenseKey.php");
 	

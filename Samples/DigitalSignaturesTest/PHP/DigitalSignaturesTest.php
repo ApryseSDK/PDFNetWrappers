@@ -3,6 +3,7 @@
 // Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //----------------------------------------------------------------------------------------------------------------------
+namespace pdftron;
 
 //----------------------------------------------------------------------------------------------------------------------
 // This sample demonstrates the basic usage of the high-level digital signatures API in PDFNet.

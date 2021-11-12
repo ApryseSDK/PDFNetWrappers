@@ -166,6 +166,15 @@ endif()
 # - PDFNetPHP.so/.dll
 set_property(TARGET PDFNetPHP PROPERTY PREFIX "")
 
+# add namespace
+execute_process(
+    COMMAND php ${CMAKE_SOURCE_DIR}/PDFNetPHP/script.php ${PDFNetPHP_SourcesDir}/PDFNetPHP.php
+    RESULT_VARIABLE SOURCE_GEN_RESULT
+    OUTPUT_FILE ${PROJECT_BINARY_DIR}/swig.log
+    ERROR_FILE ${PROJECT_BINARY_DIR}/swig.err.log
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
 # Copy the bridge file
 configure_file(${PDFNetPHP_SourcesDir}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php COPYONLY)
 
