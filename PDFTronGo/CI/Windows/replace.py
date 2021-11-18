@@ -34,27 +34,27 @@ def execute_replace(input, script):
    return input
 
 def replacego(filepath):
-    filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
+	filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
 	with open(filepathname, "r") as f:
 	   cxx = f.read()
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.h")
+	filepathname = os.path.join(filepath, "pdftron_wrap.h")
 	with open(filepathname, "r") as f:
 	   h = f.read()
 
-    filepathname = os.path.join(filepath, "pdftron.go")
+	filepathname = os.path.join(filepath, "pdftron.go")
 	with open(filepathname, "r") as f:
 	   go = f.read()
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.cxx.replace")
+	filepathname = os.path.join(filepath, "pdftron_wrap.cxx.replace")
 	with open(filepathname, "r") as f:
 	   cxx_replace = f.readlines()
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.h.replace")
+	filepathname = os.path.join(filepath, "pdftron_wrap.h.replace")
 	with open(filepathname, "r") as f:
 	   h_replace = f.readlines()
 
-    filepathname = os.path.join(filepath, "pdftron.go.replace")
+	filepathname = os.path.join(filepath, "pdftron.go.replace")
 	with open(filepathname, "r") as f:
 	   go_replace = f.readlines()
 
@@ -69,14 +69,14 @@ def replacego(filepath):
 	cxx = cxx.replace(old_uid, uid)
 	h = h.replace(old_uid, uid)
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
+	filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
 	with open(filepathname, "w+") as f:
 	   f.write(cxx)
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.h")
+	filepathname = os.path.join(filepath, "pdftron_wrap.h")
 	with open(filepathname, "w+") as f:
 	   f.write(h)
 
-    filepathname = os.path.join(filepath, "pdftron.go")
+	filepathname = os.path.join(filepath, "pdftron.go")
 	with open(filepathname, "w+") as f:
 	   f.write(go)
