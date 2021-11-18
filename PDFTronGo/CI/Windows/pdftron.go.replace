@@ -1,0 +1,18 @@
+/
+#cgo LDFLAGS: -L./PDFNetC/Lib -lPDFNetC
+/
+#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC -lstdc++
+/
+
+/
+type _ sync.Mutex
+
+/
+type _ sync.Mutex
+
+
+//export Swiggo_pdftron_panic
+func Swiggo_pdftron_panic(message string) {
+	panic(message)
+}
+/
