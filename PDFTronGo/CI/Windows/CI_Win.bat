@@ -22,6 +22,21 @@ rmdir /s /q netcoreapp2.1
 rmdir /s /q netstandard2.1
 del libinfo.txt
 del PDFNet.jar
-cd ..del README.txtcd %HOMEPATH%copy pdftron.go.replace PDFNetWrappers\Build\PDFTronGo\pdftroncopy pdftron_wrap.cxx.replace PDFNetWrappers\Build\PDFTronGo\pdftroncopy pdftron_wrap.h.replace PDFNetWrappers\Build\PDFTronGo\pdftroncopy replace.py PDFNetWrappers\Build\PDFTronGo\pdftroncd PDFNetWrappers\Build\PDFTronGo\pdftronpython replace.pyg++ -shared -IPDFNetC/Headers -LPDFNetC/Lib -lPDFNetC pdftron_wrap.cxx -o pdftron.dllmove pdftron.dll PDFNetC\Libdel pdftron.go.replacedel pdftron_wrap.cxx.replacedel pdftron_wrap.h.replacedel replace.py
+cd ..
+del README.txt
+cd %HOMEPATH%
+copy pdftron.go.replace PDFNetWrappers\Build\PDFTronGo\pdftron
+copy pdftron_wrap.cxx.replace PDFNetWrappers\Build\PDFTronGo\pdftron
+copy pdftron_wrap.h.replace PDFNetWrappers\Build\PDFTronGo\pdftron
+copy replace.py PDFNetWrappers\Build\PDFTronGo\pdftron
+cd PDFNetWrappers\Build\PDFTronGo\pdftron
+python replace.py
+g++ -shared -IPDFNetC/Headers -LPDFNetC/Lib -lPDFNetC pdftron_wrap.cxx -o pdftron.dll
+move pdftron.dll PDFNetC\Lib
+del pdftron.go.replace
+del pdftron_wrap.cxx.replace
+del pdftron_wrap.h.replace
+del replace.py
 del pdftron_wrap.cxx
-del pdftron_wrap.hrmdir /s /q PDFNetC\Headers
+del pdftron_wrap.h
+rmdir /s /q PDFNetC\Headers
