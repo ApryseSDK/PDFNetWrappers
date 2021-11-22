@@ -93,9 +93,10 @@ func main() {
 		fmt.Println("Unable to run the sample: PDFTron SDK Word module not available.")
 		fmt.Println("---------------------------------------------------------------")
 		fmt.Println("The Word module is an optional add-on, available for download")
-		fmt.Println("at http://www.pdftron.com/. If you have already downloaded this")
-		fmt.Println("module, ensure that the SDK is able to find the required files")
-		fmt.Println("using the PDFNet::AddResourceSearchPath() function.")
+		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/.")
+		fmt.Println("If you have already downloaded this module, ensure that the SDK")
+		fmt.Println("is able to find the required files using the")
+		fmt.Println("PDFNetAddResourceSearchPath() function.")
 		fmt.Println("")
 		return
 	}

@@ -38,9 +38,10 @@ def main()
 		puts "Unable to run the sample: PDFTron SDK Word module not available."
 		puts "---------------------------------------------------------------"
 		puts "The Word module is an optional add-on, available for download"
-		puts "at http://www.pdftron.com/. If you have already downloaded this"
-		puts "module, ensure that the SDK is able to find the required files"
-		puts "using the PDFNet::AddResourceSearchPath() function."
+		puts "at https://www.pdftron.com/documentation/core/info/modules/."
+		puts "If you have already downloaded this module, ensure that the SDK"
+		puts "is able to find the required files using the"
+		puts "PDFNet.AddResourceSearchPath() function."
 		puts ""
 		return
 	end

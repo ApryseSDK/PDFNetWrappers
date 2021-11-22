@@ -38,10 +38,10 @@ function main()
 		echo(nl2br("\n"));
 		echo(nl2br("Unable to run the sample: PDFTron SDK Word module not available.\n"));
 		echo(nl2br("---------------------------------------------------------------\n"));
-		echo(nl2br("The Word module is an optional add-on, available for download\n"));
-		echo(nl2br("at http://www.pdftron.com/. If you have already downloaded this\n"));
-		echo(nl2br("module, ensure that the SDK is able to find the required files\n"));
-		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
+		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/.\n"));
+		echo(nl2br("If you have already downloaded this module, ensure that the SDK\n"));
+		echo(nl2br("is able to find the required files using the\n"));
+		echo(nl2br("PDFNet::AddResourceSearchPath() function.\n"));
 		echo(nl2br("\n"));
 		return;
 	}
