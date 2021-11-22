@@ -3,7 +3,7 @@
 // Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
-namespace pdftron;
+namespace Pdftron;
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
 include("../../LicenseKey/PHP/LicenseKey.php");
 	
@@ -30,6 +30,6 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 	$media_box->Update();
 	$input_doc->Save($output_path."tiger_shift.pdf", 0);
 	$input_doc->Close();
-    PDFNet::Terminate();
+	PDFNet::Terminate();
 	echo nl2br("Done. Result saved in tiger_shift...\n");
 ?>
