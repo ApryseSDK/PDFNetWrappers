@@ -163,6 +163,7 @@
     #include "PDF/Function.h"
     #include "PDF/GState.h"
     #include "PDF/Highlights.h"
+    #include "PDF/TextRange.h"
     #include "PDF/HTML2PDF.h"
     #include "PDF/Image.h"
 	#include "PDF/OCROptions.h"
@@ -816,6 +817,7 @@ namespace pdftron {
 
 //Rename to prevent naming conflict between nested class Highlight and Highlight.h
 %include "PDF/Highlights.h"
+%include "PDF/TextRange.h"
 %include "PDF/OCROptions.h"
 %include "PDF/OCRModule.h"
 %include "PDF/CADModule.h"
