@@ -162,6 +162,7 @@ def main():
         print("Running Mac build...")
         print("Downloading PDFNetC64...")
         urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetCMac.zip', "PDFNetCMac.zip")
+        extractArchive("PDFNetCMac.zip")
         copyPaths('PDFNetCMac', ['Headers', 'Lib', 'Resources'], '.')
         gccCommand = "gcc -fPIC -lstdc++ -I../Headers -L. -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o libpdftron.dylib"
 
