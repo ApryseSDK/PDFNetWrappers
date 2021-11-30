@@ -6,7 +6,7 @@
 project(PDFTronGo CXX)
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-find_program(GO_EXECUTABLE go PATHS $ENV{HOME}/go $ENV{PROGRAMFILES}/Go $ENV{SystemRoot}/System32/Go C:/Go /usr/local/bin/go /usr/bin/go ENV GOROOT GOPATH PATH_SUFFIXES bin)
+find_program(GO_EXECUTABLE go PATHS $ENV{HOME}/go ENV PATH GOROOT GOPATH PATH_SUFFIXES bin)
 
 if(GO_EXECUTABLE)
     message(STATUS "Found Go.")
