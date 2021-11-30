@@ -6,7 +6,8 @@
 project(PDFTronGo CXX)
 cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
 
-find_program(GO_EXECUTABLE go PATHS $ENV{HOME}/go ENV GOROOT GOPATH PATH_SUFFIXES bin)
+find_program(GO_EXECUTABLE go PATHS $ENV{HOME}/go $ENV{PROGRAMFILES}/Go $ENV{SystemRoot}/System32/Go C:/Go /usr/local/bin/go /usr/bin/go ENV GOROOT GOPATH PATH_SUFFIXES bin)
+
 if(GO_EXECUTABLE)
     message(STATUS "Found Go.")
 else ()
@@ -25,8 +26,7 @@ if (WIN32)
 elseif (UNIX)
     message(STATUS "Linux host platform detected.")
 elseif (APPLE)
-    message(STATUS "Mac host platform detected. Not implemented yet!")
-    return ()
+    message(STATUS "Mac host platform detected.")
 endif (WIN32)
 
 message(STATUS "Generating sources for Go bindings using swig...")
