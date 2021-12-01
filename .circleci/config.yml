@@ -18,24 +18,24 @@ jobs:
       xcode: '12.4.0'
     steps:
       - run:
-        name: checkout
-        command: git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+          name: checkout
+          command: git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
       - run:
-        name: install deps
-        command: brew install swig@4.0.2
+          name: install deps
+          command: brew install swig@4.0.2
       - run:
-        name: run build script
-        command: python3 build.py
+          name: run build script
+          command: python3 build.py
   go_build_linux:
     docker:
       - image: cimg/go:1.15
     steps:
       - run:
-        name: checkout
-        command: git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+          name: checkout
+          command: git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
       - run:
-        name: install deps
-        command: apt install -y python3
+          name: install deps
+          command: apt install -y python3
       - run:
-        name: run build script
-        command: python3 build.py
+          name: run build script
+          command: python3 build.py
