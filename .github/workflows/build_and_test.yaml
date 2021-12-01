@@ -5,7 +5,7 @@ jobs:
   go_build_and_test_mac:
     name: Go Mac Build and Test
     if: github.actor == 'tarfeef101'
-    runs-on: macos-11
+    runs-on: macos-10.15
     steps:
       - name: Checkout
         uses: actions/checkout@v2
