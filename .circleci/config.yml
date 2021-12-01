@@ -7,6 +7,10 @@ workflows:
           filters:
             branches:
               only: master
+      - go_build_linux:
+          filters:
+            branches:
+              only: circle_linux
 
 jobs:
   go_build_mac:
@@ -19,6 +23,19 @@ jobs:
       - run:
         name: install deps
         command: brew install swig@4.0.2
+      - run:
+        name: run build script
+        command: python3 build.py
+  go_build_linux:
+    docker:
+      - image: cimg/go:1.15
+    steps:
+      - run:
+        name: checkout
+        command: git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+      - run:
+        name: install deps
+        command: apt install -y python3
       - run:
         name: run build script
         command: python3 build.py
