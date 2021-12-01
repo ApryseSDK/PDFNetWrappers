@@ -1,6 +1,5 @@
 name: Run Go Builds and Test
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   go_build_and_test_mac:
