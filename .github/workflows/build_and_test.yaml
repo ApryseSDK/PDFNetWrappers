@@ -1,0 +1,17 @@
+name: Run Go Builds and Test
+on:
+  workflow_dispatch
+
+jobs:
+  go_build_and_test_mac:
+    name: Go Mac Build and Test
+    runs-on: macos-11
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # no need to install deps, all there already
+      #- name: Install deps
+      - name: Build
+        run: \
+          python3 build.py
