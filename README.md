@@ -25,7 +25,7 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 ## Get PDFNetC
 
-Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: http://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
+Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: https://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
 
 ## Strict PHP and SWIG version compatibility for PHP wrapper
 
@@ -100,7 +100,7 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
     cd wrappers_build # Move to that directory.
     git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    download PDFNetC64.zip from http://www.pdftron.com/downloads/PDFNetC64.zip # Download PDFNet.
+    download PDFNetC64.zip from https://www.pdftron.com/downloads/PDFNetC64.zip # Download PDFNet.
     unzip PDFNetC64.zip # Unzip PDFNet.
     move PDFNetC64/Headers . # Move PDFNet Headers/ into place.
     move PDFNetC64/Lib . # Move PDFNet Lib/ into place.
@@ -126,7 +126,7 @@ Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You c
     cd wrappers_build # Move to that directory.
     git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    wget http://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
+    wget https://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
     tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
     mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
@@ -151,7 +151,7 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
     cd wrappers_build # Move to that directory.
     git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    curl -L -O http://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
+    curl -L -O https://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
     unzip PDFNetCMac.zip # Unpack PDFNet.
     mv PDFNetCMac/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetCMac/Lib/ . # Move PDFNet Lib/ into place.
@@ -172,17 +172,17 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
 You can download pre-built binaries from the following links:
 
 ## Windows: Python 2.7.x
-http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
+https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
 
-http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
+https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
 
 ## Linux: Python 2.7.x and Ruby 2.x
-http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
+https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
 
-http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
+https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
 
 ## Mac OS: Python 2.7.x and Ruby 2.x
-http://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
+https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
 
 # Common Questions
 
