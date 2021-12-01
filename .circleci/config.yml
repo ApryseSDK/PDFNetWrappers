@@ -1,12 +1,12 @@
 workflows:
-  version: '2'
-    build_on_release_branches:
-      jobs:
-        - go_build_mac:
-          # matrix could be used to trigger, say, many versions of this on various platforms, etc
-            filters:
-              branches:
-                only: master
+  version: 2
+  build_on_release_branches:
+    jobs:
+      - go_build_mac:
+        # matrix could be used to trigger, say, many versions of this on various platforms, etc
+          filters:
+            branches:
+              only: master
 
 jobs:
   go_build_mac:
