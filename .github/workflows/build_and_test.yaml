@@ -13,5 +13,5 @@ jobs:
       # no need to install deps, all there already
       #- name: Install deps
       - name: Build
-        run: \
+       run: |
           python3 build.py
