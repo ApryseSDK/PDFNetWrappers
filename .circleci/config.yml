@@ -46,4 +46,7 @@ jobs:
           command: sudo apt install -y python3
       - run:
           name: run build script
-          command: python3 build.py
+          command: |
+            pwd
+            ls
+            python3 build.py
