@@ -23,6 +23,7 @@ jobs:
             mkdir ~/.ssh
             ssh-keyscan github.com >> ~/.ssh/known_hosts
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+            cd $CIRCLE_PROJECT_REPONAME
       - run:
           name: install deps
           command: brew install swig@4.0.2
@@ -39,6 +40,7 @@ jobs:
             mkdir ~/.ssh
             ssh-keyscan github.com >> ~/.ssh/known_hosts
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
+            cd $CIRCLE_PROJECT_REPONAME
       - run:
           name: install deps
           command: sudo apt install -y python3
