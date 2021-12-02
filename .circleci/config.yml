@@ -41,7 +41,7 @@ jobs:
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
       - run:
           name: install deps
-          command: apt install -y python3
+          command: sudo apt install -y python3
       - run:
           name: run build script
           command: python3 build.py
