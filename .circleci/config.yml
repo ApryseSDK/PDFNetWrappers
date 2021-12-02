@@ -23,13 +23,13 @@ jobs:
             mkdir ~/.ssh
             ssh-keyscan github.com >> ~/.ssh/known_hosts
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
-            cd $CIRCLE_PROJECT_REPONAME
       - run:
           name: install deps
           command: brew install swig@4.0.2
       - run:
           name: run build script
           command: python3 build.py
+          working_directory: PDFNetWrappers
   go_build_linux:
     docker:
       - image: cimg/go:1.15
@@ -40,13 +40,10 @@ jobs:
             mkdir ~/.ssh
             ssh-keyscan github.com >> ~/.ssh/known_hosts
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
-            cd $CIRCLE_PROJECT_REPONAME
       - run:
           name: install deps
           command: sudo apt install -y python3
       - run:
           name: run build script
-          command: |
-            pwd
-            ls
-            python3 build.py
+          command: python3 build.py
+          working_directory: PDFNetWrappers
