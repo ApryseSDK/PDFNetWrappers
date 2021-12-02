@@ -25,7 +25,9 @@ jobs:
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
       - run:
           name: install deps
-          command: brew install swig@4.0.2
+          command: |
+            brew update
+            brew install swig@4.0.2
       - run:
           name: run build script
           command: python3 build.py
@@ -42,7 +44,9 @@ jobs:
             git clone --depth 1 "$CIRCLE_REPOSITORY_URL" --branch "$CIRCLE_BRANCH"
       - run:
           name: install deps
-          command: sudo apt install -y python3 cmake
+          command: |
+            sudo apt update
+            sudo apt install -y python3 cmake
       - run:
           name: run build script
           command: python3 build.py
