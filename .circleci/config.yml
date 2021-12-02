@@ -46,7 +46,7 @@ jobs:
           name: install deps
           command: |
             sudo apt update
-            sudo apt install -y python3 cmake
+            sudo apt install -y python3 cmake swig
       - run:
           name: run build script
           command: python3 build.py
