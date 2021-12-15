@@ -13,7 +13,7 @@ import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
-// documents and files to Word.
+// documents and files to PowerPoint.
 //
 // The Structured Output module is an optional PDFNet Add-on that can be used to convert PDF
 // and other documents into Word, Excel, PowerPoint and HTML format.
@@ -38,17 +38,17 @@ func catch(err *error) {
 
 //---------------------------------------------------------------------------------------
 
-func ConvertToWordTest() (err error) {
+func ConvertToPowerPointTest() (err error) {
 	defer catch(&err)
 
-	// Convert PDF document to Word
-	fmt.Println("Converting PDF to Word")
+	// Convert PDF document to PowerPoint
+	fmt.Println("Converting PDF to PowerPoint")
 
 	inputFile := inputPath + "paragraphs_and_tables.pdf"
-	outputFile := outputPath + "paragraphs_and_tables.docx"
+	outputFile := outputPath + "paragraphs_and_tables.pptx"
 
-	// Convert to Word
-	ConvertToWord(inputFile, outputFile)
+	// Convert to PowerPoint
+	ConvertToPowerPoint(inputFile, outputFile)
 
 	fmt.Println("Result saved in " + outputFile)
 	return nil
@@ -56,22 +56,22 @@ func ConvertToWordTest() (err error) {
 
 //---------------------------------------------------------------------------------------
 
-func ConvertToWordWithOptionsTest() (err error) {
+func ConvertToPowerPointWithOptionsTest() (err error) {
 	defer catch(&err)
 
-	// Convert PDF document to Word with options
-	fmt.Println("Converting PDF to Word with options")
+	// Convert PDF document to PowerPoint with options
+	fmt.Println("Converting PDF to PowerPoint with options")
 
 	inputFile := inputPath + "paragraphs_and_tables.pdf"
-	outputFile := outputPath + "paragraphs_and_tables_first_page.docx"
+	outputFile := outputPath + "paragraphs_and_tables_first_page.pptx"
 
-	wordOutputOptions := NewWordOutputOptions()
+	powerPointOutputOptions := NewPowerPointOutputOptions()
 
 	// Convert only the first page
-	wordOutputOptions.SetPages(1, 1)
+	powerPointOutputOptions.SetPages(1, 1)
 
-	// Convert to Word
-	ConvertToWord(inputFile, outputFile, wordOutputOptions)
+	// Convert to PowerPoint
+	ConvertToPowerPoint(inputFile, outputFile, powerPointOutputOptions)
 
 	fmt.Println("Result saved in " + outputFile)
 	return nil
@@ -103,18 +103,18 @@ func main() {
 
 	//-----------------------------------------------------------------------------------
 
-	// Convert PDF document to Word
-	err := ConvertToWordTest()
+	// Convert PDF document to PowerPoint
+	err := ConvertToPowerPointTest()
 	if err != nil {
-		fmt.Println(fmt.Errorf("Unable to convert PDF document to Word, error: %s", err))
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to PowerPoint, error: %s", err))
 	}
 
 	//-----------------------------------------------------------------------------------
 
-	// Convert PDF document to Word with options
-	err = ConvertToWordWithOptionsTest()
+	// Convert PDF document to PowerPoint with options
+	err = ConvertToPowerPointWithOptionsTest()
 	if err != nil {
-		fmt.Println(fmt.Errorf("Unable to convert PDF document to Word, error: %s", err))
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to PowerPoint, error: %s", err))
 	}
 
 	//-----------------------------------------------------------------------------------

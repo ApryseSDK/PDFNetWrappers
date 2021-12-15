@@ -15,7 +15,7 @@ from LicenseKey import *
 
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to use the PDF.Convert utility class to convert 
-# documents and files to Word.
+# documents and files to Excel.
 #
 # The Structured Output module is an optional PDFNet Add-on that can be used to convert PDF
 # and other documents into Word, Excel, PowerPoint and HTML format.
@@ -52,35 +52,35 @@ def main():
     #-----------------------------------------------------------------------------------
 
     try:
-        # Convert PDF document to Word
-        print("Converting PDF to Word")
+        # Convert PDF document to Excel
+        print("Converting PDF to Excel")
 
-        outputFile = outputPath + "paragraphs_and_tables.docx"
+        outputFile = outputPath + "paragraphs_and_tables.xlsx"
 
-        Convert.ToWord(inputPath + "paragraphs_and_tables.pdf", outputFile)
+        Convert.ToExcel(inputPath + "paragraphs_and_tables.pdf", outputFile)
 
         print("Result saved in " + outputFile)
     except Exception as e:
-        print("Unable to convert PDF document to Word, error: " + str(e))
+        print("Unable to convert PDF document to Excel, error: " + str(e))
 
     #-----------------------------------------------------------------------------------
 
     try:
-        # Convert PDF document to Word with options
-        print("Converting PDF to Word with options")
+        # Convert PDF document to Excel with options
+        print("Converting PDF to Excel with options")
 
-        outputFile = outputPath + "paragraphs_and_tables_first_page.docx"
+        outputFile = outputPath + "paragraphs_and_tables_second_page.xlsx"
 
-        wordOutputOptions = WordOutputOptions()
+        excelOutputOptions = ExcelOutputOptions()
 
-        # Convert only the first page
-        wordOutputOptions.SetPages(1, 1)
+        # Convert only the second page
+        excelOutputOptions.SetPages(2, 2)
 
-        Convert.ToWord(inputPath + "paragraphs_and_tables.pdf", outputFile, wordOutputOptions)
+        Convert.ToExcel(inputPath + "paragraphs_and_tables.pdf", outputFile, excelOutputOptions)
 
         print("Result saved in " + outputFile)
     except Exception as e:
-        print("Unable to convert PDF document to Word, error: " + str(e))
+        print("Unable to convert PDF document to Excel, error: " + str(e))
 
     #-----------------------------------------------------------------------------------
 
