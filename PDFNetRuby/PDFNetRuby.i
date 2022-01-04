@@ -174,7 +174,7 @@
     #include "PDF/AdvancedImagingModule.h"
     #include "PDF/PDF2HtmlReflowParagraphsModule.h"
     #include "PDF/PDF2WordModule.h"
-	#include "PDF/StructuredOutputModule.h"
+    #include "PDF/StructuredOutputModule.h"
     #include "PDF/RefreshOptions.h"
     #include "PDF/DocumentConversion.h"
     #include "PDF/PDFDoc.h"
