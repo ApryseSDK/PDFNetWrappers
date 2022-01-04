@@ -31,6 +31,7 @@ function main()
 	// The first step in every application using PDFNet is to initialize the 
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
+	global $LicenseKey;
 	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
@@ -46,7 +47,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(Exception $e) {
+	catch(\Exception $e) {
 		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -83,7 +84,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(Exception $e) {
+	catch(\Exception $e) {
 		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -107,7 +108,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(Exception $e) {
+	catch(\Exception $e) {
 		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
 	}
 
