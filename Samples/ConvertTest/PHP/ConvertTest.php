@@ -138,7 +138,7 @@ function ConvertSpecificFormats()
 		Convert::ToTiff($inputPath . "newsletter.pdf", $outputPath. "newsletter.tiff", $tiff_options);
 		echo(nl2br("Saved newsletter.tiff\n"));
 	}
-    catch(Exception $e){
+    catch(\Exception $e){
         $ret = 1;
 	}
     return $ret;
