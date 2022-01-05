@@ -15,7 +15,7 @@ from LicenseKey import *
 
 #---------------------------------------------------------------------------------------
 # The following sample illustrates how to use the PDF.Convert utility class to convert 
-# documents and files to Word.
+# documents and files to PowerPoint.
 #
 # The Structured Output module is an optional PDFNet Add-on that can be used to convert PDF
 # and other documents into Word, Excel, PowerPoint and HTML format.
@@ -52,35 +52,35 @@ def main():
     #-----------------------------------------------------------------------------------
 
     try:
-        # Convert PDF document to Word
-        print("Converting PDF to Word")
+        # Convert PDF document to PowerPoint
+        print("Converting PDF to PowerPoint")
 
-        outputFile = outputPath + "paragraphs_and_tables.docx"
+        outputFile = outputPath + "paragraphs_and_tables.pptx"
 
-        Convert.ToWord(inputPath + "paragraphs_and_tables.pdf", outputFile)
+        Convert.ToPowerPoint(inputPath + "paragraphs_and_tables.pdf", outputFile)
 
         print("Result saved in " + outputFile)
     except Exception as e:
-        print("Unable to convert PDF document to Word, error: " + str(e))
+        print("Unable to convert PDF document to PowerPoint, error: " + str(e))
 
     #-----------------------------------------------------------------------------------
 
     try:
-        # Convert PDF document to Word with options
-        print("Converting PDF to Word with options")
+        # Convert PDF document to PowerPoint with options
+        print("Converting PDF to PowerPoint with options")
 
-        outputFile = outputPath + "paragraphs_and_tables_first_page.docx"
+        outputFile = outputPath + "paragraphs_and_tables_first_page.pptx"
 
-        wordOutputOptions = WordOutputOptions()
+        powerPointOutputOptions = PowerPointOutputOptions()
 
         # Convert only the first page
-        wordOutputOptions.SetPages(1, 1)
+        powerPointOutputOptions.SetPages(1, 1)
 
-        Convert.ToWord(inputPath + "paragraphs_and_tables.pdf", outputFile, wordOutputOptions)
+        Convert.ToPowerPoint(inputPath + "paragraphs_and_tables.pdf", outputFile, powerPointOutputOptions)
 
         print("Result saved in " + outputFile)
     except Exception as e:
-        print("Unable to convert PDF document to Word, error: " + str(e))
+        print("Unable to convert PDF document to PowerPoint, error: " + str(e))
 
     #-----------------------------------------------------------------------------------
 

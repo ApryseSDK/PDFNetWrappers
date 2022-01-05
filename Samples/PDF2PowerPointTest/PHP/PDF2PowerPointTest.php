@@ -9,15 +9,13 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
-// documents and files to HTML.
+// documents and files to PowerPoint.
 //
-// There are two HTML modules and one of them is an optional PDFNet Add-on.
-// 1. The built-in HTML module is used to convert PDF documents to fixed-position HTML
-//    documents.
-// 2. The optional add-on module is used to convert PDF documents to HTML documents with
-//    text flowing across the browser window.
+// The Structured Output module is an optional PDFNet Add-on that can be used to convert PDF
+// and other documents into Word, Excel, PowerPoint and HTML format.
 //
-// The PDFTron SDK HTML add-on module can be downloaded from http://www.pdftron.com/
+// The PDFTron SDK Structured Output module can be downloaded from
+// https://www.pdftron.com/documentation/core/info/modules/
 //
 // Please contact us if you have any questions.
 //---------------------------------------------------------------------------------------
@@ -37,28 +35,12 @@ function main()
 	
 	//-----------------------------------------------------------------------------------
 
-	try {
-		// Convert PDF document to HTML with fixed positioning option turned on (default)
-		echo(nl2br("Converting PDF to HTML with fixed positioning option turned on (default)\n"));
-
-		$outputFile = $outputPath."paragraphs_and_tables_fixed_positioning";
-
-		Convert::ToHtml($inputPath."paragraphs_and_tables.pdf", $outputFile);
-
-		echo(nl2br("Result saved in " . $outputFile . "\n"));
-	}
-	catch(\Exception $e) {
-		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
-	}
-
-	//-----------------------------------------------------------------------------------
-
 	PDFNet::AddResourceSearchPath("../../../PDFNetC/Lib/");
 
 	if (!StructuredOutputModule::IsModuleAvailable()) {
 		echo(nl2br("\n"));
-		echo(nl2br("Unable to run part of the sample: PDFTron SDK Structured Output module not available.\n"));
-		echo(nl2br("-------------------------------------------------------------------------------------\n"));
+		echo(nl2br("Unable to run the sample: PDFTron SDK Structured Output module not available.\n"));
+		echo(nl2br("-----------------------------------------------------------------------------\n"));
 		echo(nl2br("The Structured Output module is an optional add-on, available for download\n"));
 		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/. If you have already\n"));
 		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
@@ -70,46 +52,38 @@ function main()
 	//-----------------------------------------------------------------------------------
 
 	try {
-		// Convert PDF document to HTML with reflow full option turned on (1)
-		echo(nl2br("Converting PDF to HTML with reflow full option turned on (1)\n"));
+		// Convert PDF document to PowerPoint
+		echo(nl2br("Converting PDF to PowerPoint\n"));
 
-		$outputFile = $outputPath."paragraphs_and_tables_reflow_full.html";
+		$outputFile = $outputPath."paragraphs_and_tables.pptx";
 
-		$htmlOutputOptions = new HTMLOutputOptions();
-
-		// Set e_reflow_full content reflow setting
-		$htmlOutputOptions->SetContentReflowSetting(HTMLOutputOptions::e_reflow_full);
-
-		Convert::ToHtml($inputPath."paragraphs_and_tables.pdf", $outputFile, $htmlOutputOptions);
+		Convert::ToPowerPoint($inputPath."paragraphs_and_tables.pdf", $outputFile);
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
 	catch(\Exception $e) {
-		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
+		echo(nl2br("Unable to convert PDF document to PowerPoint, error: " . $e->getMessage() . "\n"));
 	}
 
 	//-----------------------------------------------------------------------------------
 
 	try {
-		// Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
-		echo(nl2br("Converting PDF to HTML with reflow full option turned on (only converting the first page) (2)\n"));
+		// Convert PDF document to PowerPoint with options
+		echo(nl2br("Converting PDF to PowerPoint with options\n"));
 
-		$outputFile = $outputPath."paragraphs_and_tables_reflow_full_first_page.html";
+		$outputFile = $outputPath."paragraphs_and_tables_first_page.pptx";
 
-		$htmlOutputOptions = new HTMLOutputOptions();
-
-		// Set e_reflow_full content reflow setting
-		$htmlOutputOptions->SetContentReflowSetting(HTMLOutputOptions::e_reflow_full);
+		$powerPointOutputOptions = new PowerPointOutputOptions(); // Convert::PowerPointOutputOptions();
 
 		// Convert only the first page
-		$htmlOutputOptions->SetPages(1, 1);
+		$powerPointOutputOptions->SetPages(1, 1);
 
-		Convert::ToHtml($inputPath."paragraphs_and_tables.pdf", $outputFile, $htmlOutputOptions);
+		Convert::ToPowerPoint($inputPath."paragraphs_and_tables.pdf", $outputFile, $powerPointOutputOptions);
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
 	catch(\Exception $e) {
-		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
+		echo(nl2br("Unable to convert PDF document to PowerPoint, error: " . $e->getMessage() . "\n"));
 	}
 
 	//-----------------------------------------------------------------------------------
