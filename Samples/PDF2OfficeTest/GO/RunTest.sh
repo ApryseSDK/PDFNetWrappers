@@ -1,5 +1,5 @@
 #!/bin/sh
-TEST_NAME=PDF2WExcelTest
+TEST_NAME=PDF2OfficeTest
 BIN_PATH="../../bin"
 
 if [ ! -d $BIN_PATH ] 

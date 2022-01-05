@@ -1,4 +1,4 @@
 #!/bin/sh
-TEST_NAME=PDF2ExcelTest
+TEST_NAME=PDF2OfficeTest
 export LD_LIBRARY_PATH=../../../PDFNetC/Lib
-php $TEST_NAME.php
+ruby $TEST_NAME.rb

@@ -1,6 +1,6 @@
 @echo off
 setlocal
-set TEST_NAME=PDF2WordTest
+set TEST_NAME=PDF2OfficeTest
 SET PATH=..\..\..\PDFNetC\Lib;%PATH%
 ruby.exe %TEST_NAME%.rb
 endlocal
