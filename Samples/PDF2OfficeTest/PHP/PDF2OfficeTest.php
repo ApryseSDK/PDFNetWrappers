@@ -9,7 +9,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
-// documents and files to Excel.
+// documents and files to Word, Excel and PowerPoint.
 //
 // The Structured Output module is an optional PDFNet Add-on that can be used to convert PDF
 // and other documents into Word, Excel, PowerPoint and HTML format.
@@ -52,6 +52,43 @@ function main()
 	//-----------------------------------------------------------------------------------
 
 	try {
+		// Convert PDF document to Word
+		echo(nl2br("Converting PDF to Word\n"));
+
+		$outputFile = $outputPath."paragraphs_and_tables.docx";
+
+		Convert::ToWord($inputPath."paragraphs_and_tables.pdf", $outputFile);
+
+		echo(nl2br("Result saved in " . $outputFile . "\n"));
+	}
+	catch(\Exception $e) {
+		echo(nl2br("Unable to convert PDF document to Word, error: " . $e->getMessage() . "\n"));
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	try {
+		// Convert PDF document to Word with options
+		echo(nl2br("Converting PDF to Word with options\n"));
+
+		$outputFile = $outputPath."paragraphs_and_tables_first_page.docx";
+
+		$wordOutputOptions = new WordOutputOptions(); // Convert::WordOutputOptions();
+
+		// Convert only the first page
+		$wordOutputOptions->SetPages(1, 1);
+
+		Convert::ToWord($inputPath."paragraphs_and_tables.pdf", $outputFile, $wordOutputOptions);
+
+		echo(nl2br("Result saved in " . $outputFile . "\n"));
+	}
+	catch(\Exception $e) {
+		echo(nl2br("Unable to convert PDF document to Word, error: " . $e->getMessage() . "\n"));
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	try {
 		// Convert PDF document to Excel
 		echo(nl2br("Converting PDF to Excel\n"));
 
@@ -87,6 +124,44 @@ function main()
 	}
 
 	//-----------------------------------------------------------------------------------
+
+	try {
+		// Convert PDF document to PowerPoint
+		echo(nl2br("Converting PDF to PowerPoint\n"));
+
+		$outputFile = $outputPath."paragraphs_and_tables.pptx";
+
+		Convert::ToPowerPoint($inputPath."paragraphs_and_tables.pdf", $outputFile);
+
+		echo(nl2br("Result saved in " . $outputFile . "\n"));
+	}
+	catch(\Exception $e) {
+		echo(nl2br("Unable to convert PDF document to PowerPoint, error: " . $e->getMessage() . "\n"));
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	try {
+		// Convert PDF document to PowerPoint with options
+		echo(nl2br("Converting PDF to PowerPoint with options\n"));
+
+		$outputFile = $outputPath."paragraphs_and_tables_first_page.pptx";
+
+		$powerPointOutputOptions = new PowerPointOutputOptions(); // Convert::PowerPointOutputOptions();
+
+		// Convert only the first page
+		$powerPointOutputOptions->SetPages(1, 1);
+
+		Convert::ToPowerPoint($inputPath."paragraphs_and_tables.pdf", $outputFile, $powerPointOutputOptions);
+
+		echo(nl2br("Result saved in " . $outputFile . "\n"));
+	}
+	catch(\Exception $e) {
+		echo(nl2br("Unable to convert PDF document to PowerPoint, error: " . $e->getMessage() . "\n"));
+	}
+
+	//-----------------------------------------------------------------------------------
+
 	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }

@@ -13,7 +13,7 @@ import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
-// documents and files to PowerPoint.
+// documents and files to Word, Excel and PowerPoint.
 //
 // The Structured Output module is an optional PDFNet Add-on that can be used to convert PDF
 // and other documents into Word, Excel, PowerPoint and HTML format.
@@ -34,6 +34,88 @@ func catch(err *error) {
     if r := recover(); r != nil {
         *err = fmt.Errorf("%v", r)
     }
+}
+
+//---------------------------------------------------------------------------------------
+
+func ConvertToWordTest() (err error) {
+	defer catch(&err)
+
+	// Convert PDF document to Word
+	fmt.Println("Converting PDF to Word")
+
+	inputFile := inputPath + "paragraphs_and_tables.pdf"
+	outputFile := outputPath + "paragraphs_and_tables.docx"
+
+	// Convert to Word
+	ConvertToWord(inputFile, outputFile)
+
+	fmt.Println("Result saved in " + outputFile)
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
+
+func ConvertToWordWithOptionsTest() (err error) {
+	defer catch(&err)
+
+	// Convert PDF document to Word with options
+	fmt.Println("Converting PDF to Word with options")
+
+	inputFile := inputPath + "paragraphs_and_tables.pdf"
+	outputFile := outputPath + "paragraphs_and_tables_first_page.docx"
+
+	wordOutputOptions := NewWordOutputOptions()
+
+	// Convert only the first page
+	wordOutputOptions.SetPages(1, 1)
+
+	// Convert to Word
+	ConvertToWord(inputFile, outputFile, wordOutputOptions)
+
+	fmt.Println("Result saved in " + outputFile)
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
+
+func ConvertToExcelTest() (err error) {
+	defer catch(&err)
+
+	// Convert PDF document to Excel
+	fmt.Println("Converting PDF to Excel")
+
+	inputFile := inputPath + "paragraphs_and_tables.pdf"
+	outputFile := outputPath + "paragraphs_and_tables.xlsx"
+
+	// Convert to Excel
+	ConvertToExcel(inputFile, outputFile)
+
+	fmt.Println("Result saved in " + outputFile)
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
+
+func ConvertToExcelWithOptionsTest() (err error) {
+	defer catch(&err)
+
+	// Convert PDF document to Excel with options
+	fmt.Println("Converting PDF to Excel with options")
+
+	inputFile := inputPath + "paragraphs_and_tables.pdf"
+	outputFile := outputPath + "paragraphs_and_tables_second_page.xlsx"
+
+	excelOutputOptions := NewExcelOutputOptions()
+
+	// Convert only the second page
+	excelOutputOptions.SetPages(2, 2)
+
+	// Convert to Excel
+	ConvertToExcel(inputFile, outputFile, excelOutputOptions)
+
+	fmt.Println("Result saved in " + outputFile)
+	return nil
 }
 
 //---------------------------------------------------------------------------------------
@@ -103,8 +185,40 @@ func main() {
 
 	//-----------------------------------------------------------------------------------
 
+	// Convert PDF document to Word
+	err := ConvertToWordTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to Word, error: %s", err))
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	// Convert PDF document to Word with options
+	err = ConvertToWordWithOptionsTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to Word, error: %s", err))
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	// Convert PDF document to Excel
+	err = ConvertToExcelTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to Excel, error: %s", err))
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	// Convert PDF document to Excel with options
+	err = ConvertToExcelWithOptionsTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to Excel, error: %s", err))
+	}
+
+	//-----------------------------------------------------------------------------------
+
 	// Convert PDF document to PowerPoint
-	err := ConvertToPowerPointTest()
+	err = ConvertToPowerPointTest()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to convert PDF document to PowerPoint, error: %s", err))
 	}
