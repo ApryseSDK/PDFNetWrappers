@@ -117,9 +117,9 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
         curr := digsigFitr.Current()
         result := curr.Verify(opts)
         if result.GetVerificationStatus(){
-            fmt.Printf("Signature verified, objnum: %d", curr.GetSDFObj().GetObjNum())
+            fmt.Printf("Signature verified, objnum: %d\n", curr.GetSDFObj().GetObjNum())
         }else{
-            fmt.Printf("Signature verification failed, objnum: %d", curr.GetSDFObj().GetObjNum())
+            fmt.Printf("Signature verification failed, objnum: %d\n", curr.GetSDFObj().GetObjNum())
             verificationStatus = false
         }
         digest_algorithm := result.GetDigestAlgorithm()
@@ -138,7 +138,7 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
         }else{
             //unrecognized document status
         }
-        fmt.Printf("Detailed verification result: \n\t%s\n\t%s\n\t%s\n\t%s", 
+        fmt.Printf("Detailed verification result: \n\t%s\n\t%s\n\t%s\n\t%s\n", 
             result.GetDocumentStatusAsString(),
             result.GetDigestStatusAsString(),
             result.GetTrustStatusAsString(),
@@ -146,7 +146,7 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
             
         changes := result.GetDisallowedChanges()
         for i := 0; i < int(changes.Size()); i++ {
-            fmt.Printf("\tDisallowed change: %s, objnum: %d", changes.Get(i).GetTypeAsString(), changes.Get(i).GetObjNum())
+            fmt.Printf("\tDisallowed change: %s, objnum: %d\n", changes.Get(i).GetTypeAsString(), changes.Get(i).GetObjNum())
         }
 
         // Get and print all the detailed trust-related results, if they are available.
