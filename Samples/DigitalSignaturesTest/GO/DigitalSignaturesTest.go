@@ -64,7 +64,7 @@ func VerifySimple(inDocpath string, inPublicKeyFilePath string) bool{
     opts := NewVerificationOptions(VerificationOptionsE_compatibility_and_archiving)
 
     // Add trust root to store of trusted certificates contained in VerificationOptions.
-    opts.AddTrustedCertificate(inPublicKeyFilePath)
+    opts.AddTrustedCertificate(inPublicKeyFilePath, uint16(VerificationOptionsE_default_trust | VerificationOptionsE_certification_trust))
 
     result := doc.VerifySignedDigitalSignatures(opts)
         
@@ -108,7 +108,7 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
     for i := 0; i < int(trustedCertBuf.Size()); i ++ {
         trustedCertBytes[i] = trustedCertBuf.Get(i)
     }
-    opts.AddTrustedCertificate(&trustedCertBytes[0], int64(len(trustedCertBytes)))
+    opts.AddTrustedCertificate(&trustedCertBytes[0], int64(len(trustedCertBytes)), uint16(VerificationOptionsE_default_trust | VerificationOptionsE_certification_trust))
 
     // Iterate over the signatures and verify all of them.
     digsigFitr := doc.GetDigitalSignatureFieldIterator()
@@ -117,9 +117,9 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
         curr := digsigFitr.Current()
         result := curr.Verify(opts)
         if result.GetVerificationStatus(){
-            fmt.Printf("Signature verified, objnum: %d", curr.GetSDFObj().GetObjNum())
+            fmt.Printf("Signature verified, objnum: %d\n", curr.GetSDFObj().GetObjNum())
         }else{
-            fmt.Printf("Signature verification failed, objnum: %d", curr.GetSDFObj().GetObjNum())
+            fmt.Printf("Signature verification failed, objnum: %d\n", curr.GetSDFObj().GetObjNum())
             verificationStatus = false
         }
         digest_algorithm := result.GetDigestAlgorithm()
@@ -138,7 +138,7 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
         }else{
             //unrecognized document status
         }
-        fmt.Printf("Detailed verification result: \n\t%s\n\t%s\n\t%s\n\t%s", 
+        fmt.Printf("Detailed verification result: \n\t%s\n\t%s\n\t%s\n\t%s\n", 
             result.GetDocumentStatusAsString(),
             result.GetDigestStatusAsString(),
             result.GetTrustStatusAsString(),
@@ -146,7 +146,7 @@ func VerifyAllAndPrint(inDocpath string, inPublicKeyFilePath string) bool{
             
         changes := result.GetDisallowedChanges()
         for i := 0; i < int(changes.Size()); i++ {
-            fmt.Printf("\tDisallowed change: %s, objnum: %d", changes.Get(i).GetTypeAsString(), changes.Get(i).GetObjNum())
+            fmt.Printf("\tDisallowed change: %s, objnum: %d\n", changes.Get(i).GetTypeAsString(), changes.Get(i).GetObjNum())
         }
 
         // Get and print all the detailed trust-related results, if they are available.
@@ -430,7 +430,7 @@ func TimestampAndEnableLTV(inDocpath string,
     inOutpath string) bool{
     doc := NewPDFDoc(inDocpath)
     doctimestampSignatureField := doc.CreateDigitalSignatureField()
-    tstConfig := NewTimestampingConfiguration("http://adobe-timestamp.globalsign.com/?signature=sha2")
+    tstConfig := NewTimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced")
     opts := NewVerificationOptions(VerificationOptionsE_compatibility_and_archiving)
 //   It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 //   the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -501,11 +501,12 @@ func main(){
     // (Must be done before calling CertifyOnNextSave/SignOnNextSave/WithCustomHandler.)
     // Open an existing PDF
     doc := NewPDFDoc(inputPath + "waiver.pdf")
-        
     widgetAnnotApproval := SignatureWidgetCreate(doc, NewRect(300.0, 287.0, 376.0, 306.0), "PDFTronApprovalSig")
     page1 := doc.GetPage(1)
     page1.AnnotPushBack(widgetAnnotApproval)
     doc.Save(outputPath + "waiver_withApprovalField_output.pdf", uint(SDFDocE_remove_unused))
+
+    //////////////////////////////////////// TEST 1: certify a PDF.
     CertifyPDF(inputPath + "waiver_withApprovalField.pdf",
             "PDFTronCertificationSig",
             inputPath + "pdftron.pfx",
@@ -513,6 +514,7 @@ func main(){
             inputPath + "pdftron.bmp",
             outputPath + "waiver_withApprovalField_certified_output.pdf")
     PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_output.pdf")
+
     //////////////////////////////////////// TEST 2: approval-sign an existing, unsigned signature field in a PDF that already has a certified signature field.
     SignPDF(inputPath + "waiver_withApprovalField_certified.pdf",
             "PDFTronApprovalSig",
@@ -521,27 +523,30 @@ func main(){
             inputPath + "signature.jpg",
             outputPath + "waiver_withApprovalField_certified_approved_output.pdf")
     PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_approved_output.pdf")
+
     //////////////////////////////////////// TEST 3: Clear a certification from a document that is certified and has an approval signature.
     ClearSignature(inputPath + "waiver_withApprovalField_certified_approved.pdf",
             "PDFTronCertificationSig",
             outputPath + "waiver_withApprovalField_certified_approved_certcleared_output.pdf")
     PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_approved_certcleared_output.pdf")
 
-    //////////////////////////////////////// TEST 4: Verify a document"s digital signatures.
+    //////////////////////////////////////// TEST 4: Verify a document's digital signatures.
     if !VerifyAllAndPrint(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
         result = false
     }
+
     //////////////////////////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
     if !VerifySimple(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
        result = false
     }
+
     //////////////////////////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-    if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
-        inputPath + "GlobalSignRootForTST.cer",
-        inputPath + "signature.jpg",
-        outputPath+ "waiver_DocTimeStamp_LTV.pdf"){
-        result = false
-    }
+    //if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
+    //    inputPath + "GlobalSignRootForTST.cer",
+    //    inputPath + "signature.jpg",
+    //    outputPath + "waiver_DocTimeStamp_LTV.pdf"){
+    //    result = false
+    //}
      
     //////////////////////////////////////// End of tests. ////////////////////////////////////////
 
