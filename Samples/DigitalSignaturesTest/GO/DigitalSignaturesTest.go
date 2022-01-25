@@ -541,12 +541,12 @@ func main(){
     }
 
     //////////////////////////////////////// TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-    if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
-        inputPath + "GlobalSignRootForTST.cer",
-        inputPath + "signature.jpg",
-        outputPath + "waiver_DocTimeStamp_LTV.pdf"){
-        result = false
-    }
+    //if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
+    //    inputPath + "GlobalSignRootForTST.cer",
+    //    inputPath + "signature.jpg",
+    //    outputPath + "waiver_DocTimeStamp_LTV.pdf"){
+    //    result = false
+    //}
      
     //////////////////////////////////////// End of tests. ////////////////////////////////////////
 
