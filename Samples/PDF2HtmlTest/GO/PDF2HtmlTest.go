@@ -139,7 +139,7 @@ func main() {
 
 	//-----------------------------------------------------------------------------------
 
-	// CConvert PDF document to HTML with reflow full option turned on (1)
+	// Convert PDF document to HTML with reflow full option turned on (1)
 	err = ConvertToHtmlReflowParagraphTest1()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to convert PDF document to HTML, error: %s", err))
@@ -147,7 +147,7 @@ func main() {
 
 	//-----------------------------------------------------------------------------------
 
-	// CConvert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
+	// Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
 	err = ConvertToHtmlReflowParagraphTest2()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to convert PDF document to HTML, error: %s", err))
