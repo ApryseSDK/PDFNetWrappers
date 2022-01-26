@@ -104,11 +104,11 @@ func main(){
     settings := NewWebPageSettings()
     settings.SetZoom(0.5)
     converter.InsertFromURL(host + page0, settings)
-    is_conversion_0_successful = converter.Convert(doc)
+    is_conversion_0_successful := converter.Convert(doc)
 
     // convert page 1 with the same settings, appending generated PDF pages to doc
     converter.InsertFromURL(host + page1, settings)
-    is_conversion_1_successful = converter.Convert(doc)
+    is_conversion_1_successful := converter.Convert(doc)
 	
     // convert page 2 with different settings, appending generated PDF pages to doc
     another_converter := NewHTML2PDF()
@@ -116,7 +116,7 @@ func main(){
     another_settings := NewWebPageSettings()
     another_settings.SetPrintBackground(false)
     another_converter.InsertFromURL(host + page2, another_settings)
-    is_conversion_2_successful = another_converter.Convert(doc);
+    is_conversion_2_successful := another_converter.Convert(doc);
 
     if(is_conversion_0_successful && is_conversion_1_successful && is_conversion_2_successful){
         doc.Save(outputPath + "_03.pdf", uint(SDFDocE_linearized))
