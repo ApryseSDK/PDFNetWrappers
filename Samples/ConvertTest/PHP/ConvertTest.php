@@ -57,7 +57,7 @@ function ConvertToPdfFromFile()
 			echo(nl2br("Converted file: ".$inputFile."\n"));
 			echo(nl2br("to: ".$outputFile."\n"));
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			$ret = 1;
 		}
