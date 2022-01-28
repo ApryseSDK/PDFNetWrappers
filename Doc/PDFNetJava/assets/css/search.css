@@ -1,0 +1,49 @@
+#search {
+  width: auto;
+  margin: 0;
+}
+
+#searchForm {
+  width: auto !important;
+}
+
+#search-button {
+  display: none;
+}
+
+#search_autocomplete {
+  border: 1px solid #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+  width: 400px;
+  display: block;
+  min-height: 35px;
+  padding: 0;
+  padding-left: 15px;
+  border-radius: 30px;
+}
+
+table.gsc-search-box {
+  margin: 0;
+  background: 0 0;
+  font-size: 14px;
+}
+
+#search_filtered {
+  margin: 0;
+}
+
+#search_filtered .jd-autocomplete {
+  font-size: 14px !important;
+}
+
+#search_filtered .jd-autocomplete a {
+  display: inline-block;
+  max-width: 385px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#search_filtered .jd-selected {
+  background: #0097cf !important;
+}

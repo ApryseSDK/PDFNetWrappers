@@ -1,0 +1,2872 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+  <meta name="description" content="Javadoc API documentation for PDFTron Systems Inc.." />
+
+<link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+<title>
+
+  Class Index - PDFTron PDFNet SDK API Reference
+
+
+| PDFTron Systems Inc.
+
+</title>
+<link href="./../assets/doclava-developer-docs.css" rel="stylesheet" type="text/css" />
+<link href="./../assets/customizations.css" rel="stylesheet" type="text/css" />
+<script src="./../assets/jquery-resizable.min.js" type="text/javascript"></script>
+<script src="./../assets/doclava-developer-docs.js" type="text/javascript"></script>
+<script src="./../assets/prettify.js" type="text/javascript"></script>
+<script src="./../assets/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+  setToRoot("./", "./../assets/");
+</script>
+<script src="./../assets/doclava-developer-reference.js" type="text/javascript"></script>
+<script src="./../assets/navtree_data.js" type="text/javascript"></script>
+<script src="./../assets/customizations.js" type="text/javascript"></script>
+<noscript>
+  <style type="text/css">
+    html,body{overflow:auto;}
+    #body-content{position:relative; top:0;}
+    #doc-content{overflow:visible;border-left:3px solid #666;}
+    #side-nav{padding:0;}
+    #side-nav .toggle-list ul {display:block;}
+    #resize-packages-nav{border-bottom:3px solid #666;}
+  </style>
+</noscript>
+</head>
+
+
+<div class="header">
+  <nav class="nav-bar">
+    
+      <a class="nav-brand" href="https://www.pdftron.com/"><img title="" width="150" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0MDggNDQiID48cGF0aCBmaWxsPSIjMDBBNUU0IiBkPSJNMzkzLjE3LjRWMzJjMCAuNi0uMjYgMS4xLS43NiAxLjUtLjUyLjMtMS4xMi41LTEuODMuNS0uNTcgMC0xLjEzLS4xLTEuNjgtLjMtLjUzLS4yLS45Ny0uNi0xLjMtMS0xLjE4LTEuNy0zLjA1LTYtNS42LTEyLjgtMi4zLTYuMy00LjczLTEwLjgtNy4yOC0xMy42LTMuODQtNC4yLTguOTctNi4zLTE1LjQtNi4zLTQuODEgMC04Ljc4LjctMTEuODggMi0zLjU3IDEuNy01LjM3IDQtNS4zNyA3LjF2MzMuN2gxNC40MVYxMS4yYzAtLjYuMTctMSAuNTEtMS40LjMzLS4zLjk3LS41IDEuODktLjcgMS4zNy0uMSAzLjEzIDEuNyA1LjI2IDUuNSAxLjUxIDIuNiAzLjMyIDYuNSA1LjQ3IDExLjYgMi4yOSA1LjQgMy41OCA4LjQgMy44NyA4LjkgMS40IDIuOCAzLjgyIDQuOSA3LjIzIDYuNCAzLjAzIDEuMyA2LjQ4IDEuOSAxMC4zNiAxLjkgNC40MyAwIDguMjUtLjggMTEuNDQtMi40IDMuMzgtMS44IDUuMDctNCA1LjA3LTYuN1YuNGgtMTQuNDF6bS03MC44OCAyOS41Yy0yLjA3IDIuNi00LjgyIDMuOS04LjIzIDMuOWgtMTYuNDJjLTMuNDQgMC02LjE5LTEuMy04LjIzLTMuOS0xLjg1LTIuMy0yLjc4LTUuMi0yLjc4LTguNSAwLTMuMi45Mi01LjkgMi43My04LjEgMi4wMi0yLjQgNC43Ny0zLjYgOC4yOC0zLjZoMTYuNDJjMy41NCAwIDYuMzEgMS4yIDguMzMgMy42IDEuODIgMi4yIDIuNzMgNC45IDIuNzMgOC4xIDAgMy4zLS45NCA2LjItMi44MyA4LjV6TTMxNi40NC44aC0yMS4yYy03LjUgMC0xMy40OCAyLjItMTcuOTYgNi43LTIuMTUgMi4yLTMuNzEgNC42LTQuNzEgNy4yLjA0LS40LjA2LS44LjA2LTEuMiAwLTMuNC0xLjQ2LTYuNC00LjQxLTguNy0zLjIyLTIuNy03LjU5LTQtMTMuMTItNGgtODIuODR2OC45aDE0LjYydjMzLjJoMTQuMjFWOS43aDUxLjY0YzEuNjIgMCAyLjkxLjQgMy44MyAxLjIuODIuNyAxLjI1IDEuNiAxLjI1IDIuNnMtLjQzIDEuOC0xLjI1IDIuNWMtLjkyLjgtMi4yMSAxLjEtMy44MyAxLjFoLTE3LjY0Yy01Ljc3IDAtMTAuMTUgMS4yLTEzLjEzIDMuNi0yLjU5IDIuMS0zLjg4IDQuOC0zLjg4IDguMnYxMy45aDE0LjIxVjMyLjNsNDAuODYgMTEuNHYtOS45bC0yNy4wMS03LjZoOC45NmM1LjU2IDAgOS45NS0xLjMgMTMuMTctMy45IDEuNTEtMS4zIDIuNjItMi42IDMuMzQtNC4yLS4yMyAxLjMtLjM1IDIuNy0uMzUgNC4xIDAgNS42IDEuOTcgMTAuNCA1LjkzIDE0LjIgNC40MSA0LjMgMTAuNDMgNi41IDE4LjA1IDYuNWgyMS4yYzcuNjYgMCAxMy42OS0yLjIgMTguMDktNi41IDMuOTQtMy44IDUuOS04LjYgNS45LTE0LjIgMC01LjgtMi4wMi0xMC43LTYuMDMtMTQuN0MzMjkuOTMgMyAzMjMuOTQuOCAzMTYuNDQuOHptLTE5MS42NiAzYy0zLjEyIDEuNy01LjQzIDQuMi02Ljg5IDcuNi0xLjIxIDIuOC0xLjgyIDYuMS0xLjgyIDEwLjF2MjEuNGgxNC40MVYyNi4yaDQwLjR2LTkuMWgtNDAuNGMuMDktLjYuMjEtMS4yLjM0LTEuOS40MS0xLjUgMS4xNC0yLjcgMi4yLTMuNiAxLjQ3LTEuMyAzLjQ3LTEuOSA1Ljk5LTEuOWgzMS44N1YuOGgtMzEuODdjLTUuOSAwLTEwLjY0IDEtMTQuMjMgM3pNOTUuNDQgMjkuOWMtMi4wNyAyLjYtNC44MiAzLjktOC4yMyAzLjlINzIuMjJWOS43aDE0Ljk5YzMuNTQgMCA2LjMyIDEuMiA4LjMzIDMuNiAxLjc5IDIuMiAyLjY4IDQuOSAyLjY4IDguMSAwIDMuNC0uOTMgNi4yLTIuNzggOC41ek04OS42MS44aC0zMS44djQyLjFoMzEuOGM3LjY1IDAgMTMuNjgtMi4yIDE4LjEtNi41IDMuOTItMy44IDUuODgtOC42IDUuODgtMTQuMiAwLTUuOC0yLTEwLjctNi4wMy0xNC43QzEwMy4wOSAzIDk3LjExLjggODkuNjEuOHptLTM5LjQ0IDRjLTMuMjItMi43LTcuNi00LTEzLjEyLTRILjA0djguOWgzNC42MmMxLjY0IDAgMi45Mi40IDMuODQgMS4yLjg0LjcgMS4yNSAxLjYgMS4yNSAyLjZzLS40MSAxLjgtMS4yNSAyLjVjLS45Mi44LTIuMiAxLjEtMy44NCAxLjFIMTcuMDRjLTUuNzggMC0xMC4xNSAxLjItMTMuMTMgMy42QzEuMzIgMjIuOC4wNCAyNS42LjA0IDI4LjkuMDIgMzEuMSAwIDMzLjIgMCAzNS4yVjQwYzAgMS4yLjAyIDIuMi4wNCAyLjloMTQuMTl2LTljLS4wOS0uMS0uMTQtLjMtLjE2LS41LS4wMy0uMS0uMDQtLjQtLjA0LS45IDAtMS42LjUxLTIuOSAxLjU0LTMuOSAxLjUzLTEuNiA0LjA2LTIuNCA3LjYxLTIuNGgxMy44NWM1LjU3IDAgOS45Ny0xLjMgMTMuMTktMy45IDIuOS0yLjQgNC4zNi01LjMgNC4zNi04LjggMC0zLjQtMS40Ny02LjQtNC40MS04Ljd6Ii8+PC9zdmc+" alt=""></a>
+      <ul class="nav-block nav-block-first hidden-xs">
+      <li class="nav-item">
+      <a class="nav-link" href="https://www.pdftron.com/pdf-sdk/">Technology</a>
+      </li>
+      <li class="nav-item active">
+      <a class="nav-link" href="https://www.pdftron.com/documentation/">
+      Documentation
+      </a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="https://www.pdftron.com/support/">
+      Support
+      </a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="https://www.pdftron.com/blog/">
+      Blog
+      </a>
+      </li>
+      </ul>
+    
+    
+    <ul class="nav-block nav-block-last hidden-xs">
+    <li class="nav-item nav-form">
+      
+  <div id="search" >
+      <div id="searchForm">
+          <form accept-charset="utf-8" class="gsc-search-box" 
+                onsubmit="return submit_search()">
+            <table class="gsc-search-box" cellpadding="0" cellspacing="0"><tbody>
+                <tr>
+                  <td class="gsc-input">
+                    <input id="search_autocomplete" class="gsc-input" type="text" size="33" autocomplete="off"
+                      title="Search API documentation" name="q"
+                      value=""
+                      placeholder="Search"
+                      onFocus="search_focus_changed(this, true)"
+                      onBlur="search_focus_changed(this, false)"
+                      onkeydown="return search_changed(event, true, './')"
+                      onkeyup="return search_changed(event, false, './')" />
+                  <div id="search_filtered_div" class="no-display">
+                      <table id="search_filtered" cellspacing=0>
+                      </table>
+                  </div>
+                  </td>
+                  <td class="gsc-search-button">
+                    <input type="submit" value="Search" title="search" id="search-button" class="gsc-search-button" />
+                  </td>
+                  <td class="gsc-clear-button">
+                    <div title="clear results" class="gsc-clear-button">&nbsp;</div>
+                  </td>
+                </tr></tbody>
+              </table>
+          </form>
+      </div><!-- searchForm -->
+  </div><!-- search -->
+      
+    </li>
+    </ul>
+  </nav>
+</div><!-- header -->
+
+<div class="nav-sub">
+<div class="container">
+<div class="d-flex justify-content-md-center justify-content-lg-start">
+<div class="mr-auto d-none d-lg-block">
+<nav class="nav-breadcrumb breadcrumb">
+<a href="https://www.pdftron.com/documentation/java/" class="breadcrumb-item">
+Documentation
+</a>
+<a href="https://www.pdftron.com/api/PDFTronSDK/java/packages.html" class="breadcrumb-item">
+API
+</a>
+<a href="https://www.pdftron.com/api/PDFTronSDK/java/packages.html" class="breadcrumb-item">
+Java
+</a>
+</nav>
+</div>
+<div class="ml-lg-auto d-flex">
+<ul class="nav flex-nowrap flex-row-reverse flex-sm-row align-items-center">
+<li class="nav-item">
+<a href="https://www.pdftron.com/documentation/java/" class="nav-link">
+Guides
+</a>
+</li>
+<li class="nav-item">
+<a href="https://www.pdftron.com/api/PDFTronSDK/java/packages.html" class="nav-link active">
+API
+</a>
+</li>
+<li class="nav-item border">
+<a href="https://www.pdftron.com/documentation/java/changelog/" class="nav-link">
+Changelog
+</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="g-section g-tpl-240" id="body-content">
+    <div class="g-unit g-first side-nav-resizable" id="side-nav">
+      <div id="swapper">
+        <div id="nav-panels">
+          <div id="resize-packages-nav">
+            <div id="packages-nav">
+              <div id="index-links">
+                <a href="./packages.html"  >Package Index</a> | 
+                <a href="./classes.html" >Class Index</a>
+              </div>
+              <ul>
+                
+    <li class="api apilevel-">
+  <a href="./com/pdftron/common/package-summary.html">com.pdftron.common</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/crypto/package-summary.html">com.pdftron.crypto</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/fdf/package-summary.html">com.pdftron.fdf</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/filters/package-summary.html">com.pdftron.filters</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/helpers/package-summary.html">com.pdftron.helpers</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/pdf/package-summary.html">com.pdftron.pdf</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/pdf/annots/package-summary.html">com.pdftron.pdf.annots</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/pdf/ocg/package-summary.html">com.pdftron.pdf.ocg</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/pdf/pdfa/package-summary.html">com.pdftron.pdf.pdfa</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/pdf/struct/package-summary.html">com.pdftron.pdf.struct</a></li>
+    <li class="api apilevel-">
+  <a href="./com/pdftron/sdf/package-summary.html">com.pdftron.sdf</a></li>
+              </ul><br/>
+            </div> <!-- end packages -->
+          </div> <!-- end resize-packages -->
+          <div id="classes-nav">
+              <script>
+                /*addLoadEvent(maxPackageHeight);*/
+              </script>
+              <p style="padding:10px">Select a package to view its members</p><br/>
+          </div><!-- end classes -->
+        </div><!-- end nav-panels -->
+        <div id="nav-tree" style="display:none">
+          <div id="index-links">
+            <a href="./packages.html"  >Package Index</a> | 
+            <a href="./classes.html" >Class Index</a>
+          </div>
+        </div><!-- end nav-tree -->
+      </div><!-- end swapper -->
+    </div> <!-- end side-nav -->
+    <script>
+      if (!isMobile) {
+        $("<a href='#' id='nav-swap' onclick='swapNav();return false;' style='font-size:10px;line-height:9px;margin-left:1em;text-decoration:none;'><span id='tree-link'>Use Tree Navigation</span><span id='panel-link' style='display:none'>Use Panel Navigation</span></a>").appendTo("#side-nav");
+        chooseDefaultNav();
+        if ($("#nav-tree").is(':visible')) {
+          init_default_navtree("./");
+        } else {
+          addLoadEvent(function() {
+            scrollIntoView("packages-nav");
+            scrollIntoView("classes-nav");
+          });
+        }
+        $("#swapper").css({borderBottom:"2px solid #aaa"});
+      } else {
+        swapNav(); // tree view should be used on mobile
+      }
+    </script>
+
+
+
+<div class="g-unit" id="doc-content">
+
+<div id="jd-header">
+<h1>Class Index - PDFTron PDFNet SDK API Reference</h1>
+</div>
+
+<div id="jd-content">
+
+<div class="jd-letterlist">
+    <a href="#letter__">_</a>
+    <a href="#letter_A">A</a>
+    <a href="#letter_B">B</a>
+    <a href="#letter_C">C</a>
+    <a href="#letter_D">D</a>
+    <a href="#letter_E">E</a>
+    <a href="#letter_F">F</a>
+    <a href="#letter_G">G</a>
+    <a href="#letter_H">H</a>
+    <a href="#letter_I">I</a>
+    <a href="#letter_J">J</a>
+    <a href="#letter_K">K</a>
+    <a href="#letter_L">L</a>
+    <a href="#letter_M">M</a>
+    <a href="#letter_N">N</a>
+    <a href="#letter_O">O</a>
+    <a href="#letter_P">P</a>
+    <a href="#letter_Q">Q</a>
+    <a href="#letter_R">R</a>
+    <a href="#letter_S">S</a>
+    <a href="#letter_T">T</a>
+    <a href="#letter_U">U</a>
+    <a href="#letter_V">V</a>
+    <a href="#letter_W">W</a>
+    <a href="#letter_X">X</a>
+</div>
+
+
+
+<h2 id="letter__">_</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/__Delete.html">__Delete</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_A">A</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Action.html">Action</a></td>
+            <td class="jd-descrcol" width="100%">Actions are typically what happens when a user clicks on a link or bookmark.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ActionParameter.html">ActionParameter</a></td>
+            <td class="jd-descrcol" width="100%">Container for parameters used in handling various actions.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/AdvancedImagingConvertOptions.html">AdvancedImagingConvertOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/AdvancedImagingModule.html">AdvancedImagingModule</a></td>
+            <td class="jd-descrcol" width="100%">The class AdvancedImagingModule.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/AnalyticsHandlerCallback.html">AnalyticsHandlerCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Annot.html">Annot</a></td>
+            <td class="jd-descrcol" width="100%">Annot is a base class for different types of annotations.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Annot.BorderStyle.html">Annot.BorderStyle</a></td>
+            <td class="jd-descrcol" width="100%">BorderStyle structure specifies the characteristics of the annotation's border.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.html">AnnotsCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Caret.html">AnnotsCompat.Caret</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Circle.html">AnnotsCompat.Circle</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.FileAttachment.html">AnnotsCompat.FileAttachment</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.FreeText.html">AnnotsCompat.FreeText</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Highlight.html">AnnotsCompat.Highlight</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Ink.html">AnnotsCompat.Ink</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Line.html">AnnotsCompat.Line</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Link.html">AnnotsCompat.Link</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Markup.html">AnnotsCompat.Markup</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Movie.html">AnnotsCompat.Movie</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Polygon.html">AnnotsCompat.Polygon</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.PolyLine.html">AnnotsCompat.PolyLine</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Popup.html">AnnotsCompat.Popup</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Redaction.html">AnnotsCompat.Redaction</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.RubberStamp.html">AnnotsCompat.RubberStamp</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Screen.html">AnnotsCompat.Screen</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Sound.html">AnnotsCompat.Sound</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Square.html">AnnotsCompat.Square</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Squiggly.html">AnnotsCompat.Squiggly</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.StrikeOut.html">AnnotsCompat.StrikeOut</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Text.html">AnnotsCompat.Text</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.TextMarkup.html">AnnotsCompat.TextMarkup</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Underline.html">AnnotsCompat.Underline</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Watermark.html">AnnotsCompat.Watermark</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/AnnotsCompat.Widget.html">AnnotsCompat.Widget</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/ASCII85Encode.html">ASCII85Encode</a></td>
+            <td class="jd-descrcol" width="100%">ASCII85Encode filter can be used to encode any data stream
+ into a stream that does not contain any binary characters.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/AssertHandlerCallback.html">AssertHandlerCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/AttrObj.html">AttrObj</a></td>
+            <td class="jd-descrcol" width="100%">An application or plug-in extension that processes logical structure can attach 
+ additional information, called attributes, to any structure element.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_B">B</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/helpers/BitmapHelper.html">BitmapHelper</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/helpers/BitmapHelper.CustomBitmap.html">BitmapHelper.CustomBitmap</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/BlackBoxContext.html">BlackBoxContext</a></td>
+            <td class="jd-descrcol" width="100%">The class BlackBoxContext.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Bookmark.html">Bookmark</a></td>
+            <td class="jd-descrcol" width="100%">A %PDF document may optionally display a document outline on the screen, allowing
+ the user to navigate interactively from one part of the document to another.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/ByteRange.html">ByteRange</a></td>
+            <td class="jd-descrcol" width="100%">This class represents a Byte Range.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_C">C</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/CADConvertOptions.html">CADConvertOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/CADModule.html">CADModule</a></td>
+            <td class="jd-descrcol" width="100%">The class CADModule.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Caret.html">Caret</a></td>
+            <td class="jd-descrcol" width="100%">A Caret annotation (PDF 1.5) is a visual symbol that indicates 
+ the presence of text edits.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/CharData.html">CharData</a></td>
+            <td class="jd-descrcol" width="100%">CharData is a data structure returned by CharIterator that is 
+ used to provide extra information about a character within 
+ a text run.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/CharIterator.html">CharIterator</a></td>
+            <td class="jd-descrcol" width="100%">CharIterator is an iterator type that can be used to traverse CharData 
+ in the current e_text element.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/CheckBoxWidget.html">CheckBoxWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a check box used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Circle.html">Circle</a></td>
+            <td class="jd-descrcol" width="100%">Square and circle annotations (PDF 1.3) shall display, 
+ respectively, a rectangle or an ellipse on the page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/ClassMap.html">ClassMap</a></td>
+            <td class="jd-descrcol" width="100%">The Class ClassMap.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ColorPt.html">ColorPt</a></td>
+            <td class="jd-descrcol" width="100%">ColorPt is an array of colorants (or tint values) representing a color point
+ in an associated color space.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ColorSpace.html">ColorSpace</a></td>
+            <td class="jd-descrcol" width="100%">This abstract class is used to serve as a color space tag to identify the specific 
+ color space of a Color object.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/ComboBoxWidget.html">ComboBoxWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a Combo Box used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/CommonCompat.html">CommonCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/CommonCompat.Matrix2D.html">CommonCompat.Matrix2D</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/CommonCompat.PDFNetIterator.html">CommonCompat.PDFNetIterator</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/CommonCompat.RecentlyUsedCache.html">CommonCompat.RecentlyUsedCache</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/Config.html">Config</a></td>
+            <td class="jd-descrcol" width="100%">The OCG::Config object represents an optional-content (OC) configuration 
+ structure (see section 4.10.3 in PDF Reference), used to persist a set 
+ of visibility states and other optional-content information in a PDF file 
+ A document has a default configuration, saved in the D entry in the 
+ 'OCProperties' dictionary (that can be obtained using pdfdoc.GetOCConfig()), 
+ and can have a list of other configurations, saved as an array in the 
+ 'Configs' entry in the OCProperties dictionary.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ConnectionErrorProc.html">ConnectionErrorProc</a></td>
+            <td class="jd-descrcol" width="100%">ConnectionErrorProc is an interface for a custom handler that 
+ that can be passed into SetConnectionErrorProc.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/ContentItem.html">ContentItem</a></td>
+            <td class="jd-descrcol" width="100%">Content items are graphical objects that exist in the document independently 
+ of the structure tree but are associated with structure elements.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ContentReplacer.html">ContentReplacer</a></td>
+            <td class="jd-descrcol" width="100%">ContentReplacer is a utility class for replacing content (text and images)
+ in existing PDF (template) documents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/Context.html">Context</a></td>
+            <td class="jd-descrcol" width="100%"><p>
+ The OCG::Context object represents an optional-content context in a document, within which 
+ document objects such as words or annotations are visible or hidden.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.html">Convert</a></td>
+            <td class="jd-descrcol" width="100%">Converter is a utility class used to convert documents and files to PDF.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.EPUBOutputOptions.html">Convert.EPUBOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to ToEpub functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.ExcelOutputOptions.html">Convert.ExcelOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to toExcel functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.HTMLOutputOptions.html">Convert.HTMLOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to ToHtml and ToEpub functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.OutputOptionsOCR.html">Convert.OutputOptionsOCR</a></td>
+            <td class="jd-descrcol" width="100%">A class containing OCR options common to the ToHtml, ToWord, ToExcel, ToPowerPoint functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.OutputOptionsOCR.LanguageChoice.html">Convert.OutputOptionsOCR.LanguageChoice</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.PowerPointOutputOptions.html">Convert.PowerPointOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to toPowerPoint functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.SVGOutputOptions.html">Convert.SVGOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options for ToSvg functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.TiffOutputOptions.html">Convert.TiffOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to ToTiff functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.WordOutputOptions.html">Convert.WordOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to toWord functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.XODOutputOptions.html">Convert.XODOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options for ToXod functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.XPSOutputCommonOptions.html">Convert.XPSOutputCommonOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options common to ToXps and ToXod functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Convert.XPSOutputOptions.html">Convert.XPSOutputOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing options for ToXps functions
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ConvertPrinter.html">ConvertPrinter</a></td>
+            <td class="jd-descrcol" width="100%">The ConvertPrinter class contains static member functions for installing and 
+ uninstalling a Windows OS printer for conversion of document formats by
+ the Convert class.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/CubicCurveBuilder.html">CubicCurveBuilder</a></td>
+            <td class="jd-descrcol" width="100%">The class CubicCurveBuilder.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/CurrentPageProc.html">CurrentPageProc</a></td>
+            <td class="jd-descrcol" width="100%">The Interface CurrentPageProc.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/CustomFilter.html">CustomFilter</a></td>
+            <td class="jd-descrcol" width="100%"><p>
+ CustomFilter allows for customizing the reading and writing process.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_D">D</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Date.html">Date</a></td>
+            <td class="jd-descrcol" width="100%">The Date class is a utility class used to simplify work with PDF date objects.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Destination.html">Destination</a></td>
+            <td class="jd-descrcol" width="100%">A destination defines a particular view of a document, consisting of the 
+ following:
+
+ - The page of the document to be displayed
+ - The location of the document window on that page
+ - The magnification (zoom) factor to use when displaying the page
+ 
+ Destinations may be associated with Bookmarks, Annotations, and Remote Go-To Actions.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/DictIterator.html">DictIterator</a></td>
+            <td class="jd-descrcol" width="100%">DictIterator is used to traverse key/value pairs in a dictionary.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DiffOptions.html">DiffOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/DigestAlgorithm.html">DigestAlgorithm</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DigitalSignatureField.html">DigitalSignatureField</a></td>
+            <td class="jd-descrcol" width="100%">A class representing a digital signature form field.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DigitalSignatureField.DocumentPermissions.html">DigitalSignatureField.DocumentPermissions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DigitalSignatureField.FieldPermissions.html">DigitalSignatureField.FieldPermissions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DigitalSignatureField.SubFilterType.html">DigitalSignatureField.SubFilterType</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DigitalSignatureFieldIterator.html">DigitalSignatureFieldIterator</a></td>
+            <td class="jd-descrcol" width="100%">DigitalSignatureFieldIterator is an iterator type that can be used to traverse a list of
+ form fields in a PDF document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DisallowedChange.html">DisallowedChange</a></td>
+            <td class="jd-descrcol" width="100%">The class DisallowedChange.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DisallowedChange.Type.html">DisallowedChange.Type</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/Doc.html">Doc</a></td>
+            <td class="jd-descrcol" width="100%">The Class Doc.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/DocSnapshot.html">DocSnapshot</a></td>
+            <td class="jd-descrcol" width="100%">The class DocSnapshot.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/DocumentConversion.html">DocumentConversion</a></td>
+            <td class="jd-descrcol" width="100%">The class DocumentConversion.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_E">E</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Element.html">Element</a></td>
+            <td class="jd-descrcol" width="100%">Element is the abstract interface used to access graphical elements used to build the 
+ display list.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ElementBuilder.html">ElementBuilder</a></td>
+            <td class="jd-descrcol" width="100%">ElementBuilder is used to build new PDF.Elements (e.g.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ElementReader.html">ElementReader</a></td>
+            <td class="jd-descrcol" width="100%">ElementReader can be used to parse and process content streams.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ElementWriter.html">ElementWriter</a></td>
+            <td class="jd-descrcol" width="100%">ElementWriter can be used to assemble and write new content to a page, Form XObject, 
+ Type3 Glyph stream, pattern stream, or any other content stream.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/EmbeddedTimestampVerificationResult.html">EmbeddedTimestampVerificationResult</a></td>
+            <td class="jd-descrcol" width="100%">This class represents the result of verifying a secure embedded
+ timestamp digital signature.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ErrorReportProc.html">ErrorReportProc</a></td>
+            <td class="jd-descrcol" width="100%">ErrorReportProc is an interface for a custom handler that 
+ that can be used to report potential rendering errors in PDFViewCtrl, 
+ PDFDraw, or PDFRasterizer.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ExternalAnnotManager.html">ExternalAnnotManager</a></td>
+            <td class="jd-descrcol" width="100%">The class ExternalAnnotManager.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_F">F</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/FDFCompat.html">FDFCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/FDFCompat.FDFDoc.html">FDFCompat.FDFDoc</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/FDFCompat.FDFField.html">FDFCompat.FDFField</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/FDFDoc.html">FDFDoc</a></td>
+            <td class="jd-descrcol" width="100%">FDFDoc is a class representing Forms Data Format (FDF) documents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/FDFField.html">FDFField</a></td>
+            <td class="jd-descrcol" width="100%">TODO: need description
+ FDFField represents FDFField
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/FDFFieldIterator.html">FDFFieldIterator</a></td>
+            <td class="jd-descrcol" width="100%">FDFFieldIterator is an iterator type used to traverse interactive form fields 
+ in a FDF document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Field.html">Field</a></td>
+            <td class="jd-descrcol" width="100%">An interactive form (sometimes referred to as an AcroForm) is a 
+ collection of fields for gathering information interactively from 
+ the user.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/FieldIterator.html">FieldIterator</a></td>
+            <td class="jd-descrcol" width="100%">FieldIterator is an iterator type that can be used to traverse a list of
+ form fields in a PDF document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/FileAttachment.html">FileAttachment</a></td>
+            <td class="jd-descrcol" width="100%">A file attachment annotation (PDF 1.3) contains a reference 
+ to a file, which typically shall be embedded in the PDF file.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FileDescriptorFilter.html">FileDescriptorFilter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FileDescriptorReadOnlyFilter.html">FileDescriptorReadOnlyFilter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/FileSpec.html">FileSpec</a></td>
+            <td class="jd-descrcol" width="100%">FileSpec corresponds to the PDF file specification object.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/Filter.html">Filter</a></td>
+            <td class="jd-descrcol" width="100%">Provides a generic view of a sequence of bytes.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FilterReader.html">FilterReader</a></td>
+            <td class="jd-descrcol" width="100%">FilterReader is a utility class providing a convenient way to read data
+ from an input filter (using Filter directly is not very intuitive).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.html">FiltersCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.ASCII85Encode.html">FiltersCompat.ASCII85Encode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.CustomFilter.html">FiltersCompat.CustomFilter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.Filter.html">FiltersCompat.Filter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.FilterReader.html">FiltersCompat.FilterReader</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.FilterWriter.html">FiltersCompat.FilterWriter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.FlateEncode.html">FiltersCompat.FlateEncode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.MappedFile.html">FiltersCompat.MappedFile</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FiltersCompat.MemoryFilter.html">FiltersCompat.MemoryFilter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FilterWriter.html">FilterWriter</a></td>
+            <td class="jd-descrcol" width="100%">FilterWriter is a utility class providing a convenient way to write data
+ to an output filter (using Filter directly is not very intuitive).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/FindTextProc.html">FindTextProc</a></td>
+            <td class="jd-descrcol" width="100%">The Interface FindTextProc.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/FlateEncode.html">FlateEncode</a></td>
+            <td class="jd-descrcol" width="100%">FlateEncode filter can be used to compress any data stream 
+ using Flate (i.e.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Flattener.html">Flattener</a></td>
+            <td class="jd-descrcol" width="100%">Flattener is a optional PDFNet add-on that can be used to simplify and optimize 
+ existing PDF's to render faster on devices with lower memory and speeds.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Font.html">Font</a></td>
+            <td class="jd-descrcol" width="100%">A font that is used to draw text on a page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/FontCharCodeIterator.html">FontCharCodeIterator</a></td>
+            <td class="jd-descrcol" width="100%">FontCharCodeIterator is an iterator type that can be used to traverse a list 
+ of visible char codes in a font embedded in PDF.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/FreeText.html">FreeText</a></td>
+            <td class="jd-descrcol" width="100%">A free text annotation (PDF 1.3) displays text directly on the page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Function.html">Function</a></td>
+            <td class="jd-descrcol" width="100%">Although PDF is not a programming language it provides several types of function 
+ object that represent parameterized classes of functions, including mathematical 
+ formulas and sampled representations with arbitrary resolution.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_G">G</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/GeometryCollection.html">GeometryCollection</a></td>
+            <td class="jd-descrcol" width="100%">The class GeometryCollection.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/GeometryCollection.SnappingMode.html">GeometryCollection.SnappingMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/Group.html">Group</a></td>
+            <td class="jd-descrcol" width="100%">The OCG::Group object represents an optional-content group.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/GSChangesIterator.html">GSChangesIterator</a></td>
+            <td class="jd-descrcol" width="100%">GSChangesIterator is an iterator type that can be used to traverse a list 
+ of changes in the graphics state between subsequnet graphical elements on the 
+ page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/GState.html">GState</a></td>
+            <td class="jd-descrcol" width="100%">GState is a class that keeps track of a number of style attributes used to visually 
+ define graphical Elements.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_H">H</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Highlight.html">Highlight</a></td>
+            <td class="jd-descrcol" width="100%">Text markup annotations shall appear as highlights, underlines, 
+ strikeouts (all PDF 1.3), or jagged ("squiggly") underlines (PDF 1.4) 
+ in the text of a document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Highlights.html">Highlights</a></td>
+            <td class="jd-descrcol" width="100%"><p>
+ <code>Highlights</code> is used to store the necessary information and perform certain 
+ tasks in accordance with Adobe's Highlight standard, whose details can be
+ found at <a href="http://partners.adobe.com/public/developer/en/pdf/HighlightFileFormat.pdf">
+ http://partners.adobe.com/public/developer/en/pdf/HighlightFileFormat.pdf</a>.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/HTML2PDF.html">HTML2PDF</a></td>
+            <td class="jd-descrcol" width="100%">'pdftron.PDF.HTML2PDF' is an optional PDFNet Add-On utility class that can be 
+ used to convert HTML web pages into PDF documents by using an external
+ module (html2pdf).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/HTML2PDF.Proxy.html">HTML2PDF.Proxy</a></td>
+            <td class="jd-descrcol" width="100%">Proxy settings to be used when loading content from web pages.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/HTML2PDF.TOCSettings.html">HTML2PDF.TOCSettings</a></td>
+            <td class="jd-descrcol" width="100%">Settings for table of contents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/HTML2PDF.WebPageSettings.html">HTML2PDF.WebPageSettings</a></td>
+            <td class="jd-descrcol" width="100%">Settings that control how a web page is opened and converted to PDF.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_I">I</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Image.html">Image</a></td>
+            <td class="jd-descrcol" width="100%">Image class that provides common methods for working with PDF images.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Image.Compat.html">Image.Compat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Image2RGB.html">Image2RGB</a></td>
+            <td class="jd-descrcol" width="100%">Image2RGB is a filter that can decompress and normalize any PDF image stream 
+ (e.g.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Image2RGBA.html">Image2RGBA</a></td>
+            <td class="jd-descrcol" width="100%">Image2RGBA is a filter that can decompress and normalize any PDF image stream 
+ (e.g.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Ink.html">Ink</a></td>
+            <td class="jd-descrcol" width="100%">An ink annotation (PDF 1.3) represents a freehand "scribble" composed
+ of one or more disjoint paths.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Ink.BlendMode.html">Ink.BlendMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_J">J</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/JavaScriptEventProc.html">JavaScriptEventProc</a></td>
+            <td class="jd-descrcol" width="100%">The Interface JavaScriptEventProc
+&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_K">K</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/KeyStrokeActionResult.html">KeyStrokeActionResult</a></td>
+            <td class="jd-descrcol" width="100%">A class that contains information from a KeyStrokeAction
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/KeyStrokeEventData.html">KeyStrokeEventData</a></td>
+            <td class="jd-descrcol" width="100%">KeyStokeEventData contains information for executing KeyStrokeAction.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_L">L</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Line.html">Line</a></td>
+            <td class="jd-descrcol" width="100%">The purpose of a line annotation (PDF 1.3) is to display a single straight 
+ line on the page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Link.html">Link</a></td>
+            <td class="jd-descrcol" width="100%">A link annotation represents either a hypertext link to a destination elsewhere in the document 
+ or an action to be performed.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/ListBoxWidget.html">ListBoxWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a List Box used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/LogMessageHandlerCallback.html">LogMessageHandlerCallback</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_M">M</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/MappedFile.html">MappedFile</a></td>
+            <td class="jd-descrcol" width="100%">MappedFile is a utility class to read files on a file system.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Markup.html">Markup</a></td>
+            <td class="jd-descrcol" width="100%">The meaning of an annotation's Contents entry varies by annotation type.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/Matrix2D.html">Matrix2D</a></td>
+            <td class="jd-descrcol" width="100%">A <code>Matrix2D</code> object represents a 3x3 matrix that, in turn, represents
+ an affine transformation.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/MemoryFilter.html">MemoryFilter</a></td>
+            <td class="jd-descrcol" width="100%">MemoryFilter is a memory buffer that can be used as a source or a sink Filter in 
+ the Filter pipeline.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/MergeXFDFOptions.html">MergeXFDFOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Movie.html">Movie</a></td>
+            <td class="jd-descrcol" width="100%">The Class Movie.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_N">N</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/NameTree.html">NameTree</a></td>
+            <td class="jd-descrcol" width="100%">A NameTree is a common data structure in PDF.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/NameTreeIterator.html">NameTreeIterator</a></td>
+            <td class="jd-descrcol" width="100%">NameTreeIterator is used to traverse key/value pairs in a NameTree.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/NumberTree.html">NumberTree</a></td>
+            <td class="jd-descrcol" width="100%">A NumberTree is a common data structure in PDF.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/NumberTreeIterator.html">NumberTreeIterator</a></td>
+            <td class="jd-descrcol" width="100%">NumberTreeIterator is used to traverse key/value pairs in a NumberTree.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_O">O</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/Obj.html">Obj</a></td>
+            <td class="jd-descrcol" width="100%">Obj is a concrete class for all SDF/Cos objects.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/ObjectIdentifier.html">ObjectIdentifier</a></td>
+            <td class="jd-descrcol" width="100%">This class represents an object identifier (OID), as defined by ITU and used in X.509.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/ObjectIdentifier.Predefined.html">ObjectIdentifier.Predefined</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/ObjSet.html">ObjSet</a></td>
+            <td class="jd-descrcol" width="100%">ObjSet is a lightweight container that can hold a collection of SDF objects.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/OCGCompat.html">OCGCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/OCGCompat.Config.html">OCGCompat.Config</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/OCGCompat.Context.html">OCGCompat.Context</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/OCGCompat.Group.html">OCGCompat.Group</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/OCGCompat.OCMD.html">OCGCompat.OCMD</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ocg/OCMD.html">OCMD</a></td>
+            <td class="jd-descrcol" width="100%">The OCMD object represents an Optional Content Membership Dictionary (OCMD) 
+ that allows the visibility of optional content to depend on the states in a 
+ set of optional-content groups (OCG::Group).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/OCRModule.html">OCRModule</a></td>
+            <td class="jd-descrcol" width="100%">The class OCRModule.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/OCROptions.html">OCROptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/OfficeLocaleOverrides.html">OfficeLocaleOverrides</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/OfficeToPDFOptions.html">OfficeToPDFOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Optimizer.html">Optimizer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Optimizer.ImageSettings.html">Optimizer.ImageSettings</a></td>
+            <td class="jd-descrcol" width="100%">A class that stores downsampling/recompression
+ settings for color and grayscale images.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Optimizer.MonoImageSettings.html">Optimizer.MonoImageSettings</a></td>
+            <td class="jd-descrcol" width="100%">A class that stores image downsampling/recompression
+ settings for monochrome images.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Optimizer.OptimizerSettings.html">Optimizer.OptimizerSettings</a></td>
+            <td class="jd-descrcol" width="100%">A class that stores settings for the optimizer
+&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Optimizer.TextSettings.html">Optimizer.TextSettings</a></td>
+            <td class="jd-descrcol" width="100%">A class that stores text optimization settings.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/OptionsBase.html">OptionsBase</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_P">P</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Page.html">Page</a></td>
+            <td class="jd-descrcol" width="100%">Page is a high-level class representing PDF page object (see 'Page Objects' in 
+ Section 3.6.2, 'Page Tree,' in PDF Reference Manual).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PageIterator.html">PageIterator</a></td>
+            <td class="jd-descrcol" width="100%">PageIterator is an iterator type that can be used to traverse a list 
+ pages in a PDF document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PageLabel.html">PageLabel</a></td>
+            <td class="jd-descrcol" width="100%">PDF page labels can be used to describe a page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PageSet.html">PageSet</a></td>
+            <td class="jd-descrcol" width="100%">PageSet is a container of page numbers ordered following a linear sequence.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PathData.html">PathData</a></td>
+            <td class="jd-descrcol" width="100%">Contains the information required to draw the path.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PatternColor.html">PatternColor</a></td>
+            <td class="jd-descrcol" width="100%">Patterns are quite general, and have many uses; for example, they can be used 
+ to create various graphical textures, such as weaves, brick walls, sunbursts, 
+ and similar geometrical and chromatic effects.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDF2HtmlReflowParagraphsModule.html">PDF2HtmlReflowParagraphsModule</a></td>
+            <td class="jd-descrcol" width="100%">The class PDF2HtmlReflowParagraphsModule.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDF2WordModule.html">PDF2WordModule</a></td>
+            <td class="jd-descrcol" width="100%">The class PDF2WordModule.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/pdfa/PDFACompat.html">PDFACompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/pdfa/PDFACompat.PDFACompliance.html">PDFACompat.PDFACompliance</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/pdfa/PDFACompliance.html">PDFACompliance</a></td>
+            <td class="jd-descrcol" width="100%">PDFACompliance class is used to validate PDF documents for PDF/A (ISO 19005:1/2/3)
+ compliance or to convert existing PDF files to PDF/A compliant documents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.html">PDFCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Action.html">PDFCompat.Action</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Annot.html">PDFCompat.Annot</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Bookmark.html">PDFCompat.Bookmark</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.CharData.html">PDFCompat.CharData</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ColorPt.html">PDFCompat.ColorPt</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ColorSpace.html">PDFCompat.ColorSpace</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ContentReplacer.html">PDFCompat.ContentReplacer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Convert.html">PDFCompat.Convert</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ConvertPrinter.html">PDFCompat.ConvertPrinter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Date.html">PDFCompat.Date</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Destination.html">PDFCompat.Destination</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Element.html">PDFCompat.Element</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ElementBuilder.html">PDFCompat.ElementBuilder</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ElementReader.html">PDFCompat.ElementReader</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.ElementWriter.html">PDFCompat.ElementWriter</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Field.html">PDFCompat.Field</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.FileSpec.html">PDFCompat.FileSpec</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Flattener.html">PDFCompat.Flattener</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Font.html">PDFCompat.Font</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Function.html">PDFCompat.Function</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.GState.html">PDFCompat.GState</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Highlights.html">PDFCompat.Highlights</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.HTML2PDF.html">PDFCompat.HTML2PDF</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Image.html">PDFCompat.Image</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Image2RGB.html">PDFCompat.Image2RGB</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Image2RGBA.html">PDFCompat.Image2RGBA</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Optimizer.html">PDFCompat.Optimizer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Page.html">PDFCompat.Page</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PageLabel.html">PDFCompat.PageLabel</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PageSet.html">PDFCompat.PageSet</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PatternColor.html">PDFCompat.PatternColor</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFDoc.html">PDFCompat.PDFDoc</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFDocInfo.html">PDFCompat.PDFDocInfo</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFDocViewPrefs.html">PDFCompat.PDFDocViewPrefs</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFDraw.html">PDFCompat.PDFDraw</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFNet.html">PDFCompat.PDFNet</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFRasterizer.html">PDFCompat.PDFRasterizer</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.PDFViewCtrl.html">PDFCompat.PDFViewCtrl</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Print.html">PDFCompat.Print</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Rect.html">PDFCompat.Rect</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Redactor.html">PDFCompat.Redactor</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Shading.html">PDFCompat.Shading</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.Stamper.html">PDFCompat.Stamper</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.TextExtractor.html">PDFCompat.TextExtractor</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.TextRange.html">PDFCompat.TextRange</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFCompat.TextSearch.html">PDFCompat.TextSearch</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDoc.html">PDFDoc</a></td>
+            <td class="jd-descrcol" width="100%">PDFDoc is a high-level class describing a single PDF (Portable Document
+ Format) document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDoc.ActionTriggerMode.html">PDFDoc.ActionTriggerMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDoc.FlattenMode.html">PDFDoc.FlattenMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDoc.InsertBookmarkMode.html">PDFDoc.InsertBookmarkMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDoc.SignaturesVerificationStatus.html">PDFDoc.SignaturesVerificationStatus</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDocGenerator.html">PDFDocGenerator</a></td>
+            <td class="jd-descrcol" width="100%">The class PDFDocGenerator.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDocInfo.html">PDFDocInfo</a></td>
+            <td class="jd-descrcol" width="100%">PDFDocInfo is a high-level utility class that can be used to read and modify
+ document's metadata.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDocViewPrefs.html">PDFDocViewPrefs</a></td>
+            <td class="jd-descrcol" width="100%">PDFDocViewPrefs is a high-level utility class that can be used to control the
+ way the document is to be presented on the screen or in print.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDraw.html">PDFDraw</a></td>
+            <td class="jd-descrcol" width="100%">PDFDraw contains methods for converting PDF pages to images and to Bitmap
+ objects.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFDraw.IntBufferData.html">PDFDraw.IntBufferData</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFNet.html">PDFNet</a></td>
+            <td class="jd-descrcol" width="100%">PDFNet contains global library initialization, registration, configuration,
+ and termination methods.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td class="jd-descrcol" width="100%">PDFNetException is derived from the standard exception class and it is a superclass 
+  for all PDFNet library exceptions.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFNetInternalTools.html">PDFNetInternalTools</a></td>
+            <td class="jd-descrcol" width="100%">The class PDFNetInternalTools.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/PDFNetIterator.html">PDFNetIterator</a>&lt;T&gt;</td>
+            <td class="jd-descrcol" width="100%">Supports a simple iteration over a non-generic collection.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFRasterizer.html">PDFRasterizer</a></td>
+            <td class="jd-descrcol" width="100%">PDFRasterizer is a low-level PDF rasterizer.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/PDFTronCustomSecurityHandler.html">PDFTronCustomSecurityHandler</a></td>
+            <td class="jd-descrcol" width="100%">This class represents PDFTron Custom Security handler that applies PDFTron's custom encryption method on save.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewCtrl.html">PDFViewCtrl</a></td>
+            <td class="jd-descrcol" width="100%">PDFViewCtrl is a utility class that can be used for interactive rendering of
+ PDF documents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewCtrl.ColorPostprocessMode.html">PDFViewCtrl.ColorPostprocessMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewCtrl.LinkInfo.html">PDFViewCtrl.LinkInfo</a></td>
+            <td class="jd-descrcol" width="100%">A class that holds information for a link.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewCtrl.PagePresentationMode.html">PDFViewCtrl.PagePresentationMode</a></td>
+            <td class="jd-descrcol" width="100%">PagePresentationMode lists common modes of presenting PDF pages.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewCtrl.PageViewMode.html">PDFViewCtrl.PageViewMode</a></td>
+            <td class="jd-descrcol" width="100%">PageViewMode lists common modes of viewing PDF pages.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewCtrl.Selection.html">PDFViewCtrl.Selection</a></td>
+            <td class="jd-descrcol" width="100%">A class representing the current text selection.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PDFViewScrollPane.html">PDFViewScrollPane</a></td>
+            <td class="jd-descrcol" width="100%">A scrolling panel.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Point.html">Point</a></td>
+            <td class="jd-descrcol" width="100%">The Class Point.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Polygon.html">Polygon</a></td>
+            <td class="jd-descrcol" width="100%">The Polygon class.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/PolyLine.html">PolyLine</a></td>
+            <td class="jd-descrcol" width="100%">Polyline annotations (PDF 1.5) display (open or closed) shapes of multiple edges on the page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Popup.html">Popup</a></td>
+            <td class="jd-descrcol" width="100%">A pop-up annotation (PDF 1.3) displays text in a pop-up window for entry and 
+ editing.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Print.html">Print</a></td>
+            <td class="jd-descrcol" width="100%">Print is a utility class used to print PDF documents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/PrinterMode.html">PrinterMode</a></td>
+            <td class="jd-descrcol" width="100%">PrinterMode is a utility class used to set printer options for printing PDF
+ documents.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ProgressMonitor.html">ProgressMonitor</a></td>
+            <td class="jd-descrcol" width="100%">ProgressMonitor is an interface that an application can use to indicate the
+ progress of a lengthy operation (such as PDFDoc.Save()).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/PushButtonWidget.html">PushButtonWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a push button used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_Q">Q</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/QuadPoint.html">QuadPoint</a></td>
+            <td class="jd-descrcol" width="100%">The Class QuadPoint.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_R">R</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/RadioButtonGroup.html">RadioButtonGroup</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a Group of Radio Buttons that can be used to create new Radio Buttons.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/RadioButtonWidget.html">RadioButtonWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a Radio Button used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/common/RecentlyUsedCache.html">RecentlyUsedCache</a></td>
+            <td class="jd-descrcol" width="100%">RecentlyUsedCache is a persistent cache that provides thumbnails for recently
+ used documents in PDFNet.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Rect.html">Rect</a></td>
+            <td class="jd-descrcol" width="100%">Rect is a utility class used to manipulate PDF rectangle objects (refer to
+ section 3.8.3 of the PDF Reference Manual).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/RectCollection.html">RectCollection</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Redaction.html">Redaction</a></td>
+            <td class="jd-descrcol" width="100%">A redaction annotation (PDF 1.7) identifies content that is intended to 
+ be removed from the document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Redactor.html">Redactor</a></td>
+            <td class="jd-descrcol" width="100%">PDF Redactor is a separately licensable Add-on that offers options to remove 
+ (not just covering or obscuring) content within a region of PDF.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Redactor.Appearance.html">Redactor.Appearance</a></td>
+            <td class="jd-descrcol" width="100%">Class used to customize the appearance of the optional redaction overlay.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Redactor.Redaction.html">Redactor.Redaction</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Reflow.html">Reflow</a></td>
+            <td class="jd-descrcol" width="100%">The class Reflow.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/RefreshOptions.html">RefreshOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/RequestRenderInWorkerThreadProc.html">RequestRenderInWorkerThreadProc</a></td>
+            <td class="jd-descrcol" width="100%">RequestRenderInWorkerThreadProc is an interface for a custom handler that 
+ issues a rendering request from the UI thread.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/ResultSnapshot.html">ResultSnapshot</a></td>
+            <td class="jd-descrcol" width="100%">The class ResultSnapshot.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/RoleMap.html">RoleMap</a></td>
+            <td class="jd-descrcol" width="100%">RoleMap is a dictionary that maps the names of structure types used in the 
+ document to their approximate equivalents in the set of standard structure 
+ types.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/RubberStamp.html">RubberStamp</a></td>
+            <td class="jd-descrcol" width="100%">A rubber stamp annotation (PDF 1.3) displays text or graphics intended 
+ to look as if they were stamped on the page with a rubber stamp.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_S">S</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Screen.html">Screen</a></td>
+            <td class="jd-descrcol" width="100%">A screen annotation (PDF 1.5) specifies a region of a page upon which 
+ media clips may be played.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.html">SDFCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.DictIterator.html">SDFCompat.DictIterator</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.NameTree.html">SDFCompat.NameTree</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.NumberTree.html">SDFCompat.NumberTree</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.Obj.html">SDFCompat.Obj</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.ObjSet.html">SDFCompat.ObjSet</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.SDFDoc.html">SDFCompat.SDFDoc</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFCompat.SecurityHandler.html">SDFCompat.SecurityHandler</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFDoc.html">SDFDoc</a></td>
+            <td class="jd-descrcol" width="100%">SDFDoc is a low-level document representing a graph of SDF.Obj nodes that
+ can be used to build higher-level document models such as PDF (Portable Document
+ Format) or FDF (Forms Document Format).&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SDFDoc.SaveMode.html">SDFDoc.SaveMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/filters/SecondaryFileFilter.html">SecondaryFileFilter</a></td>
+            <td class="jd-descrcol" width="100%">This class is used for creating a <code><a href="./com/pdftron/pdf/PDFDoc.html">PDFDoc</a></code> from Android content Uri.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SecurityHandler.html">SecurityHandler</a></td>
+            <td class="jd-descrcol" width="100%">Standard Security Handler is a built-in password-based security handler.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/SElement.html">SElement</a></td>
+            <td class="jd-descrcol" width="100%">SElement represents PDF structural elements, which are nodes in a tree   
+ structure, defining a PDF document's logical structure.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Separation.html">Separation</a></td>
+            <td class="jd-descrcol" width="100%">Separation contains a memory buffer and CMYK components' information about rasterized separations 
+ used in PDFDraw.getSeparationBitmaps() and PDFRasterizer.rasterizeSeparations()
+
+ <p> 
+ <b> Note: </b> This class is available on all platforms supported by PDFNet.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Shading.html">Shading</a></td>
+            <td class="jd-descrcol" width="100%">Shading is a class that represents a flat interface around all PDF shading
+ types:
+ 
+ - In Function-based (type 1) shadings, the color at every point in the domain
+ is defined by a specified mathematical function.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ShapedText.html">ShapedText</a></td>
+            <td class="jd-descrcol" width="100%">The class ShapedText.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ShapedText.FailureReason.html">ShapedText.FailureReason</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ShapedText.ShapingStatus.html">ShapedText.ShapingStatus</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/SignatureHandler.html">SignatureHandler</a></td>
+            <td class="jd-descrcol" width="100%">A base class for SignatureHandler.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/SignatureWidget.html">SignatureWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a Signature used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Sound.html">Sound</a></td>
+            <td class="jd-descrcol" width="100%">A sound annotation (PDF 1.2) shall analogous to a text annotation 
+ except that instead of a text note, it contains sound recorded from 
+ the computer's microphone or imported from a file.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Square.html">Square</a></td>
+            <td class="jd-descrcol" width="100%">Square and circle annotations (PDF 1.3) shall display, 
+ respectively, a rectangle or an ellipse on the page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Squiggly.html">Squiggly</a></td>
+            <td class="jd-descrcol" width="100%">TextMarkup annotations shall appear as highlights, underlines, 
+ strikeouts (all PDF 1.3), or jagged ("squiggly") underlines (PDF 1.4) 
+ in the text of a document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Stamper.html">Stamper</a></td>
+            <td class="jd-descrcol" width="100%">Stamper is a utility class that can be used to PDF pages with text, images, 
+ or with other PDF content in only a few lines of code.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/STree.html">STree</a></td>
+            <td class="jd-descrcol" width="100%">STree is the root of the structure tree, which is a central repository 
+ for information related to a PDF document's logical structure.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/StrikeOut.html">StrikeOut</a></td>
+            <td class="jd-descrcol" width="100%">TextMarkup annotations shall appear as highlights, underlines, 
+ strikeouts (all PDF 1.3), or jagged ("squiggly") underlines (PDF 1.4) 
+ in the text of a document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></td>
+            <td class="jd-descrcol" width="100%">StrokeOutlineBuilder is a class used to generate a stroke outline.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/StrokeOutlineBuilder.TipOptions.html">StrokeOutlineBuilder.TipOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.html">StructCompat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer for older API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.AttrObj.html">StructCompat.AttrObj</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.ClassMap.html">StructCompat.ClassMap</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.ContentItem.html">StructCompat.ContentItem</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.RoleMap.html">StructCompat.RoleMap</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.SElement.html">StructCompat.SElement</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/struct/StructCompat.STree.html">StructCompat.STree</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></td>
+            <td class="jd-descrcol" width="100%">The class StructuredOutputModule.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_T">T</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Text.html">Text</a></td>
+            <td class="jd-descrcol" width="100%">A text annotation represents a "sticky note" attached to a point in 
+ the PDF document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextExtractor.html">TextExtractor</a></td>
+            <td class="jd-descrcol" width="100%"><code>TextExtractor</code> is used to analyze a PDF page and extract words 
+ and logical structures that are visible within a given region.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextExtractor.CharRange.html">TextExtractor.CharRange</a></td>
+            <td class="jd-descrcol" width="100%">TextExtractor.CharRange object represents a range of text
+ based on Unicode character indices.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextExtractor.Compat.html">TextExtractor.Compat</a></td>
+            <td class="jd-descrcol" width="100%">Compatibility layer API.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextExtractor.Line.html">TextExtractor.Line</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextExtractor.Style.html">TextExtractor.Style</a></td>
+            <td class="jd-descrcol" width="100%">A class representing predominant text style associated with a 
+ given Line, a Word, or a Glyph.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextExtractor.Word.html">TextExtractor.Word</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/TextMarkup.html">TextMarkup</a></td>
+            <td class="jd-descrcol" width="100%">Text markup annotations shall appear as highlights, underlines, 
+ strikeouts (all PDF 1.3), or jagged ("squiggly") underlines (PDF 1.4) 
+ in the text of a document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextRange.html">TextRange</a></td>
+            <td class="jd-descrcol" width="100%"><p>
+ The <code>TextRange</code> is used to store the necessary information and perform certain 
+ It may be the result of a text search, or simply a couple of highlighted or
+ underlined words.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextSearch.html">TextSearch</a></td>
+            <td class="jd-descrcol" width="100%"><p>
+ <code>TextSearch</code> searches through a PDF document for a user-given search pattern.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TextSearchResult.html">TextSearchResult</a></td>
+            <td class="jd-descrcol" width="100%">TextSearchResult is used by the TextSearch class for returning a search
+ result.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/TextWidget.html">TextWidget</a></td>
+            <td class="jd-descrcol" width="100%">An object representing a Text Box used in a PDF Form.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ThumbAsyncHandler.html">ThumbAsyncHandler</a></td>
+            <td class="jd-descrcol" width="100%">ThumbAsyncHandler is an interface for a custom handler that 
+ that can be passed into GetThumbAsync.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TimestampingConfiguration.html">TimestampingConfiguration</a></td>
+            <td class="jd-descrcol" width="100%">A class representing a set of options for timestamping a document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TimestampingResult.html">TimestampingResult</a></td>
+            <td class="jd-descrcol" width="100%">A class representing the result of testing a timestamping configuration.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/TrustVerificationResult.html">TrustVerificationResult</a></td>
+            <td class="jd-descrcol" width="100%">The detailed result of a trust verification step of a verification
+ operation performed on a digital signature.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_U">U</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Underline.html">Underline</a></td>
+            <td class="jd-descrcol" width="100%">Text markup annotations shall appear as highlights, underlines, 
+ strikeouts (all PDF 1.3), or jagged ("squiggly") underlines (PDF 1.4) 
+ in the text of a document.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/sdf/UndoManager.html">UndoManager</a></td>
+            <td class="jd-descrcol" width="100%">The class UndoManager.&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_V">V</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationOptions.html">VerificationOptions</a></td>
+            <td class="jd-descrcol" width="100%">Options pertaining to digital signature verification.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationOptions.CertificateTrustFlag.html">VerificationOptions.CertificateTrustFlag</a></td>
+            <td class="jd-descrcol" width="100%">Certificate trust flags &nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationOptions.SecurityLevel.html">VerificationOptions.SecurityLevel</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationOptions.TimeMode.html">VerificationOptions.TimeMode</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationResult.html">VerificationResult</a></td>
+            <td class="jd-descrcol" width="100%">The result of a verification operation performed on a digital signature.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationResult.DigestStatus.html">VerificationResult.DigestStatus</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationResult.DocumentStatus.html">VerificationResult.DocumentStatus</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationResult.ModificationPermissionsStatus.html">VerificationResult.ModificationPermissionsStatus</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/VerificationResult.TrustStatus.html">VerificationResult.TrustStatus</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ViewChangeCollection.html">ViewChangeCollection</a></td>
+            <td class="jd-descrcol" width="100%">Class for collecting changes to a PDFDoc and/or viewer, which can then be passed to various functions to
+ act on.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/ViewerOptimizedOptions.html">ViewerOptimizedOptions</a></td>
+            <td class="jd-descrcol" width="100%">A class containing ViewerOptimizedOptions
+&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_W">W</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Watermark.html">Watermark</a></td>
+            <td class="jd-descrcol" width="100%">A watermark annotation (PDF 1.6) shall be used to represent graphics 
+ that shall be printed at a fixed size and position on a page, 
+ regardless of the dimensions of the printed page.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/WebFontDownloader.html">WebFontDownloader</a></td>
+            <td class="jd-descrcol" width="100%">The class WebFontDownloader.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/annots/Widget.html">Widget</a></td>
+            <td class="jd-descrcol" width="100%">Interactive forms use widget annotations (PDF 1.2) to represent the appearance 
+ of fields and to manage user interactions.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/pdf/WordToPDFOptions.html">WordToPDFOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<h2 id="letter_X">X</h2>
+<table class="jd-sumtable">
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/X501AttributeTypeAndValue.html">X501AttributeTypeAndValue</a></td>
+            <td class="jd-descrcol" width="100%">This class represents an AttributeTypeAndValue as mentioned in RFC 5280 in the context of DistinguishedNames and as defined in ITU X.501.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/X501DistinguishedName.html">X501DistinguishedName</a></td>
+            <td class="jd-descrcol" width="100%">This class represents a distinguished name (DN) as defined in X.501.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/X509Certificate.html">X509Certificate</a></td>
+            <td class="jd-descrcol" width="100%">This class represents an X509 public-key certificate, as specified in RFC 5280.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class=" api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/crypto/X509Extension.html">X509Extension</a></td>
+            <td class="jd-descrcol" width="100%">This class represents an X509v3 certificate extension.&nbsp;</td>
+        </tr>
+    
+    
+        <tr class="alt-color api apilevel-" >
+            <td class="jd-linkcol"><a href="./com/pdftron/fdf/XFDFExportOptions.html">XFDFExportOptions</a></td>
+            <td class="jd-descrcol" width="100%">&nbsp;</td>
+        </tr>
+    
+    
+</table>
+
+
+<div id="footer">
+Generated by <a href="http://code.google.com/p/doclava/">Doclava</a>.
+</div> <!-- end footer -->
+
+</div><!-- end jd-content -->
+</div><!-- end doc-content -->
+
+</div> <!-- end body-content --> 
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<script type="text/javascript"> docsearch({
+apiKey: 'f9d712e43c1978feb1df68f5e63a868c',
+indexName: 'pdftron',
+inputSelector: '.gsc-input',
+algoliaOptions: { 'facetFilters': ["tags:java"] },
+debug: false // Set debug to true if you want to inspect the dropdown
+});
+</script>
+
+<script type="text/javascript">
+init(); /* initialize doclava-developer-docs.js */
+</script>
+
+</body>
+</html>

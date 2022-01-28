@@ -52,8 +52,9 @@
 ##----------------------------------------------------------------------------------------------------------------------
 
 
-import sys
 
+
+import sys
 from PDFNetPython3 import *
 
 sys.path.append("../../LicenseKey/PYTHON")

@@ -1,0 +1,87 @@
+.header,
+.header * {
+  box-sizing: border-box;
+}
+
+.header {
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-bar {
+  font-family: canal medium, Helvetica, Arial, sans-serif;
+  background: #fff;
+  font-weight: 400;
+  line-height: 29.05px;
+  color: #495057;
+  text-align: left;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 62px;
+}
+
+.nav-bar .nav-brand {
+  padding: 0;
+  margin-right: 2vw;
+}
+
+.nav-bar .nav-block {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-bar .nav-block-first {
+  width: 60vw;
+  max-width: 500px;
+  margin-right: auto;
+  display: none;
+}
+
+@media (min-width: 992px) {
+  .nav-bar .nav-block-first {
+    display: flex;
+  }
+}
+
+.nav-bar .nav-block-last {
+  width: 30vw;
+  max-width: 300px;
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.nav-bar .nav-item {
+  margin: 0 1vw;
+}
+
+.nav-bar .nav-item.active {
+  font-weight: bold;
+}
+.nav-bar .nav-item.active > .nav-link {
+  color: #00a5e4;
+}
+
+.nav-bar .nav-link {
+  white-space: nowrap;
+  font-size: 14.3px;
+  color: #495057;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-bar .nav-link:hover,
+.nav-bar .nav-link:visited {
+  text-decoration: none;
+  color: #495057;
+}
+
+.nav-bar .nav-form {
+  padding-top: 6px;
+  margin-right: 0;
+}

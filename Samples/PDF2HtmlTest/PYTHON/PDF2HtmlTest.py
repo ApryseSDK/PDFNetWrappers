@@ -21,7 +21,7 @@ from LicenseKey import *
 # 1. The built-in HTML module is used to convert PDF documents to fixed-position HTML
 #    documents.
 # 2. The optional add-on module is used to convert PDF documents to HTML documents with
-#    text flowing within paragraphs.
+#    text flowing across the browser window.
 #
 # The PDFTron SDK HTML add-on module can be downloaded from http://www.pdftron.com/
 #
@@ -56,13 +56,13 @@ def main():
 
     PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/")
 
-    if not PDF2HtmlReflowParagraphsModule.IsModuleAvailable():
+    if not StructuredOutputModule.IsModuleAvailable():
         print("")
-        print("Unable to run part of the sample: PDFTron SDK HTML reflow paragraphs module not available.")
-        print("---------------------------------------------------------------")
-        print("The HTML reflow paragraphs module is an optional add-on, available for download")
-        print("at http://www.pdftron.com/. If you have already downloaded this")
-        print("module, ensure that the SDK is able to find the required files")
+        print("Unable to run part of the sample: PDFTron SDK Structured Output module not available.")
+        print("-------------------------------------------------------------------------------------")
+        print("The Structured Output module is an optional add-on, available for download")
+        print("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+        print("downloaded this module, ensure that the SDK is able to find the required files")
         print("using the PDFNet::AddResourceSearchPath() function.")
         print("")
         return
@@ -70,15 +70,15 @@ def main():
     #-----------------------------------------------------------------------------------
 
     try:
-        # Convert PDF document to HTML with reflow paragraphs option turned on (1)
-        print("Converting PDF to HTML with reflow paragraphs option turned on (1)")
+        # Convert PDF document to HTML with reflow full option turned on (1)
+        print("Converting PDF to HTML with reflow full option turned on (1)")
 
-        outputFile = outputPath + "paragraphs_and_tables_reflow_paragraphs.html"
+        outputFile = outputPath + "paragraphs_and_tables_reflow_full.html"
 
         htmlOutputOptions = HTMLOutputOptions()
 
-        # Set e_reflow_paragraphs content reflow setting
-        htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptions.e_reflow_paragraphs)
+        # Set e_reflow_full content reflow setting
+        htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptions.e_reflow_full)
 
         Convert.ToHtml(inputPath + "paragraphs_and_tables.pdf", outputFile, htmlOutputOptions)
 
@@ -89,18 +89,18 @@ def main():
     #-----------------------------------------------------------------------------------
 
     try:
-        # Convert PDF document to HTML with reflow paragraphs option turned on (2)
-        print("Converting PDF to HTML with reflow paragraphs option turned on (2)")
+        # Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
+        print("Converting PDF to HTML with reflow full option turned on (only converting the first page) (2)")
 
-        outputFile = outputPath + "paragraphs_and_tables_reflow_paragraphs_no_page_width.html"
+        outputFile = outputPath + "paragraphs_and_tables_reflow_full_first_page.html"
 
         htmlOutputOptions = HTMLOutputOptions()
 
-        # Set e_reflow_paragraphs content reflow setting
-        htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptions.e_reflow_paragraphs)
+        # Set e_reflow_full content reflow setting
+        htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptions.e_reflow_full)
 
-        # Set to flow paragraphs across the entire browser window.
-        htmlOutputOptions.SetNoPageWidth(True)
+        # Convert only the first page
+        htmlOutputOptions.SetPages(1, 1)
 
         Convert.ToHtml(inputPath + "paragraphs_and_tables.pdf", outputFile, htmlOutputOptions)
 

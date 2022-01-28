@@ -1,0 +1,28 @@
+var classpdftron_1_1_p_d_f_1_1_highlights =
+[
+    [ "Highlight", "classpdftron_1_1_p_d_f_1_1_highlights.html#a6a73d64f4cee7984a6df59f8213ffc18", null ],
+    [ "Highlights", "classpdftron_1_1_p_d_f_1_1_highlights.html#a53b42e9bfa4720dd5ba70d276619fece", null ],
+    [ "~Highlights", "classpdftron_1_1_p_d_f_1_1_highlights.html#a3f28f4021869e425237cadf0a0aa2832", null ],
+    [ "Highlights", "classpdftron_1_1_p_d_f_1_1_highlights.html#af30de2b76a2b893c4b11a724f792a1fb", null ],
+    [ "Highlights", "classpdftron_1_1_p_d_f_1_1_highlights.html#a2fd8511a02752bed624ae74317ee9448", null ],
+    [ "Add", "classpdftron_1_1_p_d_f_1_1_highlights.html#a5c0c8ab1912f4d2459f77baef671acf9", null ],
+    [ "Begin", "classpdftron_1_1_p_d_f_1_1_highlights.html#a9b8fef3d770a1d2e53ac8da729266263", null ],
+    [ "Clear", "classpdftron_1_1_p_d_f_1_1_highlights.html#aab37c8af408fe66f90e8a7e621e4542d", null ],
+    [ "CreateInternal", "classpdftron_1_1_p_d_f_1_1_highlights.html#a19c2dba2012a3e23521cd34997a3a45e", null ],
+    [ "Destroy", "classpdftron_1_1_p_d_f_1_1_highlights.html#aea7b973a051fb0b28552d4108c5d3098", null ],
+    [ "GetCurrentPageNumber", "classpdftron_1_1_p_d_f_1_1_highlights.html#a295439b585e0975033bda368af35e4de", null ],
+    [ "GetCurrentQuads", "classpdftron_1_1_p_d_f_1_1_highlights.html#ab4ed79228c7b49e5754772b3730b5487", null ],
+    [ "GetCurrentQuads", "classpdftron_1_1_p_d_f_1_1_highlights.html#ad844e3db87fb2df7883f4e9ad32fe27e", null ],
+    [ "GetCurrentTextRange", "classpdftron_1_1_p_d_f_1_1_highlights.html#a4e2196e699fa1a7699db99713769c360", null ],
+    [ "GetHandleInternal", "classpdftron_1_1_p_d_f_1_1_highlights.html#a9d75faa58926cf3d4fc67a242a2ada2b", null ],
+    [ "HasNext", "classpdftron_1_1_p_d_f_1_1_highlights.html#a4ea1a6bcede9565eb167dee412efee89", null ],
+    [ "Load", "classpdftron_1_1_p_d_f_1_1_highlights.html#a7bbd6b4f50a8b901455cd1c6028b5202", null ],
+    [ "Next", "classpdftron_1_1_p_d_f_1_1_highlights.html#ad7bd6ae3e97f14c5a9cad471ff3865e6", null ],
+    [ "operator=", "classpdftron_1_1_p_d_f_1_1_highlights.html#a58f03ebeac53dc97a12b54da99d09736", null ],
+    [ "Save", "classpdftron_1_1_p_d_f_1_1_highlights.html#a584cce47d956258dffa2b38ca1372126", null ],
+    [ "SaveToString", "classpdftron_1_1_p_d_f_1_1_highlights.html#afb999d5d3c331434f6d1b091b15b86e9", null ],
+    [ "PDFView", "classpdftron_1_1_p_d_f_1_1_highlights.html#a63c5a1ce6c86024bd3a92bd8b1da2f7a", null ],
+    [ "PDFViewCtrl", "classpdftron_1_1_p_d_f_1_1_highlights.html#a6fae7ebe228fbfb4432446e4ed1f9a36", null ],
+    [ "TextSearch", "classpdftron_1_1_p_d_f_1_1_highlights.html#af8fc7cb2041dd2cc2c198202da6d72d5", null ],
+    [ "mp_highlights", "classpdftron_1_1_p_d_f_1_1_highlights.html#af111d92f029f358e944101236447f8a7", null ]
+];

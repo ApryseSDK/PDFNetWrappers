@@ -1,0 +1,27 @@
+var structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers =
+[
+    [ "EventHandlers", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#add23117660caa9301078b4313e187c2a", null ],
+    [ "character_entered", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#ad484313eca35e3b520abf9a1a05acc41", null ],
+    [ "custom_data", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a29dd4d1b8c24f3c182c9852be5c5f0b4", null ],
+    [ "key_down", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a725af038d84df08b0e7476f61d57e95e", null ],
+    [ "key_up", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#abf03b095bb78c674149a4fc43b109c35", null ],
+    [ "mouse_enter", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#af372c46097d24cbbcff6e30e409be923", null ],
+    [ "mouse_leave", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a18b59a4f056dfc996609337fb97cee11", null ],
+    [ "mouse_left_dclick", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#aa5557bc19933fd1fed3c1d951b9c4d82", null ],
+    [ "mouse_left_down", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a29fe5e5d05b3393207e3571f91ceac6e", null ],
+    [ "mouse_left_up", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a327e13a78399f3bae5f80fc1d337ecc6", null ],
+    [ "mouse_middle_dclick", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a205ae58e08e13fd9e9f78a0362f7356e", null ],
+    [ "mouse_middle_down", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#aecace46922e5ea8bccfbc796b3e1f307", null ],
+    [ "mouse_middle_up", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a6a7332ac33fa7dd738a744cdaee67781", null ],
+    [ "mouse_move", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#ad6a70f1f40dd57f1de7adb4b08c6962c", null ],
+    [ "mouse_right_dclick", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#ae36f7a9dc11401a7af380122da14dd9b", null ],
+    [ "mouse_right_down", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a4a4fbfd2ea75813156ca127b97686093", null ],
+    [ "mouse_right_up", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#af8beaecd3bc8026b85c52d25ed1f3fe6", null ],
+    [ "on_context_menu", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#ad8710b79ffd2a51dedf2fc7edad02d0a", null ],
+    [ "on_edit_annotation", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#af1f97a4322cded406bf45a3f561e4e99", null ],
+    [ "on_find_text_done", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#abd0be98ad05b5c6e2408484ae225bdf1", null ],
+    [ "on_mousewheel", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#af76a7c957a7b90da134c7630215b1e6f", null ],
+    [ "on_paint", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#aa97d37b47650cbfbabc9f49fe2ec9890", null ],
+    [ "on_size", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#a130b3efe2a91e93097ad5a5481fd4e75", null ],
+    [ "on_window_event", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_event_handlers.html#ae0d4a243e1f027397e182e99d41ac257", null ]
+];

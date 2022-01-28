@@ -1,0 +1,35 @@
+var classpdftron_1_1_filters_1_1_filter =
+[
+    [ "ReferencePos", "classpdftron_1_1_filters_1_1_filter.html#aeefe2e0ad837f6231d9ac92ba274286e", [
+      [ "e_begin", "classpdftron_1_1_filters_1_1_filter.html#aeefe2e0ad837f6231d9ac92ba274286eaf899e81c83eee0838db6f8b9a632a644", null ],
+      [ "e_end", "classpdftron_1_1_filters_1_1_filter.html#aeefe2e0ad837f6231d9ac92ba274286ea3f430fd32d6904f873f160ed587520ec", null ],
+      [ "e_cur", "classpdftron_1_1_filters_1_1_filter.html#aeefe2e0ad837f6231d9ac92ba274286ea1199a74bcff12e839738e5ff21aa0279", null ]
+    ] ],
+    [ "Filter", "classpdftron_1_1_filters_1_1_filter.html#a46fef4f05ca364e9b55620a36d8a00b6", null ],
+    [ "~Filter", "classpdftron_1_1_filters_1_1_filter.html#aea20482f9c9167e001ad3cbb9012c7da", null ],
+    [ "Filter", "classpdftron_1_1_filters_1_1_filter.html#ae6c33b38f3b4f8e4953730f6918cb0ad", null ],
+    [ "AttachFilter", "classpdftron_1_1_filters_1_1_filter.html#ae6c1fffdd0a8d835e2954f4cf4c8c272", null ],
+    [ "Begin", "classpdftron_1_1_filters_1_1_filter.html#ad83b94c6c64ba4685291c3b7b60189a5", null ],
+    [ "CanSeek", "classpdftron_1_1_filters_1_1_filter.html#ac23c3f6924ceaa1dd9f5c3888ba9e148", null ],
+    [ "Consume", "classpdftron_1_1_filters_1_1_filter.html#a772b86ffd2fa4c7e8c22b7c2b377c0b5", null ],
+    [ "Count", "classpdftron_1_1_filters_1_1_filter.html#a388deb25cfe67701902e2d284a82b099", null ],
+    [ "CreateInputIterator", "classpdftron_1_1_filters_1_1_filter.html#aa173aa3f2dde7b4e799f0fd78a4b13be", null ],
+    [ "Destroy", "classpdftron_1_1_filters_1_1_filter.html#a221c70442c84fd313c9c610e28c537c7", null ],
+    [ "Flush", "classpdftron_1_1_filters_1_1_filter.html#a81eba9bf215c5223289ba1b7eb695e5b", null ],
+    [ "FlushAll", "classpdftron_1_1_filters_1_1_filter.html#a34126f2a7ef97c81279163493a889878", null ],
+    [ "GetAttachedFilter", "classpdftron_1_1_filters_1_1_filter.html#ae3a7a186cca33e9c13a4bcc630fe2939", null ],
+    [ "GetDecodeName", "classpdftron_1_1_filters_1_1_filter.html#ad93eb0550856def71a64f8e94b4d1aaa", null ],
+    [ "GetFilePath", "classpdftron_1_1_filters_1_1_filter.html#a33eb7c066f86bbd38e32156bd7e52e9b", null ],
+    [ "GetName", "classpdftron_1_1_filters_1_1_filter.html#a988d61c22259fd1b49e8a0f515e0d75c", null ],
+    [ "GetSourceFilter", "classpdftron_1_1_filters_1_1_filter.html#a6fcfb7e0ca223d056195203ef6eda519", null ],
+    [ "IsInputFilter", "classpdftron_1_1_filters_1_1_filter.html#ae52ad58e867ceeb43c6c66ddb8b88834", null ],
+    [ "operator bool", "classpdftron_1_1_filters_1_1_filter.html#aa839c44bc9f16dc187df000b298c65c9", null ],
+    [ "operator=", "classpdftron_1_1_filters_1_1_filter.html#a3646541ff4c87e07e5aa5a52cf8a9d59", null ],
+    [ "ReleaseAttachedFilter", "classpdftron_1_1_filters_1_1_filter.html#a84173cde0a5788e224872d7588f16d58", null ],
+    [ "Seek", "classpdftron_1_1_filters_1_1_filter.html#a3a191bf2734e60c67504fee0d61d93a4", null ],
+    [ "SetCount", "classpdftron_1_1_filters_1_1_filter.html#a5512ea1e79a39d02f7d17039bb759c31", null ],
+    [ "SetStreamLength", "classpdftron_1_1_filters_1_1_filter.html#a6780fa959a7e34a75fcef9937f4334a6", null ],
+    [ "Size", "classpdftron_1_1_filters_1_1_filter.html#a90bf62b126bee5e0bd4c930160f2785c", null ],
+    [ "Tell", "classpdftron_1_1_filters_1_1_filter.html#a19b8a74d63a93007817d1f98efc0c1a9", null ],
+    [ "WriteToFile", "classpdftron_1_1_filters_1_1_filter.html#a37f17695491652e7f8a28f93f2dcb19a", null ]
+];

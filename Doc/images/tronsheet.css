@@ -8,7 +8,11 @@ a:link { color: #0077AA; 	}
 a:active, a:hover { color: gray; }
 a:visited { color: #003366; }
 
-td, div, h1, h2, h3, p, li { color: black; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; }
+td, div, p, li { color: black; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; }
+h1 { color: black; font-size: 13pt; font-family: verdana, geneva, arial, sans-serif; }
+h2 { color: #111111; font-size: 12pt; font-family: verdana, geneva, arial, sans-serif; margin-left:0.2em;}
+h3 { color: #444444; font-size: 10pt; font-family: helvetica, arial, sans-serif; margin-left:0.5em;}
+h4 { color: #555555; font-size: 9pt; font-family: helvetica, arial, sans-serif; margin-left:0.6em;}
 input, textarea, select  { color: black; font-size: 7pt; font-family: verdana, geneva, arial, sans-serif; }
 
 th { text-align: center; color: white; font-size: 9pt; font-family: verdana, geneva, arial, sans-serif; background-color: #0099cc; }

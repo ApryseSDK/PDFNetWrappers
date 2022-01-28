@@ -1,0 +1,12 @@
+com.pdftron.common
+com.pdftron.crypto
+com.pdftron.fdf
+com.pdftron.filters
+com.pdftron.helpers
+com.pdftron.pdf
+com.pdftron.pdf.annots
+com.pdftron.pdf.ocg
+com.pdftron.pdf.pdfa
+com.pdftron.pdf.struct
+com.pdftron.sdf
+
