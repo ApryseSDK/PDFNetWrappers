@@ -1,6 +1,0 @@
-Update Python3 samples for pip release: (update ___Test.py, TestFiles, whatsnew.html)
-- checkout Samples from PDFNetWrapper (master/stable) and run script to update for python3 pip (from PDFNetPython --> from PDFNetPython3)
-- copy newly updated  ___Test.py in Samples above to old package (unzipped PDFNetPython3.zip)
-- copy TestFiles from Samples above and replace the old one in the old package
-- update whatsnew.html in the old package
-- The old package is now updated. Zip the package and upload it to S3/replace the old one.
