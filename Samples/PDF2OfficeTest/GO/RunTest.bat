@@ -6,7 +6,7 @@ if not exist ..\..\bin\PDFNetC.dll (
 	copy ..\..\..\PDFNetC\Lib\PDFNetC.dll ..\..\bin\PDFNetC.dll >nul
 )
 setlocal
-set TEST_NAME=PDF2WordTest
+set TEST_NAME=PDF2OfficeTest
 go build -o ../../bin/%TEST_NAME%.exe
 if %ERRORLEVEL% NEQ 0 goto EOF
 call ..\..\bin\%TEST_NAME%.exe

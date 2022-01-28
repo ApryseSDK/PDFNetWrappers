@@ -3,6 +3,7 @@
 // Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
+namespace Pdftron;
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
 include("../../LicenseKey/PHP/LicenseKey.php");
 
@@ -45,7 +46,7 @@ function main()
 	try {
 		$fnt = Font::CreateCIDTrueTypeFont($doc->GetSDFDoc(), $font_program, true, true);
 	}
-	catch(Exception $e){
+	catch(\Exception $e){
 
 	}
 	if($fnt)

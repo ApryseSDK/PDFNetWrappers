@@ -3,6 +3,7 @@
 // Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
+namespace Pdftron;
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
 include("../../LicenseKey/PHP/LicenseKey.php");
 
@@ -56,7 +57,7 @@ function ConvertToPdfFromFile()
 			echo(nl2br("Converted file: ".$inputFile."\n"));
 			echo(nl2br("to: ".$outputFile."\n"));
 		}
-		catch(Exception $e)
+		catch(\Exception $e)
 		{
 			$ret = 1;
 		}
@@ -137,7 +138,7 @@ function ConvertSpecificFormats()
 		Convert::ToTiff($inputPath . "newsletter.pdf", $outputPath. "newsletter.tiff", $tiff_options);
 		echo(nl2br("Saved newsletter.tiff\n"));
 	}
-    catch(Exception $e){
+    catch(\Exception $e){
         $ret = 1;
 	}
     return $ret;

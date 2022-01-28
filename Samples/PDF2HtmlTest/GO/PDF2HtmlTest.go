@@ -19,7 +19,7 @@ import  "pdftron/Samples/LicenseKey/GO"
 // 1. The built-in HTML module is used to convert PDF documents to fixed-position HTML
 //    documents.
 // 2. The optional add-on module is used to convert PDF documents to HTML documents with
-//    text flowing within paragraphs.
+//    text flowing across the browser window.
 //
 // The PDFTron SDK HTML add-on module can be downloaded from http://www.pdftron.com/
 //
@@ -61,16 +61,16 @@ func ConvertToHtmlFixedPositionTest() (err error) {
 func ConvertToHtmlReflowParagraphTest1() (err error) {
 	defer catch(&err)
 
-	// Convert PDF document to HTML with reflow paragraphs option turned on (1)
-	fmt.Println("Converting PDF to HTML with reflow paragraphs option turned on (1)")
+	// Convert PDF document to HTML with reflow full option turned on (1)
+	fmt.Println("Converting PDF to HTML with reflow full option turned on (1)")
 
 	inputFile := inputPath + "paragraphs_and_tables.pdf"
-	outputFile := outputPath + "paragraphs_and_tables_reflow_paragraphs.html"
+	outputFile := outputPath + "paragraphs_and_tables_reflow_full.html"
 
 	htmlOutputOptions := NewHTMLOutputOptions()
 
-	// Set e_reflow_paragraphs content reflow setting
-	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_paragraphs);
+	// Set e_reflow_full content reflow setting
+	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_full);
 
 	// Convert to HTML
 	ConvertToHtml(inputFile, outputFile, htmlOutputOptions)
@@ -84,19 +84,19 @@ func ConvertToHtmlReflowParagraphTest1() (err error) {
 func ConvertToHtmlReflowParagraphTest2() (err error) {
 	defer catch(&err)
 
-	// Convert PDF document to HTML with reflow paragraphs option turned on (2)
-	fmt.Println("Converting PDF to HTML with reflow paragraphs option turned on (2)")
+	// Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
+	fmt.Println("Converting PDF to HTML with reflow full option turned on (only converting the first page) (2)")
 
 	inputFile := inputPath + "paragraphs_and_tables.pdf"
-	outputFile := outputPath + "paragraphs_and_tables_reflow_paragraphs_no_page_width.html"
+	outputFile := outputPath + "paragraphs_and_tables_reflow_full_first_page.html"
 
 	htmlOutputOptions := NewHTMLOutputOptions()
 
-	// Set e_reflow_paragraphs content reflow setting
-	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_paragraphs);
+	// Set e_reflow_full content reflow setting
+	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_full);
 
-	// Set to flow paragraphs across the entire browser window.
-	htmlOutputOptions.SetNoPageWidth(true);
+	// Convert only the first page
+	htmlOutputOptions.SetPages(1, 1);
 
 	// Convert to HTML
 	ConvertToHtml(inputFile, outputFile, htmlOutputOptions)
@@ -125,22 +125,21 @@ func main() {
 
 	PDFNetAddResourceSearchPath("../../../PDFNetC/Lib/")
 
-	if !PDF2WordModuleIsModuleAvailable() {
+	if !StructuredOutputModuleIsModuleAvailable() {
 		fmt.Println("")
-		fmt.Println("Unable to run part of the sample: PDFTron SDK HTML reflow paragraphs module not available.")
-		fmt.Println("---------------------------------------------------------------")
-		fmt.Println("The HTML reflow paragraphs module is an optional add-on, available for download")
-		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/.")
-		fmt.Println("If you have already downloaded this module, ensure that the SDK")
-		fmt.Println("is able to find the required file using the")
-		fmt.Println("PDFNetAddResourceSearchPath() function.")
+		fmt.Println("Unable to run part of the sample: PDFTron SDK Structured Output module not available.")
+		fmt.Println("-------------------------------------------------------------------------------------")
+		fmt.Println("The Structured Output module is an optional add-on, available for download")
+		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("downloaded this module, ensure that the SDK is able to find the required file")
+		fmt.Println("using the PDFNet::AddResourceSearchPath() function.")
 		fmt.Println("")
 		return
 	}
 
 	//-----------------------------------------------------------------------------------
 
-	// CConvert PDF document to HTML with reflow paragraphs option turned on (1)
+	// Convert PDF document to HTML with reflow full option turned on (1)
 	err = ConvertToHtmlReflowParagraphTest1()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to convert PDF document to HTML, error: %s", err))
@@ -148,7 +147,7 @@ func main() {
 
 	//-----------------------------------------------------------------------------------
 
-	// CConvert PDF document to HTML with reflow paragraphs option turned on (2)
+	// Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
 	err = ConvertToHtmlReflowParagraphTest2()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to convert PDF document to HTML, error: %s", err))

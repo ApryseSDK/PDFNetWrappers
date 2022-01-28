@@ -3,6 +3,7 @@
 // Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
+namespace Pdftron;
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
 include("../../LicenseKey/PHP/LicenseKey.php");
 
@@ -14,7 +15,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 // 1. The built-in HTML module is used to convert PDF documents to fixed-position HTML
 //    documents.
 // 2. The optional add-on module is used to convert PDF documents to HTML documents with
-//    text flowing within paragraphs.
+//    text flowing across the browser window.
 //
 // The PDFTron SDK HTML add-on module can be downloaded from http://www.pdftron.com/
 //
@@ -30,6 +31,7 @@ function main()
 	// The first step in every application using PDFNet is to initialize the 
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
+	global $LicenseKey;
 	PDFNet::Initialize($LicenseKey);
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 	
@@ -45,7 +47,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(Exception $e) {
+	catch(\Exception $e) {
 		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -53,15 +55,14 @@ function main()
 
 	PDFNet::AddResourceSearchPath("../../../PDFNetC/Lib/");
 
-	if (!PDF2HtmlReflowParagraphsModule::IsModuleAvailable()) {
+	if (!StructuredOutputModule::IsModuleAvailable()) {
 		echo(nl2br("\n"));
-		echo(nl2br("Unable to run part of the sample: PDFTron SDK HTML reflow paragraphs module not available.\n"));
-		echo(nl2br("---------------------------------------------------------------\n"));
-		echo(nl2br("The HTML reflow paragraphs module is an optional add-on, available for download\n"));
-		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/.\n"));
-		echo(nl2br("If you have already downloaded this module, ensure that the SDK\n"));
-		echo(nl2br("is able to find the required files using the\n"));
-		echo(nl2br("PDFNet::AddResourceSearchPath() function.\n"));
+		echo(nl2br("Unable to run part of the sample: PDFTron SDK Structured Output module not available.\n"));
+		echo(nl2br("-------------------------------------------------------------------------------------\n"));
+		echo(nl2br("The Structured Output module is an optional add-on, available for download\n"));
+		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
+		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
 		echo(nl2br("\n"));
 		return;
 	}
@@ -69,45 +70,45 @@ function main()
 	//-----------------------------------------------------------------------------------
 
 	try {
-		// Convert PDF document to HTML with reflow paragraphs option turned on (1)
-		echo(nl2br("Converting PDF to HTML with reflow paragraphs option turned on (1)\n"));
+		// Convert PDF document to HTML with reflow full option turned on (1)
+		echo(nl2br("Converting PDF to HTML with reflow full option turned on (1)\n"));
 
-		$outputFile = $outputPath."paragraphs_and_tables_reflow_paragraphs.html";
+		$outputFile = $outputPath."paragraphs_and_tables_reflow_full.html";
 
 		$htmlOutputOptions = new HTMLOutputOptions();
 
-		// Set e_reflow_paragraphs content reflow setting
-		$htmlOutputOptions->SetContentReflowSetting(HTMLOutputOptions::e_reflow_paragraphs);
+		// Set e_reflow_full content reflow setting
+		$htmlOutputOptions->SetContentReflowSetting(HTMLOutputOptions::e_reflow_full);
 
 		Convert::ToHtml($inputPath."paragraphs_and_tables.pdf", $outputFile, $htmlOutputOptions);
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(Exception $e) {
+	catch(\Exception $e) {
 		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
 	}
 
 	//-----------------------------------------------------------------------------------
 
 	try {
-		// Convert PDF document to HTML with reflow paragraphs option turned on (2)
-		echo(nl2br("Converting PDF to HTML with reflow paragraphs option turned on (2)\n"));
+		// Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
+		echo(nl2br("Converting PDF to HTML with reflow full option turned on (only converting the first page) (2)\n"));
 
-		$outputFile = $outputPath."paragraphs_and_tables_reflow_paragraphs_no_page_width.html";
+		$outputFile = $outputPath."paragraphs_and_tables_reflow_full_first_page.html";
 
 		$htmlOutputOptions = new HTMLOutputOptions();
 
-		// Set e_reflow_paragraphs content reflow setting
-		$htmlOutputOptions->SetContentReflowSetting(HTMLOutputOptions::e_reflow_paragraphs);
+		// Set e_reflow_full content reflow setting
+		$htmlOutputOptions->SetContentReflowSetting(HTMLOutputOptions::e_reflow_full);
 
-		// Set to flow paragraphs across the entire browser window.
-		$htmlOutputOptions->SetNoPageWidth(true);
+		// Convert only the first page
+		$htmlOutputOptions->SetPages(1, 1);
 
 		Convert::ToHtml($inputPath."paragraphs_and_tables.pdf", $outputFile, $htmlOutputOptions);
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(Exception $e) {
+	catch(\Exception $e) {
 		echo(nl2br("Unable to convert PDF document to HTML, error: " . $e->getMessage() . "\n"));
 	}
 

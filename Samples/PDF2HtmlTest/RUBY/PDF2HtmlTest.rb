@@ -17,7 +17,7 @@ $stdout.sync = true
 # 1. The built-in HTML module is used to convert PDF documents to fixed-position HTML
 #    documents.
 # 2. The optional add-on module is used to convert PDF documents to HTML documents with
-#    text flowing within paragraphs.
+#    text flowing across the browser window.
 #
 # The PDFTron SDK HTML add-on module can be downloaded from http://www.pdftron.com/
 #
@@ -52,15 +52,14 @@ def main()
 
 	PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
 
-	if !PDF2HtmlReflowParagraphsModule.IsModuleAvailable() then
+	if !StructuredOutputModule.IsModuleAvailable() then
 		puts ""
-		puts "Unable to run part of the sample: PDFTron SDK HTML reflow paragraphs module not available."
-		puts "---------------------------------------------------------------"
-		puts "The HTML reflow paragraphs module is an optional add-on, available for download"
-		puts "at https://www.pdftron.com/documentation/core/info/modules/."
-		puts "If you have already downloaded this module, ensure that the SDK"
-		puts "is able to find the required files using the"
-		puts "PDFNet.AddResourceSearchPath() function."
+		puts "Unable to run part of the sample: PDFTron SDK Structured Output module not available."
+		puts "-------------------------------------------------------------------------------------"
+		puts "The Structured Output module is an optional add-on, available for download"
+		puts "at https://www.pdftron.com/documentation/core/info/modules/. If you have already"
+		puts "downloaded this module, ensure that the SDK is able to find the required files"
+		puts "using the PDFNet::AddResourceSearchPath() function."
 		puts ""
 		return
 	end
@@ -68,15 +67,15 @@ def main()
 	#-----------------------------------------------------------------------------------
 
 	begin
-		# Convert PDF document to HTML with reflow paragraphs option turned on (1)
-		puts "Converting PDF to HTML with reflow paragraphs option turned on (1)"
+		# Convert PDF document to HTML with reflow full option turned on (1)
+		puts "Converting PDF to HTML with reflow full option turned on (1)"
 
-		$outputFile = $outputPath + "paragraphs_and_tables_reflow_paragraphs.html"
+		$outputFile = $outputPath + "paragraphs_and_tables_reflow_full.html"
 
 		$htmlOutputOptions = Convert::HTMLOutputOptions.new()
 
-		# Set e_reflow_paragraphs content reflow setting
-		$htmlOutputOptions.SetContentReflowSetting(Convert::HTMLOutputOptions::E_reflow_paragraphs)
+		# Set e_reflow_full content reflow setting
+		$htmlOutputOptions.SetContentReflowSetting(Convert::HTMLOutputOptions::E_reflow_full)
 
 		Convert.ToHtml($inputPath + "paragraphs_and_tables.pdf", $outputFile, $htmlOutputOptions)
 		puts "Result saved in " + $outputFile
@@ -87,18 +86,18 @@ def main()
 	#-----------------------------------------------------------------------------------
 
 	begin
-		# Convert PDF document to HTML with reflow paragraphs option turned on (2)
-		puts "Converting PDF to HTML with reflow paragraphs option turned on (2)"
+		# Convert PDF document to HTML with reflow full option turned on (only converting the first page) (2)
+		puts "Converting PDF to HTML with reflow full option turned on (only converting the first page) (2)"
 
-		$outputFile = $outputPath + "paragraphs_and_tables_reflow_paragraphs_no_page_width.html"
+		$outputFile = $outputPath + "paragraphs_and_tables_reflow_full_first_page.html"
 
 		$htmlOutputOptions = Convert::HTMLOutputOptions.new()
 
-		# Set e_reflow_paragraphs content reflow setting
-		$htmlOutputOptions.SetContentReflowSetting(Convert::HTMLOutputOptions::E_reflow_paragraphs)
+		# Set e_reflow_full content reflow setting
+		$htmlOutputOptions.SetContentReflowSetting(Convert::HTMLOutputOptions::E_reflow_full)
 
-		# Set to flow paragraphs across the entire browser window.
-		$htmlOutputOptions.SetNoPageWidth(true)
+		# Convert only the first page
+		$htmlOutputOptions.SetPages(1, 1)
 
 		Convert.ToHtml($inputPath + "paragraphs_and_tables.pdf", $outputFile, $htmlOutputOptions)
 		puts "Result saved in " + $outputFile

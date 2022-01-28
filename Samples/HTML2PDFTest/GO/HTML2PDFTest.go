@@ -31,12 +31,11 @@ import  "pdftron/Samples/LicenseKey/GO"
 
 func main(){
     outputPath := "../../TestFiles/Output/html2pdf_example"
-    host := "http://www.swig.org/"
-    page0 := ""
-    page1 := "doc.html"
-    page2 := "history.html"
-    page3 := "survey.html"
-    
+    host := "https://www.pdftron.com"
+    page0 := "/"
+    page1 := "/support"
+    page2 := "/blog"
+ 
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
     // initialized only once, but calling Initialize() multiple times is also fine.
@@ -46,6 +45,15 @@ func main(){
     // PDFNet library, or in the current working directory, it will be loaded
     // automatically. Otherwise, it must be set manually using HTML2PDF.SetModulePath.
     HTML2PDFSetModulePath("../../../PDFNetC/Lib/")
+    if ! HTML2PDFIsModuleAvailable(){
+        fmt.Println("Unable to run HTML2PDFTest: PDFTron SDK HTML2PDF module not available.\n" +
+        "---------------------------------------------------------------\n" +
+        "The HTML2PDF module is an optional add-on, available for download\n" +
+        "at http://www.pdftron.com/. If you have already downloaded this\n" +
+        "module, ensure that the SDK is able to find the required files\n" +
+        "using the HTML2PDF::SetModulePath() function.")
+        return
+    }
     
     //--------------------------------------------------------------------------------
     // Example 1) Simple conversion of a web page to a PDF doc. 
@@ -70,7 +78,6 @@ func main(){
     
     // create the HTML2PDF converter object and modify the output of the PDF pages
     converter = NewHTML2PDF()
-    converter.SetImageQuality(25)
     converter.SetPaperSize(PrinterModeE_11x17)
     
     // insert the web page to convert
@@ -88,30 +95,30 @@ func main(){
     
     doc = NewPDFDoc()
     converter = NewHTML2PDF()
-    
-    // Add a cover page, which is excluded from the outline, and ignore any errors
-    cover := NewWebPageSettings()
-    cover.SetLoadErrorHandling(WebPageSettingsE_ignore)
-    cover.SetIncludeInOutline(false)
-    converter.InsertFromURL(host + page3, cover)
-    
-    // Add a table of contents settings (modifying the settings is optional)
-    toc := NewTOCSettings()
-    toc.SetDottedLines(false)
-    converter.InsertTOC(toc)
 
-    // Now add the rest of the web pages, disabling external links and 
-    // skipping any web pages that fail to load.
-    // Note that the order of insertion matters, so these will appear
-    // after the cover and table of contents, in the order below.
+    header := "<div style='width:15%;margin-left:0.5cm;text-align:left;font-size:10px;color:#0000FF'><span class='date'></span></div><div style='width:70%;direction:rtl;white-space:nowrap;overflow:hidden;text-overflow:clip;text-align:center;font-size:10px;color:#0000FF'><span>PDFTRON HEADER EXAMPLE</span></div><div style='width:15%;margin-right:0.5cm;text-align:right;font-size:10px;color:#0000FF'><span class='pageNumber'></span> of <span class='totalPages'></span></div>"
+    footer := "<div style='width:15%;margin-left:0.5cm;text-align:left;font-size:7px;color:#FF00FF'><span class='date'></span></div><div style='width:70%;direction:rtl;white-space:nowrap;overflow:hidden;text-overflow:clip;text-align:center;font-size:7px;color:#FF00FF'><span>PDFTRON FOOTER EXAMPLE</span></div><div style='width:15%;margin-right:0.5cm;text-align:right;font-size:7px;color:#FF00FF'><span class='pageNumber'></span> of <span class='totalPages'></span></div>"
+    converter.SetHeader(header)
+    converter.SetFooter(footer)
+    converter.SetMargins("1cm", "2cm", ".5cm", "1.5cm")
     settings := NewWebPageSettings()
-    settings.SetLoadErrorHandling(WebPageSettingsE_skip)
-    settings.SetExternalLinks(false)
+    settings.SetZoom(0.5)
     converter.InsertFromURL(host + page0, settings)
+    is_conversion_0_successful := converter.Convert(doc)
+
+    // convert page 1 with the same settings, appending generated PDF pages to doc
     converter.InsertFromURL(host + page1, settings)
-    converter.InsertFromURL(host + page2, settings)
-    
-    if converter.Convert(doc){
+    is_conversion_1_successful := converter.Convert(doc)
+
+    // convert page 2 with different settings, appending generated PDF pages to doc
+    another_converter := NewHTML2PDF()
+    another_converter.SetLandscape(true)
+    another_settings := NewWebPageSettings()
+    another_settings.SetPrintBackground(false)
+    another_converter.InsertFromURL(host + page2, another_settings)
+    is_conversion_2_successful := another_converter.Convert(doc);
+
+    if(is_conversion_0_successful && is_conversion_1_successful && is_conversion_2_successful){
         doc.Save(outputPath + "_03.pdf", uint(SDFDocE_linearized))
     }else{
         fmt.Println("Conversion failed. HTTP Code: " + strconv.Itoa(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
