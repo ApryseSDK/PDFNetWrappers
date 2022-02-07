@@ -6,6 +6,13 @@
 project(PDFNetPHP CXX)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
+#configure PHP version
+find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
+if (NOT PHP_CONFIG_EXECUTABLE)
+    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
+    return ()
+endif ()
+
 if (WIN32)
     message(STATUS "Windows host platform detected.")
     if (PHP_INCLUDE_DIRS AND PHP_LIBRARY)
@@ -15,14 +22,8 @@ if (WIN32)
         return ()
     endif ()
 else ()
-    find_program(PHP_CONFIG php-config)
-    if (PHP_CONFIG-NOTFOUND)
-        message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
-        return ()
-    endif ()
-
     execute_process(
-        COMMAND ${PHP_CONFIG} --includes
+        COMMAND ${PHP_CONFIG_EXECUTABLE} --includes
         RESULT_VARIABLE PHP_CONFIG_INCLUDES_RESULT
         OUTPUT_VARIABLE PHP_CONFIG_INCLUDES
         ERROR_VARIABLE PHP_CONFIG_INCLUDES_ERR
@@ -39,7 +40,7 @@ else ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PHP_CONFIG_INCLUDES}")
 
     execute_process(
-        COMMAND ${PHP_CONFIG} --extension-dir
+        COMMAND ${PHP_CONFIG_EXECUTABLE} --extension-dir
         RESULT_VARIABLE PHP_CONFIG_EXT_DIR_RESULT
         OUTPUT_VARIABLE PHP_CONFIG_EXT_DIR
         ERROR_VARIABLE PHP_CONFIG_EXT_DIR_ERR
@@ -57,40 +58,31 @@ endif ()
 message(STATUS "Generating sources for PHP bindings using swig...")
 set(PDFNetPHP_SourcesDir ${PROJECT_BINARY_DIR})
 
-#configure PHP version
-find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
-if (PHP_CONFIG_EXECUTABLE)
+execute_process(
+COMMAND
+    ${PHP_CONFIG_EXECUTABLE} --vernum
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+COMMAND sed -ne "s/....$//p"
+    OUTPUT_VARIABLE PHP_MAJOR_VERSION
+)
+execute_process(
+COMMAND
+    ${PHP_CONFIG_EXECUTABLE} --vernum
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+COMMAND sed -ne "s/..$//p"
+COMMAND sed -ne "s/^.0\\?//p"
+    OUTPUT_VARIABLE PHP_MINOR_VERSION
+)
 
-    execute_process(
-    COMMAND
-      ${PHP_CONFIG_EXECUTABLE} --vernum
-      OUTPUT_STRIP_TRAILING_WHITESPACE
-    COMMAND sed -ne "s/....$//p"
-      OUTPUT_VARIABLE PHP_MAJOR_VERSION
-    )
-    execute_process(
-    COMMAND
-      ${PHP_CONFIG_EXECUTABLE} --vernum
-      OUTPUT_STRIP_TRAILING_WHITESPACE
-    COMMAND sed -ne "s/..$//p"
-    COMMAND sed -ne "s/^.0\\?//p"
-      OUTPUT_VARIABLE PHP_MINOR_VERSION
-    )
-
-    if(DEFINED PHP_MAJOR_VERSION)
-        if (PHP_MAJOR_VERSION LESS 7)
-            set(php_version "php")
-        else()
-            set(php_version "php7")
-        endif()
-	    set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
+if(DEFINED PHP_MAJOR_VERSION)
+    if (PHP_MAJOR_VERSION LESS 7)
+        set(php_version "php")
     else()
-        message(FATAL_ERROR "Cannot verify PHP_MAJOR_VERSION!")
-        return ()
+        set(php_version "php7")
     endif()
-
+    set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
 else()
-    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
+    message(FATAL_ERROR "Cannot verify PHP_MAJOR_VERSION!")
     return ()
 endif()
 
