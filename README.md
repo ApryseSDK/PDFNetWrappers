@@ -17,7 +17,7 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 ## Environments and versions
 
-* **SWIG** 2.0.4 - 2.0.12 and **SWIG** 3.0.12
+* **SWIG** 2.0.4 - 2.0.12 or **SWIG** 3.0.12 or **SWIG** 4.0.2 and above
 * **CMake** version 2.8+
 * **Linux**: GCC 4.6 and above
 * **Windows**: Visual Studio 2012 and above or mingw-w64 (for Go only)
