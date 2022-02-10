@@ -6,7 +6,6 @@
 project(PDFNetPHP CXX)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-#configure PHP version
 find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
 if (NOT PHP_CONFIG_EXECUTABLE)
     message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG_EXECUTABLE to the location of php-config then try again.")
@@ -58,31 +57,39 @@ endif ()
 message(STATUS "Generating sources for PHP bindings using swig...")
 set(PDFNetPHP_SourcesDir ${PROJECT_BINARY_DIR})
 
-execute_process(
-COMMAND
-    ${PHP_CONFIG_EXECUTABLE} --vernum
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-COMMAND sed -ne "s/....$//p"
-    OUTPUT_VARIABLE PHP_MAJOR_VERSION
-)
-execute_process(
-COMMAND
-    ${PHP_CONFIG_EXECUTABLE} --vernum
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-COMMAND sed -ne "s/..$//p"
-COMMAND sed -ne "s/^.0\\?//p"
-    OUTPUT_VARIABLE PHP_MINOR_VERSION
-)
+#configure PHP version
+if (PHP_CONFIG_EXECUTABLE)
 
-if(DEFINED PHP_MAJOR_VERSION)
-    if (PHP_MAJOR_VERSION LESS 7)
-        set(php_version "php")
+    execute_process(
+    COMMAND
+      ${PHP_CONFIG_EXECUTABLE} --vernum
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND sed -ne "s/....$//p"
+      OUTPUT_VARIABLE PHP_MAJOR_VERSION
+    )
+    execute_process(
+    COMMAND
+      ${PHP_CONFIG_EXECUTABLE} --vernum
+      OUTPUT_STRIP_TRAILING_WHITESPACE
+    COMMAND sed -ne "s/..$//p"
+    COMMAND sed -ne "s/^.0\\?//p"
+      OUTPUT_VARIABLE PHP_MINOR_VERSION
+    )
+
+    if(DEFINED PHP_MAJOR_VERSION)
+        if (PHP_MAJOR_VERSION LESS 7)
+            set(php_version "php")
+        else()
+            set(php_version "php7")
+        endif()
+	    set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
     else()
-        set(php_version "php7")
+        message(FATAL_ERROR "Cannot verify PHP_MAJOR_VERSION!")
+        return ()
     endif()
-    set(swig_php_major_arg "PHP_MAJOR_VERSION=${PHP_MAJOR_VERSION}")
+
 else()
-    message(FATAL_ERROR "Cannot verify PHP_MAJOR_VERSION!")
+    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
     return ()
 endif()
 
