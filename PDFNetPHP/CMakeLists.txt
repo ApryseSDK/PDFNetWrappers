@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 #configure PHP version
 find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
 if (NOT PHP_CONFIG_EXECUTABLE)
-    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
+    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG_EXECUTABLE to the location of php-config then try again.")
     return ()
 endif ()
 
