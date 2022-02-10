@@ -4,7 +4,7 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 project(PDFNetLanguageBindings CXX)
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
+cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 set(BUILD_PDFNetPython OFF CACHE BOOL "Build PDFNet language bindings for Python.")
 set(BUILD_PDFNetRuby OFF CACHE BOOL "Build PDFNet language bindings for Ruby.")
