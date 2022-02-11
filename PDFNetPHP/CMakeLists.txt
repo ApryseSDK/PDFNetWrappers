@@ -6,6 +6,12 @@
 project(PDFNetPHP CXX)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
+find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
+if (NOT PHP_CONFIG_EXECUTABLE)
+    message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG_EXECUTABLE to the location of php-config then try again.")
+    return ()
+endif ()
+
 if (WIN32)
     message(STATUS "Windows host platform detected.")
     if (PHP_INCLUDE_DIRS AND PHP_LIBRARY)
@@ -15,14 +21,8 @@ if (WIN32)
         return ()
     endif ()
 else ()
-    find_program(PHP_CONFIG php-config)
-    if (PHP_CONFIG-NOTFOUND)
-        message(FATAL_ERROR "Cannot find php-config, please set the variable PHP_CONFIG to the location of php-config then try again.")
-        return ()
-    endif ()
-
     execute_process(
-        COMMAND ${PHP_CONFIG} --includes
+        COMMAND ${PHP_CONFIG_EXECUTABLE} --includes
         RESULT_VARIABLE PHP_CONFIG_INCLUDES_RESULT
         OUTPUT_VARIABLE PHP_CONFIG_INCLUDES
         ERROR_VARIABLE PHP_CONFIG_INCLUDES_ERR
@@ -39,7 +39,7 @@ else ()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PHP_CONFIG_INCLUDES}")
 
     execute_process(
-        COMMAND ${PHP_CONFIG} --extension-dir
+        COMMAND ${PHP_CONFIG_EXECUTABLE} --extension-dir
         RESULT_VARIABLE PHP_CONFIG_EXT_DIR_RESULT
         OUTPUT_VARIABLE PHP_CONFIG_EXT_DIR
         ERROR_VARIABLE PHP_CONFIG_EXT_DIR_ERR
@@ -58,7 +58,6 @@ message(STATUS "Generating sources for PHP bindings using swig...")
 set(PDFNetPHP_SourcesDir ${PROJECT_BINARY_DIR})
 
 #configure PHP version
-find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
 if (PHP_CONFIG_EXECUTABLE)
 
     execute_process(
