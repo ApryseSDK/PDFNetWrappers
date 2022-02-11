@@ -49,7 +49,7 @@ def main()
         "logo": { "image_url": "%slogo_red.png", "width" : 64, "height":  64 },
         "sender_name": "Arnold Smith"
     }
-    ' % inputPath
+    ' % $inputPath
 
     # Start with a PDFDoc (the conversion destination)
     pdfdoc = PDFDoc.new()
