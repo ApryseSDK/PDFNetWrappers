@@ -1,9 +1,9 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
-// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2022 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //----------------------------------------------------------------------------------------------------------------------
-namespace Pdftron;
+if(file_exists("../../../PDFNetC/Lib/PDFNetPHP.php"))
 
 //----------------------------------------------------------------------------------------------------------------------
 // This sample demonstrates the basic usage of the high-level digital signatures API in PDFNet.
