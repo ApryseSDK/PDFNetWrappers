@@ -1,9 +1,9 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2022 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
-namespace Pdftron;
+if(file_exists("../../../PDFNetC/Lib/PDFNetPHP.php"))
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
 include("../../LicenseKey/PHP/LicenseKey.php");
 
@@ -61,7 +61,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(\Exception $e) {
+	catch(Exception $e) {
 		echo(nl2br("Unable to convert PDF document to Word, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -82,7 +82,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(\Exception $e) {
+	catch(Exception $e) {
 		echo(nl2br("Unable to convert PDF document to Word, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -98,7 +98,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(\Exception $e) {
+	catch(Exception $e) {
 		echo(nl2br("Unable to convert PDF document to Excel, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -119,7 +119,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(\Exception $e) {
+	catch(Exception $e) {
 		echo(nl2br("Unable to convert PDF document to Excel, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -135,7 +135,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(\Exception $e) {
+	catch(Exception $e) {
 		echo(nl2br("Unable to convert PDF document to PowerPoint, error: " . $e->getMessage() . "\n"));
 	}
 
@@ -156,7 +156,7 @@ function main()
 
 		echo(nl2br("Result saved in " . $outputFile . "\n"));
 	}
-	catch(\Exception $e) {
+	catch(Exception $e) {
 		echo(nl2br("Unable to convert PDF document to PowerPoint, error: " . $e->getMessage() . "\n"));
 	}
 
