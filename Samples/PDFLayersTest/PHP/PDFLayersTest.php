@@ -42,7 +42,7 @@ function CreateLayer($doc, $layer_name)
 	$grp = Group::Create($doc, $layer_name);
 	$cfg = $doc->GetOCGConfig();
 	if (!$cfg->IsValid()) {
-		$cfg = Config::Create($doc, true);
+		$cfg = OCGConfig::Create($doc, true);
 		$cfg->SetName("Default");
 	}
 
