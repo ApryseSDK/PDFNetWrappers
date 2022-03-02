@@ -152,6 +152,6 @@
 
 %typemap(freearg) std::vector<std::string>&
 %{
-    delete ($1);
+	if($1){	delete($1); $1 = 0; }
 %}
 

@@ -392,7 +392,7 @@ namespace pdftron {
 #ifdef PYTHON2
 %typemap(in) const pdftron::Unicode* text_data 
 { 
-    Unicode* $temp = new Unicode[PyList_Size($input)];
+    pdftron::Unicode* $temp = new pdftron::Unicode[PyList_Size($input)];
     int i;
 
     for (i = 0; i < PyList_Size($input); i++) {
@@ -463,7 +463,7 @@ namespace pdftron {
  */
 %typemap(freearg) const pdftron::Unicode* text_data  
 %{
-    delete[]($1);
+	if($1){ delete[]($1); $1 = 0; }
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -504,7 +504,7 @@ namespace pdftron {
 
 %typemap(freearg) std::vector<double>&
 %{
-    delete ($1);
+	if($1){	delete($1);$1 = 0;}
 %}
 
 %typemap(typecheck) std::vector<double>  {

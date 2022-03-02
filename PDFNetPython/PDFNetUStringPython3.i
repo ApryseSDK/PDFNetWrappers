@@ -25,7 +25,7 @@ namespace pdftron {
 			return NULL;
 		}
 		PyObject* bytes$argnum = PyUnicode_AsUTF8String($input);
-		$1 = (UString(PyBytes_AsString(bytes$argnum)));
+		$1 = (pdftron::UString(PyBytes_AsString(bytes$argnum)));
 		Py_DECREF(bytes$argnum);
 	}
 
@@ -67,7 +67,7 @@ namespace pdftron {
 			Swig::DirectorMethodException::raise("Expected a String or a Unicode");
 		}
 		if (isStr$argnum) {
-			$result = UString(PyString_AsString($1));
+			$result = pdftron::UString(PyString_AsString($1));
 		}
 		else if (isUni$argnum) {
 			PyObject* obj = PyUnicode_AsUTF8String($1);
@@ -104,6 +104,6 @@ namespace pdftron {
 	 */
 	%typemap(freearg) UString const &
 	%{
-		delete($1);
+		if($1){	delete($1); $1 = 0; }
 	%}
 }

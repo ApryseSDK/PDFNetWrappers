@@ -98,13 +98,27 @@ if (("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$") AND (PHP_MAJOR_VER
     return ()
 endif()
 
+string(REGEX REPLACE "\([0-9]+\)([.a-zA-Z0-9]+)*" "\\1" SWIG_MAJOR_VERSION ${SWIG_VERSION})
+string(REGEX REPLACE "[0-9]+\\.\([0-9]+\)([.a-zA-Z0-9])*" "\\1" SWIG_MINOR_VERSION ${SWIG_VERSION})
+
 message(STATUS "====================================================")
-message(STATUS "*** WARNING: SWIG2 doesn't work with PHP7. Please make sure either SWIG2/PHP5 or SWIG3+/PHP7 are installed. Note that only SWIG-3.0.12 and above works with PHP7. Any other combination of SWIG and PHP VERSION is likely to encounter problems!")
-message(STATUS "====================================================")
-message(STATUS "SWIG VERSION      = ${SWIG_VERSION}")    
-message(STATUS "PHP_MAJOR_VERSION = ${PHP_MAJOR_VERSION}")
-message(STATUS "PHP_MINOR_VERSION = ${PHP_MINOR_VERSION}")
-message(STATUS "${SWIG_EXECUTABLE} -c++ -${php_version} -D${swig_php_major_arg}...")    
+message(STATUS "CMAKE VERSION      = ${CMAKE_VERSION}")    
+message(STATUS "SWIG VERSION       = ${SWIG_VERSION}")    
+message(STATUS "SWIG_MAJOR_VERSION = ${SWIG_MAJOR_VERSION}")
+message(STATUS "SWIG_MINOR_VERSION = ${SWIG_MINOR_VERSION}")
+message(STATUS "PHP_MAJOR_VERSION  = ${PHP_MAJOR_VERSION}")
+message(STATUS "PHP_MINOR_VERSION  = ${PHP_MINOR_VERSION}")
+
+set(PHP_TARGET_FILE ON)
+if((SWIG_MAJOR_VERSION LESS 4) OR (SWIG_MAJOR_VERSION EQUAL 4 AND SWIG_MINOR_VERSION LESS 1))
+    if (PHP_MAJOR_VERSION GREATER 7)
+        message(FATAL_ERROR "ERROR! Cannot run PHP8 with SWIG 4.0 or below. Minimum is SWIG 4.1/PHP8. Please make sure you have the correct SWIG package before proceeding!")
+        return ()
+    endif()
+else ()
+    set(PHP_TARGET_FILE OFF)
+endif()
+message(STATUS "PHP_TARGET_FILE    = ${PHP_TARGET_FILE}")
 
 execute_process(
     COMMAND ${SWIG_EXECUTABLE} -c++ -${php_version} -DNTS -DSWIGHIDDEN_SIG -D${swig_php_major_arg} -I${PDFNetC_Include_Dir} -outdir ${PDFNetPHP_SourcesDir} -o ${PDFNetPHP_SourcesDir}/PDFNetPHP.cpp -oh ${PDFNetPHP_SourcesDir}/PDFNetPHP.hpp PDFNetPHP.i
@@ -165,6 +179,7 @@ endif()
 # - PDFNetPHP.so/.dll
 set_property(TARGET PDFNetPHP PROPERTY PREFIX "")
 
+if(PHP_TARGET_FILE)
 # Copy the bridge file
 configure_file(${PDFNetPHP_SourcesDir}/PDFNetPHP.php ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP.php COPYONLY)
 
@@ -185,6 +200,8 @@ install(
     FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPHP_core.php
     DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
+endif(PHP_TARGET_FILE)
+
 install(
     TARGETS PDFNetPHP
     LIBRARY DESTINATION ${INSTALL_DESTINATION_LIB_DIR}

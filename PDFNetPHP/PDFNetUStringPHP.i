@@ -26,7 +26,7 @@ namespace pdftron {
 		convert_to_string_ex($input);
 		char* temp$argnum = Z_STRVAL_PP($input);
 #endif
-		$1 = UString(temp$argnum);
+		$1 = pdftron::UString(temp$argnum);
 	}
 
 	%typemap(out) UString, const UString
@@ -40,7 +40,7 @@ namespace pdftron {
 	}
 
 	/**
-	 * Typemap between UString const & and Python string
+	 * Typemap between UString const & and PHP string
 	 */	
 	%typemap(in) UString const &
 	{  		
@@ -51,7 +51,7 @@ namespace pdftron {
 		convert_to_string_ex($input);
 		char* temp$argnum = Z_STRVAL_PP($input);
 #endif
-		$1 = new UString(temp$argnum);
+		$1 = new pdftron::UString(temp$argnum);
 	}
 	
 	/**
@@ -71,7 +71,7 @@ namespace pdftron {
 	 */
 	%typemap(freearg) UString const &
 	%{
-		delete($1);
+		if($1){	delete($1); $1 = 0; }
 	%}
     
     /**
