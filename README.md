@@ -31,9 +31,13 @@ Lastly, you will need to obtain the most recent package for PDFNetC. The package
 
 Having a **single version of SWIG and PHP installed** on the server is preferred.  Any other combinations of SWIG and PHP versions not listed below is likely to encounter problems.  If your build is not working as expected then please double check the version numbers.  Installing multiple versions of SWIG and PHP may also produce issues.
 
+* Targeting **PHP8**
+
+    * **PHP8** with developer extensions and **SWIG (4.1.0)** or above
+
 * Targeting **PHP7**
 
-    * **PHP7** with developer extensions and **SWIG3 (3.0.12)** or above
+    * **PHP7** with developer extensions and **SWIG (3.0.12 - 4.0.2)**
 
 * Targeting **PHP5**
 
@@ -119,8 +123,44 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
 
 More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/go)
 
+## Linux
+Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You could run the following set of commands:
+    # First, install swig 4.1.0 for PHP8 wrapper using swig/master branch
+    mkdir Swig
+    cd Swig
+    git clone https://github.com/swig/swig.git
+    cd swig
+    mkdir Build
+    cd Build 
+    cmake ..
+    sudo apt install
+    swig -version # check to make sure swig version 4.1.0
+
+    # Now, build PHP wrapper. Navigate to the location where you want to build the wrapper
+    mkdir wrappers_build # Make a directory to build the wrappers in.
+    cd wrappers_build # Move to that directory.
+    git clone https://github.com/PDFTron/PDFNetWrappers -b next_release --single-branch # Git the code.
+    cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
+    wget https://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
+    tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
+    mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
+    mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
+    cd .. # Go back up.
+    mkdir Build # Create a directory to create the Makefiles in.
+    cd Build # Move to that directory.
+    sudo apt-get install php-dev # or sudo yum install php-devel, to add php-dev for required PHP include directories
+    cmake -D BUILD_PDFNetPHP=ON .. # Create the Makefiles with CMake.
+    make # Build the PHP wrappers with SWIG.
+    sudo make install # Copy the PHP wrappers to where the samples can find them.
+    cd ../Samples # Move to the Samples directory.
+    ./runall_php.sh # Run all PHP code samples, using the new wrappers.
+
+Please note that you may need to register PDFNetPHP.so as an extension to your PHP by adding the following line in your php.ini:
+
+    extension=/full/path/to/PDFNetPHP.so
+
 ## Linux 
-Suppose you wanted to build and run the 64-bit `PHP` wrappers on `Linux`.  You could run the following set of commands:
+Suppose you wanted to build and run the 64-bit `PHP7` wrappers on `Linux`.  You could run the following set of commands:
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
