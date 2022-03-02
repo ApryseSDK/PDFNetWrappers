@@ -143,7 +143,7 @@ Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You 
     git clone https://github.com/PDFTron/PDFNetWrappers -b next_release --single-branch # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
     wget https://www.pdftron.com/downloads/PDFNetC64_PHP8.tar.gz # Download PDFNet.
-    tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
+    tar xzvf PDFNetC64_PHP8.tar.gz # Unpack PDFNet.
     mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
     cd .. # Go back up.
