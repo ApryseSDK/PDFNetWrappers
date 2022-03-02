@@ -549,7 +549,7 @@ function CreateTestAnnots($doc) {
 	CreateTestAnnots( $doc1 );
 	$outfname = $output_path."new_annot_test_api.pdf";
 	$doc1->Save($outfname, SDFDoc::e_linearized);
-	echo nl2br("Saved new_annot_test_api.pdf\n");
+	echo nl2br("Saved new_annot_test_api.pdf");
 	
     $doc->Close();
 	PDFNet::Terminate();
