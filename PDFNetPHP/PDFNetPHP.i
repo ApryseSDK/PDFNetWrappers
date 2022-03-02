@@ -9,6 +9,8 @@
  */
 %module(directors="1") PDFNetPHP
 
+%rename (OCGConfig) pdftron::PDF::OCG::Config;
+
 %include "PDFNet_StdStringPHP.i"
 /**
  * Different versions of UString typemap will be used pending
