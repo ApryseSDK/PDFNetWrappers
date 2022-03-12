@@ -206,7 +206,8 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
-
+    #include "PDF/WebFontDownloader.h"
+    
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
     #include "SDF/NameTree.h"
@@ -960,6 +961,7 @@ namespace pdftron {
 %include "PDF/PDFDC.h"
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
+%include "PDF/WebFontDownloader.h"
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{
