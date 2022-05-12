@@ -25,6 +25,17 @@ import  "pdftron/Samples/LicenseKey/GO"
 // as text and images.
 //---------------------------------------------------------------------------------------
 
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
 func PrintIndent(indent int){
    os.Stdout.Write([]byte("\n"))
    i := 0
@@ -34,7 +45,9 @@ func PrintIndent(indent int){
     }
 }
 
-func ProcessStructElement(element SElement, indent int){
+func ProcessStructElement(element SElement, indent int) (err error){
+
+	defer catch(&err)
     if !element.IsValid(){
         return
     }
@@ -75,10 +88,14 @@ func ProcessStructElement(element SElement, indent int){
         }
         i = i + 1
     }
+	
+	return nil
 }    
 
 // Used in code snippet 3.
-func ProcessElements2(reader ElementReader, mcidPageMap map[int]string){
+func ProcessElements2(reader ElementReader, mcidPageMap map[int]string) (err error){
+
+	defer catch(&err)
     element := reader.Next()
     for element.GetMp_elem().Swigcptr() != 0{ // Read page contents
         // In this sample we process only text, but the code can be extended
@@ -95,10 +112,13 @@ func ProcessElements2(reader ElementReader, mcidPageMap map[int]string){
         }
         element = reader.Next()
     }
+	return nil
 }
 
 // Used in code snippet 2.
-func ProcessElements(reader ElementReader){
+func ProcessElements(reader ElementReader) (err error){
+
+	defer catch(&err)
     element := reader.Next()
     for element.GetMp_elem().Swigcptr() != 0{  // Read page contents
         // In this sample we process only paths & text, but the code can be 
@@ -129,9 +149,12 @@ func ProcessElements(reader ElementReader){
         }
         element = reader.Next()
     }
+	return nil
 }        
         
-func ProcessStructElement2(element SElement, mcidDocMap map[int](map[int]string), indent int){
+func ProcessStructElement2(element SElement, mcidDocMap map[int](map[int]string), indent int) (err error){
+
+	defer catch(&err)
     if !element.IsValid(){
         return
     }
@@ -165,10 +188,12 @@ func ProcessStructElement2(element SElement, mcidDocMap map[int](map[int]string)
     }
     PrintIndent(indent)
     os.Stdout.Write([]byte("</" + element.GetType() + ">"))
+	return nil
 }        
 
 func main(){
     PDFNetInitialize(PDFTronLicense.Key)
+	
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
@@ -178,6 +203,7 @@ func main(){
     doc := NewPDFDoc(inputPath + "tagged.pdf")
     doc.InitSecurityHandler()
     
+	
     fmt.Println("____________________________________________________________")
     fmt.Println("Sample 1 - Traverse logical structure tree...")
     
@@ -188,7 +214,10 @@ func main(){
         i := 0
         for i < tree.GetNumKids(){
             // Recursively get structure info for all child elements.
-            ProcessStructElement(tree.GetKid(i), 0)
+            err := ProcessStructElement(tree.GetKid(i), 0)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to process structured elements, error: %s", err))
+			}
             i = i + 1
         }
     }else{
@@ -232,7 +261,10 @@ func main(){
     if tree.IsValid(){
         i := 0
         for i < tree.GetNumKids(){
-            ProcessStructElement2(tree.GetKid(i), mcidDocMap, 0)
+            err := ProcessStructElement2(tree.GetKid(i), mcidDocMap, 0)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to process structured element 2, error: %s", err))
+			}
             i = i + 1  
         }
     }

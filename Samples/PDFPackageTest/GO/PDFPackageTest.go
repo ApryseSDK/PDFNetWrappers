@@ -18,7 +18,20 @@ import  "pdftron/Samples/LicenseKey/GO"
 // (a.k.a. PDF Packages) using PDFNet SDK.
 //-----------------------------------------------------------------------------------
 
-func AddPackage(doc PDFDoc, file string, desc string){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func AddPackage(doc PDFDoc, file string, desc string) (err error){
+
+	defer catch(&err)
     files := NameTreeCreate(doc.GetSDFDoc(), "EmbeddedFiles")
     fs := FileSpecCreate(doc.GetSDFDoc(), file, true)
     key := make([]byte, len(file))
@@ -38,9 +51,13 @@ func AddPackage(doc PDFDoc, file string, desc string){
     // For example, the following line sets the tile mode for initial view mode
     // Please refer to section '2.3.5 Collections' in PDF Reference for details.
     collection.PutName("View", "T");
+	
+	return nil
 }
 
-func AddCoverPage(doc PDFDoc){
+func AddCoverPage(doc PDFDoc) (err error){
+
+	defer catch(&err)
     // Here we dynamically generate cover page (please see ElementBuilder 
     // sample for more extensive coverage of PDF creation API).
     page := doc.PageCreate(NewRect(0.0, 0.0, 200.0, 200.0))
@@ -63,6 +80,8 @@ func AddCoverPage(doc PDFDoc){
     // Alternatively we could import a PDF page from a template PDF document
     // (for an example please see PDFPage sample project).
     // ...
+	
+	return nil
 }    
 
 func main(){
@@ -74,10 +93,22 @@ func main(){
     
     // Create a PDF Package.
     doc := NewPDFDoc()
-    AddPackage(doc, inputPath + "numbered.pdf", "My File 1")
-    AddPackage(doc, inputPath + "newsletter.pdf", "My Newsletter...")
-    AddPackage(doc, inputPath + "peppers.jpg", "An image")
-    AddCoverPage(doc)
+    err := AddPackage(doc, inputPath + "numbered.pdf", "My File 1")
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to add package, error: %s", err))
+	}
+    err = AddPackage(doc, inputPath + "newsletter.pdf", "My Newsletter...")
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to add package, error: %s", err))
+	}
+    err = AddPackage(doc, inputPath + "peppers.jpg", "An image")
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to add package, error: %s", err))
+	}
+    err = AddCoverPage(doc)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to add cover page, error: %s", err))
+	}
     doc.Save(outputPath + "package.pdf", uint(SDFDocE_linearized))
     doc.Close()
     fmt.Println("Done.")

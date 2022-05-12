@@ -13,7 +13,21 @@ import (
 
 import  "pdftron/Samples/LicenseKey/GO"
 
-func ProcessPath(reader ElementReader, path Element){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func ProcessPath(reader ElementReader, path Element) (err error){
+
+	defer catch(&err)
+	
     if path.IsClippingPath(){
         fmt.Println("This is a clipping path")
     }
@@ -151,9 +165,13 @@ func ProcessPath(reader ElementReader, path Element){
         gsItr.Next()
     }
     reader.ClearChangeList()
+	return nil
 }
 
-func ProcessText (pageReader ElementReader){
+func ProcessText (pageReader ElementReader) (err error){
+
+	defer catch(&err)
+	
     // Begin text element
     fmt.Println("Begin Text Block:")
     
@@ -226,9 +244,13 @@ func ProcessText (pageReader ElementReader){
         }
         element = pageReader.Next()
     }
+	return nil
 }
 
-func ProcessImage (image Element){
+func ProcessImage (image Element) (err error){
+	
+	defer catch(&err)
+	
     //imageMask := image.IsImageMask()
     //interpolate := image.IsImageInterpolate()
     width := image.GetImageWidth()
@@ -255,25 +277,43 @@ func ProcessImage (image Element){
     // Note that you don't need to read a whole image at a time. Alternatively
     // you can read a chuck at a time by repeatedly calling reader.Read(buf, buf_sz) 
     // until the function returns 0. 
+	
+	return nil
 }
 
-func ProcessElements(reader ElementReader){
+func ProcessElements(reader ElementReader) (err error){
+ 
+	defer catch(&err)
+	
     element := reader.Next()     // Read page contents
     for element.GetMp_elem().Swigcptr() != 0{
         etype := element.GetType()
         if etype == ElementE_path{      // Process path data...
-            ProcessPath(reader, element)
+            err = ProcessPath(reader, element)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to process path, error: %s", err))
+			}
         }else if etype == ElementE_text_begin{      // Process text block...
-            ProcessText(reader)
+            err = ProcessText(reader)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to process text, error: %s", err))
+			}
         }else if etype == ElementE_form{    // Process form XObjects
             reader.FormBegin()
-            ProcessElements(reader)
+            err = ProcessElements(reader)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to process elements, error: %s", err))
+			}
             reader.End()
         }else if etype == ElementE_image{    // Process Images
-            ProcessImage(element)
+            err = ProcessImage(element)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to process image, error: %s", err))
+			}
         }
         element = reader.Next()
     }
+	return nil
 }
 
 func main(){
@@ -299,7 +339,10 @@ func main(){
     for itr.HasNext(){    // Read every page
         fmt.Println("Page " + strconv.Itoa(itr.Current().GetIndex()) + "----------------------------------------")
         pageReader.Begin(itr.Current())
-        ProcessElements(pageReader)
+        err := ProcessElements(pageReader)
+		if err != nil {
+			fmt.Println(fmt.Errorf("Unable to process elements, error: %s", err))
+		}
         pageReader.End()
         itr.Next()
     }

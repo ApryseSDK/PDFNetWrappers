@@ -28,7 +28,21 @@ var imageCounter = 0
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func ImageExtract(reader ElementReader){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func ImageExtract(reader ElementReader) (err error){
+
+	defer catch(&err)
+	
     element := reader.Next()
 
     for element.GetMp_elem().Swigcptr() != 0{
@@ -68,6 +82,8 @@ func ImageExtract(reader ElementReader){
         }
         element = reader.Next()
     }
+	
+	return nil
 }
 
 func main(){
@@ -88,7 +104,10 @@ func main(){
     itr := doc.GetPageIterator()
     for itr.HasNext(){
         reader.Begin(itr.Current())
-        ImageExtract(reader)
+        err := ImageExtract(reader)
+		if err != nil {
+			fmt.Println(fmt.Errorf("Unable to extract image, error: %s", err))
+		}
         reader.End()
         itr.Next()
     }

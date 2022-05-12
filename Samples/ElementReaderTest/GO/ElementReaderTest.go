@@ -13,7 +13,20 @@ import  "pdftron/Samples/LicenseKey/GO"
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 
-func ProcessElements(reader ElementReader){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func ProcessElements(reader ElementReader) (err error){
+
+	defer catch(&err)
     element := reader.Next()
     for element.GetMp_elem().Swigcptr() != 0{       // Read page contents
         if element.GetType() == ElementE_path{      // Process path data...
@@ -30,6 +43,7 @@ func ProcessElements(reader ElementReader){
         }
         element = reader.Next()
     }
+	return nil
 }
 
 func main(){
@@ -50,7 +64,10 @@ func main(){
     // Read every page
     for itr.HasNext(){
         pageReader.Begin(itr.Current())
-        ProcessElements(pageReader)
+        err := ProcessElements(pageReader)
+		if err != nil {
+			fmt.Println(fmt.Errorf("Unable to process elements, error: %s", err))
+		}
         pageReader.End()
         itr.Next()
     }

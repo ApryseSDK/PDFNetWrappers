@@ -40,12 +40,25 @@ import  "pdftron/Samples/LicenseKey/GO"
 // document, including XML Forms Architecture (XFA) content and Extensible Metadata 
 // Platform (XMP) content.
 
-func Redact(input string, output string, vec VectorRedaction, app Appearance){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+func Redact(input string, output string, vec VectorRedaction, app Appearance) (err error){
+
+	defer catch(&err)
     doc := NewPDFDoc(input)
     if doc.InitSecurityHandler(){
         RedactorRedact(doc, vec, app, false, true)
         doc.Save(output, uint(SDFDocE_linearized))
 	}
+	return nil
 }                                  
 
 func main(){
@@ -69,7 +82,10 @@ func main(){
     app.SetRedactionOverlay(true)
     app.SetBorder(false)
     app.SetShowRedactedContentRegions(true)
-    Redact(inputPath + "newsletter.pdf", outputPath + "redacted.pdf", vec, app)
+    err := Redact(inputPath + "newsletter.pdf", outputPath + "redacted.pdf", vec, app)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to Redact, error: %s", err))
+	}
     
     PDFNetTerminate()
     fmt.Println("Done...")

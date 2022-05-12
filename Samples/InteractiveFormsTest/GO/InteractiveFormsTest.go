@@ -19,12 +19,25 @@ var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
 //---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------
 // This sample illustrates basic PDFNet capabilities related to interactive 
 // forms (also known as AcroForms). 
 //---------------------------------------------------------------------------------------
 
 // fieldNums has to be greater than 0.
-func RenameAllFields(doc PDFDoc, name string, fieldNums int){
+func RenameAllFields(doc PDFDoc, name string, fieldNums int) (err error){
+
+	defer catch(&err)
     itr := doc.GetFieldIterator(name)
     counter := 1
     for itr.HasNext(){
@@ -34,8 +47,9 @@ func RenameAllFields(doc PDFDoc, name string, fieldNums int){
         itr = doc.GetFieldIterator(name)
         counter = counter + 1
 	}
+	return nil
 }
-func CreateCustomButtonAppearance(doc PDFDoc, buttonDown bool) Obj {
+func CreateCustomButtonAppearance(doc PDFDoc, buttonDown bool) Obj{
     // Create a button appearance stream ------------------------------------
     build := NewElementBuilder()
     writer := NewElementWriter()
@@ -316,7 +330,10 @@ func main(){
     // You can use this technique for dynamic template filling where you have a 'master'
     // form page that should be replicated, but with unique field names on every page.
     for key, curField := range fieldNames{
-        RenameAllFields(doc, key, curField)
+        err := RenameAllFields(doc, key, curField)
+		if err != nil {
+			fmt.Println(fmt.Errorf("Unable to rename all fields, error: %s", err))
+		}
     }
 
     doc.Save(outputPath + "forms_test1_cloned.pdf", uint(0))

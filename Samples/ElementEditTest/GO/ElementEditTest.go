@@ -17,7 +17,21 @@ import  "pdftron/Samples/LicenseKey/GO"
 // the page, changes path fill color to red, and changes text color to blue. 
 //---------------------------------------------------------------------------------------
 
-func ProcessElements(reader ElementReader, writer ElementWriter, omap map[uint]Obj){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func ProcessElements(reader ElementReader, writer ElementWriter, omap map[uint]Obj) (err error) {
+
+	defer catch(&err)
+	
     element := reader.Next()     // Read page contents
     for element.GetMp_elem().Swigcptr() != 0{
         etype := element.GetType()
@@ -47,6 +61,8 @@ func ProcessElements(reader ElementReader, writer ElementWriter, omap map[uint]O
 		}
         element = reader.Next()
 	}
+	
+	return nil
 }
 
 func main(){
@@ -74,7 +90,11 @@ func main(){
         reader.Begin(page)
         writer.Begin(page, ElementWriterE_replacement, false)
         var map1 = make(map[uint]Obj)
-        ProcessElements(reader, writer, map1)
+        err := ProcessElements(reader, writer, map1)
+		if err != nil {
+			fmt.Println(fmt.Errorf("Unable to process elements, error: %s", err))
+		}
+		
         writer.End()
         reader.End()
 		
@@ -84,7 +104,10 @@ func main(){
                 obj := v
                 writer.Begin(obj)
                 reader.Begin(obj, page.GetResourceDict())
-                ProcessElements(reader, writer, map2)
+                err = ProcessElements(reader, writer, map2)
+				if err != nil {
+					fmt.Println(fmt.Errorf("Unable to process elements, error: %s", err))
+				}
                 reader.End()
                 writer.End()
                 delete(map1, k)

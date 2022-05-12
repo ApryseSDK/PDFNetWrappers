@@ -17,7 +17,20 @@ import  "pdftron/Samples/LicenseKey/GO"
 //    PDFA standard, using the PDFACompliance class object. 
 //---------------------------------------------------------------------------------------
 
-func PrintResults(pdfa PDFACompliance, filename string){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func PrintResults(pdfa PDFACompliance, filename string) (err error){
+
+	defer catch(&err)
     errCnt := pdfa.GetErrorCount()
     if errCnt == 0{
         fmt.Println(filename + ": OK.")
@@ -46,6 +59,8 @@ func PrintResults(pdfa PDFACompliance, filename string){
 		}
         fmt.Println("")
 	}
+	
+	return nil
 }
 
 func main(){
@@ -65,7 +80,10 @@ func main(){
     // of object numbers that are collected for particular error codes. The default value is 10 
     // in order to prevent spam. If you need all the object numbers, pass 0 for max_ref_objs.
     pdfa := NewPDFACompliance(false, inputPath + filename, "", PDFAComplianceE_Level2B, &cErrorCode, 0, 10)
-    PrintResults(pdfa, filename)
+    err := PrintResults(pdfa, filename)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to print result, error: %s", err))
+	}
     pdfa.Destroy()
     
     //-----------------------------------------------------------
@@ -79,7 +97,10 @@ func main(){
     
     // Re-validate the document after the conversion...
     pdfa = NewPDFACompliance(false, outputPath + filename, "", PDFAComplianceE_Level2B, &cErrorCode, 0, 10)
-    PrintResults(pdfa, filename)
+    err = PrintResults(pdfa, filename)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to print result, error: %s", err))
+	}
     pdfa.Destroy()
 	
     PDFNetTerminate()

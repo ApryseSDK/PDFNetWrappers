@@ -15,7 +15,20 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func Create3DAnnotation(doc PDFDoc, annots Obj){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func Create3DAnnotation(doc PDFDoc, annots Obj) (err error){
+
+	defer catch(&err)
     // ---------------------------------------------------------------------------------
     // Create a 3D annotation based on U3D content. PDF 1.6 introduces the capability 
     // for collections of three-dimensional objects, such as those used by CAD software, 
@@ -84,6 +97,8 @@ func Create3DAnnotation(doc PDFDoc, annots Obj){
     normalApStream.PutName("Subtype", "Form")
     normalApStream.PutRect("BBox", 0.0, 0.0, float64(link3DRect.Width()), float64(link3DRect.Height()))
     apDict.Put("N", normalApStream)
+	
+	return nil
 }
 
 func main(){
@@ -95,7 +110,10 @@ func main(){
     annots := doc.CreateIndirectArray()
     page.GetSDFObj().Put("Annots", annots)
     
-    Create3DAnnotation(doc, annots)
+    err := Create3DAnnotation(doc, annots)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to create 3D Annotation, error: %s", err))
+	}
     doc.Save(outputPath + "dice_u3d.pdf", uint(SDFDocE_linearized))
     doc.Close()
     PDFNetTerminate()

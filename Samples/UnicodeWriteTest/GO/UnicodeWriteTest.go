@@ -21,6 +21,17 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
 // This example illustrates how to create Unicode text and how to embed composite fonts.
 // 
 // Note: This demo attempts to make use of 'arialuni.ttf' in the '/Samples/TestFiles' 
@@ -43,7 +54,9 @@ func ReadUnicodeTextLinesFromFile(  writer ElementWriter,
                                     linePos float64, 
                                     lineSpace float64, 
                                     showNumOfLines bool, 
-                                    readLines bool){
+                                    readLines bool) (err error){
+									
+	defer catch(&err)
     file, err := os.Open(inputPath + "hindi_sample_utf16le.txt")
     if err != nil {
         fmt.Println(err)
@@ -69,6 +82,8 @@ func ReadUnicodeTextLinesFromFile(  writer ElementWriter,
     if err := scanner.Err(); err != nil {
         fmt.Println(err)
     }
+	
+	return nil
 }
 
 func main(){
@@ -194,8 +209,14 @@ func main(){
     element.SetTextMatrix(1.5, 0.0, 0.0, 1.5, 50.0, linePos)
     writer.WriteElement(element)
     // read in unicode text lines from a file
-    ReadUnicodeTextLinesFromFile(writer, indexedFont, eb, linePos, lineSpace, true, false)
-    ReadUnicodeTextLinesFromFile(writer, indexedFont, eb, linePos, lineSpace, false, true)
+    err := ReadUnicodeTextLinesFromFile(writer, indexedFont, eb, linePos, lineSpace, true, false)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to read Unicode text lines, error: %s", err))
+	}
+    err = ReadUnicodeTextLinesFromFile(writer, indexedFont, eb, linePos, lineSpace, false, true)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to read Unicode text lines, error: %s", err))
+	}
     
     // Finish the block of text
     writer.WriteElement(eb.CreateTextEnd())

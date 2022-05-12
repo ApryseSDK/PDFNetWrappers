@@ -22,7 +22,17 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func PrintIndent(item Bookmark){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+func PrintIndent(item Bookmark) {
     indent := item.GetIndent() - 1
     i := 0
     for i < indent{
@@ -32,7 +42,10 @@ func PrintIndent(item Bookmark){
 }
 
 // Prints out the outline tree to the standard output
-func PrintOutlineTree (item Bookmark){
+func PrintOutlineTree (item Bookmark) (err error) {
+	
+	defer catch(&err)
+	
     for item.IsValid(){
         PrintIndent(item)
 
@@ -63,6 +76,8 @@ func PrintOutlineTree (item Bookmark){
         }
         item = item.GetNext()
     }
+	
+	return nil
 }            
 
 func main(){
@@ -154,7 +169,10 @@ func main(){
     doc.InitSecurityHandler()
     
     root := doc.GetFirstBookmark()
-    PrintOutlineTree(root)
+    err := PrintOutlineTree(root)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to Print Outline Tree, error: %s", err))
+	}
     
     doc.Close()
     fmt.Println("Done.")

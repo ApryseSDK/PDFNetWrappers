@@ -26,7 +26,20 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func SimpleDocxConvert(inputFileName string, outputFileName string){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func SimpleDocxConvert(inputFileName string, outputFileName string) (err error){
+
+	defer catch(&err)
 	// Start with a PDFDoc (the conversion destination)
     pdfdoc := NewPDFDoc()
 
@@ -38,9 +51,12 @@ func SimpleDocxConvert(inputFileName string, outputFileName string){
 
     // And we're done!
     fmt.Println("Saved " + outputFileName )
+	return nil
 }
 
-func FlexibleDocxConvert(inputFileName string , outputFileName string){
+func FlexibleDocxConvert(inputFileName string , outputFileName string) (err error){
+
+	defer catch(&err)
     // Start with a PDFDoc (the conversion destination)
     pdfdoc :=  NewPDFDoc()
 
@@ -87,6 +103,8 @@ func FlexibleDocxConvert(inputFileName string , outputFileName string){
 	}else{
         fmt.Println("Encountered an error during conversion: " + conversion.GetErrorString() )
 	}
+	
+	return nil
 }
 
 func main(){
@@ -97,10 +115,16 @@ func main(){
     PDFNetSetResourcesPath("../../Resources")
 
     // first the one-line conversion function
-    SimpleDocxConvert("simple-word_2007.docx", "simple-word_2007.pdf")
+    err := SimpleDocxConvert("simple-word_2007.docx", "simple-word_2007.pdf")
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert DOCX, error: %s", err))
+	}
 
     // then the more flexible line-by-line conversion API
-    FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf")
+    err = FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf")
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert flexible docx, error: %s", err))
+	}
     PDFNetTerminate()
 
 }

@@ -16,7 +16,19 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func AnnotationLowLevelAPI(doc PDFDoc){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+func AnnotationLowLevelAPI(doc PDFDoc) (err error){
+	defer catch(&err)
+	
     itr := doc.GetPageIterator()
     page := itr.Current()
     annots := page.GetAnnots()
@@ -73,9 +85,13 @@ func AnnotationLowLevelAPI(doc PDFDoc){
     action.PutString("URI", "http://www.pdftron.com")
     
     annots.PushBack(link3)
+	return nil
 }
 
-func AnnotationHighLevelAPI(doc PDFDoc){
+func AnnotationHighLevelAPI(doc PDFDoc) (err error) {
+
+    defer catch(&err)
+	
     // The following code snippet traverses all annotations in the document
     fmt.Println("Traversing all annotations in the document...")
     pageNum := 1
@@ -188,9 +204,14 @@ func AnnotationHighLevelAPI(doc PDFDoc){
     ink.SetPoint(2, 3, pt3)
     ink.SetColor(NewColorPt(0.0, 1.0, 1.0), 3)
     firstPage.AnnotPushBack(ink)
+	
+	return nil
 }
 
-func CreateTestAnnots(doc PDFDoc){
+func CreateTestAnnots(doc PDFDoc) (err error) {
+
+	defer catch(&err)
+	
     ew := NewElementWriter()
     eb := NewElementBuilder()
     
@@ -545,6 +566,8 @@ func CreateTestAnnots(doc PDFDoc){
     st.SetContents( "User defined stamp" )
     page8.AnnotPushBack( st )
     st.RefreshAppearance()
+	
+	return nil
 }    
 
 func main(){
@@ -554,18 +577,30 @@ func main(){
     doc.InitSecurityHandler()
     
     // An example of using SDF/Cos API to add any type of annotations.
-    AnnotationLowLevelAPI(doc)
+    err := AnnotationLowLevelAPI(doc)
+	if err != nil {
+		fmt.Println(fmt.Errorf("AnnotationLowLevelAPI error, error: %s", err))
+	}
+	
     doc.Save(outputPath + "annotation_test1.pdf", uint(SDFDocE_remove_unused))
     fmt.Println("Done. Results saved in annotation_test1.pdf")
     // An example of using the high-level PDFNet API to read existing annotations,
     // to edit existing annotations, and to create new annotation from scratch.
-    AnnotationHighLevelAPI(doc)
+    err = AnnotationHighLevelAPI(doc)
+	if err != nil {
+		fmt.Println(fmt.Errorf("AnnotationHighLevelAPI error, error: %s", err))
+	}
+	
     doc.Save((outputPath + "annotation_test2.pdf"), uint(SDFDocE_linearized))
     doc.Close()
     fmt.Println("Done. Results saved in annotation_test2.pdf")
     
     doc1 := NewPDFDoc()
-    CreateTestAnnots(doc1)
+    err = CreateTestAnnots(doc1)
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to create test annotations, error: %s", err))
+	}
+
     outfname := outputPath + "new_annot_test_api.pdf"
     doc1.Save(outfname, uint(SDFDocE_linearized))
     fmt.Println("Saved new_annot_test_api.pdf")

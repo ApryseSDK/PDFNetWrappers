@@ -13,7 +13,20 @@ import (
 
 import  "pdftron/Samples/LicenseKey/GO"
 
-func PrintStyle (style Style){
+//---------------------------------------------------------------------------------------
+
+func catch(err *error) {
+    if r := recover(); r != nil {
+        *err = fmt.Errorf("%v", r)
+    }
+}
+
+//---------------------------------------------------------------------------------------
+
+
+func PrintStyle (style Style) (err error){
+
+	defer catch(&err)
     sansSerifStr := ""
     if style.IsSerif(){
         sansSerifStr = " sans-serif;"
@@ -22,9 +35,12 @@ func PrintStyle (style Style){
     rgbHex := fmt.Sprintf("%02X%02X%02X;", rgb.Get(0), rgb.Get(1), rgb.Get(2))
     fontStr := fmt.Sprintf("%g", style.GetFontSize())
     os.Stdout.Write([]byte(" style=\"font-family:" + style.GetFontName() + "; font-size:" + fontStr + ";" + sansSerifStr + " color:#" + rgbHex + "\""))
+	return nil
 }
 
-func DumpAllText (reader ElementReader){
+func DumpAllText (reader ElementReader) (err error){
+
+	defer catch(&err)
     element := reader.Next()
 
     for element.GetMp_elem().Swigcptr() != 0{
@@ -48,6 +64,7 @@ func DumpAllText (reader ElementReader){
 		}
         element = reader.Next()
 	}
+	return nil
 }
 
 // A utility method used to extract all text content from
@@ -176,7 +193,10 @@ func main(){
             bbox = line.GetBBox()
             lineStyle := line.GetStyle()
             os.Stdout.Write([]byte(fmt.Sprintf("<Line box=\"%.2f, %.2f, %.2f, %.2f\"", bbox.GetX1(), bbox.GetY1(), bbox.GetX2(), bbox.GetY2())))
-            PrintStyle (lineStyle)
+            err := PrintStyle (lineStyle)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to print style, error: %s", err))
+			}
             os.Stdout.Write([]byte(" cur_num=\"" + strconv.Itoa(line.GetCurrentNum()) + "\"" + ">\n"))
             
             // For each word in the line...
@@ -194,7 +214,10 @@ func main(){
                 // If the word style is different from the parent style, output the new style.
                 s := word.GetStyle()
                 if !s.IsEqual(lineStyle){
-                    PrintStyle (s)
+                    err = PrintStyle (s)
+					if err != nil {
+						fmt.Println(fmt.Errorf("Unable to print style, error: %s", err))
+					}
 				}
                 wordString := word.GetString()
                 os.Stdout.Write([]byte(">" + wordString + "</Word>\n"))
@@ -225,7 +248,10 @@ func main(){
         itr := doc.GetPageIterator()
         for itr.HasNext(){
             reader.Begin(itr.Current())
-            DumpAllText(reader)
+            err := DumpAllText(reader)
+			if err != nil {
+				fmt.Println(fmt.Errorf("Unable to dump all text, error: %s", err))
+			}
             reader.End()
             itr.Next()
         }
