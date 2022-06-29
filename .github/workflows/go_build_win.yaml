@@ -1,10 +1,9 @@
-name: Run Go Linux Builds and Test
-on: push
-
+name: Run Go Windows Builds and Test
+on: [workflow_dispatch, push]
 
 jobs:
-  go_build_and_test_linux:
-    name: Go Linux Build and Test
+  go_build_test:
+    name: Go Build and Test
     runs-on: windows-2022
     steps:
       - name: Checkout
@@ -19,4 +18,4 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: PDFTronGo
-          path: build/pdftron
+          path: build/PDFTronGo/pdftron

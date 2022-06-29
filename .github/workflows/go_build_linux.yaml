@@ -1,8 +1,8 @@
 name: Run Go Linux Builds and Test
-on: push
+on: [workflow_dispatch, push]
 
 jobs:
-  go_build_and_test_linux:
+  go_build_test:
       name: Go Linux Build and Test
       runs-on: ubuntu-20.04
       steps:
@@ -18,4 +18,4 @@ jobs:
         - uses: actions/upload-artifact@v3
           with:
             name: PDFTronGo
-            path: build/pdftron
+            path: build/PDFTronGo/pdftron
