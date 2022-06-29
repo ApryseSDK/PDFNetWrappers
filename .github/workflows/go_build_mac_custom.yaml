@@ -1,17 +1,17 @@
 name: GoMac Build with Custom PDFTron/Wrappers Branch
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      pdftron_download_link:
+        description: "A link to a PDFTron core tar/zip file. Defaults to current release."
+        type: string
+        default: 'http://www.pdftron.com/downloads/PDFNetCMac.zip'
+      wrapper_branch:
+        description: "The wrapper branch to execute on. Defaults to master."
+        type: string
+        default: 'master'
 
 jobs:
-  inputs:
-    pdftron_download_link:
-      description: "A link to a PDFTron core tar/zip file. Defaults to current release."
-      type: string
-      default: 'http://www.pdftron.com/downloads/PDFNetCMac.zip'
-    wrapper_branch:
-      description: "The wrapper branch to execute on. Defaults to master."
-      type: string
-      default: 'master'
-
   go_build_test:
       name: Go Mac Build and Test
       runs-on: macos-10.15

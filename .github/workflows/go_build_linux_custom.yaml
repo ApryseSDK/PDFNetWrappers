@@ -1,17 +1,17 @@
 name: GoLinux Build with Custom PDFTron/Wrappers Branch
-on: [workflow_dispatch]
+on:
+  workflow_dispatch:
+    inputs:
+      pdftron_download_link:
+        description: "A link to a PDFTron core tar/zip file. Defaults to current release."
+        type: string
+        default: 'http://www.pdftron.com/downloads/PDFNetC64.tar.gz'
+      wrapper_branch:
+        description: "The wrapper branch to execute on. Defaults to master."
+        type: string
+        default: 'master'
 
 jobs:
-  inputs:
-    pdftron_download_link:
-      description: "A link to a PDFTron core tar/zip file. Defaults to current release."
-      type: string
-      default: 'http://www.pdftron.com/downloads/PDFNetC64.tar.gz'
-    wrapper_branch:
-      description: "The wrapper branch to execute on. Defaults to master."
-      type: string
-      default: 'master'
-
   go_build_test:
       name: Go Linux Build and Test
       runs-on: ubuntu-20.04
