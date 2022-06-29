@@ -148,6 +148,7 @@ def main():
         print("Downloading PDFNetC64...")
         urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetC64.zip', "PDFNetC64.zip")
         extractArchive("PDFNetC64.zip")
+        os.remove("PDFNetC64.zip")
         copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
         cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
         gccCommand = "g++ -shared -I../Headers -L . -lPDFNetC pdftron_wrap.cxx -o pdftron.dll"
@@ -156,6 +157,7 @@ def main():
         print("Downloading PDFNetC64...")
         urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetC64.tar.gz', "PDFNetC64.tar.gz")
         extractArchive("PDFNetC64.tar.gz")
+        os.remove("PDFNetC64.tar.gz")
         copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
         gccCommand = "g++ -fuse-ld=gold -fpic -I ../Headers -L . -lPDFNetC -Wl,-rpath,. -shared -static-libstdc++ pdftron_wrap.cxx -o libpdftron.so"
     else:
@@ -163,6 +165,7 @@ def main():
         print("Downloading PDFNetC64...")
         urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetCMac.zip', "PDFNetCMac.zip")
         extractArchive("PDFNetCMac.zip")
+        os.remove("PDFNetCMac.zip")
         copyPaths('PDFNetCMac', ['Headers', 'Lib', 'Resources'], '.')
         gccCommand = "gcc -fPIC -lstdc++ -I../Headers -L. -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o libpdftron.dylib"
 
