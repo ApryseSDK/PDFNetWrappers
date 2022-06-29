@@ -1,4 +1,4 @@
-name: Run Go Windows Builds and Test
+name: GoWin Build and Test
 on: [workflow_dispatch, push]
 
 jobs:

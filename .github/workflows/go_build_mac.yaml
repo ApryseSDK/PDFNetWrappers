@@ -1,4 +1,4 @@
-name: Run Go Mac Builds and Test
+name: GoMac Build and Test
 on: [workflow_dispatch, push]
 
 jobs:

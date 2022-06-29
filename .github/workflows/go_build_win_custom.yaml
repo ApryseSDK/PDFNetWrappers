@@ -1,4 +1,4 @@
-name: GoWin Build with Custom PDFTron/Wrappers Branch
+name: GoWin with Custom PDFTron/Wrappers Branch
 on:
   workflow_dispatch:
     inputs:

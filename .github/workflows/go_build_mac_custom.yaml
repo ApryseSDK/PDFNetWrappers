@@ -1,4 +1,4 @@
-name: GoMac Build with Custom PDFTron/Wrappers Branch
+name: GoMac with Custom PDFTron/Wrappers Branch
 on:
   workflow_dispatch:
     inputs:

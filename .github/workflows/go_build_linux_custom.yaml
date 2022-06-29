@@ -1,4 +1,4 @@
-name: GoLinux Build with Custom PDFTron/Wrappers Branch
+name: GoLinux with Custom PDFTron/Wrappers Branch
 on:
   workflow_dispatch:
     inputs:
