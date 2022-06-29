@@ -14,9 +14,8 @@ jobs:
         - name: Build
           run: |
             python3 build.py
-            zip -qq -r PDFTronGo.zip build/PDFTronGo/pdftron
 
         - uses: actions/upload-artifact@v3
           with:
             name: PDFTronGo
-            path: PDFTronGo.zip
+            path: build/PDFTronGo/pdftron
