@@ -1,7 +1,9 @@
 name: Run Go Linux Builds and Test
 on: push
 
-go_build_and_test_linux:
+
+jobs:
+  go_build_and_test_linux:
     name: Go Linux Build and Test
     runs-on: windows-2022
     steps:
@@ -13,3 +15,4 @@ go_build_and_test_linux:
       - name: Build
         run: |
           python3 build.py
+          ls

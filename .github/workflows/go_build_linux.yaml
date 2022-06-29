@@ -1,16 +1,17 @@
 name: Run Go Linux Builds and Test
 on: push
 
-go_build_and_test_linux:
-    name: Go Linux Build and Test
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+jobs:
+  go_build_and_test_linux:
+      name: Go Linux Build and Test
+      runs-on: ubuntu-20.04
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
 
-      # no need to install deps, all there already
-      #- name: Install deps
-      - name: Build
-        run: |
-          python3 build.py
-          ls build
+        # no need to install deps, all there already
+        #- name: Install deps
+        - name: Build
+          run: |
+            python3 build.py
+            ls build
