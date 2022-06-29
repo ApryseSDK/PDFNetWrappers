@@ -14,12 +14,9 @@ jobs:
       - name: Build
         run: |
           python3 build.py
-
-      - uses: montudor/action-zip@v1
-        with:
-          args: zip -qq -r PDFTronGo.zip build/PDFTronGo/pdftron
+          zip -qq -r PDFTronGo.zip build/PDFTronGo/pdftron
 
       - uses: actions/upload-artifact@v3
         with:
-          name: PDFTronGo.zip
+          name: PDFTronGo
           path: PDFTronGo.zip
