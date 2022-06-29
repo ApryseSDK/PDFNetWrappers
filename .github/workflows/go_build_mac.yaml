@@ -14,3 +14,7 @@ jobs:
       - name: Build
         run: |
           python3 build.py
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFTronGo
+          path: build/pdftron
