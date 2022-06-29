@@ -1,4 +1,5 @@
 import os
+import argparse
 import re
 import shutil
 import urllib.request
@@ -131,7 +132,13 @@ def extractArchive(fileName):
             archive.extractall()
 
 def main():
-    rootDir = os.getcwd();
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument('-dl', '--download_link', dest='dl', default='') # valid options are [desktop|tools|mobile]
+    stored_args, ignored_args = parser.parse_known_args()
+
+    core_download_link = stored_args.dl
+
+    rootDir = os.getcwd()
     try:
         shutil.rmtree("build", ignore_errors=True)
     except FileNotFoundError:
@@ -146,7 +153,9 @@ def main():
     if platform.system().startswith('Windows'):
         print("Running Windows build...")
         print("Downloading PDFNetC64...")
-        urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetC64.zip', "PDFNetC64.zip")
+        if not core_download_link:
+           core_download_link = 'http://www.pdftron.com/downloads/PDFNetC64.zip'
+        urllib.request.urlretrieve(core_download_link, "PDFNetC64.zip")
         extractArchive("PDFNetC64.zip")
         os.remove("PDFNetC64.zip")
         copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
@@ -155,7 +164,10 @@ def main():
     elif platform.system().startswith('Linux'):
         print("Running Linux build...")
         print("Downloading PDFNetC64...")
-        urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetC64.tar.gz', "PDFNetC64.tar.gz")
+        if not core_download_link:
+           core_download_link = 'http://www.pdftron.com/downloads/PDFNetC64.tar.gz'
+        print(core_download_link)
+        urllib.request.urlretrieve(core_download_link, 'PDFNetC64.tar.gz')
         extractArchive("PDFNetC64.tar.gz")
         os.remove("PDFNetC64.tar.gz")
         copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
@@ -163,7 +175,9 @@ def main():
     else:
         print("Running Mac build...")
         print("Downloading PDFNetC64...")
-        urllib.request.urlretrieve('http://www.pdftron.com/downloads/PDFNetCMac.zip', "PDFNetCMac.zip")
+        if not core_download_link:
+           core_download_link = 'http://www.pdftron.com/downloads/PDFNetCMac.zip'
+        urllib.request.urlretrieve(core_download_link, 'PDFNetCMac.zip')
         extractArchive("PDFNetCMac.zip")
         os.remove("PDFNetCMac.zip")
         copyPaths('PDFNetCMac', ['Headers', 'Lib', 'Resources'], '.')

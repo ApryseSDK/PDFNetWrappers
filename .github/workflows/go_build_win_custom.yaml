@@ -1,0 +1,35 @@
+name: GoWin Build with Custom PDFTron/Wrappers Branch
+on: [workflow_dispatch]
+
+jobs:
+  inputs:
+    pdftron_download_link:
+      description: "A link to a PDFTron core tar/zip file. Defaults to current release."
+      type: string
+      default: 'http://www.pdftron.com/downloads/PDFNetC64.zip'
+    wrapper_branch:
+      description: "The wrapper branch to execute on. Defaults to master."
+      type: string
+      default: 'master'
+
+  go_build_test:
+      name: Go Mac Build and Test
+      runs-on: windows-2022
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+          with:
+            ref: ${{ inputs.wrapper_branch }}
+
+        # no need to install deps, all there already
+        #- name: Install deps
+        - name: Build and Test
+          run: |
+            python3 build.py -dl="${{ inputs.pdftron_download_link }}"
+            cd build/PDFTronGo/pdftron/Samples
+            ./runall_go.sh
+
+        - uses: actions/upload-artifact@v3
+          with:
+            name: PDFTronGo
+            path: build/PDFTronGo/pdftron

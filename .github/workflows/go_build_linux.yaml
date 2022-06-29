@@ -11,9 +11,11 @@ jobs:
 
         # no need to install deps, all there already
         #- name: Install deps
-        - name: Build
+        - name: Build and Test
           run: |
             python3 build.py
+            cd build/PDFTronGo/pdftron/Samples
+            ./runall_go.sh
 
         - uses: actions/upload-artifact@v3
           with:
