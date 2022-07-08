@@ -367,7 +367,7 @@ namespace pdftron {
     for (i = 0; i < size; i++) {
         VALUE val = rb_ary_entry($input, i);
         if (rb_type(val) == T_STRING) {
-            $temp[i] = (Unicode)(*StringValuePtr(val));
+            $temp[i] = (pdftron::Unicode)(*StringValuePtr(val));
         }
         else if (FIXNUM_P(val)) {
             $temp[i] = FIX2INT(val);
@@ -391,7 +391,7 @@ namespace pdftron {
  */
 %typemap(freearg) const pdftron::Unicode* text_data  
 %{
-    delete[]($1);
+	if($1){ delete[]($1); $1 = 0; }
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -437,7 +437,7 @@ namespace pdftron {
 
 %typemap(freearg) std::vector<double>&
 %{
-    delete ($1);
+	if($1){	delete($1);$1 = 0;}
 %}
 
 //----------------------------------------------------------------------------------------------

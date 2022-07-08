@@ -28,12 +28,12 @@ namespace pdftron {
 			return NULL;
 		}
 		if (isStr$argnum) {
-			$1 = UString(PyString_AsString($input));
+			$1 = pdftron::UString(PyString_AsString($input));
 		}
 		else if (isUni$argnum) {
 			PyObject* obj = PyUnicode_AsUTF8String($input);
 			char* str = PyString_AsString(obj);
-			$1 = UString(str);
+			$1 = pdftron::UString(str);
 			Py_DECREF(obj);
 		}
 	}
@@ -76,12 +76,12 @@ namespace pdftron {
 			Swig::DirectorMethodException::raise("Expected a String or a Unicode");
 		}
 		if (isStr$argnum) {
-			$result = UString(PyString_AsString($1));
+			$result = pdftron::UString(PyString_AsString($1));
 		}
 		else if (isUni$argnum) {
 			PyObject* obj = PyUnicode_AsUTF8String($1);
 			char* str = PyString_AsString(obj);
-			$result = UString(str);
+			$result = pdftron::UString(str);
 			Py_DECREF(obj);
 		}
 	}
@@ -99,12 +99,12 @@ namespace pdftron {
 			return NULL;
 		}
 		if (isStr$argnum) {
-			$1 = new UString(PyString_AsString($input), -1, UString::e_utf8);
+			$1 = new pdftron::UString(PyString_AsString($input), -1, UString::e_utf8);
 		}
 		else if (isUni$argnum) {
 			PyObject* obj = PyUnicode_AsUTF8String($input);
 			char* str = PyString_AsString(obj);
-			$1 = new UString(str, -1, UString::e_utf8);
+			$1 = new pdftron::UString(str, -1, UString::e_utf8);
 			Py_DECREF(obj);
 		}
 	}
@@ -122,6 +122,6 @@ namespace pdftron {
 	 */
 	%typemap(freearg) UString const &
 	%{
-		delete($1);
+		if($1){	delete($1); $1 = 0; }
 	%}
 }

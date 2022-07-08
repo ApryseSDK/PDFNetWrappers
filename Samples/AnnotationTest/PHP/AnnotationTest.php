@@ -37,7 +37,7 @@ function AnnotationHighLevelAPI($doc) {
 				{
 					$link = new Link($annot);
 					$action = $link->GetAction();
-					if (!$action->IsValid()) continue;
+					if (!$action->IsValid()) continue 2;
 					if ($action->GetType() == Action::e_GoTo) 
 					{
 						$dest = $action->GetDest();
@@ -72,28 +72,28 @@ function AnnotationHighLevelAPI($doc) {
 	$first_page = $doc->GetPage(1);
 
 	// Create a hyperlink...
-	$hyperlink = Link::Create($doc->GetSDFDoc(), new Rect(85.0, 570.0, 503.0, 524.0), Action::CreateURI($doc->GetSDFDoc(), "http://www.pdftron.com"));
+	$hyperlink = Link::CreateAnnot($doc->GetSDFDoc(), new Rect(85.0, 570.0, 503.0, 524.0), Action::CreateURI($doc->GetSDFDoc(), "http://www.pdftron.com"));
 	$first_page->AnnotPushBack($hyperlink);
 
 	// Create an intra-document link...
 	$goto_page_3 = Action::CreateGoto(Destination::CreateFitH($doc->GetPage(3), 0));
-	$link = Link::Create($doc->GetSDFDoc(), new Rect(85.0, 458.0, 503.0, 502.0), $goto_page_3);
+	$link = Link::CreateAnnot($doc->GetSDFDoc(), new Rect(85.0, 458.0, 503.0, 502.0), $goto_page_3);
 	$link->SetColor(new ColorPt(0.0, 0.0, 1.0));
 
 	// Add the new annotation to the first page
 	$first_page->AnnotPushBack($link);
 
 	// Create a stamp annotation ...
-	$stamp = RubberStamp::Create($doc->GetSDFDoc(), new Rect(30.0, 30.0, 300.0, 200.0));
+	$stamp = RubberStamp::CreateAnnot($doc->GetSDFDoc(), new Rect(30.0, 30.0, 300.0, 200.0));
 	$stamp->SetIcon("Draft");
 	$first_page->AnnotPushBack($stamp);
 
 	// Create a file attachment annotation (embed the 'peppers.jpg').
 	global $input_path;
-	$file_attach = FileAttachment::Create($doc->GetSDFDoc(), new Rect(80.0, 280.0, 108.0, 320.0), ($input_path."peppers.jpg"));
+	$file_attach = FileAttachment::CreateAnnot($doc->GetSDFDoc(), new Rect(80.0, 280.0, 108.0, 320.0), ($input_path."peppers.jpg"));
 	$first_page->AnnotPushBack($file_attach);
 
-	$ink = Ink::Create($doc->GetSDFDoc(), new Rect(110.0, 10.0, 300.0, 200.0));
+	$ink = Ink::CreateAnnot($doc->GetSDFDoc(), new Rect(110.0, 10.0, 300.0, 200.0));
 	$pt3 = new Point(110.0, 10.0);
 	$ink->SetPoint(0, 0, $pt3);
 	$pt3->x = 150; $pt3->y = 50;
@@ -192,7 +192,7 @@ function CreateTestAnnots($doc) {
 	//
 	// Test of a free text annotation.
 	//
-	$txtannot = FreeText::Create( $doc->GetSDFDoc(), new Rect(10.0, 400.0, 160.0, 570.0)  );
+	$txtannot = FreeText::CreateAnnot( $doc->GetSDFDoc(), new Rect(10.0, 400.0, 160.0, 570.0)  );
 	$txtannot->SetContents( "\n\nSome swift brown fox snatched a gray hare out of the air by freezing it with an angry glare."
 				."\n\nAha!\n\nAnd there was much rejoicing!");
 	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), false );
@@ -200,7 +200,7 @@ function CreateTestAnnots($doc) {
 	$first_page->AnnotPushBack($txtannot);
 	$txtannot->RefreshAppearance();
 
-	$txtannot = FreeText::Create( $doc->GetSDFDoc(), new Rect(100.0, 100.0, 350.0, 500.0)  );
+	$txtannot = FreeText::CreateAnnot( $doc->GetSDFDoc(), new Rect(100.0, 100.0, 350.0, 500.0)  );
 	$txtannot->SetContentRect( new Rect( 200.0, 200.0, 350.0, 500.0 ) );
 	$txtannot->SetContents("\n\nSome swift brown fox snatched a gray hare out of the air by freezing it with an angry glare."
 			       ."\n\nAha!\n\nAnd there was much rejoicing!");
@@ -212,7 +212,7 @@ function CreateTestAnnots($doc) {
 	$first_page->AnnotPushBack($txtannot);
 	$txtannot->RefreshAppearance();
 
-	$txtannot = FreeText::Create( $doc->GetSDFDoc(), new Rect(400.0, 10.0, 550.0, 400.0) );
+	$txtannot = FreeText::CreateAnnot( $doc->GetSDFDoc(), new Rect(400.0, 10.0, 550.0, 400.0) );
 	$txtannot->SetContents("\n\nSome swift brown fox snatched a gray hare out of the air by freezing it with an angry glare."
 			     ."\n\nAha!\n\nAnd there was much rejoicing!");
 	$txtannot->SetBorderStyle( new BorderStyle( BorderStyle::e_solid, 1.0, 10.0, 20.0 ), false );
@@ -229,7 +229,7 @@ function CreateTestAnnots($doc) {
 	$ew->End();  // save changes to the current page
 
 	//Create a Line annotation...
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect(250.0, 250.0, 400.0, 400.0));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect(250.0, 250.0, 400.0, 400.0));
 	$line->SetStartPoint( new Point(350.0, 270.0) );
 	$line->SetEndPoint( new Point(260.0,370.0) );
 	$line->SetStartStyle(LineAnnot::e_Square);
@@ -242,7 +242,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect(347.0, 377.0, 600.0, 600.0));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect(347.0, 377.0, 600.0, 600.0));
 	$line->SetStartPoint( new Point(385.0, 410.0) );
 	$line->SetEndPoint( new Point(540.0,555.0) );
 	$line->SetStartStyle(LineAnnot::e_Circle);
@@ -258,7 +258,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect(10.0, 400.0, 200.0, 600.0));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect(10.0, 400.0, 200.0, 600.0));
 	$line->SetStartPoint( new Point(25.0, 426.0) );
 	$line->SetEndPoint( new Point(180.0,555.0) );
 	$line->SetStartStyle(LineAnnot::e_Circle);
@@ -273,7 +273,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect(200.0, 10.0, 400.0, 70.0));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect(200.0, 10.0, 400.0, 70.0));
 	$line->SetStartPoint( new Point(220.0, 25.0) );
 	$line->SetEndPoint( new Point(370.0,60.0) );
 	$line->SetStartStyle(LineAnnot::e_Butt);
@@ -285,7 +285,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect(200.0, 70.0, 400.0, 130.0));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect(200.0, 70.0, 400.0, 130.0));
 	$line->SetStartPoint( new Point(220.0, 111.0) );
 	$line->SetEndPoint( new Point(370.0,78.0) );
 	$line->SetStartStyle(LineAnnot::e_Circle);
@@ -298,7 +298,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect(10.0, 100.0, 160.0, 200.0));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect(10.0, 100.0, 160.0, 200.0));
 	$line->SetStartPoint( new Point(15.0, 110.0) );
 	$line->SetEndPoint( new Point(150.0, 190.0) );
 	$line->SetStartStyle(LineAnnot::e_Slash);
@@ -311,7 +311,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);	
 	
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect( 270.0, 270.0, 570.0, 433.0 ));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect( 270.0, 270.0, 570.0, 433.0 ));
 	$line->SetStartPoint( new Point(300.0, 400.0 ) );
 	$line->SetEndPoint( new Point(550.0, 300.0) );
 	$line->SetStartStyle(LineAnnot::e_RClosedArrow);
@@ -324,13 +324,13 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect( 195.0, 395.0, 205.0, 505.0 ));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect( 195.0, 395.0, 205.0, 505.0 ));
 	$line->SetStartPoint( new Point(200.0, 400.0 ) );
 	$line->SetEndPoint( new Point(200.0, 500.0) );
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect( 55.0, 299.0, 150.0, 301.0 ));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect( 55.0, 299.0, 150.0, 301.0 ));
 	$line->SetStartPoint( new Point(55.0, 300.0 ) );
 	$line->SetEndPoint( new Point(155.0, 300.0) );
 	$line->SetStartStyle(LineAnnot::e_Circle);
@@ -343,7 +343,7 @@ function CreateTestAnnots($doc) {
 	$line->RefreshAppearance();
 	$page->AnnotPushBack($line);
 
-	$line = LineAnnot::Create($doc->GetSDFDoc(), new Rect( 300.0, 200.0, 390.0, 234.0 ));
+	$line = LineAnnot::CreateAnnot($doc->GetSDFDoc(), new Rect( 300.0, 200.0, 390.0, 234.0 ));
 	$line->SetStartPoint( new Point(310.0, 210.0 ) );
 	$line->SetEndPoint( new Point(380.0, 220.0) );
 	$line->SetColor(new ColorPt(0.0, 0.0, 0.0), 3);
@@ -355,12 +355,12 @@ function CreateTestAnnots($doc) {
 	$ew->End();  // save changes to the current page
 	$doc->PagePushBack($page3);
 
-	$circle = Circle::Create($doc->GetSDFDoc(), new Rect( 300.0, 300.0, 390.0, 350.0 ));
+	$circle = Circle::CreateAnnot($doc->GetSDFDoc(), new Rect( 300.0, 300.0, 390.0, 350.0 ));
 	$circle->SetColor(new ColorPt(0.0, 0.0, 0.0), 3);
 	$circle->RefreshAppearance();
 	$page3->AnnotPushBack($circle);
 
-	$circle = Circle::Create($doc->GetSDFDoc(), new Rect( 100.0, 100.0, 200.0, 200.0 ));
+	$circle = Circle::CreateAnnot($doc->GetSDFDoc(), new Rect( 100.0, 100.0, 200.0, 200.0 ));
 	$circle->SetColor(new ColorPt(0.0, 1.0, 0.0), 3);
 	$circle->SetInteriorColor(new ColorPt(0.0, 0.0, 1.0), 3);
 	$circle->SetBorderStyle( new BorderStyle( BorderStyle::e_dashed, 3.0, 0.0, 0.0, array(2.0, 4.0)) );
@@ -368,12 +368,12 @@ function CreateTestAnnots($doc) {
 	$circle->RefreshAppearance();
 	$page3->AnnotPushBack($circle);
 
-	$sq = Square::Create( $doc->GetSDFDoc(), new Rect(10.0,200.0, 80.0, 300.0 ) );
+	$sq = Square::CreateAnnot( $doc->GetSDFDoc(), new Rect(10.0,200.0, 80.0, 300.0 ) );
     	$sq->SetColor(new ColorPt(0.0, 0.0, 0.0), 3);
     	$sq->RefreshAppearance();
     	$page3->AnnotPushBack( $sq );
 	
-	$sq = Square::Create( $doc->GetSDFDoc(), new Rect(500.0,200.0, 580.0, 300.0 ) );
+	$sq = Square::CreateAnnot( $doc->GetSDFDoc(), new Rect(500.0,200.0, 580.0, 300.0 ) );
 	$sq->SetColor(new ColorPt(1.0, 0.0, 0.0), 3);
 	$sq->SetInteriorColor(new ColorPt(0.0, 1.0, 1.0), 3);
 	$sq->SetBorderStyle( new BorderStyle( BorderStyle::e_dashed, 6.0, 0.0, 0.0, array(4.0, 2.0) ) );
@@ -381,7 +381,7 @@ function CreateTestAnnots($doc) {
 	$sq->RefreshAppearance();
 	$page3->AnnotPushBack( $sq );
     
-	$poly = Polygon::Create($doc->GetSDFDoc(), new Rect(5.0, 500.0, 125.0, 590.0));
+	$poly = Polygon::CreateAnnot($doc->GetSDFDoc(), new Rect(5.0, 500.0, 125.0, 590.0));
 	$poly->SetColor(new ColorPt(1.0, 0.0, 0.0), 3);
 	$poly->SetInteriorColor(new ColorPt(1.0, 1.0, 0.0), 3);
 	$poly->SetVertex(0, new Point(12.0,510.0) );
@@ -393,7 +393,7 @@ function CreateTestAnnots($doc) {
 	$poly->RefreshAppearance();
 	$page3->AnnotPushBack( $poly );
 
-	$poly = PolyLine::Create($doc->GetSDFDoc(), new Rect(400.0, 10.0, 500.0, 90.0));
+	$poly = PolyLine::CreateAnnot($doc->GetSDFDoc(), new Rect(400.0, 10.0, 500.0, 90.0));
 	$poly->SetColor(new ColorPt(1.0, 0.0, 0.0), 3);
 	$poly->SetInteriorColor(new ColorPt(0.0, 1.0, 0.0), 3);
 	$poly->SetVertex(0, new Point(405.0,20.0) );
@@ -407,7 +407,7 @@ function CreateTestAnnots($doc) {
 	$poly->RefreshAppearance();
 	$page3->AnnotPushBack( $poly );
 
-	$lk = Link::Create( $doc->GetSDFDoc(), new Rect(5.0,5.0,55.0,24.0) );
+	$lk = Link::CreateAnnot( $doc->GetSDFDoc(), new Rect(5.0,5.0,55.0,24.0) );
 	//$lk->SetColor( new ColorPt(0.0,1.0,0.0), 3.0 );
 	$lk->RefreshAppearance();
 	$page3->AnnotPushBack( $lk );
@@ -428,12 +428,12 @@ function CreateTestAnnots($doc) {
 	$ew->WriteElement( $eb->CreateTextEnd() );
 	$ew->End();
 
-	$hl = HighlightAnnot::Create( $doc->GetSDFDoc(), new Rect(100.0,490.0,150.0,515.0) );
+	$hl = HighlightAnnot::CreateAnnot( $doc->GetSDFDoc(), new Rect(100.0,490.0,150.0,515.0) );
 	$hl->SetColor( new ColorPt(0.0,1.0,0.0), 3 );
 	$hl->RefreshAppearance();
 	$page4->AnnotPushBack( $hl );
 
-	$sq = Squiggly::Create( $doc->GetSDFDoc(), new Rect(100.0,450.0,250.0,600.0) );
+	$sq = Squiggly::CreateAnnot( $doc->GetSDFDoc(), new Rect(100.0,450.0,250.0,600.0) );
 	$sq->SetQuadPoint( 0, new QuadPoint( new Point( 122.0,455.0), new Point(240.0, 545.0), new Point(230.0, 595.0), new Point(101.0,500.0 ) ) );
 	$sq->RefreshAppearance();
 	$page4->AnnotPushBack( $sq );
@@ -456,14 +456,14 @@ function CreateTestAnnots($doc) {
 	$doc->PagePushBack($page6);
 
 
-	$txt = Text::Create( $doc->GetSDFDoc(), new Point(10.0, 20.0) );
+	$txt = Text::CreateAnnot( $doc->GetSDFDoc(), new Point(10.0, 20.0) );
 	$txt->SetIcon( "UserIcon" );
 	$txt->SetContents( "User defined icon, unrecognized by appearance generator" );
 	$txt->SetColor( new ColorPt(0.0,1.0,0.0) );
 	$txt->RefreshAppearance();
 	$page6->AnnotPushBack( $txt );
 
-	$ink = Ink::Create( $doc->GetSDFDoc(), new Rect( 100.0, 400.0, 200.0, 550.0 ) );
+	$ink = Ink::CreateAnnot( $doc->GetSDFDoc(), new Rect( 100.0, 400.0, 200.0, 550.0 ) );
 	$ink->SetColor( new ColorPt(0.0,0.0,1.0) );
 	$ink->SetPoint( 1, 3, new Point( 220.0, 505.0) );
 	$ink->SetPoint( 1, 0, new Point( 100.0, 490.0) );
@@ -480,13 +480,13 @@ function CreateTestAnnots($doc) {
 	$ew->End();  // save changes to the current page
 	$doc->PagePushBack($page7);
 
-	$snd = Sound::Create( $doc->GetSDFDoc(), new Rect( 100.0, 500.0, 120.0, 520.0 ) );
+	$snd = Sound::CreateAnnot( $doc->GetSDFDoc(), new Rect( 100.0, 500.0, 120.0, 520.0 ) );
 	$snd->SetColor( new ColorPt(1.0,1.0,0.0) );
 	$snd->SetIcon( Sound::e_Speaker );
 	$snd->RefreshAppearance();
 	$page7->AnnotPushBack( $snd );
 
-	$snd = Sound::Create( $doc->GetSDFDoc(), new Rect( 200.0, 500.0, 220.0, 520.0 ) );
+	$snd = Sound::CreateAnnot( $doc->GetSDFDoc(), new Rect( 200.0, 500.0, 220.0, 520.0 ) );
 	$snd->SetColor( new ColorPt(1.0,1.0,0.0) );
 	$snd->SetIcon( Sound::e_Mic );
 	$snd->RefreshAppearance();
@@ -501,7 +501,7 @@ function CreateTestAnnots($doc) {
 		$px = 5;
 		$py = 520;
 		for( $istamp = RubberStamp::e_Approved; $istamp <= RubberStamp::e_Draft; $istamp = $istamp + 1 ) {
-				$st = RubberStamp::Create( $doc->GetSDFDoc(), new Rect(1.0,1.0,100.0,100.0) );
+				$st = RubberStamp::CreateAnnot( $doc->GetSDFDoc(), new Rect(1.0,1.0,100.0,100.0) );
 				$st->SetIcon( $istamp );
 				$st->SetContents( $st->GetIconName() );
 				$st->SetRect( new Rect((double)$px, (double)$py, (double)$px+100.0, (double)$py+25.0 ) );
@@ -520,7 +520,7 @@ function CreateTestAnnots($doc) {
 		}
 	}
 
-	$st = RubberStamp::Create( $doc->GetSDFDoc(), new Rect(400.0,5.0,550.0,45.0) );
+	$st = RubberStamp::CreateAnnot( $doc->GetSDFDoc(), new Rect(400.0,5.0,550.0,45.0) );
 	$st->SetIcon( "UserStamp" );
 	$st->SetContents( "User defined stamp" );
 	$page8->AnnotPushBack( $st );
@@ -549,8 +549,9 @@ function CreateTestAnnots($doc) {
 	CreateTestAnnots( $doc1 );
 	$outfname = $output_path."new_annot_test_api.pdf";
 	$doc1->Save($outfname, SDFDoc::e_linearized);
-	echo nl2br("Saved new_annot_test_api.pdf\n");
+	echo nl2br("Saved new_annot_test_api.pdf");
 	
     $doc->Close();
 	PDFNet::Terminate();
 ?>
+

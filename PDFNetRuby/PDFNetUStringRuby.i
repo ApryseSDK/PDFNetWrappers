@@ -20,7 +20,7 @@ namespace pdftron {
 	%typemap(in) UString, const UString
 	{
 		char* str = StringValuePtr($input);
-		$1 = UString(str);
+		$1 = pdftron::UString(str);
 	}
 
 	%typemap(out) UString, const UString
@@ -35,7 +35,7 @@ namespace pdftron {
 	%typemap(in) UString const &
 	{  
 		char* str = StringValuePtr($input);
-		$1 = new UString(str);
+		$1 = new pdftron::UString(str);
 	}
 	
     
@@ -51,7 +51,7 @@ namespace pdftron {
     %typemap(directorout) UString, const UString
     {
 		char* str = StringValuePtr($1);
-		$result = UString(str);
+		$result = pdftron::UString(str);
     }
     
 	/**
@@ -72,6 +72,6 @@ namespace pdftron {
 	 */
 	%typemap(freearg) UString const &
 	%{
-		delete($1);
+		if($1){	delete($1); $1 = 0; }
 	%}
 }
