@@ -33,6 +33,7 @@ For Widnows x64:
    a. Copy pdftron directory to GOPATH/src directory.
    b. Run "go install" when working directory is GOPATH/src/pdftron in command prompt.
    c. Done.
+   Note: If you see error message "go.mod file not found in current directory or any parent directory", please run "go mod init" to generate go.mod file.
 
 10. You now can run the PDFNetC samples:
     a. Change working directory to pdftron/samples in command prompt.
@@ -90,6 +91,7 @@ For Linux x64:
    a. Copy pdftron directory to GOPATH/src directory.
    b. Run "go install" when working directory is GOPATH/src/pdftron in terminal.
    c. Done.
+   Note: If you see error message such as "go.mod file not found in current directory or any parent directory", please run "go mod init".
 
 5. You now can run the PDFNetC samples:
    a. Change working directory to pdftron/samples in terminal.
@@ -97,6 +99,7 @@ For Linux x64:
    c. Run "./RunTest.sh"
    e. The output will be in pdftron/Samples/TestFiles/Output directory and compiled EXE will be in pdftron/Samples/bin
 
+6. You will need to make sure to copy PDFNetC library (libPDFNetC.so) to any of the lib directories (i.e /usr/lib, /usr/local/lib, etc.)
 
 
 
