@@ -1,6 +1,6 @@
 ## NOTE FOR DEVELOPERS
 
-Please commit changes to `next_release`. Notice that `master` is the current stable and should not have changes unless applicable.
+No commit to `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` is the current stable (`9.3`) and should not have changes unless applicable. 'next_release' is merged into `master` following an offical release.
 
 # About
 
@@ -261,11 +261,11 @@ Make sure that your interpreter can find the PDFNetC library. The following info
 
 In order to change the install location, modify the top level CMakelists.txt. Remove the forced setting of the `CMAKE_INSTALL_PREFIX` variable.
 
-## How can I build wrappers for PDFNet 7.1.x and under?
+## How can I build wrappers for PDFNet `9.2` and under?
 
-The master branch supports PDFNet 8.0.x. In order to build wrappers using PDFNet 7.1.x and under, please use the following command to clone 7.1 branch instead (line 3 in `Example`): 
+The master branch supports PDFNet `9.3`. In order to build wrappers using PDFNet `9.2.x` and under, please use the following command to clone `9.2` branch instead (line 3 in `Example`): 
 
-    git clone -b 7.1 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone -b 9.2 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
 ## I'm seeing a line-ending (control character) issue.
 
