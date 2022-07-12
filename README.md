@@ -1,6 +1,6 @@
 ## NOTE FOR DEVELOPERS
 
-Please commit changes to `next_release`. Notice that `master` is the current stable (`9.3`) and should not have changes unless applicable.
+No commit in `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` is the current stable (`9.3`) and should not have changes unless applicable. 'next_release' is merged into `master` following an offical release.
 
 # About
 
