@@ -10,8 +10,7 @@ do
 			echo "$SAMPLE running"
 			sh RunTest.sh
 			cd ../..
-			echo "$SAMPLE finished. Press enter to continue..."
-			read -p "$*" a
+			echo "$SAMPLE finished."
 		fi
 	fi
 done

@@ -1,0 +1,23 @@
+name: GoMac Build and Test
+on: [workflow_dispatch, push]
+
+jobs:
+  go_build_test:
+    name: Go Mac Build and Test
+    runs-on: macos-10.15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # no need to install deps, all there already
+      #- name: Install deps
+      - name: Build and Test
+        run: |
+          python3 build.py
+          cd build/PDFTronGo/pdftron/Samples
+          ./runall_go.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: PDFTronGo
+          path: build/PDFTronGo/pdftron

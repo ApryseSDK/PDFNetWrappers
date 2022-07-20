@@ -12,7 +12,6 @@ for /D %%s in (*) do (
         call RunTest.bat
         cd ..\..
         echo %%s finished.
-        pause
     )
 )
 
