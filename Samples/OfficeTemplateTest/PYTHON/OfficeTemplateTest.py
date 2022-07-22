@@ -53,14 +53,9 @@ def main():
     }}
     """.format(input_path)
 
-    # Start with a PDFDoc (the conversion destination)
-    pdfdoc = PDFDoc()
+    template_doc = Convert.CreateOfficeTemplate(input_path + input_filename, None)
 
-    options = OfficeToPDFOptions()
-    options.SetTemplateParamsJson(json)
-
-	# perform the conversion with template delimiters and content dictionary
-    Convert.OfficeToPDF(pdfdoc, input_path + input_filename, options)
+    pdfdoc = template_doc.FillTemplateJson(json);
 
     # save the result
     pdfdoc.Save(output_path + output_filename, SDFDoc.e_linearized)
