@@ -51,15 +51,9 @@ func main(){
         "sender_name": "Arnold Smith"
 	}`;
 
-    options :=  NewOfficeToPDFOptions()
+    var templateDoc = ConvertCreateOfficeTemplate(inputPath + inputFileName, NewOfficeToPDFOptions());
 
-    options.SetTemplateParamsJson(json)
-
-    // Start with a PDFDoc (the conversion destination)
-    pdfdoc := NewPDFDoc()
-
-    // perform the conversion with template delimiters and content dictionary
-    ConvertOfficeToPDF(pdfdoc, inputPath + inputFileName, options)
+    var pdfdoc = templateDoc.FillTemplateJson(json);
 
     // save the result
     pdfdoc.Save(outputPath + outputFileName, uint(SDFDocE_linearized))
