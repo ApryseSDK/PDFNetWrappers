@@ -51,12 +51,14 @@ def main()
     }
     ' % $inputPath
 
+    # Create a TemplateDocument object from an input office file.
     inputFile = $inputPath + inputFilename
     templateDoc = Convert.CreateOfficeTemplate(inputFile, nil)
 
+    # Fill the template with data from a JSON string, producing a PDF document.
     pdfdoc = templateDoc.FillTemplateJson(json)
 
-    # save the result
+    # Save the PDF to a file.
     outputFile = $outputPath + outputFilename
     pdfdoc.Save(outputFile, SDFDoc::E_linearized)
 

@@ -53,11 +53,13 @@ def main():
     }}
     """.format(input_path)
 
+    # Create a TemplateDocument object from an input office file.
     template_doc = Convert.CreateOfficeTemplate(input_path + input_filename, None)
 
+    # Fill the template with data from a JSON string, producing a PDF document.
     pdfdoc = template_doc.FillTemplateJson(json);
 
-    # save the result
+    # Save the PDF to a file.
     pdfdoc.Save(output_path + output_filename, SDFDoc.e_linearized)
 
     # And we're done!
