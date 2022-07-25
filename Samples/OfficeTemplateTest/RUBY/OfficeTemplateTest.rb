@@ -51,17 +51,14 @@ def main()
     }
     ' % $inputPath
 
-    # Start with a PDFDoc (the conversion destination)
-    pdfdoc = PDFDoc.new()
-
-    options = OfficeToPDFOptions.new()
-    options.SetTemplateParamsJson(json)
-
-    # perform the conversion with template delimiters and content dictionary
+    # Create a TemplateDocument object from an input office file.
     inputFile = $inputPath + inputFilename
-    Convert.OfficeToPDF(pdfdoc, inputFile, options)
+    templateDoc = Convert.CreateOfficeTemplate(inputFile, nil)
 
-    # save the result
+    # Fill the template with data from a JSON string, producing a PDF document.
+    pdfdoc = templateDoc.FillTemplateJson(json)
+
+    # Save the PDF to a file.
     outputFile = $outputPath + outputFilename
     pdfdoc.Save(outputFile, SDFDoc::E_linearized)
 
