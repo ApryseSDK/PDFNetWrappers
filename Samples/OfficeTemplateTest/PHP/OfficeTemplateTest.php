@@ -51,16 +51,13 @@ function main()
         "sender_name": "Arnold Smith"
 	}';
 
-	// Start with a PDFDoc (the conversion destination)
-	$pdfdoc = new PDFDoc();
+	// Create a TemplateDocument object from an input office file.
+	$template_doc = Convert::CreateOfficeTemplate($input_path . $input_filename, NULL);
 
-	$options = new OfficeToPDFOptions();
-	$options->SetTemplateParamsJson($json);
+	// Fill the template with data from a JSON string, producing a PDF document.
+	$pdfdoc = $template_doc->FillTemplateJson($json);
 
-    // perform the conversion with template delimiters and content dictionary
-	Convert::OfficeToPDF($pdfdoc, $input_path.$input_filename, $options);
-
-	// save the result
+	// Save the PDF to a file.
 	$pdfdoc->Save($output_path.$output_filename, SDFDoc::e_linearized, NULL);
 
 	// And we're done!
