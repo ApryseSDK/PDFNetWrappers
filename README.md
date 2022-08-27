@@ -33,7 +33,7 @@ Having a **single version of SWIG and PHP installed** on the server is preferred
 
 * Targeting **PHP8**
 
-    * **PHP8** with developer extensions and **SWIG (4.1.0)** or above
+    * **PHP8** with developer extensions and **SWIG (4.1.0)** or above [See the example below for detailed instructions]
 
 * Targeting **PHP7**
 
@@ -127,15 +127,14 @@ More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/g
 Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You could run the following set of commands:
 
     # First, install swig 4.1.0 for PHP8 wrapper using swig/master branch
-    mkdir Swig
-    cd Swig
     git clone https://github.com/swig/swig.git
     cd swig
     mkdir Build
     cd Build 
     cmake ..
-    sudo apt install
-    swig -version # check to make sure swig version 4.1.0
+    make
+    sudo make install
+    swig -version # check to make sure swig version 4.1.0 before continuing
 
     # Now, build PHP wrapper. Navigate to the location where you want to build the wrapper
     mkdir wrappers_build # Make a directory to build the wrappers in.
