@@ -139,7 +139,7 @@ Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You 
     # Now, build PHP wrapper. Navigate to the location where you want to build the wrapper
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
-    git clone https://github.com/PDFTron/PDFNetWrappers -b next_release --single-branch # Git the code.
+    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
     wget https://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
     tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
