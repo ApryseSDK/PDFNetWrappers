@@ -795,6 +795,8 @@ namespace pdftron {
 %ignore pdftron::PDF::Annots::FileAttachment::Create(SDF::SDFDoc&, const Rect&, const UString&, const char*);
 %ignore pdftron::PDF::Annots::Ink::Create(SDF::SDFDoc&, const Rect&);
 %ignore pdftron::PDF::Annots::Circle::Create(SDF::SDFDoc&, const Rect&);
+%ignore pdftron::PDF::Annots::Caret::Create(SDF::SDFDoc&, const Rect&);
+%ignore pdftron::PDF::Annots::Caret::Create(SDF::SDFDoc&, const Rect&, Rect);
 %ignore pdftron::PDF::Annots::HighlightAnnot::Create(SDF::SDFDoc&, const Rect&);
 %ignore pdftron::PDF::Annots::LineAnnot::Create(SDF::SDFDoc&, const Rect&);
 %ignore pdftron::PDF::Annots::FreeText::Create(SDF::SDFDoc&, const Rect&);
