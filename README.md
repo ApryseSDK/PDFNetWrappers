@@ -33,11 +33,11 @@ Having a **single version of SWIG and PHP installed** on the server is preferred
 
 * Targeting **PHP8**
 
-    * **PHP8** with developer extensions and **SWIG (4.1.0)** or above [See the example below for detailed instructions]
+    * **PHP8** with developer extensions and **SWIG (4.1.0)** or above [See the example below for detailed instructions](#Linux-PHP8)
 
 * Targeting **PHP7**
 
-    * **PHP7** with developer extensions and **SWIG (3.0.12 - 4.0.2)**
+    * **PHP7** with developer extensions and **SWIG (3.0.12 - 4.0.2)** [See the example below for detailed instructions](#Linux-PHP7)
 
 * Targeting **PHP5**
 
@@ -124,6 +124,8 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
 More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/go)
 
 ## Linux
+
+### Linux PHP8
 Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You could run the following set of commands:
 
     # First, install swig 4.1.0 for PHP8 wrapper using swig/master branch
@@ -159,7 +161,7 @@ Please note that you may need to register PDFNetPHP.so as an extension to your P
 
     extension=/full/path/to/PDFNetPHP.so
 
-## Linux 
+### Linux PHP7
 Suppose you wanted to build and run the 64-bit `PHP7` wrappers on `Linux`.  You could run the following set of commands:
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
