@@ -9,6 +9,7 @@ var classpdftron_1_1_p_d_f_1_1_x_o_d_output_options =
     [ "SetElementLimit", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#abc3111d76c306d4b5a59a5e48e78fefb", null ],
     [ "SetEncryptPassword", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#af8f48175884a988b10fcc43768590e8e", null ],
     [ "SetExternalParts", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#a1a061c77088e3621705cdfdc7d71db33", null ],
+    [ "SetExtractUsingZorder", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#ae706b34193a595698ebc6a093757055c", null ],
     [ "SetFlattenContent", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#acbaf39b849125f57e40d77955df13b90", null ],
     [ "SetFlattenThreshold", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#aaa25b30671727afe89bf365e8afb39fe", null ],
     [ "SetJPGQuality", "classpdftron_1_1_p_d_f_1_1_x_o_d_output_options.html#ace47d35c3f9c345e9a4d63005b6555b3", null ],

@@ -539,6 +539,9 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 <li>GetColorSpace()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_element_reader.html#ab604b1dc26364e52c2c3b35c1efe668c">pdftron::PDF::ElementReader</a>
 </li>
+<li>GetCompareUsingZOrder()
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html#ac9fc8aee24b6c2ea2e95a8aaaad0a124">pdftron::PDF::TextDiffOptions</a>
+</li>
 <li>GetComponentNum()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_color_space.html#a0b75f9d1aae5504d32ec51cf117bba18">pdftron::PDF::ColorSpace</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#a680c0602965e4df2b9475f89bcb7409a">pdftron::PDF::Element</a>
@@ -562,6 +565,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetConversionStatus()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#a34024a63ca803bfd40fca668c8a37eaf">pdftron::PDF::DocumentConversion</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_template_document.html#a89214d8f0073c1c02e4f545d5b14cbbc">pdftron::PDF::TemplateDocument</a>
 </li>
 <li>GetCoords()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_shading.html#aadd3664bd124a3ca49df16646f7a81c3">pdftron::PDF::Shading</a>
@@ -760,7 +764,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#ad8c157bb9d8f9bbe61477e46812b5c8e">pdftron::PDF::OfficeToPDFOptions</a>
 </li>
 <li>GetDoc()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#a26aa969103406ef9c5c7384b7670a21d">pdftron::PDF::DocumentConversion</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#a91b2477b954edeadf38cf1d927b8d162">pdftron::PDF::DocumentConversion</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a6fce00c582e5916b0a27e49ccf17480b">pdftron::PDF::PDFView</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a218e0e9253e25593b1550134ffbdc5b6">pdftron::PDF::PDFViewCtrl</a>
 , <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#a480f3d8382e72e72b2f76ebeb85120a7">pdftron::SDF::Obj</a>
@@ -836,6 +840,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetErrorString()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#ab27bda426a6b05a01e1e14b09bb3af41">pdftron::PDF::DocumentConversion</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_template_document.html#ae7dbb1a2b251a5ee370550813e2a0067">pdftron::PDF::TemplateDocument</a>
 </li>
 <li>GetExcelDefaultCellBorderWidth()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a3087478a84a60f705bd9b5c99b40af8b">pdftron::PDF::OfficeToPDFOptions</a>
@@ -1026,6 +1031,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_highlights.html#a9d75faa58926cf3d4fc67a242a2ada2b">pdftron::PDF::Highlights</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_context.html#a4396ae7931eebb07a12600a6ccfa3a5d">pdftron::PDF::OCG::Context</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a5bdee56173d66893c7cf3db144c3e0f1">pdftron::PDF::PDFDoc</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_template_document.html#ab419ca22837cdd1ac08ac5be83a1e3b4">pdftron::PDF::TemplateDocument</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#aae401b993271dd25bd6484bcc0f1d3de">pdftron::PDF::TextRange</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_view_change_collection.html#ae4d756851602cc6ff2579ebd03644ed4">pdftron::PDF::ViewChangeCollection</a>
 , <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#a94845861e4c14380e79b2637ef405f7d">pdftron::SDF::Obj</a>
@@ -1345,15 +1351,15 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a38e1b1a4dc8be7b45594ccf2ef9e30c2">pdftron::PDF::Annots::Widget</a>
 </li>
 <li>GetName()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_config.html#a79f1e3ff0ae43f5afdc7fc785667388d">pdftron::PDF::OCG::Config</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_group.html#ae19fe1d78978e71018ab37a2f6955ad5">pdftron::PDF::OCG::Group</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_net_1_1_security_descriptor.html#a7d1267fd974666623e9e8e0ad2febe2b">pdftron::PDFNet::SecurityDescriptor</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#aeb3b06d6cbe6b3f4a5b141fb1d776a2b">pdftron::SDF::Obj</a>
 , <a class="el" href="classpdftron_1_1_s_d_f_1_1_signature_handler.html#a5782dfed9fac3601deb803457ef2fc4d">pdftron::SDF::SignatureHandler</a>
 , <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#ab577ebfbb2028dc9441ae45fede3acda">pdftron::FDF::FDFField</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_config.html#a79f1e3ff0ae43f5afdc7fc785667388d">pdftron::PDF::OCG::Config</a>
 , <a class="el" href="classpdftron_1_1_filters_1_1_filter.html#a988d61c22259fd1b49e8a0f515e0d75c">pdftron::Filters::Filter</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a9508240b8071b0a483fefc9ce4f0d2fd">pdftron::PDF::Field</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#adad8378ba122eafd9cb432619e75f668">pdftron::PDF::Font</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_group.html#ae19fe1d78978e71018ab37a2f6955ad5">pdftron::PDF::OCG::Group</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_net_1_1_security_descriptor.html#a7d1267fd974666623e9e8e0ad2febe2b">pdftron::PDFNet::SecurityDescriptor</a>
-, <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#aeb3b06d6cbe6b3f4a5b141fb1d776a2b">pdftron::SDF::Obj</a>
 </li>
 <li>GetNewTextLineOffset()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#ad4c8a868ccb021ae223ae92757a8ab40">pdftron::PDF::Element</a>
@@ -1424,7 +1430,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_rect_collection.html#a7fde0d3cf53d41bd64ccbcb4cd71478f">pdftron::PDF::RectCollection</a>
 </li>
 <li>GetNumWarnings()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#aa81e240e22abf185d55b68fedfd511aa">pdftron::PDF::DocumentConversion</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_template_document.html#a707fb3b2f3edbb2576f9bdfc78ca1ba4">pdftron::PDF::TemplateDocument</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#aa81e240e22abf185d55b68fedfd511aa">pdftron::PDF::DocumentConversion</a>
 </li>
 <li>GetNumWords()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_line.html#a29997465ab267ecf5537cb7709d58f57">pdftron::PDF::Line</a>
@@ -1436,15 +1443,15 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_crypto_1_1_x509_extension.html#ad2e94ddc292ff981ff796381b588d713">pdftron::Crypto::X509Extension</a>
 </li>
 <li>GetObjNum()
-: <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#a52ef1da645c20c3702507adc5ef9cf7e">pdftron::SDF::Obj</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_disallowed_change.html#a1369996880aec58fc6f24b3348f4bafb">pdftron::PDF::DisallowedChange</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_disallowed_change.html#a1369996880aec58fc6f24b3348f4bafb">pdftron::PDF::DisallowedChange</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#a52ef1da645c20c3702507adc5ef9cf7e">pdftron::SDF::Obj</a>
 </li>
 <li>GetOCGConfig()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a9dad92927363622267398b640219aafb">pdftron::PDF::PDFDoc</a>
 </li>
 <li>GetOCGContext()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a527ec1c2a4172e70b5b639d6a8d64a23">pdftron::PDF::PDFView</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a88389638cd41a74940fea1193be7354d">pdftron::PDF::PDFViewCtrl</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a88389638cd41a74940fea1193be7354d">pdftron::PDF::PDFViewCtrl</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a527ec1c2a4172e70b5b639d6a8d64a23">pdftron::PDF::PDFView</a>
 </li>
 <li>GetOCGs()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_o_c_m_d.html#a74bfb156ece4dcee3c362302d3edc95e">pdftron::PDF::OCG::OCMD</a>
@@ -1452,6 +1459,9 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetOCMode()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_context.html#a7ff0ddc11ecce63b9c8430bdc7715746">pdftron::PDF::OCG::Context</a>
+</li>
+<li>GetOCREngine()
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html#a15fbcc732081049e41dc48fced8b08df">pdftron::PDF::OCROptions</a>
 </li>
 <li>GetOCRJsonFromImage()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_module.html#a24fc1d2f9c93c83612b26aca2981aeeb">pdftron::PDF::OCRModule</a>
@@ -1496,8 +1506,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a71bd6de8b4a6a608cb9b6d9f01979e89">pdftron::PDF::Annot</a>
 </li>
 <li>GetOptions()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_combo_box_widget.html#a6103ae0bfac8774ce10df7dbfc6b4d09">pdftron::PDF::Annots::ComboBoxWidget</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_list_box_widget.html#a6bb023e3ae4eac74411ba0e82c039921">pdftron::PDF::Annots::ListBoxWidget</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_list_box_widget.html#a6bb023e3ae4eac74411ba0e82c039921">pdftron::PDF::Annots::ListBoxWidget</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_combo_box_widget.html#a6103ae0bfac8774ce10df7dbfc6b4d09">pdftron::PDF::Annots::ComboBoxWidget</a>
 </li>
 <li>GetOrder()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_config.html#adff62efcf2bedadb0c709d3c590ca5ab">pdftron::PDF::OCG::Config</a>
@@ -1522,9 +1532,9 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetPage()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a7a4d7661d7d72cdb23964e0ffc4c4393">pdftron::PDF::Annot</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_destination.html#afb2d1bf172cf715bb24c10e25b3fce07">pdftron::PDF::Destination</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a5c631eb201267494ce3e7c0025af1f79">pdftron::PDF::PDFDoc</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_content_item.html#a1fbce36bdec2e04c3fb4a4fdecb71d96">pdftron::PDF::Struct::ContentItem</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_destination.html#afb2d1bf172cf715bb24c10e25b3fce07">pdftron::PDF::Destination</a>
 </li>
 <li>GetPageCount()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a03d0cd1a5e1dcb68ff92552b5ae621be">pdftron::PDF::PDFDoc</a>
@@ -1532,8 +1542,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a93b7f8b6af5d1fc907778eefa030ba6b">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GetPageHeight()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_c_a_d_convert_options.html#a83eb8ad3fdf9b8281895e46d94717f80">pdftron::PDF::CADConvertOptions</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#a4df5bf176134643477f4901ab54f3d59">pdftron::PDF::Page</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#a4df5bf176134643477f4901ab54f3d59">pdftron::PDF::Page</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_c_a_d_convert_options.html#a83eb8ad3fdf9b8281895e46d94717f80">pdftron::PDF::CADConvertOptions</a>
 </li>
 <li>GetPageIterator()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a5d15cf0c0510932ba886740f64952c91">pdftron::PDF::PDFDoc</a>
@@ -1548,16 +1558,16 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_selection.html#a366e46290340e6e6ab47fb20f660fa55">pdftron::PDF::Selection</a>
 </li>
 <li>GetPageNumber()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_search_result.html#a2e481ba5a2e4d4f1cb76e63cb87c0ddc">pdftron::PDF::SearchResult</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#a0ae03baa01b6cee5d58161c0d5e07fb4">pdftron::PDF::TextRange</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#a0ae03baa01b6cee5d58161c0d5e07fb4">pdftron::PDF::TextRange</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_search_result.html#a2e481ba5a2e4d4f1cb76e63cb87c0ddc">pdftron::PDF::SearchResult</a>
 </li>
 <li>GetPageNumberFromScreenPt()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a0d62808a86267844ba20a293098ec1ce">pdftron::PDF::PDFView</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#ae816723e46739390ad7dd3be6412a613">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GetPagePresentationMode()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a50408ab51cf3280457cb18296b3638ae">pdftron::PDF::PDFViewCtrl</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a46316f962c84ebf643f0d69c6aaaf670">pdftron::PDF::PDFView</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a46316f962c84ebf643f0d69c6aaaf670">pdftron::PDF::PDFView</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a50408ab51cf3280457cb18296b3638ae">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GetPageRefViewMode()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#ab0dba8122c86459430e0f46624abb81a">pdftron::PDF::PDFView</a>
@@ -1570,8 +1580,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#abe089f29bed6f8157c8c3ae816c2dc6c">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GetPageWidth()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_c_a_d_convert_options.html#a21e3b09d5c4393e36df2603ceb134116">pdftron::PDF::CADConvertOptions</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#a197d8006e4eb3aa0bc4f01c9c15f343a">pdftron::PDF::Page</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#a197d8006e4eb3aa0bc4f01c9c15f343a">pdftron::PDF::Page</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_c_a_d_convert_options.html#a21e3b09d5c4393e36df2603ceb134116">pdftron::PDF::CADConvertOptions</a>
 </li>
 <li>GetParagraphID()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_line.html#af6a3a9c37af46cbc9a635e9c665b4e1e">pdftron::PDF::Line</a>
@@ -1584,16 +1594,16 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetParent()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_popup.html#a2d48aee09e25007bbdf1fa16b53a418b">pdftron::PDF::Annots::Popup</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_bookmark.html#aa273a23c772063abbe3e9f43163e3481">pdftron::PDF::Bookmark</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_content_item.html#aad59d0e2b9da98cf935996a134534972">pdftron::PDF::Struct::ContentItem</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_element.html#acf0162f0c3997e541ef0890a4a7ba6e2">pdftron::PDF::Struct::SElement</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_bookmark.html#aa273a23c772063abbe3e9f43163e3481">pdftron::PDF::Bookmark</a>
 </li>
 <li>GetParentStructElement()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#a98786bf98bfb3137946deeb968cc10d8">pdftron::PDF::Element</a>
 </li>
 <li>GetPartialName()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a30a95211b62bd797310eea3bc8c3131c">pdftron::PDF::Field</a>
-, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#a1ddf231c5c5ce635577f1c1ac3d3b183">pdftron::FDF::FDFField</a>
+: <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#a1ddf231c5c5ce635577f1c1ac3d3b183">pdftron::FDF::FDFField</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a30a95211b62bd797310eea3bc8c3131c">pdftron::PDF::Field</a>
 </li>
 <li>GetPathCount()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_ink.html#adf745cb104ea4eed92f4802959a1b65b">pdftron::PDF::Annots::Ink</a>
@@ -1681,7 +1691,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetQuad()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_word.html#a2da449b72856eb8cef750f76af7124ff">pdftron::PDF::Word</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_line.html#adc6c806af951dd90e1f7be0c13e91bd6">pdftron::PDF::Line</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_line.html#aac48bf063bd106ec6b23417bdfcb16a5">pdftron::PDF::Line</a>
 </li>
 <li>GetQuaddingFormat()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_free_text.html#a9d06044ec506408918954c6489f70bdb">pdftron::PDF::Annots::FreeText</a>
@@ -1690,18 +1700,19 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#a906d457f073c5afe613f5fdfab8b3ac6">pdftron::PDF::Annots::Redaction</a>
 </li>
 <li>GetQuadPoint()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a2d2ef44428009b184eafdd661eb77719">pdftron::PDF::Annots::Link</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_text_markup.html#a1656529fd02f549e4bcba9cc31db194b">pdftron::PDF::Annots::TextMarkup</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a2d2ef44428009b184eafdd661eb77719">pdftron::PDF::Annots::Link</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#ad3006405038bb5282ac1134684ae24be">pdftron::PDF::Annots::Redaction</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_text_markup.html#a1656529fd02f549e4bcba9cc31db194b">pdftron::PDF::Annots::TextMarkup</a>
 </li>
 <li>GetQuadPointCount()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#abdbad111b67042d746bb69d74fde2a5b">pdftron::PDF::Annots::Link</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_text_markup.html#ae741f586ad33c900e019bc395e2dc8a8">pdftron::PDF::Annots::TextMarkup</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#a173e938ea99a2cc95b6c4f855948eead">pdftron::PDF::Annots::Redaction</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_text_markup.html#ae741f586ad33c900e019bc395e2dc8a8">pdftron::PDF::Annots::TextMarkup</a>
 </li>
 <li>GetQuads()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_selection.html#a7715dd0005a687956bdbf71eb25e167b">pdftron::PDF::Selection</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#a9fdc50835c59d882b700837f6cbc97e8">pdftron::PDF::TextRange</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_selection.html#aaf86aebc6b6f5016f74ade316cc7befc">pdftron::PDF::Selection</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#adeed504ead799765c3759bdaae7b556d">pdftron::PDF::TextRange</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_selection.html#a7715dd0005a687956bdbf71eb25e167b">pdftron::PDF::Selection</a>
 </li>
 <li>GetRasterDPI()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_c_a_d_convert_options.html#ac9f1a618759415f77b010bf9130066b0">pdftron::PDF::CADConvertOptions</a>
@@ -1786,25 +1797,25 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#abe4a2813957054736ae1c0c01b6515e3">pdftron::PDF::Annots::Screen</a>
 </li>
 <li>GetRoot()
-: <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_doc.html#aa08df65fba9a05e9fb24e147a04f9955">pdftron::FDF::FDFDoc</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#ae644be52ed8fdd52711c6186a7f644dd">pdftron::PDF::PDFDoc</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#ae644be52ed8fdd52711c6186a7f644dd">pdftron::PDF::PDFDoc</a>
+, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_doc.html#aa08df65fba9a05e9fb24e147a04f9955">pdftron::FDF::FDFDoc</a>
 </li>
 <li>GetRotation()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a5b2f9b615719b3bf2336ae196193b94b">pdftron::PDF::PDFView</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a59359bdb1772525006fea2fb43ea9c61">pdftron::PDF::PDFViewCtrl</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a60fb4749ae28e2c22c360e08d05857b3">pdftron::PDF::Annot</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#ac385c91e5646033d8e03e5ae4b38f8a3">pdftron::PDF::Page</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a60fb4749ae28e2c22c360e08d05857b3">pdftron::PDF::Annot</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a59359bdb1772525006fea2fb43ea9c61">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GetScale()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_shaped_text.html#adac63a12db30f89264c540c858b0cef5">pdftron::PDF::ShapedText</a>
 </li>
 <li>GetScaleCondition()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a6339ab5753ac23881d87584ece93aee7">pdftron::PDF::Annots::Screen</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a8478d0b9582fc009eedb1940b053a531">pdftron::PDF::Annots::Widget</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a8478d0b9582fc009eedb1940b053a531">pdftron::PDF::Annots::Widget</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a6339ab5753ac23881d87584ece93aee7">pdftron::PDF::Annots::Screen</a>
 </li>
 <li>GetScaleType()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a9c9bc39a49a4f63c8946f00ef7f25360">pdftron::PDF::Annots::Screen</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a752ff9ea80fcd03d17bda23a7e8abeef">pdftron::PDF::Annots::Widget</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a752ff9ea80fcd03d17bda23a7e8abeef">pdftron::PDF::Annots::Widget</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a9c9bc39a49a4f63c8946f00ef7f25360">pdftron::PDF::Annots::Screen</a>
 </li>
 <li>GetScientificNumberFormat1()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_office_locale_overrides.html#a8245467cad885c87e93800fef53a458f">pdftron::PDF::OfficeLocaleOverrides</a>
@@ -1817,39 +1828,39 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a0bebdbb7f443febe28b304295d4d06f1">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GetSDFDoc()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#af119c1bd1c5c9e9185c6c2a1a97329a9">pdftron::PDF::PDFDoc</a>
-, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_doc.html#a59cd458d22a0d9ee7fca52fc26598e07">pdftron::FDF::FDFDoc</a>
+: <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_doc.html#a59cd458d22a0d9ee7fca52fc26598e07">pdftron::FDF::FDFDoc</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#af119c1bd1c5c9e9185c6c2a1a97329a9">pdftron::PDF::PDFDoc</a>
 </li>
 <li>GetSDFObj()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#a0ac431ab5282f7de77ebb96be6ce3405">pdftron::PDF::Page</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a448d2497bde6736998d6b6c799476a0f">pdftron::PDF::Font</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_view_prefs.html#a1c4df58c790d6566dae466526d987555">pdftron::PDF::PDFDocViewPrefs</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_image.html#a4fff4e1224a26a7acb17dd4453b9df3b">pdftron::PDF::Image</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_bookmark.html#ae1f87ac419f26b8ce36fe312abc69d5a">pdftron::PDF::Bookmark</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a448d2497bde6736998d6b6c799476a0f">pdftron::PDF::Font</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_function.html#acc955e3a91744f1eaa5b192e22cd694b">pdftron::PDF::Function</a>
-, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#add3329ef8a20558de535627891da0329">pdftron::FDF::FDFField</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a5efadf1aaebd5bc6df5a8399aee6532f">pdftron::PDF::Field</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_color_space.html#adcfaf0f3548da84394022c62c7063ce2">pdftron::PDF::ColorSpace</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_destination.html#a755814edfa49fe7b4393257b03a0b553">pdftron::PDF::Destination</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_bookmark.html#ae1f87ac419f26b8ce36fe312abc69d5a">pdftron::PDF::Bookmark</a>
+, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#add3329ef8a20558de535627891da0329">pdftron::FDF::FDFField</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a28c4f404dd67ada8e4a70e1a4f2feb86">pdftron::PDF::Annot</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_digital_signature_field.html#a7b27b80e590eb5bb73d9bed0c8261a95">pdftron::PDF::DigitalSignatureField</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_file_spec.html#a9cc1d4fbfbcad573987efe8bcfc05592">pdftron::PDF::FileSpec</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_config.html#ac313f3326facc7827b45dda23fc7b910">pdftron::PDF::OCG::Config</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_o_c_m_d.html#a423629051caa7a5323d2260398081202">pdftron::PDF::OCG::OCMD</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_function.html#acc955e3a91744f1eaa5b192e22cd694b">pdftron::PDF::Function</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_page_label.html#ab1dc918548ea53bfc49eaebccb6ea36d">pdftron::PDF::PageLabel</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_shading.html#a977017399a36b524fa1689122c84512d">pdftron::PDF::Shading</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_attr_obj.html#a44055e5cde3c701b4fd0f3b47ac37bef">pdftron::PDF::Struct::AttrObj</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_o_c_m_d.html#a423629051caa7a5323d2260398081202">pdftron::PDF::OCG::OCMD</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#a0ac431ab5282f7de77ebb96be6ce3405">pdftron::PDF::Page</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_info.html#a279afc794cdf4d6c1c195671faf63d72">pdftron::PDF::PDFDocInfo</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_class_map.html#aaac8c3bf29551f822ce90af3099ac94c">pdftron::PDF::Struct::ClassMap</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_role_map.html#a6c14b094c6e95eea1469de8330c1b7f3">pdftron::PDF::Struct::RoleMap</a>
-, <a class="el" href="classpdftron_1_1_s_d_f_1_1_number_tree.html#ad6d07defb335544448eabf9f6c88c46d">pdftron::SDF::NumberTree</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_view_prefs.html#a1c4df58c790d6566dae466526d987555">pdftron::PDF::PDFDocViewPrefs</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_action.html#a473fc2683b66ffa77ac8ab52e8d4340a">pdftron::PDF::Action</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a28c4f404dd67ada8e4a70e1a4f2feb86">pdftron::PDF::Annot</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a5efadf1aaebd5bc6df5a8399aee6532f">pdftron::PDF::Field</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_group.html#ab52a2850a5c117c3fd932d34520a0b5b">pdftron::PDF::OCG::Group</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_pattern_color.html#ac6e01933ab79e283d3b95971887057cf">pdftron::PDF::PatternColor</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_info.html#a279afc794cdf4d6c1c195671faf63d72">pdftron::PDF::PDFDocInfo</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_element.html#abf58f1565e113be9c324f3b1b7fd2f58">pdftron::PDF::Struct::SElement</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_tree.html#a8b57d967823aafc1eddf220b9020f67e">pdftron::PDF::Struct::STree</a>
-, <a class="el" href="classpdftron_1_1_s_d_f_1_1_name_tree.html#a63cb898349049017e79bf4fa1b19d33f">pdftron::SDF::NameTree</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_action.html#a473fc2683b66ffa77ac8ab52e8d4340a">pdftron::PDF::Action</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_destination.html#a755814edfa49fe7b4393257b03a0b553">pdftron::PDF::Destination</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_config.html#ac313f3326facc7827b45dda23fc7b910">pdftron::PDF::OCG::Config</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_group.html#ab52a2850a5c117c3fd932d34520a0b5b">pdftron::PDF::OCG::Group</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_content_item.html#a23897fff454b0c7b30cdf7eda23b62c9">pdftron::PDF::Struct::ContentItem</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_pattern_color.html#ac6e01933ab79e283d3b95971887057cf">pdftron::PDF::PatternColor</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_shading.html#a977017399a36b524fa1689122c84512d">pdftron::PDF::Shading</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_attr_obj.html#a44055e5cde3c701b4fd0f3b47ac37bef">pdftron::PDF::Struct::AttrObj</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_name_tree.html#a63cb898349049017e79bf4fa1b19d33f">pdftron::SDF::NameTree</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_number_tree.html#ad6d07defb335544448eabf9f6c88c46d">pdftron::SDF::NumberTree</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_element.html#abf58f1565e113be9c324f3b1b7fd2f58">pdftron::PDF::Struct::SElement</a>
 </li>
 <li>GetSecHdlrInfoIterator()
 : <a class="el" href="classpdftron_1_1_p_d_f_net.html#a0d721c99f7967f898dfa9d1ed236bf3d">pdftron::PDFNet</a>
@@ -1858,8 +1869,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_date.html#aa1eaf5cd71a998afff8f72d9dd2cc39a">pdftron::PDF::Date</a>
 </li>
 <li>GetSecurityHandler()
-: <a class="el" href="classpdftron_1_1_s_d_f_1_1_s_d_f_doc.html#ad17034c03a891fae0c9124c31e8b0cfa">pdftron::SDF::SDFDoc</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#af8ae14bfbc42ce8efaca89cd5095e706">pdftron::PDF::PDFDoc</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#af8ae14bfbc42ce8efaca89cd5095e706">pdftron::PDF::PDFDoc</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_s_d_f_doc.html#ad17034c03a891fae0c9124c31e8b0cfa">pdftron::SDF::SDFDoc</a>
 </li>
 <li>GetSelectedOption()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_combo_box_widget.html#ae46ce5600784c32d94fbb942873a49b6">pdftron::PDF::Annots::ComboBoxWidget</a>
@@ -1928,8 +1939,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_g_state.html#a83c6e7cb2ffa88bb8653ffe3006d5bfc">pdftron::PDF::GState</a>
 </li>
 <li>GetSoftMask()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_image.html#a6b7e2d4272ab0e14eea15327e094a662">pdftron::PDF::Image</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_g_state.html#ad1edb716979b2593a18523ec871b7c8a">pdftron::PDF::GState</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_g_state.html#ad1edb716979b2593a18523ec871b7c8a">pdftron::PDF::GState</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_image.html#a6b7e2d4272ab0e14eea15327e094a662">pdftron::PDF::Image</a>
 </li>
 <li>GetSoftMaskTransform()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_g_state.html#a034eff04ae71492e6137ffa591dd460e">pdftron::PDF::GState</a>
@@ -1970,8 +1981,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a76303848a09cb7f8825c19a20bfe180c">pdftron::PDF::Annots::Screen</a>
 </li>
 <li>GetStaticIcon()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a94976328c6233396c7f8d825b139be3e">pdftron::PDF::Annots::Widget</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a1af501e6e91ce84340c692a73f3c01fc">pdftron::PDF::Annots::Screen</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a1af501e6e91ce84340c692a73f3c01fc">pdftron::PDF::Annots::Screen</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a94976328c6233396c7f8d825b139be3e">pdftron::PDF::Annots::Widget</a>
 </li>
 <li>GetStatus()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_timestamping_result.html#a654f17a7491c6482bb5013b62876c139">pdftron::PDF::TimestampingResult</a>
@@ -2021,16 +2032,16 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetStyle()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_page_label.html#a95a7381afb06064bad1bbdeb59b4835d">pdftron::PDF::PageLabel</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_border_style.html#afc55acde4288622a4b5beaca63ed5ce7">pdftron::PDF::BorderStyle</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_word.html#a2cb84057daca5def69f96e02c4403794">pdftron::PDF::Word</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_line.html#a239975e36b6c5ce6336bff4145fb164c">pdftron::PDF::Line</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_word.html#a2cb84057daca5def69f96e02c4403794">pdftron::PDF::Word</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_border_style.html#afc55acde4288622a4b5beaca63ed5ce7">pdftron::PDF::BorderStyle</a>
 </li>
 <li>GetSubFilter()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_digital_signature_field.html#a72d2d547bff755c1fdbd34ba3307d1f9">pdftron::PDF::DigitalSignatureField</a>
 </li>
 <li>GetSubject()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_info.html#af422d5b97af740c7c49fb890806277e1">pdftron::PDF::PDFDocInfo</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_markup.html#a1e99432a56ae86e940a19298ee94182b">pdftron::PDF::Annots::Markup</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_markup.html#a1e99432a56ae86e940a19298ee94182b">pdftron::PDF::Annots::Markup</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_info.html#af422d5b97af740c7c49fb890806277e1">pdftron::PDF::PDFDocInfo</a>
 </li>
 <li>GetSubjectField()
 : <a class="el" href="classpdftron_1_1_crypto_1_1_x509_certificate.html#aa7ac33e49a8262b88efa3b5f7172099c">pdftron::Crypto::X509Certificate</a>
@@ -2044,6 +2055,9 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 <li>GetSystemFontList()
 : <a class="el" href="classpdftron_1_1_p_d_f_net.html#aa81ac98b57a315a6c5da343fdb57c214">pdftron::PDFNet</a>
 </li>
+<li>GetTemplateKeysJson()
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_template_document.html#a305a83cf5a3d9430831320292ee8768f">pdftron::PDF::TemplateDocument</a>
+</li>
 <li>GetTemplateLeftDelimiter()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a62e3df9f684864eb1c90831d8d71414f">pdftron::PDF::OfficeToPDFOptions</a>
 </li>
@@ -2053,10 +2067,13 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 <li>GetTemplateRightDelimiter()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a3e18fac5aa62a6bbcb2d21b9e38a703b">pdftron::PDF::OfficeToPDFOptions</a>
 </li>
+<li>GetTemplateStrictMode()
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a3b62f2ebadce406ca287e06511995c86">pdftron::PDF::OfficeToPDFOptions</a>
+</li>
 <li>GetText()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_shaped_text.html#ab9d725989c7d71867bf460c9362683e3">pdftron::PDF::ShapedText</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#a3282a4f53dfbff44d7f0d904c17c4eca">pdftron::PDF::TextRange</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_text_widget.html#aa46d8fa0d42b435335e0358eb3c9f8f9">pdftron::PDF::Annots::TextWidget</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#a3282a4f53dfbff44d7f0d904c17c4eca">pdftron::PDF::TextRange</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_shaped_text.html#ab9d725989c7d71867bf460c9362683e3">pdftron::PDF::ShapedText</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_key_stroke_action_result.html#a1d143a1db65a03ef04d0f955ac9e3209">pdftron::PDF::KeyStrokeActionResult</a>
 </li>
 <li>GetTextAfter()
@@ -2066,7 +2083,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_text_range.html#a89b08afc1d2d12e529d318b03e2c4c94">pdftron::PDF::TextRange</a>
 </li>
 <li>GetTextColor()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_free_text.html#a8ee6b7413fd044350bf4f7e578614aec">pdftron::PDF::Annots::FreeText</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_free_text.html#ac0f8c2f5102fdbcb0e843f7e0f006c91">pdftron::PDF::Annots::FreeText</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a6c835d0dff22a575f14ef6c9258e1ae4">pdftron::PDF::Annots::Widget</a>
 </li>
 <li>GetTextColorCompNum()
@@ -2153,12 +2170,12 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_color_space.html#a31027d8178465ab631fbbd8917d45456">pdftron::PDF::ColorSpace</a>
 </li>
 <li>GetTitle()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a9a21c2d6f1201708246825032f8ee7b4">pdftron::PDF::Annots::Screen</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_movie.html#a2c83ccff95025ca6c5dbf48fdd8271cd">pdftron::PDF::Annots::Movie</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_markup.html#a594932d299fb38ea1939226efb5e4c44">pdftron::PDF::Annots::Markup</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_markup.html#a594932d299fb38ea1939226efb5e4c44">pdftron::PDF::Annots::Markup</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc_info.html#ad62f42af5a4722e9f3f20de0ff0688ee">pdftron::PDF::PDFDocInfo</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_element.html#a4ef9174377414a03089729d2dd7341fb">pdftron::PDF::Struct::SElement</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a9a21c2d6f1201708246825032f8ee7b4">pdftron::PDF::Annots::Screen</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_bookmark.html#ad66e662629d5972597cda08c8a2e4382">pdftron::PDF::Bookmark</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_movie.html#a2c83ccff95025ca6c5dbf48fdd8271cd">pdftron::PDF::Annots::Movie</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_element.html#a4ef9174377414a03089729d2dd7341fb">pdftron::PDF::Struct::SElement</a>
 </li>
 <li>GetTitleObj()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_bookmark.html#a4a6284cbad4caa615bba5478a8c046b9">pdftron::PDF::Bookmark</a>
@@ -2171,9 +2188,9 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#afcafeea21843f9cc6d96522eba503090">pdftron::PDF::PDFDoc</a>
 </li>
 <li>GetTrailer()
-: <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_doc.html#a988fb58c1217970840fcc7f6f9d4d08d">pdftron::FDF::FDFDoc</a>
+: <a class="el" href="classpdftron_1_1_s_d_f_1_1_s_d_f_doc.html#a1b8825fba1daa3683495bae7491384e9">pdftron::SDF::SDFDoc</a>
+, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_doc.html#a988fb58c1217970840fcc7f6f9d4d08d">pdftron::FDF::FDFDoc</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a32e8ceb8178e032c2ae1c6a80453d3c6">pdftron::PDF::PDFDoc</a>
-, <a class="el" href="classpdftron_1_1_s_d_f_1_1_s_d_f_doc.html#a1b8825fba1daa3683495bae7491384e9">pdftron::SDF::SDFDoc</a>
 </li>
 <li>GetTransferFunct()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_g_state.html#a67afe71cbdf19b155fb1e26ae04b556a">pdftron::PDF::GState</a>
@@ -2182,10 +2199,10 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_g_state.html#a0fe750fc82fac2d798fff04406daec3f">pdftron::PDF::GState</a>
 </li>
 <li>GetTriggerAction()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a5ab2dc9379e183dc58cc6f6ab638b7c4">pdftron::PDF::PDFDoc</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a6591653289e9c6c716e96183a855007f">pdftron::PDF::Field</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a2a751170a68f563bf1ffa69f96bc2de6">pdftron::PDF::Annot</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html#a5ab2dc9379e183dc58cc6f6ab638b7c4">pdftron::PDF::PDFDoc</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#af237ef33bd276eb7d0a95cb4f75b2ef2">pdftron::PDF::Page</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a2a751170a68f563bf1ffa69f96bc2de6">pdftron::PDF::Annot</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a6591653289e9c6c716e96183a855007f">pdftron::PDF::Field</a>
 </li>
 <li>GetTrustStatus()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_result.html#a254ae2047dd844f84cb7c21624917473">pdftron::PDF::VerificationResult</a>
@@ -2196,26 +2213,25 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_result.html#a69ea8381ce86e463dd339dc7b29e593b">pdftron::PDF::VerificationResult</a>
 </li>
 <li>GetTrustVerificationResult()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_result.html#a8e178bfefce50c6e0cf2f6f58f0d261e">pdftron::PDF::VerificationResult</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_embedded_timestamp_verification_result.html#ad2066b6c19605761c26dcddb00815fea">pdftron::PDF::EmbeddedTimestampVerificationResult</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_embedded_timestamp_verification_result.html#ad2066b6c19605761c26dcddb00815fea">pdftron::PDF::EmbeddedTimestampVerificationResult</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_result.html#a8e178bfefce50c6e0cf2f6f58f0d261e">pdftron::PDF::VerificationResult</a>
 </li>
 <li>GetType()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a7b49227f0f0a62dc2376e32d72541c85">pdftron::PDF::Font</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a994bfe22eba05e9fcfbc1cfc68c94112">pdftron::PDF::Annot</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_shading.html#a1463e66ebbae35d8ffdf6727f0abb657">pdftron::PDF::Shading</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_content_item.html#a3c8df4773a0c127b63dedc979d010b5b">pdftron::PDF::Struct::ContentItem</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_function.html#a006d119c69df977419e8f78ec657ec75">pdftron::PDF::Function</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#ae084ab5a903c81fb177472fc628f2962">pdftron::PDF::Field</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#ac5e91f59bf0e09b6edb3ec0cccdb6a68">pdftron::PDF::Element</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_action.html#a930a6bc2aefa6ec9e791a95099ab628e">pdftron::PDF::Action</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_color_space.html#a7b9c51189437ad19e305155c92f11c23">pdftron::PDF::ColorSpace</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a37e7ad7f5ecc170ddce66c3db583e964">pdftron::PDF::Font</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_disallowed_change.html#a5abf504552a56b061b9dfa30b493fa71">pdftron::PDF::DisallowedChange</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_color_space.html#a67d0cb4522202edecfd24db9ce0bb83b">pdftron::PDF::ColorSpace</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_pattern_color.html#afd7df0c2af3fef7f36aabda9673c0136">pdftron::PDF::PatternColor</a>
-, <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#a0eb61c105f99113f44295eac2efd3be4">pdftron::SDF::Obj</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_disallowed_change.html#a5abf504552a56b061b9dfa30b493fa71">pdftron::PDF::DisallowedChange</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_shading.html#a8bf83e74dcddada26c02eb4f239dfb0d">pdftron::PDF::Shading</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a37e7ad7f5ecc170ddce66c3db583e964">pdftron::PDF::Font</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_s_element.html#a30a91e9a42088bb6b5b61b3187475cc1">pdftron::PDF::Struct::SElement</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_annot.html#a994bfe22eba05e9fcfbc1cfc68c94112">pdftron::PDF::Annot</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a7b49227f0f0a62dc2376e32d72541c85">pdftron::PDF::Font</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_color_space.html#a7b9c51189437ad19e305155c92f11c23">pdftron::PDF::ColorSpace</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_action.html#a930a6bc2aefa6ec9e791a95099ab628e">pdftron::PDF::Action</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_pattern_color.html#afd7df0c2af3fef7f36aabda9673c0136">pdftron::PDF::PatternColor</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#ac5e91f59bf0e09b6edb3ec0cccdb6a68">pdftron::PDF::Element</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#ae084ab5a903c81fb177472fc628f2962">pdftron::PDF::Field</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_function.html#a006d119c69df977419e8f78ec657ec75">pdftron::PDF::Function</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_struct_1_1_content_item.html#a3c8df4773a0c127b63dedc979d010b5b">pdftron::PDF::Struct::ContentItem</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_obj.html#a0eb61c105f99113f44295eac2efd3be4">pdftron::SDF::Obj</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_shading.html#a1463e66ebbae35d8ffdf6727f0abb657">pdftron::PDF::Shading</a>
 </li>
 <li>GetType3FontMatrix()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#af14632f75542cd1cd74633d0a1602d4b">pdftron::PDF::Font</a>
@@ -2239,8 +2255,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#aaa52641a5247cfdf778c536a9ec336c6">pdftron::PDF::Font</a>
 </li>
 <li>GetUnsupportedFeatures()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_embedded_timestamp_verification_result.html#ad5cb79f6d02a2aba2712c4eb622b5abd">pdftron::PDF::EmbeddedTimestampVerificationResult</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_result.html#a202b776d4152bacdfd2ba9ffc3198ef2">pdftron::PDF::VerificationResult</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_result.html#a202b776d4152bacdfd2ba9ffc3198ef2">pdftron::PDF::VerificationResult</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_embedded_timestamp_verification_result.html#ad5cb79f6d02a2aba2712c4eb622b5abd">pdftron::PDF::EmbeddedTimestampVerificationResult</a>
 </li>
 <li>GetUpdateRect()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a430a19570c7adeaad7df96fca5615727">pdftron::PDF::Field</a>
@@ -2279,10 +2295,10 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_date.html#a2279c504fcf167c386c0b78019e58bfe">pdftron::PDF::Date</a>
 </li>
 <li>GetValue()
-: <a class="el" href="classpdftron_1_1_s_d_f_1_1_name_tree.html#a57982a9543f242e1df1962c4235ac41c">pdftron::SDF::NameTree</a>
-, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#aef23968198cc4dd0ffd923fb062f3fca">pdftron::FDF::FDFField</a>
-, <a class="el" href="classpdftron_1_1_s_d_f_1_1_number_tree.html#ac4484af175dd3764778a085781bf50a8">pdftron::SDF::NumberTree</a>
+: <a class="el" href="classpdftron_1_1_s_d_f_1_1_number_tree.html#ac4484af175dd3764778a085781bf50a8">pdftron::SDF::NumberTree</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a38cec5288ab44285bee5bf0fd3e52789">pdftron::PDF::Field</a>
+, <a class="el" href="classpdftron_1_1_s_d_f_1_1_name_tree.html#a57982a9543f242e1df1962c4235ac41c">pdftron::SDF::NameTree</a>
+, <a class="el" href="classpdftron_1_1_f_d_f_1_1_f_d_f_field.html#aef23968198cc4dd0ffd923fb062f3fca">pdftron::FDF::FDFField</a>
 </li>
 <li>GetValueAsBool()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_field.html#a869f0095fdf17cca014c9d0889c54695">pdftron::PDF::Field</a>
@@ -2307,7 +2323,7 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#af14cb9677d1254c4494146862c152438">pdftron::PDF::Annots::PolyLine</a>
 </li>
 <li>GetVerticalAdvance()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#ab1c1df4b53c1a0e6e55d6f38bb13f731">pdftron::PDF::Font</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a234ce0ad661233208231f9ee3bdac7f9">pdftron::PDF::Font</a>
 </li>
 <li>GetVIconLeftOver()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a9d29c34eba1edf552de9caea4617b35a">pdftron::PDF::Annots::Widget</a>
@@ -2351,13 +2367,14 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 </li>
 <li>GetWarningString()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_document_conversion.html#a10834bf11982a7a1ce753b5328aa7b45">pdftron::PDF::DocumentConversion</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_template_document.html#a1b50a374b8ec34f017675e0fad9be01b">pdftron::PDF::TemplateDocument</a>
 </li>
 <li>GetWeight()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_style.html#ae34ca1cf5644b8b5b863863ab2b34483">pdftron::PDF::Style</a>
 </li>
 <li>GetWidth()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_border_style.html#a4019cbef6a689f96726f6e7fc44fd672">pdftron::PDF::BorderStyle</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a340b4c34ab15861228b902a560a9cfe6">pdftron::PDF::Font</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_font.html#a340b4c34ab15861228b902a560a9cfe6">pdftron::PDF::Font</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_border_style.html#a4019cbef6a689f96726f6e7fc44fd672">pdftron::PDF::BorderStyle</a>
 </li>
 <li>GetWord()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_line.html#aee4ebf25222eaf165da8a55831acbb2e">pdftron::PDF::Line</a>
@@ -2381,8 +2398,8 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_rect.html#a901e3f267713cdcd019a6f145ae83a61">pdftron::PDF::Rect</a>
 </li>
 <li>GetXObject()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_element_reader.html#a4f9a1b89d1c83e8bdbaf95f7d7adfcf2">pdftron::PDF::ElementReader</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#ab81a54f6030984e3fc1e38de4a33b531">pdftron::PDF::Element</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_element.html#ab81a54f6030984e3fc1e38de4a33b531">pdftron::PDF::Element</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_element_reader.html#a4f9a1b89d1c83e8bdbaf95f7d7adfcf2">pdftron::PDF::ElementReader</a>
 </li>
 <li>GetXStep()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_pattern_color.html#abc51d28f55812adfc5f644832404f03b">pdftron::PDF::PatternColor</a>
@@ -2411,16 +2428,16 @@ $(document).ready(function(){initNavTree('functions_0x67.html','');});
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a56318303b312e0f4499bb339d9d8bed2">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GotoLastPage()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#ae5521b512bd550e9667490f3a6b4a0e9">pdftron::PDF::PDFViewCtrl</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a0724034526abf28797cc661fc3450db1">pdftron::PDF::PDFView</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#a0724034526abf28797cc661fc3450db1">pdftron::PDF::PDFView</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#ae5521b512bd550e9667490f3a6b4a0e9">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GotoNextPage()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#afa1249e1e8316ea5020d60f018283847">pdftron::PDF::PDFView</a>
 , <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#aee63d6a46f4c89296c405c912c716ae9">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>GotoPreviousPage()
-: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#ac2d2d8c2d83fec05c5143eb7b3caf8c4">pdftron::PDF::PDFViewCtrl</a>
-, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#aa7c8efb80e0134683a30645de683e743">pdftron::PDF::PDFView</a>
+: <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view.html#aa7c8efb80e0134683a30645de683e743">pdftron::PDF::PDFView</a>
+, <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#ac2d2d8c2d83fec05c5143eb7b3caf8c4">pdftron::PDF::PDFViewCtrl</a>
 </li>
 <li>Group()
 : <a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_g_1_1_group.html#a29da6fa26c80955aaff8a77e44fc3881">pdftron::PDF::OCG::Group</a>

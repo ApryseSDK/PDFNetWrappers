@@ -12,6 +12,8 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment =
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#ae27ddc63abf289a823f46fc321ffe872", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#a7bff46109a09753eb5d68c0c1b4d82e7", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#a7d0ca3d8930c84df95e39d06b5bbe2ea", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#a73f01d24bc7fd76810c3c125c65d28fd", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#a8cd1f9b5148838a801cdb50cb4697941", null ],
     [ "Export", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#a7bc0fde235412e118fd3cce9fcfb1812", null ],
     [ "GetFileSpec", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#ad7d497b7fb081d492a17290cfc1cacb3", null ],
     [ "GetIcon", "classpdftron_1_1_p_d_f_1_1_annots_1_1_file_attachment.html#ad08188f9033a2a13aada2db88d50d73a", null ],

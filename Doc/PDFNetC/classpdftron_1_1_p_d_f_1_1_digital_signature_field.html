@@ -906,7 +906,7 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Contacts a remote timestamp authority over network, sends CMS digest, receives and verifies timestamp token, combines the timestamp token and the data of an existing CMS-type (adbe.pkcs7.detached or ETSI.CAdES.detached subfilter) main document signature, and then returns that data to the user.</p>
+<p>Contacts a remote timestamp authority over network, sends CMS digest, receives and verifies timestamp token, combines the timestamp token and the data of an existing CMS-type (adbe.pkcs7.detached or ETSI.CAdES.detached subfilter) main document signature, and then returns that data to the user. At least one signing time, whether "M" (see SetSigDictTimeOfSigning) or a secure embedded timestamp, is required to be added in order to create a PAdES signature.</p>
 <dl class="section note"><dt>Note</dt><dd>This function does not insert the final CMS-type document signature into the document. You must retrieve it from the result using GetData and then pass that to <a class="el" href="classpdftron_1_1_p_d_f_1_1_p_d_f_doc.html">PDFDoc</a> SaveCustomSignature.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -950,7 +950,7 @@ Static Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Low-level optional function belonging to custom-signing APIs allowing creation of PAdES signatures with key elsewhere, allowing CMS to be generated automatically later. Represents one the components of the functionality of SignDigest which are not key-related. Creates the necessary attribute for a PAdES signature (ETSI.CAdES.detached subfilter type). The result of this function can be passed as a contiguous part of the custom attributes buffer parameter of GenerateCMSSignedAttributes.</p>
+<p>Low-level optional function belonging to custom-signing APIs allowing creation of PAdES signatures with key elsewhere, allowing CMS to be generated automatically later. Represents one the components of the functionality of SignDigest which are not key-related. Creates the necessary attribute for a PAdES signature (ETSI.CAdES.detached subfilter type). The result of this function can be passed as a contiguous part of the custom attributes buffer parameter of GenerateCMSSignedAttributes. At least one signing time, whether "M" (see SetSigDictTimeOfSigning) or a secure embedded timestamp (see GenerateContentsWithEmbeddedTimestamp), is also required to be added in order to create a PAdES signature.</p>
 <p>The result will be either the BER-serialized bytes of an ESS_signing_cert or ESS_signing_cert_V2 CMS Attribute (an ASN.1 SEQUENCE containing the correct OID and ESSCertID or ESSCertIDv2), as is appropriate, depending on what digest algorithm type is provided (see RFC 5035).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1502,7 +1502,7 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Adds the "M" key and value, representing the PDF-time-of-signing (not to be confused with embedded timestamps, DocTimeStamps, or CMS signing time), to the digital signature dictionary. The digital signature field must have been prepared for signing first. This function should only be used if no secure embedded timestamping support is available from your signing provider. Useful for custom signing workflows, where signing time is not set automatically by the PDFTron SDK, unlike in the usual standard handler signing workflow.</p>
+<p>Adds the "M" key and value, representing the PDF-time-of-signing (not to be confused with embedded timestamps, DocTimeStamps, or CMS signing time), to the digital signature dictionary. The digital signature field must have been prepared for signing first. This function should only be used if no secure embedded timestamping support is available from your signing provider. Useful for custom signing workflows, where signing time is not set automatically by the PDFTron SDK, unlike in the usual standard handler signing workflow. A secure embedded timestamp can also be added later and should override this "M" date entry when the signature is read by signature-verifying <a class="el" href="namespacepdftron_1_1_p_d_f.html">PDF</a> processor applications. At least one signing time, whether "M" or a secure embedded timestamp (see GenerateContentsWithEmbeddedTimestamp), is required to be added in order to create a PAdES signature.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">in_date</td><td>the <a class="el" href="namespacepdftron_1_1_p_d_f.html">PDF</a> <a class="el" href="classpdftron_1_1_p_d_f_1_1_date.html">Date</a> datetime value to set </td></tr>
@@ -1973,7 +1973,7 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Verifies this cryptographic digital signature in the manner specified by the <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_options.html">VerificationOptions</a>. EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: <a href="https://www.pdftron.com/form/trial-support/">https://www.pdftron.com/form/trial-support/</a> or <a href="https://www.pdftron.com/form/request/">https://www.pdftron.com/form/request/</a></p>
+<p>Verifies this cryptographic digital signature in the manner specified by the <a class="el" href="classpdftron_1_1_p_d_f_1_1_verification_options.html">VerificationOptions</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">in_opts</td><td>&ndash; The options specifying how to do the verification. </td></tr>

@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -2917,7 +2918,9 @@ From interface
  timestamp token, combines the timestamp token and the data of an existing CMS-type (adbe.pkcs7.detached or 
  ETSI.CAdES.detached subfilter) main document signature, and then returns that data to the user.
  This function does not insert the final CMS-type document signature into the document. 
- You must retrieve it from the result using GetData and then pass that to PDFDoc SaveCustomSignature.</p></div>
+ You must retrieve it from the result using GetData and then pass that to PDFDoc SaveCustomSignature.
+ At least one signing time, whether "M" (see setSigDictTimeOfSigning) or 
+ a secure embedded timestamp, is required to be added in order to create a PAdES signature.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -3001,6 +3004,9 @@ From interface
  Creates the necessary attribute for a PAdES signature (ETSI.CAdES.detached subfilter type).
  The result of this function can be passed as a contiguous part of the
  custom attributes buffer parameter of GenerateCMSSignedAttributes. 
+ At least one signing time, whether "M" (see setSigDictTimeOfSigning) or 
+ a secure embedded timestamp (see generateContentsWithEmbeddedTimestamp),
+ is also required to be added in order to create a PAdES signature.
 
  The result will be either the BER-serialized bytes of an ESS_signing_cert or ESS_signing_cert_V2 CMS Attribute
  (an ASN.1 SEQUENCE containing the correct OID and ESSCertID or ESSCertIDv2), as is appropriate,
@@ -4282,7 +4288,10 @@ From interface
  The digital signature field must have been prepared for signing first. This function should
  only be used if no secure embedded timestamping support is available from your signing provider.
  Useful for custom signing workflows, where signing time is not set automatically by the PDFTron SDK,
- unlike in the usual standard handler signing workflow.</p></div>
+ unlike in the usual standard handler signing workflow. A secure embedded timestamp can also be added
+ later and should override this "M" date entry when the signature is read by signature-verifying PDF processor applications. 
+ At least one signing time, whether "M" or a secure embedded timestamp (see generateContentsWithEmbeddedTimestamp), 
+ is required to be added in order to create a PAdES signature.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
@@ -4802,7 +4811,7 @@ From interface
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Verifies this cryptographic digital signature in the manner specified by the VerificationOptions. EXPERIMENTAL. Digital signature verification is undergoing active development, but currently does not support a number of features. If we are missing a feature that is important to you, or if you have files that do not act as expected, please contact us using one of the following forms: https://www.pdftron.com/form/trial-support/ or https://www.pdftron.com/form/request/</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Verifies this cryptographic digital signature in the manner specified by the VerificationOptions.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>A VerificationResult object containing various information about the verifiability of the cryptographic digital signature.</li></ul>

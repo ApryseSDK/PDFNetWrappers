@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -1006,6 +1007,24 @@ Summary:
         <span class="sympad"><a href="../../../com/pdftron/pdf/VerificationOptions.html#loadTrustList(com.pdftron.fdf.FDFDoc)">loadTrustList</a></span>(<a href="../../../com/pdftron/fdf/FDFDoc.html">FDFDoc</a> in_fdf_cert_exchange_data)
         
         <div class="jd-descrdiv">Bulk trust list loading API with trust flag support.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../com/pdftron/pdf/VerificationOptions.html#setRevocationTimeout(long)">setRevocationTimeout</a></span>(long in_revocation_timeout_milliseconds)
+        
+        <div class="jd-descrdiv">Sets the timeout for online revocation requests.</div>
   
   </td></tr>
 
@@ -2006,6 +2025,56 @@ From class
         <tr>
           <th>in_fdf_cert_exchange_data</th>
           <td>-- an FDFDoc from the FDF cert exchange data</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setRevocationTimeout(long)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setRevocationTimeout</span>
+      <span class="normal">(long in_revocation_timeout_milliseconds)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets the timeout for online revocation requests.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>in_revocation_timeout_milliseconds</th>
+          <td>The timeout value in milliseconds.
+</td>
         </tr>
       </table>
   </div>

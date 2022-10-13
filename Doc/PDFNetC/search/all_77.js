@@ -14,7 +14,7 @@ var searchData=
   ['widget',['Widget',['../classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html',1,'pdftron::PDF::Annots']]],
   ['widget',['Widget',['../classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#a129a23db3ab3a38572e71f88259b6498',1,'pdftron::PDF::Annots::Widget::Widget(SDF::Obj d=0)'],['../classpdftron_1_1_p_d_f_1_1_annots_1_1_widget.html#af537c1d44afa9fcabd675306bef77b11',1,'pdftron::PDF::Annots::Widget::Widget(const Annot &amp;ann)']]],
   ['widget_2eh',['Widget.h',['../_widget_8h.html',1,'']]],
-  ['width',['Width',['../classpdftron_1_1_p_d_f_1_1_rect.html#a56862895781f186e3a9d4ea3ea6db49b',1,'pdftron::PDF::Rect::Width()'],['../classpdftron_1_1_p_d_f_1_1_bitmap_info.html#a2840d659bce9e205d4476cf7d6e4a762',1,'pdftron::PDF::BitmapInfo::width()']]],
+  ['width',['width',['../classpdftron_1_1_p_d_f_1_1_bitmap_info.html#a2840d659bce9e205d4476cf7d6e4a762',1,'pdftron::PDF::BitmapInfo::width()'],['../classpdftron_1_1_p_d_f_1_1_rect.html#a56862895781f186e3a9d4ea3ea6db49b',1,'pdftron::PDF::Rect::Width()']]],
   ['windowevent',['WindowEvent',['../structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_window_event.html',1,'pdftron::PDF::PDFViewCtrl']]],
   ['windoweventhandler',['WindowEventHandler',['../classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#ab86201c5666f32edf1a9fcb5530efc0a',1,'pdftron::PDF::PDFViewCtrl']]],
   ['windowid',['WindowID',['../classpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl.html#a4406bcdf69d8f9dcf19531adaf2bce7e',1,'pdftron::PDF::PDFViewCtrl']]],

@@ -153,6 +153,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6f590819f3421353bb7c86b9378599a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5882ee549d513b3ebdc6ea218eae983"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_web_page_settings.html#ac5882ee549d513b3ebdc6ea218eae983">SetJavaScriptDelay</a> (int msec)</td></tr>
 <tr class="separator:ac5882ee549d513b3ebdc6ea218eae983"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a844c2520de53fc11ce4f5d588383ddcd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a844c2520de53fc11ce4f5d588383ddcd">SetTimeout</a> (int msec)</td></tr>
+<tr class="separator:a844c2520de53fc11ce4f5d588383ddcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9e1488923576b6ffb9842568e70146e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a9e1488923576b6ffb9842568e70146e0">SetZoom</a> (double zoom)</td></tr>
 <tr class="separator:a9e1488923576b6ffb9842568e70146e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae1902d66f694768d5c5bea0181ffb1d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_web_page_settings.html#ae1902d66f694768d5c5bea0181ffb1d4">SetBlockLocalFileAccess</a> (bool block)</td></tr>
@@ -177,7 +179,7 @@ Public Member Functions</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Settings that control how a web page is opened and converted to <a class="el" href="namespacepdftron_1_1_p_d_f.html">PDF</a>. </p>
 
-<p>Definition at line <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html#l00436">436</a> of file <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html">HTML2PDF.h</a>.</p>
+<p>Definition at line <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html#l00447">447</a> of file <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html">HTML2PDF.h</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
 <a class="anchor" id="a7556c0f3554daf2b51d16a9db21c18df"></a>
 <div class="memitem">
@@ -205,7 +207,7 @@ Public Member Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p>Definition at line <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html#l00607">607</a> of file <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html">HTML2PDF.h</a>.</p>
+<p>Definition at line <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html#l00626">626</a> of file <a class="el" href="_h_t_m_l2_p_d_f_8h_source.html">HTML2PDF.h</a>.</p>
 
 </div>
 </div>
@@ -320,14 +322,13 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Allow local and piped files access to other local files.</p>
+<p>Allow local and piped files access to other local files. By default local file access is blocked due to security concerns.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">block</td><td>- If true local files will be inaccessible. </td></tr>
+    <tr><td class="paramname">block</td><td>- If true local files will be inaccessible. If false they will be be accessible which should only be used if the html is trusted. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section note"><dt>Note</dt><dd>This option is deprecated in the latest <a class="el" href="classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html">HTML2PDF</a> module and may have no effect. </dd></dl>
 
 </div>
 </div>
@@ -702,6 +703,29 @@ This option is deprecated in the latest <a class="el" href="classpdftron_1_1_p_d
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>This option is deprecated in the latest <a class="el" href="classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html">HTML2PDF</a> module and may have no effect. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a844c2520de53fc11ce4f5d588383ddcd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void pdftron::PDF::WebPageSettings::SetTimeout </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>msec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Amount of time to wait in milliseconds for the entire converting and printing process. If conversion doesn't finish before the timeout, it will be cancelled and no output is expected. Default 120,000 ms.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">msec</td><td>&ndash; Maximum timeout in milliseconds. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

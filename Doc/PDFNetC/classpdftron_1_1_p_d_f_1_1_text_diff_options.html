@@ -134,6 +134,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afa2b9d5c1142f7c9d31522d637b1197d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e4ccff6999609bfd674ef0e0535be2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html">TextDiffOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html#a0e4ccff6999609bfd674ef0e0535be2a">SetOpacityB</a> (double opacity)</td></tr>
 <tr class="separator:a0e4ccff6999609bfd674ef0e0535be2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9fc8aee24b6c2ea2e95a8aaaad0a124"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html#ac9fc8aee24b6c2ea2e95a8aaaad0a124">GetCompareUsingZOrder</a> ()</td></tr>
+<tr class="separator:ac9fc8aee24b6c2ea2e95a8aaaad0a124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5df6cc1a82738afc91a58a77926c3108"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html">TextDiffOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html#a5df6cc1a82738afc91a58a77926c3108">SetCompareUsingZOrder</a> (bool value)</td></tr>
+<tr class="separator:a5df6cc1a82738afc91a58a77926c3108"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9a9137b2beabb997ec3b6891584cddd7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html">TextDiffOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html#a9a9137b2beabb997ec3b6891584cddd7">AddIgnoreZonesForPage</a> (const <a class="el" href="classpdftron_1_1_p_d_f_1_1_rect_collection.html">RectCollection</a> &amp;regions, int page_num)</td></tr>
 <tr class="separator:a9a9137b2beabb997ec3b6891584cddd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -241,6 +245,23 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac9fc8aee24b6c2ea2e95a8aaaad0a124"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pdftron::PDF::TextDiffOptions::GetCompareUsingZOrder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the value CompareUsingZOrder from the options object Whether to use z-order (aka paint order) when comparing text between A and B. On by default. </p>
+<dl class="section return"><dt>Returns</dt><dd>a bool, the current value for CompareUsingZOrder. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a8d4e0f4de773a81639a65e6596da6945"></a>
 <div class="memitem">
 <div class="memproto">
@@ -316,6 +337,30 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">color,:</td><td>the new value for ColorB in the form of R, G, B </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>this object, for call chaining </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a5df6cc1a82738afc91a58a77926c3108"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpdftron_1_1_p_d_f_1_1_text_diff_options.html">TextDiffOptions</a>&amp; pdftron::PDF::TextDiffOptions::SetCompareUsingZOrder </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the value for CompareUsingZOrder in the options object Whether to use z-order (aka paint order) when comparing text between A and B. On by default. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value,:</td><td>the new value for CompareUsingZOrder </td></tr>
   </table>
   </dd>
 </dl>

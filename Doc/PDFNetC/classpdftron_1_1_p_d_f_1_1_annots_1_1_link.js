@@ -10,6 +10,8 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_link =
     [ "Link", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#af0fb776e57fc92ed1408d684ecb96df0", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a21c6afcc5269ab61f68ffbadc4ebafc5", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a9402bbe80ca35d77927ab0a2ca4ff42f", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a77f0c86a1d8e29c8d7b04b0d725b01ba", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#aa5bf8d67d72ea0e2cb4b0b564f744b2d", null ],
     [ "GetAction", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a4c58a3935d3418a831ae10b2a496188d", null ],
     [ "GetHighlightingMode", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a12a9c337e263fdb7a3aa7c6343318ddf", null ],
     [ "GetNormalizedUrl", "classpdftron_1_1_p_d_f_1_1_annots_1_1_link.html#a14ac07421e9fc71f8322242d291f5849", null ],

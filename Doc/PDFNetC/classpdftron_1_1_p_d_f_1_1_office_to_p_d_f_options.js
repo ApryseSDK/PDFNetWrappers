@@ -13,6 +13,7 @@ var classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options =
     [ "GetTemplateLeftDelimiter", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a62e3df9f684864eb1c90831d8d71414f", null ],
     [ "GetTemplateParamsJson", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a7bf2202d3d3d47b7d40b30b5a283b511", null ],
     [ "GetTemplateRightDelimiter", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a3e18fac5aa62a6bbcb2d21b9e38a703b", null ],
+    [ "GetTemplateStrictMode", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a3b62f2ebadce406ca287e06511995c86", null ],
     [ "SetApplyPageBreaksToSheet", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a44fdee2fcd4b0ccccb3823901fe2ffe3", null ],
     [ "SetDisplayChangeTracking", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a6e499706dce53298320c60892aff71ae", null ],
     [ "SetExcelDefaultCellBorderWidth", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a1282b414b8ceaeecd07f67ecaf9f6158", null ],
@@ -23,5 +24,6 @@ var classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options =
     [ "SetSmartSubstitutionPluginPath", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a07cae7cf5ed5bd3d67b20d396bd8dfa4", null ],
     [ "SetTemplateLeftDelimiter", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a5da63bef5f7b593739d1fab53e602d2c", null ],
     [ "SetTemplateParamsJson", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a53ede78d9eed66471aacd5d8b9984298", null ],
-    [ "SetTemplateRightDelimiter", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#afd9dad61b0fa01c67cf87d34f9bf7172", null ]
+    [ "SetTemplateRightDelimiter", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#afd9dad61b0fa01c67cf87d34f9bf7172", null ],
+    [ "SetTemplateStrictMode", "classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a01e884564165f344bb8bcd808c22bb81", null ]
 ];

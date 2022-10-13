@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -863,6 +864,25 @@ Summary:
 
 	 
     <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            <a href="../../../com/pdftron/pdf/OCROptions.html">OCROptions</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../com/pdftron/pdf/OCROptions.html#setOCREngine(java.lang.String)">setOCREngine</a></span>(String value)
+        
+        <div class="jd-descrdiv">Set the backend processing engine to use for OCR operations
+ Options include 'default', 'any', or 'iris'.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1496,6 +1516,51 @@ From class
       
   <div class="jd-tagdata jd-tagdescr"><p>Sets the value for IgnoreExistingText in the options object
  Default value is false, so that areas with existing text will be automatically skipped during OCR. Setting to true probably only makes sense when used with GetOCRJson/XML, as pre-existing text might end up being duplicated in the document when used with ImageToPDF and ProcessPDF.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>this object, for call chaining</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setOCREngine(java.lang.String)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../com/pdftron/pdf/OCROptions.html">OCROptions</a>
+      </span>
+      <span class="sympad">setOCREngine</span>
+      <span class="normal">(String value)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Set the backend processing engine to use for OCR operations
+ Options include 'default', 'any', or 'iris'. Chosen module must be present and correctly licensed.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
       <ul class="nolist"><li>this object, for call chaining</li></ul>

@@ -21,6 +21,8 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp =
     [ "RubberStamp", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#aec2386836e48b79e7741985fc28eaad3", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#a4bc2a32daf92133f89d388cefbeb57e4", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#a065a2adaab9e4c4b705894f556e69f83", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#a38421965524c31097278a502ad0edd8b", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#a95c688405d8dd8b37edd6cd33bf0c596", null ],
     [ "GetIcon", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#acdc16c8ac73b643de603ae8a4bf44497", null ],
     [ "GetIconName", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#a171dbdc5796553836e340f295dd05195", null ],
     [ "SetIcon", "classpdftron_1_1_p_d_f_1_1_annots_1_1_rubber_stamp.html#a6df4ea5c678b3b2191667f8bfa7c0371", null ],

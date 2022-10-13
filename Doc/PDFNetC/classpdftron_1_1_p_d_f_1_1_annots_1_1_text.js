@@ -14,6 +14,8 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_text =
     [ "Text", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#a3f7205e3b6fdbb45c8bddc2e994a732f", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#ad16c7e82892f00fd1eca6126bbb78377", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#a5c22f8be0feec2be1fc792b7624b4645", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#ac0d1e588ddcb7090d27224c0f4a30728", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#a9b0889372eb6da25367adbdc4bbaee18", null ],
     [ "GetAnchorPosition", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#a6998156a0a935a734ca60ab08b1de947", null ],
     [ "GetIcon", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#a0e81de5671f0c62a999f42238ad41906", null ],
     [ "GetIconName", "classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html#a68c043101989d6615f6ccc995ea7c90c", null ],

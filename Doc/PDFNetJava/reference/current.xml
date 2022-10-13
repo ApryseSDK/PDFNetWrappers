@@ -1556,16 +1556,6 @@
  deprecated="not deprecated"
  visibility="public"
 >
-<parameter name="impl_ptr" type="long">
-</parameter>
-</constructor>
-<constructor name="ObjectIdentifier"
- type="com.pdftron.crypto.ObjectIdentifier"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
 <parameter name="in_oid_enum" type="com.pdftron.crypto.ObjectIdentifier.Predefined">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
@@ -1632,160 +1622,6 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
-<field name="e_RIPEMD160"
- type="int"
- transient="false"
- volatile="false"
- value="12"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_RSA_encryption_PKCS1"
- type="int"
- transient="false"
- volatile="false"
- value="13"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_SHA1"
- type="int"
- transient="false"
- volatile="false"
- value="8"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_SHA256"
- type="int"
- transient="false"
- volatile="false"
- value="9"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_SHA384"
- type="int"
- transient="false"
- volatile="false"
- value="10"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_SHA512"
- type="int"
- transient="false"
- volatile="false"
- value="11"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_common_name"
- type="int"
- transient="false"
- volatile="false"
- value="0"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_country_name"
- type="int"
- transient="false"
- volatile="false"
- value="2"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_locality_name"
- type="int"
- transient="false"
- volatile="false"
- value="3"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_organization_name"
- type="int"
- transient="false"
- volatile="false"
- value="6"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_organizational_unit_name"
- type="int"
- transient="false"
- volatile="false"
- value="7"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_state_or_province_name"
- type="int"
- transient="false"
- volatile="false"
- value="4"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_street_address"
- type="int"
- transient="false"
- volatile="false"
- value="5"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_surname"
- type="int"
- transient="false"
- volatile="false"
- value="1"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
 </class>
 <class name="ObjectIdentifier.Predefined"
  extends="java.lang.Enum"
@@ -1874,7 +1710,7 @@
 </exception>
 </method>
 <method name="getAttributeTypeOID"
- return="long"
+ return="com.pdftron.crypto.ObjectIdentifier"
  abstract="false"
  native="false"
  synchronized="false"
@@ -11095,6 +10931,40 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
+<method name="createOfficeTemplate"
+ return="com.pdftron.pdf.TemplateDocument"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="in_filename" type="java.lang.String">
+</parameter>
+<parameter name="options" type="com.pdftron.pdf.ConversionOptions">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="createOfficeTemplate"
+ return="com.pdftron.pdf.TemplateDocument"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="in_stream" type="com.pdftron.filters.Filter">
+</parameter>
+<parameter name="options" type="com.pdftron.pdf.ConversionOptions">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
 <method name="createReflow"
  return="com.pdftron.pdf.Reflow"
  abstract="false"
@@ -12900,6 +12770,17 @@
  visibility="public"
 >
 </field>
+<field name="e_ocr_always"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="4"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
 <field name="e_ocr_image"
  type="int"
  transient="false"
@@ -13768,21 +13649,6 @@
  visibility="public"
 >
 </constructor>
-<method name="setBookmarkConversionMethod"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="method" type="int">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
 <method name="setConnectHyphens"
  return="void"
  abstract="false"
@@ -13798,81 +13664,6 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
-<method name="setDisableVerticalSplit"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="disable" type="boolean">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
-<method name="setDoNotAdjustFonts"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="do_not_adjust" type="boolean">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
-<method name="setFileConversionTimeoutSeconds"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="seconds" type="int">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
-<method name="setImageDPI"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="dpi" type="int">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
-<method name="setJPGQuality"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="quality" type="int">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
 <method name="setLanguage"
  return="void"
  abstract="false"
@@ -13884,21 +13675,6 @@
  visibility="public"
 >
 <parameter name="language" type="com.pdftron.pdf.Convert.OutputOptionsOCR.LanguageChoice">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
-<method name="setMatchPDFLineBreaks"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="match" type="boolean">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
@@ -13965,21 +13741,6 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
-<method name="setShrinkCharacterSpacingToPreventWrap"
- return="void"
- abstract="false"
- native="false"
- synchronized="false"
- static="false"
- final="false"
- deprecated="not deprecated"
- visibility="public"
->
-<parameter name="shrink" type="boolean">
-</parameter>
-<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
-</exception>
-</method>
 <method name="setWordOutputFormat"
  return="void"
  abstract="false"
@@ -13995,33 +13756,11 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
-<field name="e_bm_extract"
+<field name="e_ocr_always"
  type="int"
  transient="false"
  volatile="false"
- value="2"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_bm_none"
- type="int"
- transient="false"
- volatile="false"
- value="0"
- static="true"
- final="true"
- deprecated="not deprecated"
- visibility="public"
->
-</field>
-<field name="e_bm_page"
- type="int"
- transient="false"
- volatile="false"
- value="1"
+ value="4"
  static="true"
  final="true"
  deprecated="not deprecated"
@@ -14204,6 +13943,21 @@
  visibility="public"
 >
 <parameter name="generate" type="boolean">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="setExtractUsingZorder"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="use_zorder" type="boolean">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
@@ -24592,6 +24346,23 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </constructor>
+<method name="addCookie"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="name" type="java.lang.String">
+</parameter>
+<parameter name="value" type="java.lang.String">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
 <method name="convert"
  return="boolean"
  abstract="false"
@@ -25600,6 +25371,21 @@
  visibility="public"
 >
 <parameter name="stop" type="boolean">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="setTimeout"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="msec" type="int">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
@@ -27278,6 +27064,19 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
+<method name="isIRISModuleAvailable"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
 <method name="isModuleAvailable"
  return="boolean"
  abstract="false"
@@ -27442,6 +27241,21 @@
  visibility="public"
 >
 <parameter name="value" type="boolean">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="setOCREngine"
+ return="com.pdftron.pdf.OCROptions"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="java.lang.String">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
@@ -63474,6 +63288,203 @@
 </exception>
 </method>
 </class>
+<class name="TemplateDocument"
+ extends="java.lang.Object"
+ abstract="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<constructor name="TemplateDocument"
+ type="com.pdftron.pdf.TemplateDocument"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="impl_ptr" type="long">
+</parameter>
+</constructor>
+<method name="__Create"
+ return="com.pdftron.pdf.TemplateDocument"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="true"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="impl" type="long">
+</parameter>
+</method>
+<method name="__GetHandle"
+ return="long"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
+<method name="cancelConversion"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="destroy"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="fillTemplateJson"
+ return="com.pdftron.pdf.PDFDoc"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="json" type="java.lang.String">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="getConversionStatus"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="getErrorString"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="getNumWarnings"
+ return="int"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="getTemplateKeysJson"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="getWarningString"
+ return="java.lang.String"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="index" type="int">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="isCancelled"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<field name="e_failure"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="2"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="e_incomplete"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="1"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+<field name="e_success"
+ type="int"
+ transient="false"
+ volatile="false"
+ value="0"
+ static="true"
+ final="true"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</field>
+</class>
 <class name="Text2PDFOptions"
  extends="java.lang.Object"
  abstract="false"
@@ -63874,6 +63885,19 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
+<method name="getCompareUsingZOrder"
+ return="boolean"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
 <method name="getOpacityA"
  return="double"
  abstract="false"
@@ -63926,6 +63950,21 @@
  visibility="public"
 >
 <parameter name="color" type="com.pdftron.pdf.ColorPt">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="setCompareUsingZOrder"
+ return="com.pdftron.pdf.TextDiffOptions"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="value" type="boolean">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
@@ -65853,6 +65892,21 @@
  visibility="public"
 >
 <parameter name="in_fdf_cert_exchange_data" type="com.pdftron.fdf.FDFDoc">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
+<method name="setRevocationTimeout"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="in_revocation_timeout_milliseconds" type="long">
 </parameter>
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
@@ -72406,6 +72460,21 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
+<method name="setFontName"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="fontName" type="java.lang.String">
+</parameter>
+<exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
+</exception>
+</method>
 <method name="setFontSize"
  return="void"
  abstract="false"
@@ -76894,6 +76963,17 @@
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
 </method>
+<method name="getAnchorPosition"
+ return="com.pdftron.pdf.Point"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+</method>
 <method name="getIcon"
  return="int"
  abstract="false"
@@ -76945,6 +77025,19 @@
 >
 <exception name="PDFNetException" type="com.pdftron.common.PDFNetException">
 </exception>
+</method>
+<method name="setAnchorPosition"
+ return="void"
+ abstract="false"
+ native="false"
+ synchronized="false"
+ static="false"
+ final="false"
+ deprecated="not deprecated"
+ visibility="public"
+>
+<parameter name="pt" type="com.pdftron.pdf.Point">
+</parameter>
 </method>
 <method name="setIcon"
  return="void"

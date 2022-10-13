@@ -277,6 +277,9 @@ var dir_1563cd17d4cbc3f1d4c1fbfd9f27cbda =
     [ "StructuredOutputModule.h", "_structured_output_module_8h.html", [
       [ "StructuredOutputModule", "classpdftron_1_1_p_d_f_1_1_structured_output_module.html", "classpdftron_1_1_p_d_f_1_1_structured_output_module" ]
     ] ],
+    [ "TemplateDocument.h", "_template_document_8h.html", [
+      [ "TemplateDocument", "classpdftron_1_1_p_d_f_1_1_template_document.html", "classpdftron_1_1_p_d_f_1_1_template_document" ]
+    ] ],
     [ "TextDiffOptions.h", "_text_diff_options_8h.html", [
       [ "TextDiffOptions", "classpdftron_1_1_p_d_f_1_1_text_diff_options.html", "classpdftron_1_1_p_d_f_1_1_text_diff_options" ]
     ] ],

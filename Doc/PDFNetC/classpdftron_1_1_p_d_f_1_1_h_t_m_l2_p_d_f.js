@@ -5,6 +5,7 @@ var classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f =
     [ "WebPageSettings", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#a4e7dfc894a423147e48f75cd9b13ddb2", null ],
     [ "HTML2PDF", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#ac464b6166ae79661684ccd80840d1545", null ],
     [ "~HTML2PDF", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#aea7440f2573d66627297eaa09e07e643", null ],
+    [ "AddCookie", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#a8affad5e5d7f09715dcb0d2c411d105a", null ],
     [ "Convert", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#a62272b834eca8c5519bd4867860c6780", null ],
     [ "Convert", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#ad131527e895595b81e355cad4ad82ef3", null ],
     [ "Convert", "classpdftron_1_1_p_d_f_1_1_h_t_m_l2_p_d_f.html#a8aa291072d43a4db911a4e95889e0484", null ],

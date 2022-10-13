@@ -15,7 +15,7 @@ var classpdftron_1_1_p_d_f_1_1_document_conversion =
     [ "CreateInternal", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#a9db499fa62f88531e85f413faf30cc5c", null ],
     [ "Destroy", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#a596f9b81c255d7a588004302cdf4edf5", null ],
     [ "GetConversionStatus", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#a34024a63ca803bfd40fca668c8a37eaf", null ],
-    [ "GetDoc", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#a26aa969103406ef9c5c7384b7670a21d", null ],
+    [ "GetDoc", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#a91b2477b954edeadf38cf1d927b8d162", null ],
     [ "GetErrorString", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#ab27bda426a6b05a01e1e14b09bb3af41", null ],
     [ "GetHandleInternal", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#ab7128837fd1b80a0fd24c770f3a1c6db", null ],
     [ "GetNumConvertedPages", "classpdftron_1_1_p_d_f_1_1_document_conversion.html#a18ee1262d49ac55bede622b10d2134f9", null ],

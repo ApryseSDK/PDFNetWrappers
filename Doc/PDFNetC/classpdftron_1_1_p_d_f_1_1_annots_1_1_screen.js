@@ -22,6 +22,7 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_screen =
     [ "Screen", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a51b2969436fa77e5fc72e9f8d0039b7e", null ],
     [ "Screen", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a323e01486987be7e7d4bcaca00fcafee", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#ae5e3b65728b0aa90ddf0f353bfc89e2a", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#ac642f989f1a9ccafb6c2552d0fdbfbc6", null ],
     [ "GetAction", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a97321c0bb9ac0e3e5bcab0dad2ee7452", null ],
     [ "GetBackgroundColor", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a0f6c68b8099bec1c2e994a472f30543d", null ],
     [ "GetBackgroundColorCompNum", "classpdftron_1_1_p_d_f_1_1_annots_1_1_screen.html#a2391d32fc2ba7170005827475351a248", null ],

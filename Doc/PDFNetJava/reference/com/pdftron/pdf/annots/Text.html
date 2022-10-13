@@ -1191,6 +1191,25 @@ Summary:
             
             
             
+            <a href="../../../../com/pdftron/pdf/Point.html">Point</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/pdftron/pdf/annots/Text.html#getAnchorPosition()">getAnchorPosition</a></span>()
+        
+        <div class="jd-descrdiv">Returns anchor point position (in relative coordinates) - the point that won't move when the page is zoomed in/out
+ Anchor point position is in relative coordinates [0,1], and default is upper-left corner (0,1)</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
             int
         </td>
         <td class="jd-linkcol" width="100%">
@@ -1202,7 +1221,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1221,7 +1240,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1239,7 +1258,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1252,6 +1271,24 @@ Summary:
         <span class="sympad"><a href="../../../../com/pdftron/pdf/annots/Text.html#getStateModel()">getStateModel</a></span>()
         
         <div class="jd-descrdiv">Get the string indicating the state model of the Text annotation.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../../com/pdftron/pdf/annots/Text.html#setAnchorPosition(com.pdftron.pdf.Point)">setAnchorPosition</a></span>(<a href="../../../../com/pdftron/pdf/Point.html">Point</a> pt)
+        
+        <div class="jd-descrdiv">Sets anchor point position (in coordinates relative to the annotation Rect) - the point that won't move when the page is zoomed in/out and/or if the page is rotated.</div>
   
   </td></tr>
 
@@ -3625,6 +3662,52 @@ From class
 </div>
 
 
+<a id="getAnchorPosition()"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        <a href="../../../../com/pdftron/pdf/Point.html">Point</a>
+      </span>
+      <span class="sympad">getAnchorPosition</span>
+      <span class="normal">()</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Returns anchor point position (in relative coordinates) - the point that won't move when the page is zoomed in/out
+ Anchor point position is in relative coordinates [0,1], and default is upper-left corner (0,1)</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>Currently stored anchor position or the default (upper-left corner (0,1))
+</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
 <a id="getIcon()"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -3819,6 +3902,55 @@ From class
             <th><a href="../../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
             <td><p> * <b> Note: </b>  The State model is the state model corresponding to the State entry;
 </td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setAnchorPosition(com.pdftron.pdf.Point)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setAnchorPosition</span>
+      <span class="normal">(<a href="../../../../com/pdftron/pdf/Point.html">Point</a> pt)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Sets anchor point position (in coordinates relative to the annotation Rect) - the point that won't move when the page is zoomed in/out and/or if the page is rotated.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>pt</th>
+          <td>Anchor point position in relative coordinates [0,1], where 0,0 is bottom left corner of the annotation, and 1,1 is top right corner. Default: 0,1</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
         </tr>
       </table>
   </div>

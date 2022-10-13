@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -660,22 +661,8 @@ Summary:
     
     <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#e_bm_extract">e_bm_extract</a></td>
-        <td class="jd-descrcol" width="100%">The Constant e_bm_extract.</td>
-    </tr>
-    
-    
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#e_bm_none">e_bm_none</a></td>
-        <td class="jd-descrcol" width="100%">The Constant e_bm_none.</td>
-    </tr>
-    
-    
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#e_bm_page">e_bm_page</a></td>
-        <td class="jd-descrcol" width="100%">The Constant e_bm_page.</td>
+        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#e_ocr_always">e_ocr_always</a></td>
+        <td class="jd-descrcol" width="100%">The Constant e_ocr_always.</td>
     </tr>
     
     
@@ -797,117 +784,9 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setBookmarkConversionMethod(int)">setBookmarkConversionMethod</a></span>(int method)
-        
-        <div class="jd-descrdiv">Specifies if and how PDF bookmarks should be converted into Word.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setConnectHyphens(boolean)">setConnectHyphens</a></span>(boolean connect)
         
         <div class="jd-descrdiv">Specifies whether hyphens in the PDF should be connected.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setDisableVerticalSplit(boolean)">setDisableVerticalSplit</a></span>(boolean disable)
-        
-        <div class="jd-descrdiv">Specifies whether to disable the detection of section columns.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setDoNotAdjustFonts(boolean)">setDoNotAdjustFonts</a></span>(boolean do_not_adjust)
-        
-        <div class="jd-descrdiv">Specifies whether to disable font adjustments during conversion.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setFileConversionTimeoutSeconds(int)">setFileConversionTimeoutSeconds</a></span>(int seconds)
-        
-        <div class="jd-descrdiv">Specifies the amount of time in seconds after which the conversion fails.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setImageDPI(int)">setImageDPI</a></span>(int dpi)
-        
-        <div class="jd-descrdiv">Specifies the output image resolution, from 8 to 600, in Pixels Per Inch (PPI).</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class="alt-color api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setJPGQuality(int)">setJPGQuality</a></span>(int quality)
-        
-        <div class="jd-descrdiv">Specifies the compression quality to use when generating JPEG images.</div>
   
   </td></tr>
 
@@ -941,24 +820,6 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setMatchPDFLineBreaks(boolean)">setMatchPDFLineBreaks</a></span>(boolean match)
-        
-        <div class="jd-descrdiv">Specifies whether PDF line breaks should come out as line breaks in the Word output.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setPDFPassword(java.lang.String)">setPDFPassword</a></span>(String password)
         
         <div class="jd-descrdiv">Specifies the password if the PDF requires one.</div>
@@ -967,7 +828,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -985,7 +846,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1003,7 +864,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1016,24 +877,6 @@ Summary:
         <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setSearchableImageSetting(int)">setSearchableImageSetting</a></span>(int setting)
         
         <div class="jd-descrdiv">Specifies how scanned image pages should be converted.</div>
-  
-  </td></tr>
-
-
-	 
-    <tr class=" api apilevel-" >
-        <td class="jd-typecol">
-            
-            
-            
-            
-            
-            void
-        </td>
-        <td class="jd-linkcol" width="100%">
-        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.WordOutputOptions.html#setShrinkCharacterSpacingToPreventWrap(boolean)">setShrinkCharacterSpacingToPreventWrap</a></span>(boolean shrink)
-        
-        <div class="jd-descrdiv">Specifies whether to shrink character spaces in order to prevent word wraps.</div>
   
   </td></tr>
 
@@ -1269,7 +1112,7 @@ From class
 
 
 
-<a id="e_bm_extract"></a>
+<a id="e_ocr_always"></a>
 
 <div class="jd-details api apilevel-"> 
     <h4 class="jd-details-title">
@@ -1279,7 +1122,7 @@ From class
         final 
         int
       </span>
-        e_bm_extract
+        e_ocr_always
     </h4>
       <div class="api-level">
         
@@ -1291,95 +1134,15 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The Constant e_bm_extract. Indicates that bookmarks are converted from PDF to Word. </p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>The Constant e_ocr_always. Indicates that OCR will always be performed on all pages, and the recognized text replaces the image pixels underneath. </p></div>
 
     
         <div class="jd-tagdata">
         <span class="jd-tagtitle">Constant Value: </span>
         <span>
             
-                2
-                (0x00000002)
-            
-        </span>
-        </div>
-    
-    </div>
-</div>
-
-
-
-<a id="e_bm_none"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        int
-      </span>
-        e_bm_none
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The Constant e_bm_none. Indicates that no bookmarks are created. </p></div>
-
-    
-        <div class="jd-tagdata">
-        <span class="jd-tagtitle">Constant Value: </span>
-        <span>
-            
-                0
-                (0x00000000)
-            
-        </span>
-        </div>
-    
-    </div>
-</div>
-
-
-
-<a id="e_bm_page"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-        static 
-        final 
-        int
-      </span>
-        e_bm_page
-    </h4>
-      <div class="api-level">
-        
-
-
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>The Constant e_bm_page. Indicates that a bookmark is created for each page (default). </p></div>
-
-    
-        <div class="jd-tagdata">
-        <span class="jd-tagtitle">Constant Value: </span>
-        <span>
-            
-                1
-                (0x00000001)
+                4
+                (0x00000004)
             
         </span>
         </div>
@@ -1531,7 +1294,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>The Constant e_ocr_text. Indicates that OCR will be performed and the recognized text replaces the image pixels underneath (default). </p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>The Constant e_ocr_text. Indicates that OCR will be performed on scanned pages, and the recognized text replaces the image pixels underneath (default). </p></div>
 
     
         <div class="jd-tagdata">
@@ -1768,55 +1531,6 @@ From class
 
 
 
-<a id="setBookmarkConversionMethod(int)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setBookmarkConversionMethod</span>
-      <span class="normal">(int method)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies if and how PDF bookmarks should be converted into Word. Default is e_bm_extract.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>method</th>
-          <td>the bookmark conversion method.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <a id="setConnectHyphens(boolean)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1866,254 +1580,6 @@ From class
 </div>
 
 
-<a id="setDisableVerticalSplit(boolean)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setDisableVerticalSplit</span>
-      <span class="normal">(boolean disable)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies whether to disable the detection of section columns. Default is false.
- Enable this if your tables are coming out as section columns.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>disable</th>
-          <td>if true, the detection of section columns are disabled.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setDoNotAdjustFonts(boolean)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setDoNotAdjustFonts</span>
-      <span class="normal">(boolean do_not_adjust)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies whether to disable font adjustments during conversion. Default is false.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>do_not_adjust</th>
-          <td>if true, font adjustments are disabled during conversion.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setFileConversionTimeoutSeconds(int)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setFileConversionTimeoutSeconds</span>
-      <span class="normal">(int seconds)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies the amount of time in seconds after which the conversion fails. Default is 300.
- Very long files need more time to convert.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>seconds</th>
-          <td>the timeout in seconds.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setImageDPI(int)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setImageDPI</span>
-      <span class="normal">(int dpi)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies the output image resolution, from 8 to 600, in Pixels Per Inch (PPI). The
- higher the PPI, the larger the image. Default 192.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>dpi</th>
-          <td>the resolution in Pixels Per Inch.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setJPGQuality(int)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setJPGQuality</span>
-      <span class="normal">(int quality)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies the compression quality to use when generating JPEG images.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>quality</th>
-          <td>the JPEG compression quality, from 0 (highest compression) to 100 (best quality). Default is 75.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
 <a id="setLanguage(com.pdftron.pdf.Convert.OutputOptionsOCR.LanguageChoice)"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -2146,56 +1612,6 @@ From class
         <tr>
           <th>language</th>
           <td>the OCR language.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setMatchPDFLineBreaks(boolean)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setMatchPDFLineBreaks</span>
-      <span class="normal">(boolean match)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies whether PDF line breaks should come out as line breaks in the Word output. This causes each line
- of text to become a separate paragraph. Default is false.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>match</th>
-          <td>if true, line breaks will come out as line breaks in the Word output.</td>
         </tr>
       </table>
   </div>
@@ -2396,55 +1812,6 @@ From class
         <tr>
           <th>setting</th>
           <td>the searchable image setting.</td>
-        </tr>
-      </table>
-  </div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Throws</h5>
-      <table class="jd-tagtable">  
-        <tr>
-            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
-            <td></td>
-        </tr>
-      </table>
-  </div>
-
-    </div>
-</div>
-
-
-<a id="setShrinkCharacterSpacingToPreventWrap(boolean)"></a>
-
-<div class="jd-details api apilevel-"> 
-    <h4 class="jd-details-title">
-      <span class="normal">
-        public 
-         
-         
-         
-         
-        void
-      </span>
-      <span class="sympad">setShrinkCharacterSpacingToPreventWrap</span>
-      <span class="normal">(boolean shrink)</span>
-    </h4>
-      <div class="api-level">
-        <div>
-
-</div>
-        
-  
-
-      </div>
-    <div class="jd-details-descr">
-      
-  <div class="jd-tagdata jd-tagdescr"><p>Specifies whether to shrink character spaces in order to prevent word wraps. Default is true.</p></div>
-  <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Parameters</h5>
-      <table class="jd-tagtable">
-        <tr>
-          <th>shrink</th>
-          <td>if true, character spaces are shrunk in order to prevent word wraps.</td>
         </tr>
       </table>
   </div>

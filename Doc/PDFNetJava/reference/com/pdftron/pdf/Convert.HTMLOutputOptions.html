@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -667,40 +668,47 @@ Summary:
     
     <tr class=" api apilevel-" >
         <td class="jd-typecol">int</td>
-        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_ocr_image">e_ocr_image</a></td>
-        <td class="jd-descrcol" width="100%">Convert pre-existing text from previous OCR only (e_reflow_paragraphs mode).</td>
+        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_ocr_always">e_ocr_always</a></td>
+        <td class="jd-descrcol" width="100%">Perform new OCR on all pages.</td>
     </tr>
     
     
     <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">int</td>
+        <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_ocr_image">e_ocr_image</a></td>
+        <td class="jd-descrcol" width="100%">Convert images only, ignoring pre-existing text from previous OCR, and do not perform any new OCR.</td>
+    </tr>
+    
+    
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_ocr_image_text">e_ocr_image_text</a></td>
         <td class="jd-descrcol" width="100%">Convert both images and pre-existing hidden text from previous OCR.</td>
     </tr>
     
     
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_ocr_off">e_ocr_off</a></td>
         <td class="jd-descrcol" width="100%">Convert images only, ignoring pre-existing text from previous OCR, and do not perform any new OCR.</td>
     </tr>
     
     
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_ocr_text">e_ocr_text</a></td>
-        <td class="jd-descrcol" width="100%">Convert images only, ignoring pre-existing text from previous OCR, and do not perform any new OCR.</td>
+        <td class="jd-descrcol" width="100%">Convert pre-existing text from previous OCR only (e_reflow_paragraphs mode).</td>
     </tr>
     
     
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_reflow_full">e_reflow_full</a></td>
         <td class="jd-descrcol" width="100%">Text flows freely edge-to-edge in a single column.</td>
     </tr>
     
     
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">int</td>
         <td class="jd-linkcol"><a href="../../../com/pdftron/pdf/Convert.HTMLOutputOptions.html#e_reflow_paragraphs">e_reflow_paragraphs</a></td>
         <td class="jd-descrcol" width="100%">Deprecated.</td>
@@ -1389,6 +1397,46 @@ From class
 
 
 
+<a id="e_ocr_always"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+        final 
+        int
+      </span>
+        e_ocr_always
+    </h4>
+      <div class="api-level">
+        
+
+
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Perform new OCR on all pages. (e_reflow_full mode). </p></div>
+
+    
+        <div class="jd-tagdata">
+        <span class="jd-tagtitle">Constant Value: </span>
+        <span>
+            
+                4
+                (0x00000004)
+            
+        </span>
+        </div>
+    
+    </div>
+</div>
+
+
+
 <a id="e_ocr_image"></a>
 
 <div class="jd-details api apilevel-"> 
@@ -1411,7 +1459,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Convert pre-existing text from previous OCR only (e_reflow_paragraphs mode). Perform new OCR (e_reflow_full mode). </p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Convert images only, ignoring pre-existing text from previous OCR, and do not perform any new OCR. </p></div>
 
     
         <div class="jd-tagdata">
@@ -1531,7 +1579,7 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Convert images only, ignoring pre-existing text from previous OCR, and do not perform any new OCR. </p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Convert pre-existing text from previous OCR only (e_reflow_paragraphs mode). Perform new OCR on scanned pages (e_reflow_full mode). </p></div>
 
     
         <div class="jd-tagdata">

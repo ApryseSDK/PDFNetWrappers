@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -1104,6 +1105,24 @@ Summary:
             void
         </td>
         <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../com/pdftron/pdf/HTML2PDF.WebPageSettings.html#setTimeout(int)">setTimeout</a></span>(int msec)
+        
+        <div class="jd-descrdiv">Amount of time to wait in milliseconds for the entire converting and printing process.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            
+            
+            void
+        </td>
+        <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../com/pdftron/pdf/HTML2PDF.WebPageSettings.html#setUserStyleSheet(java.lang.String)">setUserStyleSheet</a></span>(String url)
         
         <div class="jd-descrdiv">Url or path to user specified style sheet.</div>
@@ -1112,7 +1131,7 @@ Summary:
 
 
 	 
-    <tr class=" api apilevel-" >
+    <tr class="alt-color api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1130,7 +1149,7 @@ Summary:
 
 
 	 
-    <tr class="alt-color api apilevel-" >
+    <tr class=" api apilevel-" >
         <td class="jd-typecol">
             
             
@@ -1706,13 +1725,14 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Allow local and piped files access to other local files.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Allow local and piped files access to other local files.
+ By default local file access is blocked due to security concerns.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Parameters</h5>
       <table class="jd-tagtable">
         <tr>
           <th>block</th>
-          <td>- If true local files will be inaccessible.</td>
+          <td>- If true local files will be inaccessible. If false they will be be accessible which should only be used if the html is trusted.</td>
         </tr>
       </table>
   </div>
@@ -2522,6 +2542,56 @@ From class
         <tr>
           <th>stop</th>
           <td>- If true, slow running javascript's will be stopped.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="setTimeout(int)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+         
+         
+         
+         
+        void
+      </span>
+      <span class="sympad">setTimeout</span>
+      <span class="normal">(int msec)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Amount of time to wait in milliseconds for the entire converting and printing process. If conversion doesn't finish before the timeout, it will be cancelled and no output is expected.
+ Default 120,000 ms.</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>msec</th>
+          <td>-- Maximum timeout in milliseconds.</td>
         </tr>
       </table>
   </div>

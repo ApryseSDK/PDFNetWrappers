@@ -65,6 +65,7 @@ var searchData=
   ['_7eshapedtext',['~ShapedText',['../classpdftron_1_1_p_d_f_1_1_shaped_text.html#a1f93be5ba6b8cab9b6a4e26dc4251dc8',1,'pdftron::PDF::ShapedText']]],
   ['_7esignaturehandler',['~SignatureHandler',['../classpdftron_1_1_s_d_f_1_1_signature_handler.html#a02f399e447e9010988fb34b4fc5350b2',1,'pdftron::SDF::SignatureHandler']]],
   ['_7estamper',['~Stamper',['../classpdftron_1_1_p_d_f_1_1_stamper.html#a3824313593a2ef92497984b6e5d931d7',1,'pdftron::PDF::Stamper']]],
+  ['_7etemplatedocument',['~TemplateDocument',['../classpdftron_1_1_p_d_f_1_1_template_document.html#a1441d6e7f422db4066fe6956166a10db',1,'pdftron::PDF::TemplateDocument']]],
   ['_7etextdiffoptions',['~TextDiffOptions',['../classpdftron_1_1_p_d_f_1_1_text_diff_options.html#a4fef66a422c529bbf6294f6bd8bf64f7',1,'pdftron::PDF::TextDiffOptions']]],
   ['_7etextextractor',['~TextExtractor',['../classpdftron_1_1_p_d_f_1_1_text_extractor.html#aba48a18da99355ad8c95640253a01e94',1,'pdftron::PDF::TextExtractor']]],
   ['_7etextrange',['~TextRange',['../classpdftron_1_1_p_d_f_1_1_text_range.html#a1a58c9ee125d50f7612170239edd7a29',1,'pdftron::PDF::TextRange']]],

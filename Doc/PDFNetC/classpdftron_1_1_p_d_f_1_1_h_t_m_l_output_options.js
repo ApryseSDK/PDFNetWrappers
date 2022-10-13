@@ -9,7 +9,8 @@ var classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options =
       [ "e_ocr_image_text", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a6a1b50c1f64f824ffc2831ed45e2d3d2a7ea48ede960a03e4b996e913b5a2393a", null ],
       [ "e_ocr_image", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a6a1b50c1f64f824ffc2831ed45e2d3d2ae5bef0b72ffacc38f3d6d450cab39c53", null ],
       [ "e_ocr_text", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a6a1b50c1f64f824ffc2831ed45e2d3d2a3114c3212695b87ac91c67ef15239f5b", null ],
-      [ "e_ocr_off", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a6a1b50c1f64f824ffc2831ed45e2d3d2a3c79bd6fe293bc6d2ab6f7773c988e57", null ]
+      [ "e_ocr_off", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a6a1b50c1f64f824ffc2831ed45e2d3d2a3c79bd6fe293bc6d2ab6f7773c988e57", null ],
+      [ "e_ocr_always", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a6a1b50c1f64f824ffc2831ed45e2d3d2ad1b9dbf4719fd4215fd54851b2918f2a", null ]
     ] ],
     [ "HTMLOutputOptions", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a03362676c60f3c418dd14625b68eb3ce", null ],
     [ "SetConnectHyphens", "classpdftron_1_1_p_d_f_1_1_h_t_m_l_output_options.html#a35022fdeb50686f5ff5a5beeb9b4da6f", null ],

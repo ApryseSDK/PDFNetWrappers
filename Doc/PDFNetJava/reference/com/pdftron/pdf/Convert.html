@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -1037,6 +1038,44 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.html#createBlackBoxContextConvert(java.lang.String, java.lang.String)">createBlackBoxContextConvert</a></span>(String src_filename, String dest_filename)
         
+  </td></tr>
+
+
+	 
+    <tr class="alt-color api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            static
+            
+            <a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.html#createOfficeTemplate(java.lang.String, com.pdftron.pdf.ConversionOptions)">createOfficeTemplate</a></span>(String in_filename, <a href="../../../com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a> options)
+        
+        <div class="jd-descrdiv">Create a TemplateDocument object from an office file suitable for generating any number of
+ PDFs from supplied template data.</div>
+  
+  </td></tr>
+
+
+	 
+    <tr class=" api apilevel-" >
+        <td class="jd-typecol">
+            
+            
+            
+            static
+            
+            <a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a>
+        </td>
+        <td class="jd-linkcol" width="100%">
+        <span class="sympad"><a href="../../../com/pdftron/pdf/Convert.html#createOfficeTemplate(com.pdftron.filters.Filter, com.pdftron.pdf.ConversionOptions)">createOfficeTemplate</a></span>(<a href="../../../com/pdftron/filters/Filter.html">Filter</a> in_stream, <a href="../../../com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a> options)
+        
+        <div class="jd-descrdiv">Create a TemplateDocument object from an office file suitable for generating any number of
+ PDFs from supplied template data.</div>
+  
   </td></tr>
 
 
@@ -3157,6 +3196,158 @@ From class
             <td></td>
         </tr>
       </table>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="createOfficeTemplate(java.lang.String, com.pdftron.pdf.ConversionOptions)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a>
+      </span>
+      <span class="sympad">createOfficeTemplate</span>
+      <span class="normal">(String in_filename, <a href="../../../com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a TemplateDocument object from an office file suitable for generating any number of
+ PDFs from supplied template data.
+
+ Template filling will be performed entirely within PDFNet, and handles incoming files in
+ .docx, .xlsx, .pptx, .doc format
+
+ This method does not perform any template filling and can be expected to return quickly.
+ To do the actual work, use the returned TemplateDocument object
+ <p>
+ <b> Note: </b> Font requirements: on some systems you may need to specify extra font resources to aid
+ in conversion. Please see http://www.pdftron.com/kb_fonts_and_builtin_office_conversion</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>in_filename</th>
+          <td>the path to the source document.</td>
+        </tr>
+        <tr>
+          <th>options</th>
+          <td>the office to pdf conversion options.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A TemplateDocument object which encapsulates this particular office template.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th></td>
+            <td>PDFNetException</td>
+        </tr>  
+        <tr>
+            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></code></li><li><code><a href="../../../com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a></code></li>
+      </ul>
+  </div>
+
+    </div>
+</div>
+
+
+<a id="createOfficeTemplate(com.pdftron.filters.Filter, com.pdftron.pdf.ConversionOptions)"></a>
+
+<div class="jd-details api apilevel-"> 
+    <h4 class="jd-details-title">
+      <span class="normal">
+        public 
+        static 
+         
+         
+         
+        <a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a>
+      </span>
+      <span class="sympad">createOfficeTemplate</span>
+      <span class="normal">(<a href="../../../com/pdftron/filters/Filter.html">Filter</a> in_stream, <a href="../../../com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a> options)</span>
+    </h4>
+      <div class="api-level">
+        <div>
+
+</div>
+        
+  
+
+      </div>
+    <div class="jd-details-descr">
+      
+  <div class="jd-tagdata jd-tagdescr"><p>Create a TemplateDocument object from an office file suitable for generating any number of
+ PDFs from supplied template data.
+
+ Template filling will be performed entirely within PDFNet, and handles incoming files in
+ .docx, .xlsx, .pptx, .doc format
+
+ This method does not perform any template filling and can be expected to return quickly.
+ To do the actual work, use the returned TemplateDocument object
+ <p>
+ <b> Note: </b> Font requirements: on some systems you may need to specify extra font resources to aid
+ in conversion. Please see http://www.pdftron.com/kb_fonts_and_builtin_office_conversion</p></div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Parameters</h5>
+      <table class="jd-tagtable">
+        <tr>
+          <th>in_stream</th>
+          <td>a stream providing input data.</td>
+        </tr>
+        <tr>
+          <th>options</th>
+          <td>the office to pdf conversion options.</td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Returns</h5>
+      <ul class="nolist"><li>A TemplateDocument object which encapsulates this particular office template.</li></ul>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">Throws</h5>
+      <table class="jd-tagtable">  
+        <tr>
+            <th></td>
+            <td>PDFNetException</td>
+        </tr>  
+        <tr>
+            <th><a href="../../../com/pdftron/common/PDFNetException.html">PDFNetException</a></td>
+            <td></td>
+        </tr>
+      </table>
+  </div>
+  <div class="jd-tagdata">
+      <h5 class="jd-tagtitle">See Also</h5>
+      <ul class="nolist"><li><code><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></code></li><li><code><a href="../../../com/pdftron/pdf/ConversionOptions.html">ConversionOptions</a></code></li>
+      </ul>
   </div>
 
     </div>

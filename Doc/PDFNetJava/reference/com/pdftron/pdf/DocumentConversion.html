@@ -418,6 +418,7 @@ Changelog
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Stamper.html">Stamper</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StrokeOutlineBuilder.html">StrokeOutlineBuilder</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/StructuredOutputModule.html">StructuredOutputModule</a></li>
+          <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TemplateDocument.html">TemplateDocument</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/Text2PDFOptions.html">Text2PDFOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextDiffOptions.html">TextDiffOptions</a></li>
           <li class="api apilevel-"><a href="../../../com/pdftron/pdf/TextExtractor.html">TextExtractor</a></li>
@@ -614,7 +615,7 @@ Summary:
 <h2>Class Overview</h2>
 <p>The class DocumentConversion.
  Encapsulates the conversion of a single document from one format to another.
- <p>
+
  DocumentConversion instances are created through methods belonging to
  the Convert class. See Convert.WordToPDFConversion for an example.
 </p>
@@ -866,7 +867,7 @@ Summary:
         <td class="jd-linkcol" width="100%">
         <span class="sympad"><a href="../../../com/pdftron/pdf/DocumentConversion.html#getDoc()">getDoc</a></span>()
         
-        <div class="jd-descrdiv">Get a reference to the output pdf.</div>
+        <div class="jd-descrdiv">Gets the PDFDoc from the conversion.</div>
   
   </td></tr>
 
@@ -1632,7 +1633,7 @@ From class
     <div class="jd-details-descr">
       
   <div class="jd-tagdata jd-tagdescr"><p>Frees the native memory of the object.  This can
- be explicity called to control the deallocation of
+ be explicitly called to control the deallocation of
  native memory and avoid situations where the garbage
  collector does not free the object in a timely manner.</p></div>
   <div class="jd-tagdata">
@@ -1676,10 +1677,6 @@ From class
       
   <div class="jd-tagdata jd-tagdescr"><p>Get the state of the conversion process. Pair this with ConvertNextPage().</p></div>
   <div class="jd-tagdata">
-      <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>.</li></ul>
-  </div>
-  <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
       <table class="jd-tagtable">  
         <tr>
@@ -1718,10 +1715,10 @@ From class
       </div>
     <div class="jd-details-descr">
       
-  <div class="jd-tagdata jd-tagdescr"><p>Get a reference to the output pdf.</p></div>
+  <div class="jd-tagdata jd-tagdescr"><p>Gets the PDFDoc from the conversion. Can be accessed at any time during or after conversion.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>.</li></ul>
+      <ul class="nolist"><li>The conversion's PDFDoc</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -1765,7 +1762,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>If the conversion finsihed with some kind of error, this returns the value of the error description; otherwise returns an empty string.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The error description. Will be blank unless GetConversionStatus returns Failure.</li></ul>
+      <ul class="nolist"><li>The error description. Will be blank unless GetConversionStatus returns Failure</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -1809,7 +1806,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Returns the number of pages which have been added to the destination document. Will never decrease, and will not change after the conversion status becomes "complete".</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The number of pages that have been converted.</li></ul>
+      <ul class="nolist"><li>The number of pages that have been converted</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -1853,7 +1850,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Return the number of warning strings generated during the conversion process. Warning: experimental interface; this method may be renamed or replaced with equivalent functionality in the future.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The number of stored warning strings.</li></ul>
+      <ul class="nolist"><li>The number of stored warning strings</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -1897,7 +1894,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Returns a number from 0.0 to 1.0, representing the best estimate of conversion progress. This number is only an indicator, and should not be used to dictate program logic (in particular, it is possible for this method to return 1.0 while there is still work to be done. Use GetConversionStatus() to find out when the conversion is fully complete).</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The conversion progress. Will never return a smaller number than a previous call.</li></ul>
+      <ul class="nolist"><li>The conversion progress. Will never return a smaller number than a previous call</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -1941,7 +1938,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Returns the label for the current conversion stage. May return a blank string. Warning: experimental interface; this method may be renamed or replaced with equivalent functionality in the future.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The stage label.</li></ul>
+      <ul class="nolist"><li>The stage label</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -1988,13 +1985,13 @@ From class
       <table class="jd-tagtable">
         <tr>
           <th>index</th>
-          <td>-- the index of the string to be retrieved. Must be less than GetNumWarnings().</td>
+          <td>-- the index of the string to be retrieved. Must be less than GetNumWarnings()</td>
         </tr>
       </table>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>The value of the particular warning string.</li></ul>
+      <ul class="nolist"><li>The value of the particular warning string</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -2038,7 +2035,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Determine whether this DocumentConversion has progress reporting capability.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>True if GetProgress is expected to return usable values.</li></ul>
+      <ul class="nolist"><li>True if GetProgress is expected to return usable values</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -2082,7 +2079,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Has the conversion been cancelled?.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>Returns true if CancelConversion has been called previously.</li></ul>
+      <ul class="nolist"><li>Returns true if CancelConversion has been called previously</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>
@@ -2126,7 +2123,7 @@ From class
   <div class="jd-tagdata jd-tagdescr"><p>Perform the conversion. If the result of the conversion is failure, then GetErrorString will contain further information about the failure.</p></div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Returns</h5>
-      <ul class="nolist"><li>Indicates that the conversion succeeded, failed, or was cancelled.</li></ul>
+      <ul class="nolist"><li>Indicates that the conversion succeeded, failed, or was cancelled</li></ul>
   </div>
   <div class="jd-tagdata">
       <h5 class="jd-tagtitle">Throws</h5>

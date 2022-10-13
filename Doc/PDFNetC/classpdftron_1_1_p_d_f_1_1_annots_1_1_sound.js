@@ -9,6 +9,8 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_sound =
     [ "Sound", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#a62daeccff52dd28b26bdb1140b916da8", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#a746bd7a4b0a37c88f704d1bdeb3c8204", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#a2e38d3cdf634ffbaeaded23150e4dad6", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#aef3c66984b3651c500000ddc0d29e3ed", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#a50d1d17b4b1ab391181292692d9b7edb", null ],
     [ "CreateWithData", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#ae8d0d916cb5013539ebe69d72b77e4f7", null ],
     [ "GetIcon", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#a1b5da083245be5ee0d46253362cb183e", null ],
     [ "GetIconName", "classpdftron_1_1_p_d_f_1_1_annots_1_1_sound.html#afe045ac5c24a0911f484b53db752c0ec", null ],

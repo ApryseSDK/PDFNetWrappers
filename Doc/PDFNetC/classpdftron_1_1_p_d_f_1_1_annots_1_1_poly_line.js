@@ -10,6 +10,7 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line =
     [ "PolyLine", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#a55f0ab2b8a43aec705020a18523385ba", null ],
     [ "PolyLine", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#a1ae00324a8d81ac4c9eaa7e723c26962", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#a237bcb322a2da3dd8542c67a5b3b098a", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#ade94be8c76465fd3fe49c9e3fbf7103f", null ],
     [ "GetIntentName", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#a9bfc41da1c73a29836dff7f5a5c406ca", null ],
     [ "GetVertex", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#af9aa59ba2f26914cd602a9c7ccd39db1", null ],
     [ "GetVertexCount", "classpdftron_1_1_p_d_f_1_1_annots_1_1_poly_line.html#af14cb9677d1254c4494146862c152438", null ],

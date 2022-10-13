@@ -113,6 +113,7 @@ var namespacepdftron_1_1_p_d_f =
     [ "ShapedText", "classpdftron_1_1_p_d_f_1_1_shaped_text.html", "classpdftron_1_1_p_d_f_1_1_shaped_text" ],
     [ "Stamper", "classpdftron_1_1_p_d_f_1_1_stamper.html", "classpdftron_1_1_p_d_f_1_1_stamper" ],
     [ "StructuredOutputModule", "classpdftron_1_1_p_d_f_1_1_structured_output_module.html", "classpdftron_1_1_p_d_f_1_1_structured_output_module" ],
+    [ "TemplateDocument", "classpdftron_1_1_p_d_f_1_1_template_document.html", "classpdftron_1_1_p_d_f_1_1_template_document" ],
     [ "TextDiffOptions", "classpdftron_1_1_p_d_f_1_1_text_diff_options.html", "classpdftron_1_1_p_d_f_1_1_text_diff_options" ],
     [ "CharRange", "structpdftron_1_1_p_d_f_1_1_char_range.html", "structpdftron_1_1_p_d_f_1_1_char_range" ],
     [ "TextExtractor", "classpdftron_1_1_p_d_f_1_1_text_extractor.html", "classpdftron_1_1_p_d_f_1_1_text_extractor" ],

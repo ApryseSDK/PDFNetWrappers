@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['templatedocument',['TemplateDocument',['../classpdftron_1_1_p_d_f_1_1_template_document.html',1,'pdftron::PDF']]],
   ['text',['Text',['../classpdftron_1_1_p_d_f_1_1_annots_1_1_text.html',1,'pdftron::PDF::Annots']]],
   ['textdiffoptions',['TextDiffOptions',['../classpdftron_1_1_p_d_f_1_1_text_diff_options.html',1,'pdftron::PDF']]],
   ['textextractor',['TextExtractor',['../classpdftron_1_1_p_d_f_1_1_text_extractor.html',1,'pdftron::PDF']]],

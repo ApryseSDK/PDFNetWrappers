@@ -25,6 +25,7 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_line =
     [ "Line", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#a32e3eb862777440ccebbae4f3fa949e6", null ],
     [ "Line", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#abab1f79bb34d21704cb700562e6c150e", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#ab8da1c8b0a5d2d9ccb45cb1b37a0744c", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#a96ef3bb481bd9e649644ae028593a60a", null ],
     [ "GetCaptionPosition", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#aa1f4468bdc82acb197fe0aaaf03784a6", null ],
     [ "GetEndPoint", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#a773d5f12cb9be0d06735d3c2215828ce", null ],
     [ "GetEndStyle", "classpdftron_1_1_p_d_f_1_1_annots_1_1_line.html#aa609a678a8615f4c28990d551117f293", null ],

@@ -23,6 +23,8 @@ var classpdftron_1_1_p_d_f_1_1_convert =
       [ "e_keep_most", "classpdftron_1_1_p_d_f_1_1_convert.html#afa903f71fc3d7b71c0715d82c1029e41aa6a86c60935e2606d36e29b313d07e4e", null ],
       [ "e_keep_all", "classpdftron_1_1_p_d_f_1_1_convert.html#afa903f71fc3d7b71c0715d82c1029e41a1df67bdadfc0d7033d1b81104b5bb29c", null ]
     ] ],
+    [ "CreateOfficeTemplate", "classpdftron_1_1_p_d_f_1_1_convert.html#acde7afe4f863f3400ce896c6e07eaee5", null ],
+    [ "CreateOfficeTemplate", "classpdftron_1_1_p_d_f_1_1_convert.html#a131fa39151cb9f31daca876841c321bc", null ],
     [ "CreateReflow", "classpdftron_1_1_p_d_f_1_1_convert.html#ac13cde833c3711ba731d9ec85b8a5703", null ],
     [ "FromCAD", "classpdftron_1_1_p_d_f_1_1_convert.html#a800084eb798b11f6690bcef5cb7016e0", null ],
     [ "FromDICOM", "classpdftron_1_1_p_d_f_1_1_convert.html#a6cda7f3a3bdde027d9d10d9a1f0a5896", null ],

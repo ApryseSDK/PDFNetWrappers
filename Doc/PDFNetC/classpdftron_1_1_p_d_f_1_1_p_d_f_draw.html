@@ -496,14 +496,10 @@ this method is only supported on Windows platforms. If your application is runni
 </div><div class="memdoc">
 <p>Returns the raw rasterized image data for the given image.</p>
 <dl class="section note"><dt>Note</dt><dd>This method is relatively low-level and is only available in <a class="el" href="classpdftron_1_1_p_d_f_net.html">PDFNet</a> for C++. If you are using <a class="el" href="classpdftron_1_1_p_d_f_net.html">PDFNet</a> for .NET, you can use the function with the same name that directly returns GDI+ Bitmap.</dd></dl>
-<dl class="section return"><dt>Returns</dt><dd>a pointer to the internal memory buffer containing the rasterized image of the given page. The buffer size is at least 'out_height*out_stride' bytes. The pixel data is stored in 8 bit per component, BGRA format. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the internal memory buffer containing the rasterized image of the given page. The buffer size is at least 'out_height*out_stride' bytes. The pixel data is stored in 8 bit per component, BGRA format by default. </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">page</td><td>The source <a class="el" href="namespacepdftron_1_1_p_d_f.html">PDF</a> page. </td></tr>
-    <tr><td class="paramname">out_width</td><td>- Filled by the method. The width of the target image in pixels. </td></tr>
-    <tr><td class="paramname">out_height</td><td>- Filled by the method. The height of the target image in pixels (the number of rows). </td></tr>
-    <tr><td class="paramname">out_stride</td><td>- Filled by the method. Stride determines the physical width (in bytes) of one row in memory. If this value is negative the direction of the Y axis is inverted. The absolute value of stride is of importance, because it allows rendering in buffers where rows are padded in memory (e.g. in Windows bitmaps are padded on 4 byte boundaries). </td></tr>
-    <tr><td class="paramname">out_dpi</td><td>- Filled by the method. The output resolution of the image (Dots Per Inch). </td></tr>
     <tr><td class="paramname">pix_fmt</td><td>- Optional parameter used to specify the desired pixel format. The default pixel format is e_bgra. </td></tr>
     <tr><td class="paramname">demult</td><td>- Specifies if the alpha is de-multiplied from the resulting color components. This parameter is only used for e_rgba, e_bgra, e_gray_alpha formats. </td></tr>
   </table>
@@ -565,6 +561,21 @@ this method is only supported on Windows platforms. If your application is runni
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Returns the raw rasterized image data for the given image.</p>
+<dl class="section note"><dt>Note</dt><dd>This method is relatively low-level and is only available in <a class="el" href="classpdftron_1_1_p_d_f_net.html">PDFNet</a> for C++. If you are using <a class="el" href="classpdftron_1_1_p_d_f_net.html">PDFNet</a> for .NET, you can use the function with the same name that directly returns GDI+ Bitmap.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>a pointer to the internal memory buffer containing the rasterized image of the given page. The buffer size is at least 'out_height*out_stride' bytes. The pixel data is stored in 8 bit per component, BGRA format by default. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">page</td><td>The source <a class="el" href="namespacepdftron_1_1_p_d_f.html">PDF</a> page. </td></tr>
+    <tr><td class="paramname">out_width</td><td>- Filled by the method. The width of the target image in pixels. </td></tr>
+    <tr><td class="paramname">out_height</td><td>- Filled by the method. The height of the target image in pixels (the number of rows). </td></tr>
+    <tr><td class="paramname">out_stride</td><td>- Filled by the method. Stride determines the physical width (in bytes) of one row in memory. If this value is negative the direction of the Y axis is inverted. The absolute value of stride is of importance, because it allows rendering in buffers where rows are padded in memory (e.g. in Windows bitmaps are padded on 4 byte boundaries). </td></tr>
+    <tr><td class="paramname">out_dpi</td><td>- Filled by the method. The output resolution of the image (Dots Per Inch). </td></tr>
+    <tr><td class="paramname">pix_fmt</td><td>- Optional parameter used to specify the desired pixel format. The default pixel format is e_bgra. </td></tr>
+    <tr><td class="paramname">demult</td><td>- Specifies if the alpha is de-multiplied from the resulting color components. This parameter is only used for e_rgba, e_bgra, e_gray_alpha formats. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1144,7 +1155,7 @@ if you would like to rasterize extremely large bitmaps (e.g. with resolutions of
 <dl class="section note"><dt>Note</dt><dd>This method is used only for drawing purposes and it does not modify the document (unlike Page::SetRotate()).</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">angle</td><td>Rotation value to be set for a given page. Must be one of the <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#abc5da13dfdf4f8977815f77883baeb51">Page::Rotate</a> values. </td></tr>
+    <tr><td class="paramname">r</td><td>Rotation value to be set for a given page. Must be one of the <a class="el" href="classpdftron_1_1_p_d_f_1_1_page.html#abc5da13dfdf4f8977815f77883baeb51">Page::Rotate</a> values. </td></tr>
   </table>
   </dd>
 </dl>

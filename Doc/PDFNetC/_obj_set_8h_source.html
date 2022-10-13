@@ -105,7 +105,7 @@ $(document).ready(function(){initNavTree('_obj_set_8h_source.html','');});
 </div><!--header-->
 <div class="contents">
 <a href="_obj_set_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//---------------------------------------------------------------------------------------</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright (c) 2001-2021 by PDFTron Systems Inc. All Rights Reserved.</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">// Copyright (c) 2001-2022 by PDFTron Systems Inc. All Rights Reserved.</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">// Consult legal.txt regarding legal and license information.</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//---------------------------------------------------------------------------------------</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef PDFTRON_H_CPPSDFObjSet</span></div>
@@ -123,34 +123,37 @@ $(document).ready(function(){initNavTree('_obj_set_8h_source.html','');});
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a9c9cbc98e781ae3b270fca0ccef299c2">ObjSet</a>();</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#aa507be847bedfadb29e86ed0283bc542">~ObjSet</a>();</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a7166ceab31bfefa81359e36de9cca92e">CreateName</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a81f75f208420ee7e29de8c3b6cb1382f">CreateArray</a>();</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a9b05b2bd73bfc47433ae07ea26b73a49">CreateBool</a>(<span class="keywordtype">bool</span> value);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a22ce5a6bb618e4de8d0f7c4a59c129da">CreateDict</a>();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#abec18af029e01df22bcf5f597bcf71c8">CreateNull</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#acae550698786ab1e8b271d482a2abb2b">CreateNumber</a>(<span class="keywordtype">double</span> value);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#ab8ca666df5f7b23ecaf228b1eca2028f">CreateString</a>(<span class="keyword">const</span> <a class="code" href="classpdftron_1_1_u_string.html">UString</a>&amp; value);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a2d20e3531977bcb656b06191e8629314">CreateFromJson</a>(<span class="keyword">const</span> <a class="code" href="classpdftron_1_1_u_string.html">UString</a>&amp; value);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a791bdb6f4b41032cd9a6e27529ddcee9">Destroy</a>();</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    TRN_ObjSet mp_set;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#include &lt;Impl/ObjSet.inl&gt;</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    };  <span class="comment">// namespace SDF</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;};  <span class="comment">// namespace pdftron</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif // PDFTRON_H_CPPSDFObjSet</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a9c9cbc98e781ae3b270fca0ccef299c2">ObjSet</a>(<span class="keyword">const</span> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html">ObjSet</a>&amp; source);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html">ObjSet</a>&amp; <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a8011fa19a8a1a1372e9a34dde43603de">operator=</a>(<span class="keyword">const</span> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html">ObjSet</a>&amp; source);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a7166ceab31bfefa81359e36de9cca92e">CreateName</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* name);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a81f75f208420ee7e29de8c3b6cb1382f">CreateArray</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a9b05b2bd73bfc47433ae07ea26b73a49">CreateBool</a>(<span class="keywordtype">bool</span> value);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a22ce5a6bb618e4de8d0f7c4a59c129da">CreateDict</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#abec18af029e01df22bcf5f597bcf71c8">CreateNull</a>();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#acae550698786ab1e8b271d482a2abb2b">CreateNumber</a>(<span class="keywordtype">double</span> value);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#ab8ca666df5f7b23ecaf228b1eca2028f">CreateString</a>(<span class="keyword">const</span> <a class="code" href="classpdftron_1_1_u_string.html">UString</a>&amp; value);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj.html">Obj</a> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a2d20e3531977bcb656b06191e8629314">CreateFromJson</a>(<span class="keyword">const</span> <a class="code" href="classpdftron_1_1_u_string.html">UString</a>&amp; value);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a791bdb6f4b41032cd9a6e27529ddcee9">Destroy</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    TRN_ObjSet mp_set;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;};</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#include &lt;Impl/ObjSet.inl&gt;</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    };  <span class="comment">// namespace SDF</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;};  <span class="comment">// namespace pdftron</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif // PDFTRON_H_CPPSDFObjSet</span></div>
 <div class="ttc" id="classpdftron_1_1_s_d_f_1_1_obj_set_html_a791bdb6f4b41032cd9a6e27529ddcee9"><div class="ttname"><a href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a791bdb6f4b41032cd9a6e27529ddcee9">pdftron::SDF::ObjSet::Destroy</a></div><div class="ttdeci">void Destroy()</div></div>
 <div class="ttc" id="classpdftron_1_1_s_d_f_1_1_obj_set_html_a9c9cbc98e781ae3b270fca0ccef299c2"><div class="ttname"><a href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a9c9cbc98e781ae3b270fca0ccef299c2">pdftron::SDF::ObjSet::ObjSet</a></div><div class="ttdeci">ObjSet()</div></div>
 <div class="ttc" id="classpdftron_1_1_s_d_f_1_1_obj_set_html"><div class="ttname"><a href="classpdftron_1_1_s_d_f_1_1_obj_set.html">pdftron::SDF::ObjSet</a></div><div class="ttdef"><b>Definition:</b> <a href="_obj_set_8h_source.html#l00017">ObjSet.h:17</a></div></div>
@@ -166,6 +169,7 @@ $(document).ready(function(){initNavTree('_obj_set_8h_source.html','');});
 <div class="ttc" id="classpdftron_1_1_s_d_f_1_1_obj_set_html_a7166ceab31bfefa81359e36de9cca92e"><div class="ttname"><a href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a7166ceab31bfefa81359e36de9cca92e">pdftron::SDF::ObjSet::CreateName</a></div><div class="ttdeci">Obj CreateName(const char *name)</div></div>
 <div class="ttc" id="classpdftron_1_1_s_d_f_1_1_obj_html"><div class="ttname"><a href="classpdftron_1_1_s_d_f_1_1_obj.html">pdftron::SDF::Obj</a></div><div class="ttdef"><b>Definition:</b> <a href="_obj_8h_source.html#l00040">Obj.h:40</a></div></div>
 <div class="ttc" id="classpdftron_1_1_u_string_html"><div class="ttname"><a href="classpdftron_1_1_u_string.html">pdftron::UString</a></div><div class="ttdef"><b>Definition:</b> <a href="_u_string_8h_source.html#l00026">UString.h:26</a></div></div>
+<div class="ttc" id="classpdftron_1_1_s_d_f_1_1_obj_set_html_a8011fa19a8a1a1372e9a34dde43603de"><div class="ttname"><a href="classpdftron_1_1_s_d_f_1_1_obj_set.html#a8011fa19a8a1a1372e9a34dde43603de">pdftron::SDF::ObjSet::operator=</a></div><div class="ttdeci">ObjSet &amp; operator=(const ObjSet &amp;source)</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="footer">

@@ -172,6 +172,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3e18fac5aa62a6bbcb2d21b9e38a703b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd9dad61b0fa01c67cf87d34f9bf7172"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html">OfficeToPDFOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#afd9dad61b0fa01c67cf87d34f9bf7172">SetTemplateRightDelimiter</a> (const <a class="el" href="classpdftron_1_1_u_string.html">UString</a> &amp;value)</td></tr>
 <tr class="separator:afd9dad61b0fa01c67cf87d34f9bf7172"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b62f2ebadce406ca287e06511995c86"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a3b62f2ebadce406ca287e06511995c86">GetTemplateStrictMode</a> ()</td></tr>
+<tr class="separator:a3b62f2ebadce406ca287e06511995c86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01e884564165f344bb8bcd808c22bb81"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html">OfficeToPDFOptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html#a01e884564165f344bb8bcd808c22bb81">SetTemplateStrictMode</a> (bool value)</td></tr>
+<tr class="separator:a01e884564165f344bb8bcd808c22bb81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -392,6 +396,23 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 <p>Gets the value TemplateRightDelimiter from the options object Right delimiter for template tags. Defaults to '}}'. </p>
 <dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="classpdftron_1_1_u_string.html">UString</a>, the current value for TemplateRightDelimiter. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a3b62f2ebadce406ca287e06511995c86"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool pdftron::PDF::OfficeToPDFOptions::GetTemplateStrictMode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the value TemplateStrictMode from the options object If "Strict Mode" is enabled, when a template key is missing from the json data an exception will be thrown. If "Strict Mode" is disabled (default), the tag will be replaced with no content. </p>
+<dl class="section return"><dt>Returns</dt><dd>a bool, the current value for TemplateStrictMode. </dd></dl>
 
 </div>
 </div>
@@ -652,6 +673,30 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value,:</td><td>the new value for TemplateRightDelimiter </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>this object, for call chaining </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a01e884564165f344bb8bcd808c22bb81"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpdftron_1_1_p_d_f_1_1_office_to_p_d_f_options.html">OfficeToPDFOptions</a>&amp; pdftron::PDF::OfficeToPDFOptions::SetTemplateStrictMode </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the value for TemplateStrictMode in the options object If "Strict Mode" is enabled, when a template key is missing from the json data an exception will be thrown. If "Strict Mode" is disabled (default), the tag will be replaced with no content. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value,:</td><td>the new value for TemplateStrictMode </td></tr>
   </table>
   </dd>
 </dl>

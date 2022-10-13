@@ -188,6 +188,7 @@ var hierarchy =
     [ "pdftron::PDF::StructuredOutputModule", "classpdftron_1_1_p_d_f_1_1_structured_output_module.html", null ],
     [ "pdftron::PDF::Style", "classpdftron_1_1_p_d_f_1_1_style.html", null ],
     [ "pdftron::PDF::SVGOutputOptions", "classpdftron_1_1_p_d_f_1_1_s_v_g_output_options.html", null ],
+    [ "pdftron::PDF::TemplateDocument", "classpdftron_1_1_p_d_f_1_1_template_document.html", null ],
     [ "pdftron::PDF::TextDiffOptions", "classpdftron_1_1_p_d_f_1_1_text_diff_options.html", null ],
     [ "pdftron::PDF::TextExtractor", "classpdftron_1_1_p_d_f_1_1_text_extractor.html", null ],
     [ "pdftron::PDF::PDFViewCtrl::TextFindDoneEvent", "structpdftron_1_1_p_d_f_1_1_p_d_f_view_ctrl_1_1_text_find_done_event.html", null ],

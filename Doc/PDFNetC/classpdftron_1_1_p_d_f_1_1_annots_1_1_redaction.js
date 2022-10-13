@@ -9,6 +9,7 @@ var classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction =
     [ "Redaction", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#a4d905248cb8ed46d176205b76db7fcff", null ],
     [ "Redaction", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#aefe060c1ae81456c8d30f0044cc7b4d0", null ],
     [ "Create", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#a8dee3865e817ac39c9b0c1bf855673fa", null ],
+    [ "CreateAnnot", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#a42e11b3bc294b8302ef793cd7985ffe6", null ],
     [ "GetAppFormXO", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#ac61901e4904feafbb740ed6a70b85db3", null ],
     [ "GetOverlayText", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#a443ad37f6eac009fdb9811481fc96c83", null ],
     [ "GetOverlayTextAppearance", "classpdftron_1_1_p_d_f_1_1_annots_1_1_redaction.html#ae6a2107a684cc818bbcf127476e91608", null ],

@@ -27,6 +27,7 @@ var classpdftron_1_1_p_d_f_1_1_web_page_settings =
     [ "SetProxy", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#aa98c3425f7402d57fe99a2a92e98b6a2", null ],
     [ "SetSmartShrinking", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a8179b2e5036f84bd3d4794236f9cb047", null ],
     [ "SetStopSlowScripts", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a4ae30a49e3048456692ec87ed8aae8aa", null ],
+    [ "SetTimeout", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a844c2520de53fc11ce4f5d588383ddcd", null ],
     [ "SetUsername", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a81f228ddb9a7647078e71041e80ccfc9", null ],
     [ "SetUserStyleSheet", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a1b6cde95ca67d2223ea6a6dd7966d752", null ],
     [ "SetZoom", "classpdftron_1_1_p_d_f_1_1_web_page_settings.html#a9e1488923576b6ffb9842568e70146e0", null ]

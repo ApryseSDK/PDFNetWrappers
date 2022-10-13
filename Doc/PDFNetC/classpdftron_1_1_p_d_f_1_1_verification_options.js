@@ -35,5 +35,6 @@ var classpdftron_1_1_p_d_f_1_1_verification_options =
     [ "EnableTrustVerification", "classpdftron_1_1_p_d_f_1_1_verification_options.html#a903dbf817d447f9c342c8ce24873756f", null ],
     [ "LoadTrustList", "classpdftron_1_1_p_d_f_1_1_verification_options.html#a1e91fd7a35fc2fd11be3b5efd783ff7e", null ],
     [ "operator=", "classpdftron_1_1_p_d_f_1_1_verification_options.html#a406fd7d46e7bedc90e498881528677cf", null ],
+    [ "SetRevocationTimeout", "classpdftron_1_1_p_d_f_1_1_verification_options.html#a41dba906844af07dd84b0b1aa8b47ffd", null ],
     [ "m_impl", "classpdftron_1_1_p_d_f_1_1_verification_options.html#a14902559c1b5eaae40e5c676439f5313", null ]
 ];

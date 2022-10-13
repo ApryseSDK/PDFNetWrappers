@@ -134,6 +134,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a483b2426656da7f9c987edad25f6c3bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abae04a2af17e3442db05e17945f4543e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html">OCROptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html#abae04a2af17e3442db05e17945f4543e">SetAutoRotate</a> (bool value)</td></tr>
 <tr class="separator:abae04a2af17e3442db05e17945f4543e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15fbcc732081049e41dc48fced8b08df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_u_string.html">UString</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html#a15fbcc732081049e41dc48fced8b08df">GetOCREngine</a> ()</td></tr>
+<tr class="separator:a15fbcc732081049e41dc48fced8b08df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ab08cea636913f1539432039b806ddd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html">OCROptions</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html#a1ab08cea636913f1539432039b806ddd">SetOCREngine</a> (const <a class="el" href="classpdftron_1_1_u_string.html">UString</a> &amp;value)</td></tr>
+<tr class="separator:a1ab08cea636913f1539432039b806ddd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -305,6 +309,23 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a15fbcc732081049e41dc48fced8b08df"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpdftron_1_1_u_string.html">UString</a> pdftron::PDF::OCROptions::GetOCREngine </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Gets the value OCREngine from the options object Backend engine to use for OCR processing. Options include 'default', 'any', or 'iris'. Chosen module must be present and correctly licensed. </p>
+<dl class="section return"><dt>Returns</dt><dd>a <a class="el" href="classpdftron_1_1_u_string.html">UString</a>, the current value for OCREngine. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="abae04a2af17e3442db05e17945f4543e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -346,6 +367,30 @@ Public Member Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value,:</td><td>the new value for IgnoreExistingText </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>this object, for call chaining </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a1ab08cea636913f1539432039b806ddd"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classpdftron_1_1_p_d_f_1_1_o_c_r_options.html">OCROptions</a>&amp; pdftron::PDF::OCROptions::SetOCREngine </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classpdftron_1_1_u_string.html">UString</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Sets the value for OCREngine in the options object Backend engine to use for OCR processing. Options include 'default', 'any', or 'iris'. Chosen module must be present and correctly licensed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value,:</td><td>the new value for OCREngine </td></tr>
   </table>
   </dd>
 </dl>
