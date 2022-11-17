@@ -209,6 +209,7 @@
     #include "PDF/Redactor.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
+    #include "PDF/SVGConvertOptions.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
     #include "PDF/WebFontDownloader.h"
@@ -793,6 +794,7 @@ namespace pdftron {
 %include "PDF/PDFDocViewPrefs.h"
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
+%include "PDF/SVGConvertOptions.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
