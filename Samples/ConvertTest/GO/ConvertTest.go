@@ -51,7 +51,8 @@ func ConvertToPdfFromFile() bool{
 	{"simple-emf.emf","emf2pdf.pdf", "true"}, 
 	{"simple-xps.xps","xps2pdf.pdf", "false"}, 
 	//{"simple-webpage.mht","mht2pdf.pdf", true}, 
-	{"simple-webpage.html","html2pdf.pdf", "true"}}
+	{"simple-xps.xps","xps2pdf.pdf", "false"},
+	{"tiger.svg", "tiger.pdf", "true"}}
 
     ret := false
 
