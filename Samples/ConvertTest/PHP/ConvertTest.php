@@ -44,7 +44,6 @@ function ConvertToPdfFromFile()
 	array("simple-text.txt","txt2pdf.pdf"),
 	array("butterfly.png", "png2pdf.pdf"),
 	array("simple-xps.xps", "xps2pdf.pdf"),
-	array("tiger.svg", "tiger.pdf"),
     );
     $ret = 0;
     foreach ($testfiles as &$testfile) {
