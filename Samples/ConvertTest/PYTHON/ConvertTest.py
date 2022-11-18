@@ -54,7 +54,8 @@ def ConvertToPdfFromFile():
     [ "simple-emf.emf","emf2pdf.pdf", True],
     [ "simple-xps.xps","xps2pdf.pdf", False],
     # [ "simple-webpage.mht","mht2pdf.pdf", True],
-    [ "simple-webpage.html","html2pdf.pdf", True]
+    [ "simple-webpage.html","html2pdf.pdf", True],
+    [ "tiger.svg", "svg2pdf.pdf", False]
     ]
     ret = 0
 
