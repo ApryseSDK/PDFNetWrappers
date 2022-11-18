@@ -43,7 +43,8 @@ def ConvertToPdfFromFile()
 		["simple-excel_2007.xlsx","xlsx2pdf.pdf"],
 		["simple-text.txt","txt2pdf.pdf"],
 		["butterfly.png", "png2pdf.pdf"],
-		["simple-xps.xps", "xps2pdf.pdf"]
+		["simple-xps.xps", "xps2pdf.pdf"],
+		["tiger.svg", "svg2pdf.pdf"]
 	]
 	
 
