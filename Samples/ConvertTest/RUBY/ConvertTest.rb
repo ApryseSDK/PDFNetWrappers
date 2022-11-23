@@ -43,8 +43,7 @@ def ConvertToPdfFromFile()
 		["simple-excel_2007.xlsx","xlsx2pdf.pdf"],
 		["simple-text.txt","txt2pdf.pdf"],
 		["butterfly.png", "png2pdf.pdf"],
-		["simple-xps.xps", "xps2pdf.pdf"],
-		["tiger.svg", "svg2pdf.pdf"]
+		["simple-xps.xps", "xps2pdf.pdf"]
 	]
 	
 
@@ -134,6 +133,14 @@ def ConvertSpecificFormats()
 		tiff_options.SetMono(true)
 		Convert.ToTiff($inputPath + "newsletter.pdf", $outputPath + "newsletter.tiff", tiff_options)
 		puts "Saved newsletter.tiff"
+
+		pdfdoc = PDFDoc.new()
+		puts "Converting SVG to PDF"
+		svg_options = SVGConvertOptions.new
+		svg_options.setDefaultFontFamily("Helvetica")
+		Convert.FromSVG(pdfdoc, $inputPath + "tiger.svg", svg_options)
+		pdfdoc.Save($outputPath + "svg2pdf.pdf", SDFDoc::E_remove_unused)
+		puts "Saved svg2pdf.pdf"
 	rescue
 		ret = 1
 	end
