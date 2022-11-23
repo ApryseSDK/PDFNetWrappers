@@ -54,8 +54,7 @@ def ConvertToPdfFromFile():
     [ "simple-emf.emf","emf2pdf.pdf", True],
     [ "simple-xps.xps","xps2pdf.pdf", False],
     # [ "simple-webpage.mht","mht2pdf.pdf", True],
-    [ "simple-webpage.html","html2pdf.pdf", True],
-    [ "tiger.svg", "svg2pdf.pdf", False]
+    [ "simple-webpage.html","html2pdf.pdf", True]
     ]
     ret = 0
 
@@ -169,6 +168,16 @@ def ConvertSpecificFormats():
         tiff_options.SetMono(True)
         Convert.ToTiff(inputPath + "newsletter.pdf", outputPath + "newsletter.tiff", tiff_options)
         print("Saved newsletter.tiff")
+
+        # Convert SVG file to PDF
+        print("Converting SVG to PDF")
+        pdfdoc = PDFDoc()
+        svg_options = SVGConvertOptions()
+        svg_options.SetDefaultFontFamily("Helvetica")
+        Convert.FromSVG(pdfdoc, inputPath + "tiger.svg", svg_options)
+        pdfdoc.Save(outputPath + "svg2pdf.pdf", SDFDoc.e_remove_unused)
+        print("Saved svg2pdf.pdf")
+
     except:
         ret = 1
     return ret
