@@ -163,9 +163,7 @@ func ConvertSpecificFormats() bool{
 	// Convert SVG file to PDF
 	fmt.Println("Converting SVG to PDF")
 	pdfdoc = NewPDFDoc()
-	svg_options := NewSVGConvertOptions()
-	svg_options.SetDefaultFontFamily("Helvetica")
-	ConvertFromSVG(pdfdoc, inputPath + "tiger.svg", svg_options)
+	ConvertFromSVG(pdfdoc, inputPath + "tiger.svg")
 	pdfdoc.Save(outputPath + "svg2pdf.pdf", uint(SDFDocE_remove_unused))
 	fmt.Println("Saved svg2pdf.pdf")
 
