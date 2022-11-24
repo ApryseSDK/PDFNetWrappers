@@ -172,9 +172,7 @@ def ConvertSpecificFormats():
         # Convert SVG file to PDF
         print("Converting SVG to PDF")
         pdfdoc = PDFDoc()
-        svg_options = SVGConvertOptions()
-        svg_options.SetDefaultFontFamily("Helvetica")
-        Convert.FromSVG(pdfdoc, inputPath + "tiger.svg", svg_options)
+        Convert.FromSVG(pdfdoc, inputPath + "tiger.svg")
         pdfdoc.Save(outputPath + "svg2pdf.pdf", SDFDoc.e_remove_unused)
         print("Saved svg2pdf.pdf")
 
