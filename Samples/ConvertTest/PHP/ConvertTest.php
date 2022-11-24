@@ -141,9 +141,7 @@ function ConvertSpecificFormats()
 		// Convert SVG file to PDF
 		echo(nl2br("Converting SVG to PDF\n"));
 		$pdfdoc = new PDFDoc();
-		$svg_options = new SVGConvertOptions();
-		$svg_options->SetDefaultFontFamily("Helvetica");
-		Convert::FromSVG($pdfdoc, $inputPath . "tiger.svg", $svg_options);
+		Convert::FromSVG($pdfdoc, $inputPath . "tiger.svg");
 		$pdfdoc->Save($outputPath . "svg2pdf.pdf", SDFDoc::e_remove_unused);
 		echo(nl2br("Saved svg2pdf.pdf\n"));
 	}
