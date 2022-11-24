@@ -136,9 +136,7 @@ def ConvertSpecificFormats()
 
 		pdfdoc = PDFDoc.new()
 		puts "Converting SVG to PDF"
-		svg_options = SVGConvertOptions.new
-		svg_options.SetDefaultFontFamily("Helvetica")
-		Convert.FromSVG(pdfdoc, $inputPath + "tiger.svg", svg_options)
+		Convert.FromSVG(pdfdoc, $inputPath + "tiger.svg")
 		pdfdoc.Save($outputPath + "svg2pdf.pdf", SDFDoc::E_remove_unused)
 		puts "Saved svg2pdf.pdf"
 	rescue
