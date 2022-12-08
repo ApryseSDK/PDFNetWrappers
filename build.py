@@ -134,9 +134,11 @@ def extractArchive(fileName):
 def main():
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument('-dl', '--download_link', dest='dl', default='') # valid options are [desktop|tools|mobile]
+    parser.add_argument('-cs', '--custom_swig', dest='custom_swig', default='') # valid options are [desktop|tools|mobile]
     stored_args, ignored_args = parser.parse_known_args()
 
     core_download_link = stored_args.dl
+    custom_swig = stored_args.custom_swig
 
     rootDir = os.getcwd()
     try:
@@ -148,7 +150,11 @@ def main():
     os.chdir("PDFNetC")
 
     gccCommand = ""
-    cmakeCommand = "cmake -D BUILD_PDFTronGo=ON .."
+    cmakeCommand = "cmake -D BUILD_PDFTronGo=ON"
+    if custom_swig:
+       cmakeCommand += " -D CUSTOM_SWIG=%s" % custom_swig
+
+    cmakeCommand += ' ..'
 
     if platform.system().startswith('Windows'):
         print("Running Windows build...")
