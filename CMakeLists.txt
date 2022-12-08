@@ -6,6 +6,7 @@
 project(PDFNetLanguageBindings CXX)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
+set(CUSTOM_SWIG CACHE STRING "")
 set(BUILD_PDFNetPython OFF CACHE BOOL "Build PDFNet language bindings for Python.")
 set(BUILD_PDFNetRuby OFF CACHE BOOL "Build PDFNet language bindings for Ruby.")
 set(BUILD_PDFNetPHP OFF CACHE BOOL "Build PDFNet language bindings for PHP.")
@@ -18,14 +19,19 @@ else ()
     set(INSTALL_DESTINATION_LIB_DIR "lib")
 endif ()
 
-# Find SWIG
-find_package(SWIG)
 
-if (SWIG_FOUND)
-    message(STATUS "Using SWIG ${SWIG_VERSION}")
+if ("${CUSTOM_SWIG}" STREQUAL "")
+    # Find SWIG
+    find_package(SWIG)
+
+    if (SWIG_FOUND)
+        message(STATUS "Using SWIG ${SWIG_VERSION}")
+    else ()
+        message(FATAL_ERROR "SWIG not found. Cannot continue.")
+        return ()
+    endif ()
 else ()
-    message(FATAL_ERROR "SWIG not found. Cannot continue.")
-    return ()
+    set(SWIG_EXECUTABLE "${CUSTOM_SWIG}")
 endif ()
 
 # Check PDFNetC
