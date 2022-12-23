@@ -37,14 +37,12 @@ file(MAKE_DIRECTORY ${PDFTronGo_SourcesDir}/Samples)
 execute_process(
     COMMAND ${SWIG_EXECUTABLE} -go -cgo -c++ -intgosize 64 ${SWIG_DEFINE} -I${PDFNetC_Include_Dir} -outdir ${PDFTronGo_SourcesDir} -o ${PDFTronGo_SourcesDir}/pdftron_wrap.cxx -oh ${PDFTronGo_SourcesDir}/pdftron_wrap.h pdftron.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
-    OUTPUT_FILE ${PROJECT_BINARY_DIR}/swig.log
-    ERROR_FILE ${PROJECT_BINARY_DIR}/swig.err.log
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 if ("${SOURCE_GEN_RESULT}" STREQUAL "0")
     message(STATUS "Generating sources for Go bindings using swig... OK")
 else ()
-    message(FATAL_ERROR "An error has occurred while generating sources using swig. Check '${PROJECT_BINARY_DIR}/swig.err.log' for details.")
+    message(FATAL_ERROR "An error has occurred while generating sources using swig.")
     return ()
 endif ()
 # Insert cgo flags
