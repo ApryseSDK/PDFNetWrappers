@@ -52,7 +52,7 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                s3ArtifactUpload("build/PDFTronGo.tar.gz")
+                s3ArtifactUpload("build/PDFTronGo.zip")
                 // withCredentials([usernamePassword(credentialsId: 's3_upload_nightly_creds', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
                 //     sh '''
                 //         python ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.tar.gz -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
