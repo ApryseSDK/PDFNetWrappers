@@ -218,6 +218,14 @@ def main():
         print(e.stdout.decode())
         raise
 
+    if not platform.system().startswith('Windows'):
+       with open("../../pdftron.go", "r") as f:
+          contents = f.read()
+
+       with open("../../pdftron.go", "w") as f:
+          contents = contents.replace('#cgo LDFLAGS: -L./PDFNetC/Lib -lPDFNetC', '#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC')
+          f.write(contents)
+
     print("Fixing samples...")
     fixSamples(rootDir)
 
