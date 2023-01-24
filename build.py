@@ -193,7 +193,8 @@ def main():
 
     print("Starting cmake: " + cmakeCommand)
     try:
-        result = subprocess.run(cmakeCommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, check=True)
+        for data in execute(cmakeCommand):
+           print(data, end="")
     except subprocess.CalledProcessError as e:
         print(e.stdout.decode())
         raise
@@ -213,37 +214,27 @@ def main():
 
     print("Running GCC: " + gccCommand)
     try:
-        result = subprocess.run(gccCommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True, check=True)
+        for data in execute(gccCommand):
+           print(data, end="")
+
     except subprocess.CalledProcessError as e:
         print(e.stdout.decode())
         raise
-
-    # This auto fill seems to be _platform_ specific. It doesn't matter if you use docker, the root system seems to change this.
-    # In any case, these should be after the start of the comment in pdftron.go
-    # #cgo CXXFLAGS: -I./PDFNetC/Headers
-    # #cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC
-    if platform.system().startswith('Linux'):
-       with open("../../pdftron.go", "r") as f:
-          contents = f.readlines()
-
-       contents.insert(16, "#cgo CXXFLAGS: -I./PDFNetC/Headers\n#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC")
-
-       with open("../../pdftron.go", "w") as f:
-          contents = "".join(contents)
-          f.write(contents)
-    elif not platform.system().startswith('Windows'):
-       with open("../../pdftron.go", "r") as f:
-          contents = f.read()
-
-       with open("../../pdftron.go", "w") as f:
-          contents = contents.replace('#cgo LDFLAGS: -L./PDFNetC/Lib -lPDFNetC', '#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC')
-          f.write(contents)
 
     print("Fixing samples...")
     fixSamples(rootDir)
 
     print("Build completed.")
     return 0
+
+def execute(cmd):
+    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True, shell=True)
+    for stdout_line in iter(popen.stdout.readline, ""):
+        yield stdout_line
+    popen.stdout.close()
+    return_code = popen.wait()
+    if return_code:
+        raise subprocess.CalledProcessError(return_code, cmd)
 
 if __name__ == '__main__':
     main()
