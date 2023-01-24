@@ -218,7 +218,20 @@ def main():
         print(e.stdout.decode())
         raise
 
-    if not platform.system().startswith('Windows'):
+    # This auto fill seems to be _platform_ specific. It doesn't matter if you use docker, the root system seems to change this.
+    # In any case, these should be after the start of the comment in pdftron.go
+    # #cgo CXXFLAGS: -I./PDFNetC/Headers
+    # #cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC
+    if platform.system().startswith('Linux'):
+       with open("../../pdftron.go", "r") as f:
+          contents = f.readlines()
+
+       contents.insert(16, "#cgo CXXFLAGS: -I./PDFNetC/Headers\n#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC")
+
+       with open("../../pdftron.go", "w") as f:
+          contents = "".join(contents)
+          f.write(contents)
+    elif not platform.system().startswith('Windows'):
        with open("../../pdftron.go", "r") as f:
           contents = f.read()
 
