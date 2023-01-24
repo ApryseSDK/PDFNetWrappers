@@ -48,7 +48,7 @@ endif ()
 # Insert cgo flags
 message(STATUS "Inserting cgo flags..")
 execute_process(
-    COMMAND go run -x ./helper/insertflags.go -- "${PDFTronGo_SourcesDir}/pdftron.go" "#cgo CXXFLAGS: -I./PDFNetC/Headers" "#cgo LDFLAGS: -L./PDFNetC/Lib -lPDFNetC"
+    COMMAND go run -x ./helper/insertflags.go -- "${PDFTronGo_SourcesDir}/pdftron.go" "#cgo CXXFLAGS: -I./PDFNetC/Headers" "#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC"
     RESULT_VARIABLE SOURCE_GEN_RESULT
     OUTPUT_FILE ${PROJECT_BINARY_DIR}/go.log
     ERROR_FILE ${PROJECT_BINARY_DIR}/go.err.log

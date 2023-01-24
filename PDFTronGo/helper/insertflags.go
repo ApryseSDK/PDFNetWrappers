@@ -8,10 +8,10 @@ import (
     "os"
     "bytes"
     "io/ioutil"
+    "fmt"
 )
 
 func main(){
-    //go run -x "./helper/insertflags.go" -- "../Build/PDFTronGo/pdftron.go" "#cgo CXXFLAGS: -I ../PDFNetC/Headers" "#cgo LDFLAGS: -L ../PDFNetC/Lib -lPDFNetC"
     if(len(os.Args) < 4){
         panic("The number of args is wrong!")
     }
