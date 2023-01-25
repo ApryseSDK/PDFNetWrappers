@@ -8,7 +8,6 @@ import (
     "os"
     "bytes"
     "io/ioutil"
-    "fmt"
 )
 
 func main(){
