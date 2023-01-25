@@ -27,12 +27,9 @@ from LicenseKey import *
 inputPath = "../../TestFiles/"
 outputPath = "../../TestFiles/Output/"
 
-def WriteTextToFile(output_path, text):
-    # Write the contents of the buffer to the disk
-    if sys.version_info.major >= 3:
-        f = open(output_path + "doc_memory_edit.txt", "w")
-    else:	
-        f = open(output_path + "doc_memory_edit.txt", "wb")
+def WriteTextToFile(outputFile, text):
+    # Write the contents of text to the disk
+    f = open(outputFile, "w")
     try:
         f.write(text)
     finally:
