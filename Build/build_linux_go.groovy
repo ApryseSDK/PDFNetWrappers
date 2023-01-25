@@ -23,6 +23,7 @@ pipeline {
 
     environment {
         BUILD_TYPE   = "experimental"
+        GOCACHE      = "/tmp/.cache"
     }
 
     stages {
