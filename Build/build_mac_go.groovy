@@ -35,7 +35,7 @@ pipeline {
                     }
 
                     dir('PDFNetC') {
-                        s3ArtifactCopyInvoke("PDFNet Mac/" + pulling_branch.replace("/", "%2F"), "PDFNetC/PDFNetCMac.zip", params.INVOKER_BUILD_ID)
+                        s3ArtifactCopyInvoke("PDFNet Mac/" + pulling_branch.replace("/", "%2F"), "PDFNetCMac.zip", params.INVOKER_BUILD_ID)
                     }
                 }
 

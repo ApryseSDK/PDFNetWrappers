@@ -35,7 +35,7 @@ pipeline {
                         pulling_branch = 'master'
                     }
                     dir('PDFNetC') {
-                        s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC/PDFNetC64.zip", params.INVOKER_BUILD_ID)
+                        s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.zip", params.INVOKER_BUILD_ID)
                     }
                 }
 
