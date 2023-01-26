@@ -52,7 +52,7 @@ pipeline {
                     python3 build.py --skip_dl
                 '''
 
-                zip zipFile: "build/PDFTronGoLInux.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
+                zip zipFile: "build/PDFTronGoLinux.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
             }
         }
 
@@ -69,7 +69,7 @@ pipeline {
                 s3ArtifactUpload("build/PDFTronGoLinux.zip")
                 withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
                     sh '''
-                        python ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoLinux.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
+                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoLinux.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
                     '''
                 }
             }
