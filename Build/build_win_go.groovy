@@ -29,7 +29,17 @@ pipeline {
 
         stage ('Build') {
             steps {
-                s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + env.BRANCH_NAME.replace("/", "%2F"), "PDFNetC/PDFNetC64.zip", params.INVOKER_BUILD_ID)
+                script {
+                    def pulling_branch = env.BRANCH_NAME
+                    if (env.BRANCH_NAME == 'next_release') {
+                        pulling_branch = 'master'
+                    }
+                    dir('PDFNetC') {
+                        s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC/PDFNetC64.zip", params.INVOKER_BUILD_ID)
+                    }
+                }
+
+
                 powershell '''
                     python3 build.py --skip_dl
                 '''

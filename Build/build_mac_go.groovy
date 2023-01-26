@@ -28,7 +28,17 @@ pipeline {
 
         stage ('Build') {
             steps {
-                s3ArtifactCopyInvoke("PDFNet Mac/" + env.BRANCH_NAME.replace("/", "%2F"), "PDFNetC/PDFNetCMac.zip", params.INVOKER_BUILD_ID)
+                script {
+                    def pulling_branch = env.BRANCH_NAME
+                    if (env.BRANCH_NAME == 'next_release') {
+                        pulling_branch = 'master'
+                    }
+
+                    dir('PDFNetC') {
+                        s3ArtifactCopyInvoke("PDFNet Mac/" + pulling_branch.replace("/", "%2F"), "PDFNetC/PDFNetCMac.zip", params.INVOKER_BUILD_ID)
+                    }
+                }
+
                 sh '''
                     python3 build.py -cs /usr/local/opt/swig/bin/swig --skip_dl
                 '''
