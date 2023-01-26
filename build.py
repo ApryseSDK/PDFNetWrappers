@@ -133,8 +133,10 @@ def extractArchive(fileName):
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument('-dl', '--download_link', dest='dl', default='') # valid options are [desktop|tools|mobile]
-    parser.add_argument('-cs', '--custom_swig', dest='custom_swig', default='') # valid options are [desktop|tools|mobile]
+    parser.add_argument('-dl', '--download_link', dest='dl', default='')
+    parser.add_argument('-cs', '--custom_swig', dest='custom_swig', default='')
+    # skips nightly pull
+    parser.add_argument('-sdl', '--skip_dl', dest='skip_dl', action='store_true')
     stored_args, ignored_args = parser.parse_known_args()
 
     core_download_link = stored_args.dl
@@ -158,10 +160,11 @@ def main():
 
     if platform.system().startswith('Windows'):
         print("Running Windows build...")
-        print("Downloading PDFNetC64...")
         if not core_download_link:
            core_download_link = 'http://www.pdftron.com/downloads/PDFNetC64.zip'
-        urllib.request.urlretrieve(core_download_link, "PDFNetC64.zip")
+        if not skip_dl:
+           print("Downloading PDFNetC64...")
+           urllib.request.urlretrieve(core_download_link, "PDFNetC64.zip")
         extractArchive("PDFNetC64.zip")
         os.remove("PDFNetC64.zip")
         copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
@@ -169,21 +172,24 @@ def main():
         gccCommand = "g++ -shared -I../Headers -L . -lPDFNetC pdftron_wrap.cxx -o pdftron.dll"
     elif platform.system().startswith('Linux'):
         print("Running Linux build...")
-        print("Downloading PDFNetC64...")
         if not core_download_link:
            core_download_link = 'http://www.pdftron.com/downloads/PDFNetC64.tar.gz'
         print(core_download_link)
-        urllib.request.urlretrieve(core_download_link, 'PDFNetC64.tar.gz')
+        if not skip_dl:
+           print("Downloading PDFNetC64...")
+           urllib.request.urlretrieve(core_download_link, 'PDFNetC64.tar.gz')
         extractArchive("PDFNetC64.tar.gz")
         os.remove("PDFNetC64.tar.gz")
         copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
         gccCommand = "g++ -fuse-ld=gold -fpic -I ../Headers -L . -lPDFNetC -Wl,-rpath,. -shared -static-libstdc++ pdftron_wrap.cxx -o libpdftron.so"
     else:
         print("Running Mac build...")
-        print("Downloading PDFNetC64...")
         if not core_download_link:
            core_download_link = 'http://www.pdftron.com/downloads/PDFNetCMac.zip'
-        urllib.request.urlretrieve(core_download_link, 'PDFNetCMac.zip')
+        if not skip_dl:
+           print("Downloading PDFNetC64...")
+           urllib.request.urlretrieve(core_download_link, 'PDFNetCMac.zip')
+
         extractArchive("PDFNetCMac.zip")
         os.remove("PDFNetCMac.zip")
         copyPaths('PDFNetCMac', ['Headers', 'Lib', 'Resources'], '.')

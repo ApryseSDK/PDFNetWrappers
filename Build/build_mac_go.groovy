@@ -5,8 +5,6 @@ String cron_string = isBaseBranch(env.BRANCH_NAME) ? cron_default : ""
 pipeline {
     agent { label 'Courage' }
 
-    triggers { cron(cron_string) }
-
     options {
         quietPeriod(60)
         disableConcurrentBuilds()
@@ -15,6 +13,10 @@ pipeline {
 
     environment {
         BUILD_TYPE   = "experimental"
+    }
+
+    parameters {
+        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
     }
 
     stages {
@@ -26,8 +28,9 @@ pipeline {
 
         stage ('Build') {
             steps {
+                s3ArtifactCopyInvoke("PDFNet Mac/" + env.BRANCH_NAME.replace("/", "%2F"), "PDFNetC/PDFNetCMac.zip", params.INVOKER_BUILD_ID)
                 sh '''
-                    python3 build.py -cs /usr/local/opt/swig/bin/swig
+                    python3 build.py -cs /usr/local/opt/swig/bin/swig --skip_dl
                 '''
 
                 zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true

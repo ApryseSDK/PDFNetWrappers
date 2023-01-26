@@ -5,8 +5,6 @@ String cron_string = isBaseBranch(env.BRANCH_NAME) ? cron_default : ""
 pipeline {
     agent { label 'windows_fleet' }
 
-    triggers { cron(cron_string) }
-
     options {
         quietPeriod(60)
         disableConcurrentBuilds()
@@ -17,6 +15,11 @@ pipeline {
         BUILD_TYPE   = "experimental"
     }
 
+    parameters {
+        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
+    }
+
+
     stages {
         stage('Checkout') {
             steps {
@@ -26,8 +29,9 @@ pipeline {
 
         stage ('Build') {
             steps {
+                s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + env.BRANCH_NAME.replace("/", "%2F"), "PDFNetC/PDFNetC64.zip", params.INVOKER_BUILD_ID)
                 powershell '''
-                    python3 build.py
+                    python3 build.py --skip_dl
                 '''
 
                 zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true

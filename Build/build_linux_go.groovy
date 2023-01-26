@@ -13,12 +13,14 @@ pipeline {
         }
     }
 
-    triggers { cron(cron_string) }
-
     options {
         quietPeriod(60)
         disableConcurrentBuilds()
         timeout(time: 2, unit: 'HOURS')
+    }
+
+    parameters {
+        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
     }
 
     environment {
@@ -35,8 +37,9 @@ pipeline {
 
         stage ('Build') {
             steps {
+                s3ArtifactCopyInvoke("PDFNetC64_GCC48/" + env.BRANCH_NAME.replace("/", "%2F"), "PDFNetC/PDFNetC64.tar.gz", params.INVOKER_BUILD_ID)
                 sh '''
-                    python3 build.py
+                    python3 build.py --skip_dl
                 '''
 
                 zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
