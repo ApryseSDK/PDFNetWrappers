@@ -141,6 +141,7 @@ def main():
 
     core_download_link = stored_args.dl
     custom_swig = stored_args.custom_swig
+    skip_dl = stored_args.skip_dl
 
     rootDir = os.getcwd()
     try:
