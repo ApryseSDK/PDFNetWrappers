@@ -43,7 +43,7 @@ pipeline {
                     python3 build.py -cs /usr/local/opt/swig/bin/swig --skip_dl
                 '''
 
-                zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
+                zip zipFile: "build/PDFTronGoMac.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
             }
         }
 
@@ -57,12 +57,12 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                s3ArtifactUpload("build/PDFTronGo.zip")
-                // withCredentials([usernamePassword(credentialsId: 's3_upload_nightly_creds', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                //     sh '''
-                //         python ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.tar.gz -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
-                //     '''
-                // }
+                s3ArtifactUpload("build/PDFTronGoMac.zip")
+                withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
+                    sh '''
+                        python ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoMac.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
+                    '''
+                }
             }
         }
     }
