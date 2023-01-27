@@ -60,8 +60,8 @@ pipeline {
             steps {
                 s3ArtifactUpload("build/PDFTronGo.zip")
                 withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                    sh '''
-                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
+                    powershell '''
+                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} --force
                     '''
                 }
             }
