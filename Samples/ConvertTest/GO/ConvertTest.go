@@ -52,7 +52,6 @@ func ConvertToPdfFromFile() bool{
 	{"simple-xps.xps","xps2pdf.pdf", "false"}, 
 	//{"simple-webpage.mht","mht2pdf.pdf", true}, 
 	{"simple-webpage.html","html2pdf.pdf", "true"}}
-
     ret := false
 
     if runtime.GOOS == "windows" {
@@ -160,6 +159,13 @@ func ConvertSpecificFormats() bool{
 	tiffOptions.SetMono(true)
 	ConvertToTiff(inputPath + "newsletter.pdf", outputPath + "newsletter.tiff", tiffOptions)
 	fmt.Println("Saved newsletter.tiff")
+
+	// Convert SVG file to PDF
+	fmt.Println("Converting SVG to PDF")
+	pdfdoc = NewPDFDoc()
+	ConvertFromSVG(pdfdoc, inputPath + "tiger.svg")
+	pdfdoc.Save(outputPath + "svg2pdf.pdf", uint(SDFDocE_remove_unused))
+	fmt.Println("Saved svg2pdf.pdf")
 
     return ret
 }
