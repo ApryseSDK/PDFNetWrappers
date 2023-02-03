@@ -44,7 +44,7 @@ func WriteTextToFile(outputFile string, text string) {
 
 	defer f.Close()
 
-	_, err2 := f.Write(text)
+	_, err2 := f.WriteString(text)
 	if err2 != nil {
 		fmt.Println(err2)
 	}
@@ -58,7 +58,7 @@ func TestTabularData() (err error) {
 	defer catch(&err)
 
 	// Test if the add-on is installed
-	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_tabular) {
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Tabular) {
 		fmt.Println("")
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK Tabular Data module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
@@ -75,8 +75,10 @@ func TestTabularData() (err error) {
 
 	inputFile := inputPath + "table.pdf"
 	outputFile := outputPath + "table.json"
-	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_tabular)
-	WriteTextToFile(outputFile, json)
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_Tabular)
+
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_Tabular).(string)
+	WriteTextToFile(outputPath + "tableAsString.json", json)
 
 	fmt.Println("Result saved in " + outputFile)
 
@@ -92,7 +94,7 @@ func TestTabularData() (err error) {
 	fmt.Println("Extract tabular data as an XLSX stream")
 
 	outputFile = outputPath + "table_streamed.xlsx"
-	outputXlsxStream := NewFiltersMemoryFilter(0, false)
+	outputXlsxStream := NewMemoryFilter(0, false)
 	options := NewDataExtractionOptions()
 	options.SetPages("1"); // page 1
 	DataExtractionModuleExtractToXSLX(inputFile, outputXlsxStream, options)
@@ -112,7 +114,7 @@ func TestDocumentStructure() (err error) {
 	defer catch(&err)
 
 	// Test if the add-on is installed
-	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_doc_structure) {
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_DocStructure) {
 		fmt.Println("")
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
@@ -129,8 +131,10 @@ func TestDocumentStructure() (err error) {
 
 	inputFile := inputPath + "paragraphs_and_tables.pdf"
 	outputFile := outputPath + "paragraphs_and_tables.json"
-	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_doc_structure)
-	WriteTextToFile(outputFile, json)
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_DocStructure)
+
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_DocStructure).(string)
+	WriteTextToFile(outputPath + "paragraphs_and_tables_AsString.json", json)
 
 	fmt.Println("Result saved in " + outputFile)
 
@@ -145,7 +149,7 @@ func TestFormFields() (err error) {
 	defer catch(&err)
 
 	// Test if the add-on is installed
-	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_form) {
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Form) {
 		fmt.Println("")
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
@@ -162,8 +166,10 @@ func TestFormFields() (err error) {
 
 	inputFile := inputPath + "formfield.pdf"
 	outputFile := outputPath + "formfield.json"
-	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_form)
-	WriteTextToFile(outputFile, json)
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_Form)
+
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_Form).(string)
+	WriteTextToFile(outputPath + "formfieldAsString.json", json)
 
 	fmt.Println("Result saved in " + outputFile)
 

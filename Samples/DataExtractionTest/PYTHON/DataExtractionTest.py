@@ -63,9 +63,10 @@ def main():
             print("Extract tabular data as a JSON file")
 
             outputFile = outputPath + "table.json"
+            DataExtractionModule.ExtractData(inputPath + "table.pdf", outputFile, DataExtractionModule.e_Tabular)
 
             json = DataExtractionModule.ExtractData(inputPath + "table.pdf", DataExtractionModule.e_Tabular)
-            WriteTextToFile(outputFile, json)
+            WriteTextToFile(outputPath + "tableAsString.json", json)
 
             print("Result saved in " + outputFile)
         except Exception as e:
@@ -118,9 +119,10 @@ def main():
             print("Extract document structure as a JSON file")
 
             outputFile = outputPath + "paragraphs_and_tables.json"
+            DataExtractionModule.ExtractData(inputPath + "paragraphs_and_tables.pdf", outputFile, DataExtractionModule.e_DocStructure)
 
             json = DataExtractionModule.ExtractData(inputPath + "paragraphs_and_tables.pdf", DataExtractionModule.e_DocStructure)
-            WriteTextToFile(outputFile, json)
+            WriteTextToFile(outputPath + "paragraphs_and_tables_AsString.json", json)
 
             print("Result saved in " + outputFile)
         except Exception as e:
@@ -146,9 +148,10 @@ def main():
             print("Extract form fields as a JSON file")
 
             outputFile = outputPath + "formfield.json"
+            DataExtractionModule.ExtractData(inputPath + "formfield.pdf", outputFile, DataExtractionModule.e_Form)
 
             json = DataExtractionModule.ExtractData(inputPath + "formfield.pdf", DataExtractionModule.e_Form)
-            WriteTextToFile(outputFile, json)
+            WriteTextToFile(outputPath + "formfieldAsString.json", json)
 
             print("Result saved in " + outputFile)
         except Exception as e:

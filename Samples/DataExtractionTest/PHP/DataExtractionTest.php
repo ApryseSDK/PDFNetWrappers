@@ -62,8 +62,10 @@ function main()
 			echo(nl2br("Extract tabular data as a JSON file\n"));
 
 			$outputFile = $outputPath."table.json";
+			DataExtractionModule::ExtractData($inputPath."table.pdf", $outputFile, DataExtractionModule::e_Tabular);
+
 			$json = DataExtractionModule::ExtractData($inputPath."table.pdf", DataExtractionModule::e_Tabular);
-			WriteTextToFile($outputFile, $json);
+			WriteTextToFile($outputPath."tableAsString.json", $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}
@@ -124,8 +126,10 @@ function main()
 			echo(nl2br("Extract document structure as a JSON file\n"));
 
 			$outputFile = $outputPath."paragraphs_and_tables.json";
+			DataExtractionModule::ExtractData($inputPath."paragraphs_and_tables.pdf", $outputFile, DataExtractionModule::e_DocStructure);
+
 			$json = DataExtractionModule::ExtractData($inputPath."paragraphs_and_tables.pdf", DataExtractionModule::e_DocStructure);
-			WriteTextToFile($outputFile, $json);
+			WriteTextToFile($outputPath."paragraphs_and_tables_AsString.json", $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}
@@ -155,8 +159,10 @@ function main()
 			echo(nl2br("Extract form fields as a JSON file\n"));
 
 			$outputFile = $outputPath."formfield.json";
+			DataExtractionModule::ExtractData($inputPath."formfield.pdf", $outputFile, DataExtractionModule::e_Form);
+
 			$json = DataExtractionModule::ExtractData($inputPath."formfield.pdf", DataExtractionModule::e_Form);
-			WriteTextToFile($outputFile, $json);
+			WriteTextToFile($outputPath."formfieldAsString.json", $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}

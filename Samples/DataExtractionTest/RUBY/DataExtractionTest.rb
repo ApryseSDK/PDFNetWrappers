@@ -51,8 +51,10 @@ def main()
 			puts "Extract tabular data as a JSON file"
 	
 			outputFile = $outputPath + "table.json"
+			DataExtractionModule.ExtractData($inputPath + "table.pdf", outputFile, DataExtractionModule::E_Tabular)
+
 			json = DataExtractionModule.ExtractData($inputPath + "table.pdf", DataExtractionModule::E_Tabular)
-			File.open(outputFile, 'w') { |file| file.write(json) }
+			File.open($outputPath + "tableAsString.json", 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
 		rescue => error
@@ -109,8 +111,10 @@ def main()
 			puts "Extract document structure as a JSON file"
 	
 			outputFile = $outputPath + "paragraphs_and_tables.json"
+			DataExtractionModule.ExtractData($inputPath + "paragraphs_and_tables.pdf", outputFile, DataExtractionModule::E_DocStructure)
+
 			json = DataExtractionModule.ExtractData($inputPath + "paragraphs_and_tables.pdf", DataExtractionModule::E_DocStructure)
-			File.open(outputFile, 'w') { |file| file.write(json) }
+			File.open($outputPath + "paragraphs_and_tables_AsString.json", 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
 		rescue => error
@@ -138,8 +142,10 @@ def main()
 			puts "Extract form fields as a JSON file"
 	
 			outputFile = $outputPath + "formfield.json"
+			DataExtractionModule.ExtractData($inputPath + "formfield.pdf", outputFile, DataExtractionModule::E_Form)
+
 			json = DataExtractionModule.ExtractData($inputPath + "formfield.pdf", DataExtractionModule::E_Form)
-			File.open(outputFile, 'w') { |file| file.write(json) }
+			File.open($outputPath + "formfieldAsString.json", 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
 		rescue => error
