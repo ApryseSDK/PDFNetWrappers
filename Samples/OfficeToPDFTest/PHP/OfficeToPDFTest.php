@@ -34,7 +34,7 @@ function SimpleDocxConvert($input_filename, $output_filename)
 	Convert::OfficeToPDF($pdfdoc, $input_path.$input_filename, NULL);
 
 	// save the result
-	$pdfdoc->Save($output_path.$output_filename, SDFDoc::e_linearized, NULL);
+	$pdfdoc->Save($output_path.$output_filename, SDFDoc::e_linearized);
 	
 	// And we're done!
 	echo nl2br("Saved ".$output_filename . "\n");
@@ -90,7 +90,7 @@ function FlexibleDocxConvert($input_filename, $output_filename)
 		}
 
 		// save the result
-		$pdfdoc->Save($output_path . $output_filename, SDFDoc::e_linearized, NULL);
+		$pdfdoc->Save($output_path . $output_filename, SDFDoc::e_linearized);
 		// done
 		echo(nl2br("Saved " . $output_filename ."\n"));
 	}
