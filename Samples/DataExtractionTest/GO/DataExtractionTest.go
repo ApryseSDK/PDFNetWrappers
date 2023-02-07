@@ -44,7 +44,7 @@ func WriteTextToFile(outputFile string, text string) {
 
 	defer f.Close()
 
-	_, err2 := f.Write(text)
+	_, err2 := f.WriteString(text)
 	if err2 != nil {
 		fmt.Println(err2)
 	}
@@ -58,7 +58,7 @@ func TestTabularData() (err error) {
 	defer catch(&err)
 
 	// Test if the add-on is installed
-	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_tabular) {
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Tabular) {
 		fmt.Println("")
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK Tabular Data module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
@@ -75,7 +75,17 @@ func TestTabularData() (err error) {
 
 	inputFile := inputPath + "table.pdf"
 	outputFile := outputPath + "table.json"
-	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_tabular)
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_Tabular)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	// Extract tabular data as a JSON string
+	fmt.Println("Extract tabular data as a JSON string")
+
+	inputFile = inputPath + "financial.pdf"
+	outputFile = outputPath + "financial.json"
+
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_Tabular).(string)
 	WriteTextToFile(outputFile, json)
 
 	fmt.Println("Result saved in " + outputFile)
@@ -83,6 +93,7 @@ func TestTabularData() (err error) {
 	// Extract tabular data as an XLSX file
 	fmt.Println("Extract tabular data as an XLSX file")
 
+	inputFile = inputPath + "table.pdf"
 	outputFile = outputPath + "table.xlsx"
 	DataExtractionModuleExtractToXSLX(inputFile, outputFile)
 
@@ -91,8 +102,9 @@ func TestTabularData() (err error) {
 	// Extract tabular data as an XLSX stream (also known as filter)
 	fmt.Println("Extract tabular data as an XLSX stream")
 
-	outputFile = outputPath + "table_streamed.xlsx"
-	outputXlsxStream := NewFiltersMemoryFilter(0, false)
+	inputFile = inputPath + "financial.pdf"
+	outputFile = outputPath + "financial.xlsx"
+	outputXlsxStream := NewMemoryFilter(0, false)
 	options := NewDataExtractionOptions()
 	options.SetPages("1"); // page 1
 	DataExtractionModuleExtractToXSLX(inputFile, outputXlsxStream, options)
@@ -112,7 +124,7 @@ func TestDocumentStructure() (err error) {
 	defer catch(&err)
 
 	// Test if the add-on is installed
-	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_doc_structure) {
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_DocStructure) {
 		fmt.Println("")
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
@@ -129,7 +141,16 @@ func TestDocumentStructure() (err error) {
 
 	inputFile := inputPath + "paragraphs_and_tables.pdf"
 	outputFile := outputPath + "paragraphs_and_tables.json"
-	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_doc_structure)
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_DocStructure)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	// Extract document structure as a JSON string
+	fmt.Println("Extract document structure as a JSON string")
+
+	inputFile = inputPath + "tagged.pdf"
+	outputFile = outputPath + "tagged.json"
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_DocStructure).(string)
 	WriteTextToFile(outputFile, json)
 
 	fmt.Println("Result saved in " + outputFile)
@@ -145,7 +166,7 @@ func TestFormFields() (err error) {
 	defer catch(&err)
 
 	// Test if the add-on is installed
-	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_form) {
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Form) {
 		fmt.Println("")
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
@@ -160,9 +181,19 @@ func TestFormFields() (err error) {
 	// Extract form fields as a JSON file
 	fmt.Println("Extract form fields as a JSON file")
 
-	inputFile := inputPath + "formfield.pdf"
-	outputFile := outputPath + "formfield.json"
-	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_form)
+	inputFile := inputPath + "form1.pdf"
+	outputFile := outputPath + "form1.json"
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_Form)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	// Extract form fields as a JSON string
+	fmt.Println("Extract form fields as a JSON string")
+
+	inputFile = inputPath + "formfield.pdf"
+	outputFile = outputPath + "formfield.json"
+
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_Form).(string)
 	WriteTextToFile(outputFile, json)
 
 	fmt.Println("Result saved in " + outputFile)

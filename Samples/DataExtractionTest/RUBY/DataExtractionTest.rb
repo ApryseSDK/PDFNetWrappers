@@ -51,7 +51,19 @@ def main()
 			puts "Extract tabular data as a JSON file"
 	
 			outputFile = $outputPath + "table.json"
-			json = DataExtractionModule.ExtractData($inputPath + "table.pdf", DataExtractionModule::E_Tabular)
+			DataExtractionModule.ExtractData($inputPath + "table.pdf", outputFile, DataExtractionModule::E_Tabular)
+
+			puts "Result saved in " + outputFile
+		rescue => error
+			puts "Unable to extract tabular data, error: " + error.message
+		end
+
+		begin
+			# Extract tabular data as a JSON string
+			puts "Extract tabular data as a JSON string"
+	
+			outputFile = $outputPath + "financial.json"
+			json = DataExtractionModule.ExtractData($inputPath + "financial.pdf", DataExtractionModule::E_Tabular)
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
@@ -75,11 +87,11 @@ def main()
 			# Extract tabular data as an XLSX stream (also known as filter)
 			puts "Extract tabular data as an XLSX stream"
 	
-			outputFile = $outputPath + "table_streamed.xlsx"
+			outputFile = $outputPath + "financial.xlsx"
 			outputXlsxStream = Filters.MemoryFilter.new(0, false)
 			options = DataExtractionOptions.new()
 			options.SetPages("1") # page 1
-			DataExtractionModule.ExtractToXSLX($inputPath + "table.pdf", outputXlsxStream, options)
+			DataExtractionModule.ExtractToXSLX($inputPath + "financial.pdf", outputXlsxStream, options)
 			outputXlsxStream.SetAsInputFilter()
 			outputXlsxStream.WriteToFile(outputFile, false)
 	
@@ -109,7 +121,19 @@ def main()
 			puts "Extract document structure as a JSON file"
 	
 			outputFile = $outputPath + "paragraphs_and_tables.json"
-			json = DataExtractionModule.ExtractData($inputPath + "paragraphs_and_tables.pdf", DataExtractionModule::E_DocStructure)
+			DataExtractionModule.ExtractData($inputPath + "paragraphs_and_tables.pdf", outputFile, DataExtractionModule::E_DocStructure)
+
+			puts "Result saved in " + outputFile
+		rescue => error
+			puts "Unable to extract document structure data, error: " + error.message
+		end
+
+		begin
+			# Extract document structure as a JSON string
+			puts "Extract document structure as a JSON string"
+	
+			outputFile = $outputPath + "tagged.json"
+			json = DataExtractionModule.ExtractData($inputPath + "tagged.pdf", DataExtractionModule::E_DocStructure)
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
@@ -136,6 +160,18 @@ def main()
 		begin
 			# Extract form fields as a JSON file
 			puts "Extract form fields as a JSON file"
+	
+			outputFile = $outputPath + "form1.json"
+			DataExtractionModule.ExtractData($inputPath + "form1.pdf", outputFile, DataExtractionModule::E_Form)
+
+			puts "Result saved in " + outputFile
+		rescue => error
+			puts "Unable to extract form fields data, error: " + error.message
+		end
+
+		begin
+			# Extract form fields as a JSON string
+			puts "Extract form fields as a JSON string"
 	
 			outputFile = $outputPath + "formfield.json"
 			json = DataExtractionModule.ExtractData($inputPath + "formfield.pdf", DataExtractionModule::E_Form)
