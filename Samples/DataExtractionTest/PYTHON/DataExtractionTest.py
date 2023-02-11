@@ -66,10 +66,8 @@ def main():
             DataExtractionModule.ExtractData(inputPath + "table.pdf", outputFile, DataExtractionModule.e_Tabular)
 
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract tabular data, error: " + str(e))
 
-        try:
+            #------------------------------------------------------
             # Extract tabular data as a JSON string
             print("Extract tabular data as a JSON string")
 
@@ -78,10 +76,8 @@ def main():
             WriteTextToFile(outputFile, json)
 
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract tabular data, error: " + str(e))
 
-        try:
+            #------------------------------------------------------
             # Extract tabular data as an XLSX file
             print("Extract tabular data as an XLSX file")
 
@@ -89,10 +85,8 @@ def main():
             DataExtractionModule.ExtractToXSLX(inputPath + "table.pdf", outputFile)
 
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract tabular data, error: " + str(e))
 
-        try:
+            #------------------------------------------------------
             # Extract tabular data as an XLSX stream (also known as filter)
             print("Extract tabular data as an XLSX stream")
 
@@ -131,10 +125,8 @@ def main():
             DataExtractionModule.ExtractData(inputPath + "paragraphs_and_tables.pdf", outputFile, DataExtractionModule.e_DocStructure)
 
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract document structure data, error: " + str(e))
 
-        try:
+            #------------------------------------------------------
             # Extract document structure as a JSON string
             print("Extract document structure as a JSON string")
 
@@ -165,19 +157,17 @@ def main():
             # Extract form fields as a JSON file
             print("Extract form fields as a JSON file")
 
-            outputFile = outputPath + "form1.json"
-            DataExtractionModule.ExtractData(inputPath + "form1.pdf", outputFile, DataExtractionModule.e_Form)
+            outputFile = outputPath + "formfields-scanned.json"
+            DataExtractionModule.ExtractData(inputPath + "formfields-scanned.pdf", outputFile, DataExtractionModule.e_Form)
 
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract form fields data, error: " + str(e))
 
-        try:
+            #------------------------------------------------------
             # Extract form fields as a JSON string
             print("Extract form fields as a JSON string")
 
-            outputFile = outputPath + "formfield.json"
-            json = DataExtractionModule.ExtractData(inputPath + "formfield.pdf", DataExtractionModule.e_Form)
+            outputFile = outputPath + "formfields.json"
+            json = DataExtractionModule.ExtractData(inputPath + "formfields.pdf", DataExtractionModule.e_Form)
             WriteTextToFile(outputFile, json)
 
             print("Result saved in " + outputFile)

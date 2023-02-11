@@ -1,4 +1,4 @@
-<?php
+ <?php
 //---------------------------------------------------------------------------------------
 // Copyright (c) 2001-2023 by PDFTron Systems Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
@@ -65,12 +65,8 @@ function main()
 			DataExtractionModule::ExtractData($inputPath."table.pdf", $outputFile, DataExtractionModule::e_Tabular);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract tabular data, error: " . $e->getMessage() . "\n"));
-		}
 
-		try {
+			///////////////////////////////////////////////////////
 			// Extract tabular data as a JSON string
 			echo(nl2br("Extract tabular data as a JSON string\n"));
 
@@ -79,12 +75,8 @@ function main()
 			WriteTextToFile($outputFile, $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract tabular data, error: " . $e->getMessage() . "\n"));
-		}
 
-		try {
+			///////////////////////////////////////////////////////
 			// Extract tabular data as an XLSX file
 			echo(nl2br("Extract tabular data as an XLSX file\n"));
 
@@ -92,12 +84,8 @@ function main()
 			DataExtractionModule::ExtractToXSLX($inputPath."table.pdf", $outputFile);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract tabular data, error: " . $e->getMessage() . "\n"));
-		}
 
-		try {
+			///////////////////////////////////////////////////////
 			// Extract tabular data as an XLSX stream (also known as filter)
 			echo(nl2br("Extract tabular data as an XLSX stream\n"));
 
@@ -140,12 +128,8 @@ function main()
 			DataExtractionModule::ExtractData($inputPath."paragraphs_and_tables.pdf", $outputFile, DataExtractionModule::e_DocStructure);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract document structure data, error: " . $e->getMessage() . "\n"));
-		}
 
-		try {
+			///////////////////////////////////////////////////////
 			// Extract document structure as a JSON string
 			echo(nl2br("Extract document structure as a JSON string\n"));
 
@@ -180,21 +164,17 @@ function main()
 			// Extract form fields as a JSON file
 			echo(nl2br("Extract form fields as a JSON file\n"));
 
-			$outputFile = $outputPath."form1.json";
-			DataExtractionModule::ExtractData($inputPath."form1.pdf", $outputFile, DataExtractionModule::e_Form);
+			$outputFile = $outputPath."formfields-scanned.json";
+			DataExtractionModule::ExtractData($inputPath."formfields-scanned.pdf", $outputFile, DataExtractionModule::e_Form);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract form fields data, error: " . $e->getMessage() . "\n"));
-		}
 
-		try {
+			///////////////////////////////////////////////////////
 			// Extract form fields as a JSON string
 			echo(nl2br("Extract form fields as a JSON string\n"));
 
-			$outputFile = $outputPath."formfield.json";
-			$json = DataExtractionModule::ExtractData($inputPath."formfield.pdf", DataExtractionModule::e_Form);
+			$outputFile = $outputPath."formfields.json";
+			$json = DataExtractionModule::ExtractData($inputPath."formfields.pdf", DataExtractionModule::e_Form);
 			WriteTextToFile($outputFile, $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
