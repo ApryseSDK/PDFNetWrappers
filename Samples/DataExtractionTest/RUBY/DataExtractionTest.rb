@@ -158,8 +158,8 @@ def main()
 			# Extract form fields as a JSON string
 			puts "Extract form fields as a JSON string"
 	
-			outputFile = $outputPath + "formfield.json"
-			json = DataExtractionModule.ExtractData($inputPath + "formfield.pdf", DataExtractionModule::E_Form)
+			outputFile = $outputPath + "formfields.json"
+			json = DataExtractionModule.ExtractData($inputPath + "formfields.pdf", DataExtractionModule::E_Form)
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
