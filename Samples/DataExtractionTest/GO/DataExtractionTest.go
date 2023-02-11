@@ -181,8 +181,8 @@ func TestFormFields() (err error) {
 	// Extract form fields as a JSON file
 	fmt.Println("Extract form fields as a JSON file")
 
-	inputFile := inputPath + "form1.pdf"
-	outputFile := outputPath + "form1.json"
+	inputFile := inputPath + "formfields-scanned.pdf"
+	outputFile := outputPath + "formfields-scanned.json"
 	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_Form)
 
 	fmt.Println("Result saved in " + outputFile)
@@ -190,8 +190,8 @@ func TestFormFields() (err error) {
 	// Extract form fields as a JSON string
 	fmt.Println("Extract form fields as a JSON string")
 
-	inputFile = inputPath + "formfield.pdf"
-	outputFile = outputPath + "formfield.json"
+	inputFile = inputPath + "formfields.pdf"
+	outputFile = outputPath + "formfields.json"
 
 	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_Form).(string)
 	WriteTextToFile(outputFile, json)

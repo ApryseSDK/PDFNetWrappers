@@ -54,11 +54,8 @@ def main()
 			DataExtractionModule.ExtractData($inputPath + "table.pdf", outputFile, DataExtractionModule::E_Tabular)
 
 			puts "Result saved in " + outputFile
-		rescue => error
-			puts "Unable to extract tabular data, error: " + error.message
-		end
 
-		begin
+			#------------------------------------------------------
 			# Extract tabular data as a JSON string
 			puts "Extract tabular data as a JSON string"
 	
@@ -67,11 +64,8 @@ def main()
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
-		rescue => error
-			puts "Unable to extract tabular data, error: " + error.message
-		end
 
-		begin
+			#------------------------------------------------------
 			# Extract tabular data as an XLSX file
 			puts "Extract tabular data as an XLSX file"
 	
@@ -79,11 +73,8 @@ def main()
 			DataExtractionModule.ExtractToXSLX($inputPath + "table.pdf", outputFile)
 	
 			puts "Result saved in " + outputFile
-		rescue => error
-			puts "Unable to extract tabular data, error: " + error.message
-		end
 
-		begin
+			#------------------------------------------------------
 			# Extract tabular data as an XLSX stream (also known as filter)
 			puts "Extract tabular data as an XLSX stream"
 	
@@ -124,11 +115,8 @@ def main()
 			DataExtractionModule.ExtractData($inputPath + "paragraphs_and_tables.pdf", outputFile, DataExtractionModule::E_DocStructure)
 
 			puts "Result saved in " + outputFile
-		rescue => error
-			puts "Unable to extract document structure data, error: " + error.message
-		end
 
-		begin
+			#------------------------------------------------------
 			# Extract document structure as a JSON string
 			puts "Extract document structure as a JSON string"
 	
@@ -161,20 +149,17 @@ def main()
 			# Extract form fields as a JSON file
 			puts "Extract form fields as a JSON file"
 	
-			outputFile = $outputPath + "form1.json"
-			DataExtractionModule.ExtractData($inputPath + "form1.pdf", outputFile, DataExtractionModule::E_Form)
+			outputFile = $outputPath + "formfields-scanned.json"
+			DataExtractionModule.ExtractData($inputPath + "formfields-scanned.pdf", outputFile, DataExtractionModule::E_Form)
 
 			puts "Result saved in " + outputFile
-		rescue => error
-			puts "Unable to extract form fields data, error: " + error.message
-		end
 
-		begin
+			#------------------------------------------------------
 			# Extract form fields as a JSON string
 			puts "Extract form fields as a JSON string"
 	
-			outputFile = $outputPath + "formfield.json"
-			json = DataExtractionModule.ExtractData($inputPath + "formfield.pdf", DataExtractionModule::E_Form)
+			outputFile = $outputPath + "formfields.json"
+			json = DataExtractionModule.ExtractData($inputPath + "formfields.pdf", DataExtractionModule::E_Form)
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
