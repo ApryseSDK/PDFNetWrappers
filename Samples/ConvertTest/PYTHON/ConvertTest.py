@@ -168,6 +168,14 @@ def ConvertSpecificFormats():
         tiff_options.SetMono(True)
         Convert.ToTiff(inputPath + "newsletter.pdf", outputPath + "newsletter.tiff", tiff_options)
         print("Saved newsletter.tiff")
+
+        # Convert SVG file to PDF
+        print("Converting SVG to PDF")
+        pdfdoc = PDFDoc()
+        Convert.FromSVG(pdfdoc, inputPath + "tiger.svg")
+        pdfdoc.Save(outputPath + "svg2pdf.pdf", SDFDoc.e_remove_unused)
+        print("Saved svg2pdf.pdf")
+
     except:
         ret = 1
     return ret

@@ -5,8 +5,6 @@ String cron_string = isBaseBranch(env.BRANCH_NAME) ? cron_default : ""
 pipeline {
     agent { label 'windows_fleet' }
 
-    triggers { cron(cron_string) }
-
     options {
         quietPeriod(60)
         disableConcurrentBuilds()
@@ -15,6 +13,10 @@ pipeline {
 
     environment {
         BUILD_TYPE   = "experimental"
+    }
+
+    parameters {
+        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
     }
 
     stages {
@@ -26,8 +28,19 @@ pipeline {
 
         stage ('Build') {
             steps {
+                script {
+                    def pulling_branch = env.BRANCH_NAME
+                    if (env.BRANCH_NAME == 'next_release') {
+                        pulling_branch = 'master'
+                    }
+                    dir('PDFNetC') {
+                        s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.zip", params.INVOKER_BUILD_ID)
+                    }
+                }
+
+
                 powershell '''
-                    python3 build.py
+                    python3 build.py --skip_dl
                 '''
 
                 zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
@@ -45,11 +58,11 @@ pipeline {
         stage ('Upload') {
             steps {
                 s3ArtifactUpload("build/PDFTronGo.zip")
-                // withCredentials([usernamePassword(credentialsId: 's3_upload_nightly_creds', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                //     sh '''
-                //         python ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.tar.gz -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
-                //     '''
-                // }
+                withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
+                    powershell '''
+                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.zip -ak $env:AWS_ACCESS -s $env:AWS_SECRET -b $env:BUILD_TYPE --force
+                    '''
+                }
             }
         }
     }

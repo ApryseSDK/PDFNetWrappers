@@ -137,6 +137,13 @@ function ConvertSpecificFormats()
 		$tiff_options->SetMono(true);
 		Convert::ToTiff($inputPath . "newsletter.pdf", $outputPath. "newsletter.tiff", $tiff_options);
 		echo(nl2br("Saved newsletter.tiff\n"));
+
+		// Convert SVG file to PDF
+		echo(nl2br("Converting SVG to PDF\n"));
+		$pdfdoc = new PDFDoc();
+		Convert::FromSVG($pdfdoc, $inputPath . "tiger.svg");
+		$pdfdoc->Save($outputPath . "svg2pdf.pdf", SDFDoc::e_remove_unused);
+		echo(nl2br("Saved svg2pdf.pdf\n"));
 	}
     catch(Exception $e){
         $ret = 1;

@@ -21,6 +21,10 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
+    parameters {
+        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
+    }
+
     environment {
         BUILD_TYPE   = "experimental"
         GOCACHE      = "/tmp/.cache"
@@ -35,11 +39,23 @@ pipeline {
 
         stage ('Build') {
             steps {
+                script {
+                    def pulling_branch = env.BRANCH_NAME
+                    if (env.BRANCH_NAME == 'next_release') {
+                        pulling_branch = 'master'
+                    }
+
+                    dir('PDFNetC') {
+                        s3ArtifactCopyInvoke("PDFNetC64_GCC48/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.tar.gz", params.INVOKER_BUILD_ID)
+                    }
+                }
+
                 sh '''
-                    python3 build.py
+                    python3 build.py --skip_dl
                 '''
 
-                zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
+                zip zipFile: "build/PDFTronGoLinux.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
+
             }
         }
 
@@ -53,12 +69,13 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                s3ArtifactUpload("build/PDFTronGo.zip")
-                // withCredentials([usernamePassword(credentialsId: 's3_upload_nightly_creds', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                //     sh '''
-                //         python ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.tar.gz -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} -ak ${AWS_ACCESS} -s ${AWS_SECRET} --force
-                //     '''
-                // }
+                s3ArtifactUpload("build/PDFTronGoLinux.zip")
+                withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
+                    sh '''
+                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoLinux.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} --force
+                    '''
+                }
+
             }
         }
     }

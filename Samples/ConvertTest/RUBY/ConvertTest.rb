@@ -133,6 +133,12 @@ def ConvertSpecificFormats()
 		tiff_options.SetMono(true)
 		Convert.ToTiff($inputPath + "newsletter.pdf", $outputPath + "newsletter.tiff", tiff_options)
 		puts "Saved newsletter.tiff"
+
+		pdfdoc = PDFDoc.new()
+		puts "Converting SVG to PDF"
+		Convert.FromSVG(pdfdoc, $inputPath + "tiger.svg")
+		pdfdoc.Save($outputPath + "svg2pdf.pdf", SDFDoc::E_remove_unused)
+		puts "Saved svg2pdf.pdf"
 	rescue
 		ret = 1
 	end
