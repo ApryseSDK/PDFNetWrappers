@@ -19,7 +19,6 @@ pipeline {
         string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
     }
 
-
     stages {
         stage('Checkout') {
             steps {

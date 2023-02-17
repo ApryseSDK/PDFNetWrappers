@@ -13,6 +13,8 @@ pipeline {
         }
     }
 
+    triggers { cron(cron_string) }
+
     options {
         quietPeriod(60)
         disableConcurrentBuilds()
@@ -53,6 +55,7 @@ pipeline {
                 '''
 
                 zip zipFile: "build/PDFTronGoLinux.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
+
             }
         }
 
@@ -72,6 +75,7 @@ pipeline {
                         python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoLinux.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} --force
                     '''
                 }
+
             }
         }
     }
