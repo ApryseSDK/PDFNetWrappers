@@ -70,7 +70,7 @@ def main()
 			puts "Extract tabular data as an XLSX file"
 	
 			outputFile = $outputPath + "table.xlsx"
-			DataExtractionModule.ExtractToXSLX($inputPath + "table.pdf", outputFile)
+			DataExtractionModule.ExtractToXLSX($inputPath + "table.pdf", outputFile)
 	
 			puts "Result saved in " + outputFile
 
@@ -82,7 +82,7 @@ def main()
 			outputXlsxStream = Filters.MemoryFilter.new(0, false)
 			options = DataExtractionOptions.new()
 			options.SetPages("1") # page 1
-			DataExtractionModule.ExtractToXSLX($inputPath + "financial.pdf", outputXlsxStream, options)
+			DataExtractionModule.ExtractToXLSX($inputPath + "financial.pdf", outputXlsxStream, options)
 			outputXlsxStream.SetAsInputFilter()
 			outputXlsxStream.WriteToFile(outputFile, false)
 	

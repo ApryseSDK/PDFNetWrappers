@@ -81,7 +81,7 @@ function main()
 			echo(nl2br("Extract tabular data as an XLSX file\n"));
 
 			$outputFile = $outputPath."table.xlsx";
-			DataExtractionModule::ExtractToXSLX($inputPath."table.pdf", $outputFile);
+			DataExtractionModule::ExtractToXLSX($inputPath."table.pdf", $outputFile);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
 
@@ -93,7 +93,7 @@ function main()
 			$outputXlsxStream = new MemoryFilter(0, false);
 			$options = new DataExtractionOptions();
 			$options.setPages("1"); // page 1
-			DataExtractionModule::ExtractToXSLX($inputPath."financial.pdf", $outputXlsxStream, $options);
+			DataExtractionModule::ExtractToXLSX($inputPath."financial.pdf", $outputXlsxStream, $options);
 			$outputXlsxStream.setAsInputFilter();
 			$outputXlsxStream.writeToFile($outputFile, false);
 
