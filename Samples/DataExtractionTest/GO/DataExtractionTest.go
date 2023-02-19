@@ -95,7 +95,7 @@ func TestTabularData() (err error) {
 
 	inputFile = inputPath + "table.pdf"
 	outputFile = outputPath + "table.xlsx"
-	DataExtractionModuleExtractToXSLX(inputFile, outputFile)
+	DataExtractionModuleExtractToXLSX(inputFile, outputFile)
 
 	fmt.Println("Result saved in " + outputFile)
 
@@ -107,7 +107,7 @@ func TestTabularData() (err error) {
 	outputXlsxStream := NewMemoryFilter(0, false)
 	options := NewDataExtractionOptions()
 	options.SetPages("1"); // page 1
-	DataExtractionModuleExtractToXSLX(inputFile, outputXlsxStream, options)
+	DataExtractionModuleExtractToXLSX(inputFile, outputXlsxStream, options)
 	outputXlsxStream.SetAsInputFilter()
 	outputXlsxStream.WriteToFile(outputFile, false)
 
