@@ -6,10 +6,9 @@
 package main
 import (
 	"fmt"
-	. "pdftron"
+	"testing"
+	. "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
@@ -107,11 +106,11 @@ func ConvertToHtmlReflowParagraphTest2() (err error) {
 
 //---------------------------------------------------------------------------------------
 
-func main() {
+func TestPDF2HTML(t *testing.T) {
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
 
 	//-----------------------------------------------------------------------------------
 

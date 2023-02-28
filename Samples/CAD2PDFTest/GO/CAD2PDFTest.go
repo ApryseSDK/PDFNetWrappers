@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing test files.
 var inputPath = "../../TestFiles/CAD/"
@@ -19,12 +18,12 @@ var outputPath = "../../TestFiles/Output/"
 // The following sample illustrates how to use CAD module
 // --------------------------------------------------------------------------------------
 
-func main(){
+func TestCAD2PDF(t *testing.T){
 
     // The first step in every application using PDFNet is to initialize the
     // library and set the path to common PDF resources. The library is usually
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     // The location of the CAD Module
     PDFNetAddResourceSearchPath("../../../PDFNetC/Lib/")

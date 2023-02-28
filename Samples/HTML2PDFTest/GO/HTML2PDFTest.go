@@ -5,12 +5,11 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-	. "pdftron"
+    "fmt"
+    "testing"
+    "strconv"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to convert HTML pages to PDF format using
@@ -29,7 +28,7 @@ import  "pdftron/Samples/LicenseKey/GO"
 // - Optionally add table of contents, including setting the depth and appearance.
 //---------------------------------------------------------------------------------------
 
-func main(){
+func TestHTM2PDF(t *testing.T){
     outputPath := "../../TestFiles/Output/html2pdf_example"
     host := "https://www.pdftron.com"
     page0 := "/"
@@ -39,7 +38,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     // For HTML2PDF we need to locate the html2pdf module. If placed with the 
     // PDFNet library, or in the current working directory, it will be loaded

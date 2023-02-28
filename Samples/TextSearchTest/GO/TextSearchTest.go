@@ -5,13 +5,12 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-	. "math"
-	. "pdftron"
+    "fmt"
+    "strconv"
+    "testing"
+    . "math"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // This sample illustrates the basic text search capabilities of PDFNet.
 
@@ -19,9 +18,9 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func main(){
+func TestTextSearch(t *testing.T){
     // Initialize PDFNet
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     doc := NewPDFDoc(inputPath + "credit card numbers.pdf")
     doc.InitSecurityHandler()
     

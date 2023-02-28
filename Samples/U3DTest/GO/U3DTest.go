@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
@@ -86,8 +85,8 @@ func Create3DAnnotation(doc PDFDoc, annots Obj){
     apDict.Put("N", normalApStream)
 }
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestU3D(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     doc := NewPDFDoc()
     page := doc.PageCreate()

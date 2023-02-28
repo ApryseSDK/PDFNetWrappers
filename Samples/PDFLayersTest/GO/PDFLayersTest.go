@@ -5,11 +5,11 @@
 
 package main
 import (
+    "testing"
     "fmt"
-    . "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
 
 //-----------------------------------------------------------------------------------
 // This sample demonstrates how to create layers in PDF.
@@ -156,7 +156,7 @@ func CreateGroup3(doc PDFDoc, layer Obj) Obj{
 }
 
 func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     // Create three layers...
     doc := NewPDFDoc()

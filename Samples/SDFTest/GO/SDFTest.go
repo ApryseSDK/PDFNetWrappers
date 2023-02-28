@@ -5,17 +5,16 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
-
-// This sample illustrates how to use basic SDF API (also known as Cos) to edit an 
+// This sample illustrates how to use basic SDF API (also known as Cos) to edit an
 // existing document.
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestSDF(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

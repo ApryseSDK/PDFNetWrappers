@@ -6,11 +6,10 @@
 package main
 import (
 	"fmt"
+	"testing"
 	"os"
-	. "pdftron"
+	. "github.com/pdftron/pdftron-go"
 )
-
-import "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The Data Extraction suite is an optional PDFNet add-on collection that can be used to
@@ -203,11 +202,11 @@ func TestFormFields() (err error) {
 
 //---------------------------------------------------------------------------------------
 
-func main() {
+func TestDataExtraction(t *testing.T) {
 	// The first step in every application using PDFNet is to initialize the 
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
-	PDFNetInitialize(PDFTronLicense.Key)
+	PDFNetInitialize(GetLicense())
 
 	//-----------------------------------------------------------------------------------
 

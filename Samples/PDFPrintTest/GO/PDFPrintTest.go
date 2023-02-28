@@ -5,10 +5,9 @@
 
 package main
 import (
-	. "pdftron"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // The following sample illustrates how to print PDF document using currently selected
 // default printer. 
@@ -23,8 +22,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 // If you would like to rasterize page at high resolutions (e.g. more than 600 DPI), you 
 // should use PDFRasterizer or PDFNet vector output instead of PDFDraw.
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestPDFPrint(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

@@ -5,12 +5,11 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-	. "pdftron"
+    "fmt"
+    "testing"
+    "strconv"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
@@ -547,8 +546,8 @@ func CreateTestAnnots(doc PDFDoc){
     st.RefreshAppearance()
 }    
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestAnnotation(t *testing.T){
+    PDFNetInitialize(GetLicense())
    
     doc := NewPDFDoc(inputPath + "numbered.pdf")
     doc.InitSecurityHandler()

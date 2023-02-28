@@ -7,11 +7,10 @@ package main
 import (
     "fmt"
     "strconv"
+    "testing"
     "os"
-    . "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //-----------------------------------------------------------------------------------------
 // The sample code illustrates how to read and edit existing outline items and create 
@@ -65,8 +64,8 @@ func PrintOutlineTree (item Bookmark){
     }
 }            
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestBookmark(t *testing.T){
+    PDFNetInitialize(GetLicense())
 
     // The following example illustrates how to create and edit the outline tree
     // using high-level Bookmark methods.

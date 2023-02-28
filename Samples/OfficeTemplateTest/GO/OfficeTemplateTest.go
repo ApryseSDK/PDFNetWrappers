@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //------------------------------------------------------------------------------
 // The following sample illustrates how to use ConvertOfficeToPDF
@@ -30,11 +29,11 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func main(){
+func TestOfficeTemplate(t *testing.T){
     // The first step in every application using PDFNet is to initialize the
     // library. The library is usually initialized only once, but calling
     // Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     PDFNetSetResourcesPath("../../Resources")
 
     var inputFileName = "SYH_Letter.docx"

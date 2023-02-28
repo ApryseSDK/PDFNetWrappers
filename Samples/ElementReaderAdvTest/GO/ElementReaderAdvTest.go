@@ -6,12 +6,11 @@
 package main
 import (
 	"fmt"
+    "testing"
     "os"
     "strconv"
-	. "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 func ProcessPath(reader ElementReader, path Element){
     if path.IsClippingPath(){
@@ -276,8 +275,8 @@ func ProcessElements(reader ElementReader){
     }
 }
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestElementReaderAdv(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

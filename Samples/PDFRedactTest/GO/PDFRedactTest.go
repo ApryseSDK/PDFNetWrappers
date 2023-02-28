@@ -5,13 +5,12 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
-
-// PDF Redactor is a separately licensable Add-on that offers options to remove 
+// PDF Redactor is a separately licensable Add-on that offers options to remove
 // (not just covering or obscuring) content within a region of PDF. 
 // With printed pages, redaction involves blacking-out or cutting-out areas of 
 // the printed page. With electronic documents that use formats such as PDF, 
@@ -45,16 +44,16 @@ func Redact(input string, output string, vec VectorRedaction, app Appearance){
     if doc.InitSecurityHandler(){
         RedactorRedact(doc, vec, app, false, true)
         doc.Save(output, uint(SDFDocE_linearized))
-	}
+    }
 }                                  
 
-func main(){
+func TestPDFRedact(t *testing.T){
 
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
     outputPath := "../../TestFiles/Output/"
     
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     vec := NewVectorRedaction()
     vec.Add(NewRedaction(1, NewRect(100.0, 100.0, 550.0, 600.0), false, "Top Secret"))

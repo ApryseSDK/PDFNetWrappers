@@ -5,9 +5,10 @@
 
 package main
 import (
-	"fmt"
+    "fmt"
+    "testing"
     "strconv"
-	. "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
 
 import  "pdftron/Samples/LicenseKey/GO"
@@ -29,9 +30,9 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func main(){
+func TestPageLabels(t *testing.T){
     // Initialize PDFNet
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     //-----------------------------------------------------------
     // Example 1: Add page labels to an existing or newly created PDF

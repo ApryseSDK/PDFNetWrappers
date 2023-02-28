@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // PDFNet includes a full support for FDF (Forms Data Format) and capability to merge/extract 
@@ -17,8 +16,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 // available in PDFNet.
 //---------------------------------------------------------------------------------------
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestFDF(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
@@ -144,8 +143,8 @@ func CreateAxialShading(doc PDFDoc) Obj{
     return patternDict
 }    
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestPattern(t *testing.T){
+    PDFNetInitialize(GetLicense())
       
     doc := NewPDFDoc()
     writer := NewElementWriter()
