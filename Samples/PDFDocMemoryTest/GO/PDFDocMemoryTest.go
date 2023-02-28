@@ -6,14 +6,13 @@
 package main
 import (
     "fmt"
+    "testing"
     "os"
-    . "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
-
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestPDFDocMemory(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

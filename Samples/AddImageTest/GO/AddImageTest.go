@@ -6,10 +6,9 @@
 package main
 import (
 	"fmt"
-	. "pdftron"
+	"testing"
+	. "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //-----------------------------------------------------------------------------------
 // This sample illustrates how to embed various raster image formats
@@ -19,8 +18,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 // be present in the system path.
 //-----------------------------------------------------------------------------------
 
-func main(){
-	PDFNetInitialize(PDFTronLicense.Key)
+func TestAddImage(t *testing.T){
+	PDFNetInitialize(GetLicense())
 	// Relative path to the folder containing test files.
 	var inputPath = "../../TestFiles/"
 	var outputPath = "../../TestFiles/Output/"

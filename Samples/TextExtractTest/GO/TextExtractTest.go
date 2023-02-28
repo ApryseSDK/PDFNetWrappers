@@ -5,13 +5,12 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-	"os"
-	. "pdftron"
+    "fmt"
+    "testing"
+    "strconv"
+    "os"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 func PrintStyle (style Style){
     sansSerifStr := ""
@@ -85,8 +84,8 @@ func RectTextSearch (reader ElementReader, pos Rect) string{
     return srchStr2
 }
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestTextExtract(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing test files.
     inputPath :=  "../../TestFiles/newsletter.pdf"

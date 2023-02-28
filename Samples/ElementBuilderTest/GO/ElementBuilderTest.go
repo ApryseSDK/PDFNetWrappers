@@ -6,11 +6,10 @@
 package main
 import (
     "fmt"
+    "testing"
     "strings"
-    . "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
@@ -27,8 +26,8 @@ func Find(s, substr string, offset int) int {
 }
 
 //-----------------------------------------------------------------------------------------------------------------------
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestElementBuilder(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     doc := NewPDFDoc()
     

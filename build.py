@@ -2,69 +2,72 @@ import os
 import argparse
 import re
 import shutil
-import urllib.request
 import platform
 import tarfile
 import subprocess
 from zipfile import ZipFile as zipfile
 from pathlib import Path as path
 
+rootDir = os.getcwd()
+if not os.path.exists("PDFTronGo"):
+    raise ValueError("PDFTronGo cannot be found, run this script from the root of the repo.")
+
 def execute_replace(input, script):
-   i = 0
-   script_len = len(script)
-   while True:
-      while i < script_len:
-         if script[i] == '/\n':
+    i = 0
+    script_len = len(script)
+    while True:
+        while i < script_len:
+            if script[i] == '/\n':
+                i += 1
+                break
             i += 1
+        if i >= script_len:
             break
-         i += 1
-      if i >= script_len:
-         break
-      before = ''
-      while i < script_len:
-         if script[i] == '/\n':
+        before = ''
+        while i < script_len:
+            if script[i] == '/\n':
+                i += 1
+                break
+            before += script[i]
             i += 1
+        if i >= script_len:
             break
-         before += script[i]
-         i += 1
-      if i >= script_len:
-         break
-      after = ''
-      while i < script_len:
-         if script[i] == '/\n':
+        after = ''
+        while i < script_len:
+            if script[i] == '/\n':
+                i += 1
+                break
+            after += script[i]
             i += 1
+            input = input.replace(before, after)
+        if i >= script_len:
             break
-         after += script[i]
-         i += 1
-      input = input.replace(before, after)
-      if i >= script_len:
-         break
-   return input
+    return input
 
 def replacego(filepath):
     filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
     with open(filepathname, "r") as f:
-       cxx = f.read()
+        cxx = f.read()
 
     filepathname = os.path.join(filepath, "pdftron_wrap.h")
     with open(filepathname, "r") as f:
-       h = f.read()
+        h = f.read()
 
     filepathname = os.path.join(filepath, "pdftron.go")
     with open(filepathname, "r") as f:
-       go = f.read()
+        go = f.read()
 
     filepathname = os.path.join(filepath, "pdftron_wrap.cxx.replace")
     with open(filepathname, "r") as f:
-       cxx_replace = f.readlines()
+        cxx_replace = f.readlines()
 
     filepathname = os.path.join(filepath, "pdftron_wrap.h.replace")
     with open(filepathname, "r") as f:
-       h_replace = f.readlines()
+        h_replace = f.readlines()
 
     filepathname = os.path.join(filepath, "pdftron.go.replace")
     with open(filepathname, "r") as f:
-       go_replace = f.readlines()
+        go_replace = f.readlines()
 
     uid = re.search(r'(extern\s+\w+\s+_wrap_\w+_pdftron_)(\w+)(\()', go).group(2)
 
@@ -79,155 +82,136 @@ def replacego(filepath):
 
     filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
     with open(filepathname, "w+") as f:
-       f.write(cxx)
+        f.write(cxx)
 
     filepathname = os.path.join(filepath, "pdftron_wrap.h")
     with open(filepathname, "w+") as f:
-       f.write(h)
+        f.write(h)
 
     filepathname = os.path.join(filepath, "pdftron.go")
     with open(filepathname, "w+") as f:
-       f.write(go)
+        f.write(go)
 
-def fixSamples(rootDir):
-    substr1 = "RUBY"
-    substr2 = "PHP"
-    substr3 = "PYTHON"
-    strbatfile = ""
+def fixSamples():
+    samples_path = os.path.join(rootDir, "build/PDFTronGo/pdftron/Samples")
 
-    rootDir = os.path.join(rootDir, "build/PDFTronGo/pdftron/Samples")
-    if not os.path.isdir(rootDir):
-        raise Exception("Samples dir not found.");
+    if not os.path.isdir(samples_path):
+        raise Exception("Samples dir not found.")
 
-    for dirName, subdirList, fileList in os.walk(rootDir):
-        if substr1 in dirName  or substr2 in dirName or substr3 in dirName :
+    for dirName, subdirList, fileList in os.walk(samples_path):
+        if "GO" not in dirName:
             shutil.rmtree(dirName)
-        else:
-            for fname in fileList:
-                if re.match(fname, "RunTest.bat") :
-                    print('Found directory: %s' % dirName)
-                    print('\t%s' % fname)
-                    strbatfile = dirName + "/" + fname
-                    f = open(strbatfile,"r")
-                    filedata = f.read()
-                    f.close()
-                    newdata = filedata.replace("setlocal", "if not exist ..\..\\bin\pdftron.dll (\n\tcopy ..\..\..\PDFNetC\Lib\pdftron.dll ..\..\\bin\pdftron.dll >nul \n)\n\nsetlocal\n")
 
-                    f = open(strbatfile,"w")
-                    f.write(newdata)
-                    f.close()
-
-def copyPaths(prefix, srcPaths, dest):
-    for path in srcPaths:
-        print("Copying %s/%s to %s..." % (prefix, path, dest))
-        shutil.copytree(os.path.join(prefix, path), os.path.join(dest, path), dirs_exist_ok=True)
-
-def extractArchive(fileName):
+def extractArchive(fileName, dest):
     ext = path(fileName)
     ext = ''.join(ext.suffixes)
     if ext == ".tar.gz":
-        tarfile.open(fileName).extractall();
+        tarfile.open(fileName).extractall(dest)
     else:
         with zipfile(fileName, 'r') as archive:
-            archive.extractall()
+            archive.extractall(dest)
+
+def buildWindows(cmakeCommand):
+    if not os.path.exists("PDFNetC64.zip"):
+        raise ValueError("Cannot find PDFNetC64.zip")
+
+    extractArchive("PDFNetC64.zip")
+    gccCommand = "g++ -shared -I%s/Headers -L . -lPDFNetC pdftron_wrap.cxx -o pdftron.dll"
+
+    os.chdir("%s/build" % rootDir)
+    runCommand(cmakeCommand)
+
+    root_path = os.path.join(rootDir, "PDFTronGo", "CI", "Windows")
+    dest_path = os.path.join(rootDir, "PDFTronGo", "pdftron")
+    shutil.copy(os.path.join(root_path, "pdftron.go.replace"), dest_path)
+    shutil.copy(os.path.join(root_path, "pdftron_wrap.cxx.replace"), dest_path)
+    shutil.copy(os.path.join(root_path, "pdftron_wrap.h.replace"), dest_path)
+    replacego(dest_path)
+    shutil.move(os.path.join(dest_path, "pdftron_wrap.cxx"), os.path.join("PDFNetC", "Lib"))
+    shutil.move(os.path.join(dest_path, "pdftron_wrap.h"), os.path.join("PDFNetC", "Lib"))
+    os.remove(os.path.join(dest_path, "pdfnetc.lib"))
+
+    os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    runCommand(gccCommand)
+    os.chdir(rootDir)
+
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
+    insertCGODirectives("%s/build/PDFTronGo/pdftron/pdftron.go" % rootDir, cxxflags, ldflags)
+    setBuildDirectives("%s/build/PDFTronGo/pdftron" % rootDir, "pdftron.go")
+
+def buildLinux(cmakeCommand):
+    print("Running Linux build...")
+    if not os.path.exists("PDFNetC64.tar.gz"):
+        raise ValueError("Cannot find PDFNetC64.tar.gz")
+
+    extractArchive("PDFNetC64.tar.gz", "%s/PDFNetC" % rootDir)
+
+    gccCommand = "g++ -fuse-ld=gold -fpic -I../Headers -L . -lPDFNetC -Wl,-rpath,. -shared -static-libstdc++ pdftron_wrap.cxx -o libpdftron.so"
+
+    os.chdir("%s/build" % rootDir)
+    runCommand(cmakeCommand)
+    os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    runCommand(gccCommand)
+    os.chdir(rootDir)
+
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib"'
+    insertCGODirectives("%s/build/PDFTronGo/pdftron/pdftron.go" % rootDir, cxxflags, ldflags)
+    setBuildDirectives("%s/build/PDFTronGo/pdftron" % rootDir, "pdftron.go")
+
+def buildDarwin(cmakeCommand):
+    if not os.path.exists("PDFNetCMac.zip"):
+        raise ValueError("Cannot find PDFNetCMac.zip")
+
+    extractArchive("PDFNetCMac.zip")
+    os.remove("PDFNetCMac.zip")
+    gccCommand = "gcc -fPIC -lstdc++ -I../Headers -L. -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o libpdftron.dylib"
+
+    os.chdir("%s/build" % rootDir)
+    runCommand(cmakeCommand)
+    os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    runCommand(gccCommand)
+    os.chdir(rootDir)
+
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib"'
+    insertCGODirectives("%s/build/PDFTronGo/pdftron/pdftron.go" % rootDir, cxxflags, ldflags)
+    setBuildDirectives("%s/build/PDFTronGo/pdftron" % rootDir, "pdftron.go")
+
+def runCommand(cmd):
+    try:
+        for data in execute(cmd):
+            print(data, end="")
+    except subprocess.CalledProcessError as e:
+        print(e.stdout.decode())
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument('-dl', '--download_link', dest='dl', default='')
     parser.add_argument('-cs', '--custom_swig', dest='custom_swig', default='')
-    # skips nightly pull
-    parser.add_argument('-sdl', '--skip_dl', dest='skip_dl', action='store_true')
 
     stored_args, ignored_args = parser.parse_known_args()
-
-    core_download_link = stored_args.dl
     custom_swig = stored_args.custom_swig
-    skip_dl = stored_args.skip_dl
 
-    rootDir = os.getcwd()
     try:
         shutil.rmtree("build", ignore_errors=True)
     except FileNotFoundError:
         pass
+
     os.mkdir("build")
-    # provided by repo
-    os.chdir("PDFNetC")
 
-    gccCommand = ""
-    cmakeCommand = "cmake -D BUILD_PDFTronGo=ON"
+    cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
     if custom_swig:
-       cmakeCommand += " -D CUSTOM_SWIG=%s" % custom_swig
-
-    cmakeCommand += ' ..'
+        cmakeCommand += " -D CUSTOM_SWIG=%s" % custom_swig
 
     if platform.system().startswith('Windows'):
-        print("Running Windows build...")
-        if not core_download_link:
-           core_download_link = 'http://www.pdftron.com/downloads/PDFNetC64.zip'
-        if not skip_dl:
-           print("Downloading PDFNetC64...")
-           urllib.request.urlretrieve(core_download_link, "PDFNetC64.zip")
-        extractArchive("PDFNetC64.zip")
-        os.remove("PDFNetC64.zip")
-        copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
-        cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
-        gccCommand = "g++ -shared -I../Headers -L . -lPDFNetC pdftron_wrap.cxx -o pdftron.dll"
+        buildWindows(cmakeCommand)
     elif platform.system().startswith('Linux'):
-        print("Running Linux build...")
-        if not core_download_link:
-           core_download_link = 'http://www.pdftron.com/downloads/PDFNetC64.tar.gz'
-        print(core_download_link)
-        if not skip_dl:
-           print("Downloading PDFNetC64...")
-           urllib.request.urlretrieve(core_download_link, 'PDFNetC64.tar.gz')
-        extractArchive("PDFNetC64.tar.gz")
-        os.remove("PDFNetC64.tar.gz")
-        copyPaths('PDFNetC64', ['Headers', 'Lib'], '.')
-        gccCommand = "g++ -fuse-ld=gold -fpic -I ../Headers -L . -lPDFNetC -Wl,-rpath,. -shared -static-libstdc++ pdftron_wrap.cxx -o libpdftron.so"
+        buildLinux(cmakeCommand)
     else:
-        print("Running Mac build...")
-        if not core_download_link:
-           core_download_link = 'http://www.pdftron.com/downloads/PDFNetCMac.zip'
-        if not skip_dl:
-           print("Downloading PDFNetC64...")
-           urllib.request.urlretrieve(core_download_link, 'PDFNetCMac.zip')
-
-        extractArchive("PDFNetCMac.zip")
-        os.remove("PDFNetCMac.zip")
-        copyPaths('PDFNetCMac', ['Headers', 'Lib', 'Resources'], '.')
-        gccCommand = "gcc -fPIC -lstdc++ -I../Headers -L. -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o libpdftron.dylib"
+        buildDarwin(cmakeCommand)
 
     os.chdir("../build")
-
-    print("Starting cmake: " + cmakeCommand)
-    try:
-        for data in execute(cmakeCommand):
-           print(data, end="")
-    except subprocess.CalledProcessError as e:
-        print(e.stdout.decode())
-        raise
-
-    print("Moving pdftron wrap...")
-    os.chdir(os.path.join("PDFTronGo", "pdftron"))
-    if platform.system().startswith('Windows'):
-        shutil.copy(os.path.join(rootDir, "PDFTronGo", "CI", "Windows", "pdftron.go.replace"), '.')
-        shutil.copy(os.path.join(rootDir, "PDFTronGo", "CI", "Windows", "pdftron_wrap.cxx.replace"), '.')
-        shutil.copy(os.path.join(rootDir, "PDFTronGo", "CI", "Windows", "pdftron_wrap.h.replace"), '.')
-        replacego('.')
-    shutil.move("pdftron_wrap.cxx", os.path.join("PDFNetC", "Lib"))
-    shutil.move("pdftron_wrap.h", os.path.join("PDFNetC", "Lib"))
-    os.chdir(os.path.join("PDFNetC", "Lib"))
-    if platform.system().startswith('Windows'):
-        os.remove("pdfnetc.lib")
-
-    print("Running GCC: " + gccCommand)
-    try:
-        for data in execute(gccCommand):
-           print(data, end="")
-
-    except subprocess.CalledProcessError as e:
-        print(e.stdout.decode())
-        raise
 
     print("Fixing samples...")
     fixSamples(rootDir)
@@ -235,12 +219,44 @@ def main():
     print("Build completed.")
     return 0
 
+# inserts CGO LDFLAGS/CXFLAGS for usage during go build
+# Should be inserted into any generated swig files at the start of the /* swig */ comment
+# https://pkg.go.dev/cmd/cgo
+def insertCGODirectives(cxxflags, ldflags, filename):
+    inserted = False
+    data = ''
+    with open(filename, "r") as original:
+        for line in original.read():
+            if "#define intgo swig_intgo" in line and not inserted:
+                inserted = True
+                data += "%s\n%s\n" % (cxxflags, ldflags)
+                data += line
+
+
+# Sets where the source file should build. For single OS files we just
+# change the name to the build machine type. For Linux we support multiple unix like architectures
+# https://pkg.go.dev/go/build
+# Should use +build instead of new //go:build to support 1.15
+def setBuildDirectives(src_dir, filename):
+    if platform.system().startswith('Linux'):
+        text = "// +build freebsd linux netbsd openbsd"
+        print("Writing %s to %s" % (text, filename))
+        actual_path = os.path.join(src_dir, filename)
+        with open(actual_path, "r") as original:
+            data = original.read()
+        with open(actual_path, "w") as modified:
+            modified.write("%s\n%s" % (text, data))
+    elif platform.system().startswith('Windows'):
+        os.rename(os.path.join(src_dir, filename), os.path.join(src_dir, 'pdftron_windows.go'))
+    else:
+        os.rename(os.path.join(src_dir, filename), os.path.join(src_dir, 'pdftron_darwin.go'))
+
 def execute(cmd):
     popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True, shell=True)
     for stdout_line in iter(popen.stdout.readline, ""):
         yield stdout_line
-    popen.stdout.close()
-    return_code = popen.wait()
+        popen.stdout.close()
+        return_code = popen.wait()
     if return_code:
         raise subprocess.CalledProcessError(return_code, cmd)
 

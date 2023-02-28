@@ -5,12 +5,11 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-	. "pdftron"
+    "fmt"
+    "strconv"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // This sample shows encryption support in PDFNet. The sample reads an encrypted document and 
@@ -18,8 +17,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 // be removed from an existing PDF document.
 //---------------------------------------------------------------------------------------
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestEnc(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

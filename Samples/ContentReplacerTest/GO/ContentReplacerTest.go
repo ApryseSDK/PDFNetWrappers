@@ -6,10 +6,9 @@
 package main
 import (
 	"fmt"
-	. "pdftron"
+	"testing"
+	. "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"    
@@ -19,8 +18,8 @@ var outputPath = "../../TestFiles/Output/"
 // 'template' pdf documents easier.
 //-----------------------------------------------------------------------------------------
 
-func main(){
-	PDFNetInitialize(PDFTronLicense.Key)
+func TestContentReplacer(t *testing.T){
+	PDFNetInitialize(GetLicense())
 
 	// Example 1) Update a business card template with personalized info
 

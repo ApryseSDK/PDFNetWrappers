@@ -5,12 +5,11 @@
 
 package main
 import (
-	"fmt"
+    "fmt"
+    "testing"
     "os"
-	. "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //-----------------------------------------------------------------------------------
 // The sample illustrates how multiple pages can be combined/imposed 
@@ -21,8 +20,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 // when the hard copy pages are compiled and folded correctly. 
 //-----------------------------------------------------------------------------------
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestImposition(t *testing.T){
+    PDFNetInitialize(GetLicense())
 
     //var resource_path = ""
     //if len(os.Args) > 3{

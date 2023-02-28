@@ -5,12 +5,11 @@
 
 package main
 import (
-	. "pdftron"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
-
-// This sample project illustrates how to recompress bi-tonal images in an 
+// This sample project illustrates how to recompress bi-tonal images in an
 // existing PDF document using JBIG2 compression. The sample is not intended 
 // to be a generic PDF optimization tool.
 //
@@ -20,8 +19,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestJBIG2(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     pdfDoc := NewPDFDoc(inputPath + "US061222892-a.pdf")
     pdfDoc.InitSecurityHandler()

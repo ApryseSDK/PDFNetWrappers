@@ -6,10 +6,10 @@
 package main
 import (
     "fmt"
-    . "pdftron"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
 
@@ -32,8 +32,8 @@ func ProcessElements(reader ElementReader){
     }
 }
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestElementReader(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Extract text data from all pages in the document
     fmt.Println("-------------------------------------------------")

@@ -5,13 +5,12 @@
 
 package main
 import (
-	"fmt"
+    "fmt"
     "strconv"
+    "testing"
     "os"
-	. "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // This sample explores the structure and content of a tagged PDF document and dumps 
@@ -167,8 +166,8 @@ func ProcessStructElement2(element SElement, mcidDocMap map[int](map[int]string)
     os.Stdout.Write([]byte("</" + element.GetType() + ">"))
 }        
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestLogicalStructure(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

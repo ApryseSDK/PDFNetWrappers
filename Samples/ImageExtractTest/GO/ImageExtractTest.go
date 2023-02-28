@@ -6,11 +6,10 @@
 package main
 import (
     "fmt"
+    "testing"
     "strconv"
-    . "pdftron"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //-----------------------------------------------------------------------------------
 // This sample illustrates one approach to PDF image extraction 
@@ -70,9 +69,9 @@ func ImageExtract(reader ElementReader){
     }
 }
 
-func main(){
+func TestImageExtract(t *testing.T){
     // Initialize PDFNet
-    PDFNetInitialize(PDFTronLicense.Key)    
+    PDFNetInitialize(GetLicense())    
     
     // Example 1: 
     // Extract images by traversing the display list for 

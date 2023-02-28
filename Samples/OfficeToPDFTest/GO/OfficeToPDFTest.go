@@ -6,10 +6,9 @@
 package main
 import (
 	"fmt"
-	. "pdftron"
+	"testing"
+	. "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF.Convert utility class 
@@ -89,11 +88,11 @@ func FlexibleDocxConvert(inputFileName string , outputFileName string){
 	}
 }
 
-func main(){
+func TestOfficeToPDF(t *testing.T){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     PDFNetSetResourcesPath("../../Resources")
 
     // first the one-line conversion function

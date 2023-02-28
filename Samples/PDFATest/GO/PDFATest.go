@@ -5,12 +5,11 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-    . "pdftron"
+    "fmt"
+    "testing"
+    "strconv"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to parse and check if a PDF document meets the
@@ -36,31 +35,31 @@ func PrintResults(pdfa PDFACompliance, filename string){
                         str1 = str1 + strconv.Itoa(int(pdfa.GetRefObj(c, j)))
                         if j < num_refs-1{
                             str1 = str1 + ", "
-						}
+                        }
                         j = j + 1
-					}
-				}
-			}
+                    }
+                }
+            }
             fmt.Println(str1)
             i = i + 1
-		}
+        }
         fmt.Println("")
-	}
+    }
 }
 
-func main(){
+func TestPDFA(t *testing.T){
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
     outputPath := "../../TestFiles/Output/"
     
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     PDFNetSetColorManagement()     // Enable color management (required for PDFA validation).
     
     //-----------------------------------------------------------
     // Example 1: PDF/A Validation
     //-----------------------------------------------------------
     filename := "newsletter.pdf"
-	var cErrorCode PdftronPDFPDFAPDFAComplianceErrorCode
+    var cErrorCode PdftronPDFPDFAPDFAComplianceErrorCode
     // The max_ref_objs parameter to the PDFACompliance constructor controls the maximum number 
     // of object numbers that are collected for particular error codes. The default value is 10 
     // in order to prevent spam. If you need all the object numbers, pass 0 for max_ref_objs.
@@ -81,7 +80,7 @@ func main(){
     pdfa = NewPDFACompliance(false, outputPath + filename, "", PDFAComplianceE_Level2B, &cErrorCode, 0, 10)
     PrintResults(pdfa, filename)
     pdfa.Destroy()
-	
+
     PDFNetTerminate()
     fmt.Println("PDFACompliance test completed.")
 }

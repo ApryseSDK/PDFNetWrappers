@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The sample code shows how to edit the page display list and how to modify graphics state 
@@ -49,8 +48,8 @@ func ProcessElements(reader ElementReader, writer ElementWriter, omap map[uint]O
 	}
 }
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestElementEdit(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

@@ -8,14 +8,13 @@ import (
 	"fmt"
     "os"
     "bufio"
+    "testing"
     "strconv"
     "runtime"
-	. "pdftron"
+    . "github.com/pdftron/pdftron-go"
     "golang.org/x/text/encoding/unicode"
     "golang.org/x/text/transform"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
@@ -71,8 +70,8 @@ func ReadUnicodeTextLinesFromFile(  writer ElementWriter,
     }
 }
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestUnicodeWrite(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     doc := NewPDFDoc()
     eb := NewElementBuilder()

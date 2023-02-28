@@ -5,10 +5,10 @@
 
 package main
 import (
-	. "pdftron"
+    "testing"
+	. "github.com/pdftron/pdftron-go"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to reduce PDF file size using 'pdftron.PDF.Optimizer'.
 // The sample also shows how to simplify and optimize PDF documents for viewing on mobile devices 
@@ -38,7 +38,7 @@ import  "pdftron/Samples/LicenseKey/GO"
 // very simple representation (e.g. vector text on top of a background image). 
 //---------------------------------------------------------------------------------------
 
-func main(){
+func TestOptimizer(t *testing.T){
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"
     outputPath := "../../TestFiles/Output/"
@@ -47,7 +47,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
     // initialized only once, but calling Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     //--------------------------------------------------------------------------------
     // Example 1) Simple optimization of a pdf with default settings.

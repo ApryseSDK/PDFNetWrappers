@@ -5,11 +5,10 @@
 
 package main
 import (
-	"fmt"
-	. "pdftron"
+    "fmt"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to convert PDF, XPS, image, MS Office, and 
@@ -38,8 +37,8 @@ import  "pdftron/Samples/LicenseKey/GO"
 var inputPath = "../../TestFiles/"
 var outputPath = "../../TestFiles/Output/"
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestWebViewerConvert(t *testing.T){
+    PDFNetInitialize(GetLicense())
 
     // Sample 1:
     // Directly convert from PDF to XOD.

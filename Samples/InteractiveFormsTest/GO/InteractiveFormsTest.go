@@ -5,14 +5,13 @@
 
 package main
 import (
-	"fmt"
-	"strconv"
-	"os"
-	"math"
-	. "pdftron"
+    "fmt"
+    "testing"
+    "strconv"
+    "os"
+    "math"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 // Relative path to the folder containing the test files.
 var inputPath = "../../TestFiles/"
@@ -71,8 +70,8 @@ func CreateCustomButtonAppearance(doc PDFDoc, buttonDown bool) Obj {
     stm.PutName("Subtype","Form")
     return stm
 }    
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestInteractiveForms(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // The map (vector) used to store the name and count of all fields.
     // This is used later on to clone the fields

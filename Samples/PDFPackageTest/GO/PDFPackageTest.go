@@ -5,13 +5,12 @@
 
 package main
 import (
-	"fmt"
+    "fmt"
     "path/filepath"
     "strconv"
-	. "pdftron"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //-----------------------------------------------------------------------------------
 // This sample illustrates how to create, extract, and manipulate PDF Portfolios
@@ -65,8 +64,8 @@ func AddCoverPage(doc PDFDoc){
     // ...
 }    
 
-func main(){
-    PDFNetInitialize(PDFTronLicense.Key)
+func TestPDFPackage(t *testing.T){
+    PDFNetInitialize(GetLicense())
     
     // Relative path to the folder containing the test files.
     inputPath := "../../TestFiles/"

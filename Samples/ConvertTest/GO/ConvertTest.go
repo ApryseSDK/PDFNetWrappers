@@ -5,12 +5,11 @@
 
 package main
 import (
+	"testing"
 	"fmt"
 	"runtime"
-	. "pdftron"
+	. "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF.Convert utility class to convert 
@@ -170,11 +169,11 @@ func ConvertSpecificFormats() bool{
     return ret
 }
 
-func main(){
+func TestConvert(t *testing.T){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
 
     // Demonstrate Convert.ToPdf and Convert.Printer
     err := ConvertToPdfFromFile()

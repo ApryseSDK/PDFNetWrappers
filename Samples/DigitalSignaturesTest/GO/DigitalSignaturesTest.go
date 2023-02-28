@@ -51,12 +51,11 @@
 
 package main
 import (
-	"fmt"
+    "fmt"
     "strconv"
-	. "pdftron"
+    "testing"
+    . "github.com/pdftron/pdftron-go"
 )
-
-import  "pdftron/Samples/LicenseKey/GO"
 
 func VerifySimple(inDocpath string, inPublicKeyFilePath string) bool{
     doc := NewPDFDoc(inDocpath)
@@ -488,9 +487,9 @@ func TimestampAndEnableLTV(inDocpath string,
     return true
 }
 
-func main(){
+func TestDigitalSignatures(t *testing.T){
     // Initialize PDFNet
-    PDFNetInitialize(PDFTronLicense.Key)
+    PDFNetInitialize(GetLicense())
     
     result := true
     inputPath := "../../TestFiles/"
