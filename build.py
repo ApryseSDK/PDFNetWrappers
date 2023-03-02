@@ -6,6 +6,7 @@ import platform
 import tarfile
 import subprocess
 import shlex
+from zipfile import ZipFile as zipfile
 from pathlib import Path as path
 
 rootDir = os.getcwd()
@@ -44,28 +45,28 @@ def execute_replace(input, script):
             break
     return input
 
-def replacego(filepath):
-    filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
+def replacego(replace_path, dest_path):
+    filepathname = os.path.join(dest_path, "pdftron_wrap.cxx")
     with open(filepathname, "r") as f:
         cxx = f.read()
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.h")
+    filepathname = os.path.join(dest_path, "pdftron_wrap.h")
     with open(filepathname, "r") as f:
         h = f.read()
 
-    filepathname = os.path.join(filepath, "pdftron.go")
+    filepathname = os.path.join(dest_path, "pdftron.go")
     with open(filepathname, "r") as f:
         go = f.read()
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.cxx.replace")
+    filepathname = os.path.join(replace_path, "pdftron_wrap.cxx.replace")
     with open(filepathname, "r") as f:
         cxx_replace = f.readlines()
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.h.replace")
+    filepathname = os.path.join(replace_path, "pdftron_wrap.h.replace")
     with open(filepathname, "r") as f:
         h_replace = f.readlines()
 
-    filepathname = os.path.join(filepath, "pdftron.go.replace")
+    filepathname = os.path.join(replace_path, "pdftron.go.replace")
     with open(filepathname, "r") as f:
         go_replace = f.readlines()
 
@@ -80,15 +81,15 @@ def replacego(filepath):
     cxx = cxx.replace(old_uid, uid)
     h = h.replace(old_uid, uid)
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.cxx")
+    filepathname = os.path.join(dest_path, "pdftron_wrap.cxx")
     with open(filepathname, "w+") as f:
         f.write(cxx)
 
-    filepathname = os.path.join(filepath, "pdftron_wrap.h")
+    filepathname = os.path.join(dest_path, "pdftron_wrap.h")
     with open(filepathname, "w+") as f:
         f.write(h)
 
-    filepathname = os.path.join(filepath, "pdftron.go")
+    filepathname = os.path.join(dest_path, "pdftron.go")
     with open(filepathname, "w+") as f:
         f.write(go)
 
@@ -102,9 +103,12 @@ def fixSamples():
         if subdir.endswith("GO"):
             for file_name in os.listdir(subdir):
                 if file_name.endswith(".go"):
-                    print(subdir.split("/")[-2])
-                    test_dest = os.path.join(dest_path, subdir.split("/")[-2])
-                    print(test_dest)
+                    if os.name == "nt": 
+                        split_subdir = subdir.split("\\")
+                    else:
+                        split_subdir = subdir.split("/")
+
+                    test_dest = os.path.join(dest_path, split_subdir[-2])
                     shutil.copytree(os.path.join(subdir), test_dest)
 
     shutil.copy(os.path.join(samples_path, "runall_go.bat"), dest_path)
@@ -134,29 +138,25 @@ def buildWindows(custom_swig):
     if not os.path.exists("PDFNetC64.zip"):
         raise ValueError("Cannot find PDFNetC64.zip")
 
-    extractArchive("PDFNetC64.zip")
-    gccCommand = "clang ++ -shared -I./Headers -L./Lib -lPDFNetC Lib/pdftron_wrap.cxx -o Lib/pdftron.dll"
+    extractArchive("PDFNetC64.zip", "%s/PDFNetC" % rootDir)
+    gccCommand = "g++ -shared -I./Headers -L./Lib -lPDFNetC pdftron_wrap.cxx -o Lib/pdftron.dll"
     cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
     subprocess.run(shlex.split(cmakeCommand), check=True)
 
     root_path = os.path.join(rootDir, "PDFTronGo", "CI", "Windows")
-    dest_path = os.path.join(rootDir, "PDFTronGo", "pdftron")
-    shutil.copy(os.path.join(root_path, "pdftron.go.replace"), dest_path)
-    shutil.copy(os.path.join(root_path, "pdftron_wrap.cxx.replace"), dest_path)
-    shutil.copy(os.path.join(root_path, "pdftron_wrap.h.replace"), dest_path)
-    replacego(dest_path)
+    dest_path = os.path.join(rootDir, "build", "PDFTronGo", "pdftron")
+    replacego(root_path, dest_path)
 
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
-    shutil.move("pdftron_wrap.cxx", "Lib/")
-    shutil.move("pdftron_wrap.h", "Lib/")
 
     subprocess.run(shlex.split(gccCommand), check=True)
+    os.remove("pdftron_wrap.cxx")
+    os.remove("pdftron_wrap.h")
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
-    ldflags = '''#cgo LDFLAGS: -lstdc++
-"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'''
+    ldflags = '#cgo LDFLAGS: -lstdc++ -Wl,-rpath,"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
 
@@ -186,14 +186,6 @@ def buildLinux(custom_swig):
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
     subprocess.run(shlex.split(gccCommand), check=True)
 
-    shutil.rmtree("Lib/net5.0")
-    shutil.rmtree("Lib/net6.0")
-    shutil.rmtree("Lib/netstandard2.0")
-    shutil.rmtree("Lib/netstandard2.1")
-    os.remove("Lib/PDFNet.jar")
-    shutil.rmtree("Lib/netcoreapp2.1")
-    os.remove("Lib/libinfo.txt")
-
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
     ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
@@ -209,7 +201,7 @@ def buildDarwin(custom_swig):
     if not os.path.exists("PDFNetCMac.zip"):
         raise ValueError("Cannot find PDFNetCMac.zip")
 
-    extractArchive("PDFNetCMac.zip")
+    extractArchive("PDFNetCMac.zip", "%s/PDFNetC" % rootDir)
     os.remove("PDFNetCMac.zip")
     gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace Lib/pdftron_wrap.cxx -o Lib/libpdftron.dylib"
     cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
