@@ -40,12 +40,13 @@ def execute_replace(input, script):
                 break
             after += script[i]
             i += 1
-            input = input.replace(before, after)
+        input = input.replace(before, after)
         if i >= script_len:
             break
     return input
 
 def replacego(replace_path, dest_path):
+    print("replacing %s with data from %s" % (dest_path, replace_path))
     filepathname = os.path.join(dest_path, "pdftron_wrap.cxx")
     with open(filepathname, "r") as f:
         cxx = f.read()
@@ -139,13 +140,13 @@ def buildWindows(custom_swig):
         raise ValueError("Cannot find PDFNetC64.zip")
 
     extractArchive("PDFNetC64.zip", "%s/PDFNetC" % rootDir)
-    gccCommand = "g++ -shared -I./Headers -L./Lib -lPDFNetC pdftron_wrap.cxx -o Lib/pdftron.dll"
+    gccCommand = "g++ -shared -I./Headers -L./Lib -lPDFNetC -L . pdftron_wrap.cxx -o ./Lib/pdftron.dll"
     cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
     subprocess.run(shlex.split(cmakeCommand), check=True)
 
-    root_path = os.path.join(rootDir, "PDFTronGo", "CI", "Windows")
+    root_path = os.path.join(rootDir, "PDFTronGo", "ci", "windows")
     dest_path = os.path.join(rootDir, "build", "PDFTronGo", "pdftron")
     replacego(root_path, dest_path)
 
