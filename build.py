@@ -6,7 +6,6 @@ import platform
 import tarfile
 import subprocess
 import shlex
-from zipfile import ZipFile as zipfile
 from pathlib import Path as path
 
 rootDir = os.getcwd()
@@ -136,7 +135,7 @@ def buildWindows(custom_swig):
         raise ValueError("Cannot find PDFNetC64.zip")
 
     extractArchive("PDFNetC64.zip")
-    gccCommand = "g++ -shared -I./Headers -L./Lib -lPDFNetC Lib/pdftron_wrap.cxx -o Lib/pdftron.dll"
+    gccCommand = "clang ++ -shared -I./Headers -L./Lib -lPDFNetC Lib/pdftron_wrap.cxx -o Lib/pdftron.dll"
     cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
@@ -156,13 +155,16 @@ def buildWindows(custom_swig):
     subprocess.run(shlex.split(gccCommand), check=True)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
+    ldflags = '''#cgo LDFLAGS: -lstdc++
+"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'''
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
 
     os.makedirs("shared_libs/win", exist_ok=True)
     shutil.move("Lib", "shared_libs/win/Lib")
     shutil.move("Headers", "shared_libs/win/Headers")
+    shutil.move("Resources", "shared_libs/win/Resources")
+
     os.chdir(rootDir)
 
 def buildLinux(custom_swig):
@@ -172,7 +174,7 @@ def buildLinux(custom_swig):
 
     extractArchive("PDFNetC64.tar.gz", "%s/PDFNetC" % rootDir)
 
-    gccCommand = "clang -fpic -I./Headers -L./Lib -lPDFNetC -Wl,-rpath,. -shared Lib/pdftron_wrap.cxx -o Lib/libpdftron.so"
+    gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib -lPDFNetC -shared Lib/pdftron_wrap.cxx -o Lib/libpdftron.so"
     cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
@@ -200,6 +202,7 @@ def buildLinux(custom_swig):
     os.makedirs("shared_libs/unix", exist_ok=True)
     shutil.move("Lib", "shared_libs/unix/Lib")
     shutil.move("Headers", "shared_libs/unix/Headers")
+    shutil.move("Resources", "shared_libs/unix/Resources")
     os.chdir(rootDir)
 
 def buildDarwin(custom_swig):
@@ -208,7 +211,7 @@ def buildDarwin(custom_swig):
 
     extractArchive("PDFNetCMac.zip")
     os.remove("PDFNetCMac.zip")
-    gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o Lib/libpdftron.dylib"
+    gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace Lib/pdftron_wrap.cxx -o Lib/libpdftron.dylib"
     cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
@@ -224,13 +227,8 @@ def buildDarwin(custom_swig):
     os.makedirs("shared_libs/mac", exist_ok=True)
     shutil.move("Lib", "shared_libs/mac/Lib")
     shutil.move("Headers", "shared_libs/mac/Headers")
+    shutil.move("Resources", "shared_libs/mac/Resources")
     os.chdir(rootDir)
-
-def zipArchive(zipname, src_path):
-    with zipfile.ZipFile("../src_mac/pdftron/PDFNetC/Lib/libPDFNetC.zip",
-                         'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
-        zf.write("PDFTronGoMac/PDFNetC/Lib/libPDFNetC.dylib", arcname='libPDFNetC.dylib')
-
 
 # inserts CGO LDFLAGS/CXFLAGS for usage during go build
 # Should be inserted into any generated swig files at the start of the /* swig */ comment
@@ -296,6 +294,7 @@ def main():
     print("Fixing samples...")
     fixSamples()
 
+    shutil.make_archive("PDFTronGo", "zip", "PDFTronGo/pdftron")
     print("Build completed.")
     return 0
 

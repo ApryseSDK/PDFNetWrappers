@@ -13,11 +13,12 @@ import (
 )
 
 var licenseKey string
+var modulePath string
 
 func init() {
     flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Module path for Apryse SDK")
 }
-
 //-----------------------------------------------------------------------------------
 // The sample illustrates how to work with PDF page labels.
 //

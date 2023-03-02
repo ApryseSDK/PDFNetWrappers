@@ -1,4 +1,5 @@
 LICENSE_KEY=""
+MODULE_PATH=""
 
 if exist go.mod (
     go mod init pdftron-test
@@ -6,4 +7,4 @@ if exist go.mod (
     go mod tidy
 )
 
-go test ./... -license=%LICENSE_KEY%
+go test ./... -v -license=%LICENSE_KEY% -modulePath=%MODULE_PATH%

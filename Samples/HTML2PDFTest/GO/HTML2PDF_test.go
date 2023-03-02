@@ -13,9 +13,11 @@ import (
 )
 
 var licenseKey string
+var modulePath string
 
 func init() {
     flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Path for downloaded modules")
 }
 
 //---------------------------------------------------------------------------------------
@@ -50,7 +52,7 @@ func TestHTM2PDF(t *testing.T){
     // For HTML2PDF we need to locate the html2pdf module. If placed with the 
     // PDFNet library, or in the current working directory, it will be loaded
     // automatically. Otherwise, it must be set manually using HTML2PDF.SetModulePath.
-    HTML2PDFSetModulePath("../../../PDFNetC/Lib/")
+    HTML2PDFSetModulePath(modulePath)
     if ! HTML2PDFIsModuleAvailable(){
         fmt.Println("Unable to run HTML2PDFTest: PDFTron SDK HTML2PDF module not available.\n" +
         "---------------------------------------------------------------\n" +

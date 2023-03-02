@@ -13,9 +13,11 @@ import (
 )
 
 var licenseKey string
+var modulePath string
 
 func init() {
     flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Path for downloaded modules")
 }
 
 //---------------------------------------------------------------------------------------
@@ -62,6 +64,8 @@ func WriteTextToFile(outputFile string, text string) {
 
 func TabularDataTest() (err error) {
 	defer catch(&err)
+
+    PDFNetAddResourceSearchPath(modulePath)
 
 	// Test if the add-on is installed
 	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Tabular) {
@@ -209,7 +213,7 @@ func FormFieldsTest() (err error) {
 
 //---------------------------------------------------------------------------------------
 
-func DataExtractionTest(t *testing.T) {
+func TestDataExtraction(t *testing.T) {
 	// The first step in every application using PDFNet is to initialize the 
 	// library. The library is usually initialized only once, but calling 
 	// Initialize() multiple times is also fine.
