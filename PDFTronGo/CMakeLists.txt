@@ -34,7 +34,7 @@ set(BUILD_DIR ${PROJECT_BINARY_DIR}/pdftron)
 file(MAKE_DIRECTORY ${BUILD_DIR})
 file(MAKE_DIRECTORY ${BUILD_DIR}/Lib)
 file(MAKE_DIRECTORY ${BUILD_DIR}/Headers)
-file(MAKE_DIRECTORY ${BUILD_DIR}/Samples)
+file(MAKE_DIRECTORY ${BUILD_DIR}/Resources)
 message(STATUS "${BUILD_DIR} THE DIR")
 message(STATUS "CURRENT SOURCE: ${CMAKE_CURRENT_SOURCE_DIR}")
 message(STATUS "Running ${SWIG_EXECUTABLE} -go -cgo -c++ -intgosize 64 ${SWIG_DEFINE} -I${PDFNetC_Include_Dir} -outdir ${BUILD_DIR} -o ${BUILD_DIR}/pdftron_wrap.cxx -oh ${BUILD_DIR}/pdftron_wrap.h pdftron.i")
@@ -52,10 +52,11 @@ else ()
 endif ()
 
 # Copy PDFNetC and Samples folder
-message(STATUS "Copy PDFNetC and Samples folder..")
+message(STATUS "Copy PDFNetC")
 execute_process(
     COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC/Lib ${BUILD_DIR}/Lib
     COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC/Headers ${BUILD_DIR}/Headers
+    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC/Resources ${BUILD_DIR}/Resources
     RESULT_VARIABLE SOURCE_GEN_RESULT
     OUTPUT_FILE ${PROJECT_BINARY_DIR}/go.log
     ERROR_FILE ${PROJECT_BINARY_DIR}/go.err.log

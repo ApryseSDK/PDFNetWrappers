@@ -12,9 +12,11 @@ import (
 )
 
 var licenseKey string
+var modulePath string
 
 func init() {
     flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Path for downloaded modules")
 }
 
 // Relative path to the folder containing test files.
@@ -33,7 +35,7 @@ func TestCAD2PDF(t *testing.T){
     PDFNetInitialize(licenseKey)
     
     // The location of the CAD Module
-    PDFNetAddResourceSearchPath("../../../PDFNetC/Lib/")
+    PDFNetAddResourceSearchPath(modulePath)
     
     if ! CADModuleIsModuleAvailable(){
 

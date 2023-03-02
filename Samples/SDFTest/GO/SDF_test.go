@@ -12,9 +12,11 @@ import (
 )
 
 var licenseKey string
+var modulePath string
 
 func init() {
     flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Module path for Apryse SDK")
 }
 
 // This sample illustrates how to use basic SDF API (also known as Cos) to edit an

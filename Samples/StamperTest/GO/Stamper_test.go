@@ -11,9 +11,11 @@ import (
 )
 
 var licenseKey string
+var modulePath string
 
 func init() {
     flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Module path for Apryse SDK")
 }
 
 //---------------------------------------------------------------------------------------
