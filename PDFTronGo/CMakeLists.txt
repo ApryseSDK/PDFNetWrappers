@@ -32,7 +32,8 @@ endif (WIN32)
 message(STATUS "Generating sources for Go bindings using swig...")
 set(BUILD_DIR ${PROJECT_BINARY_DIR}/pdftron)
 file(MAKE_DIRECTORY ${BUILD_DIR})
-file(MAKE_DIRECTORY ${BUILD_DIR}/PDFNetC)
+file(MAKE_DIRECTORY ${BUILD_DIR}/Lib)
+file(MAKE_DIRECTORY ${BUILD_DIR}/Headers)
 file(MAKE_DIRECTORY ${BUILD_DIR}/Samples)
 message(STATUS "${BUILD_DIR} THE DIR")
 message(STATUS "CURRENT SOURCE: ${CMAKE_CURRENT_SOURCE_DIR}")
@@ -53,8 +54,8 @@ endif ()
 # Copy PDFNetC and Samples folder
 message(STATUS "Copy PDFNetC and Samples folder..")
 execute_process(
-    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC ${BUILD_DIR}/PDFNetC
-    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/Samples ${BUILD_DIR}/Samples/runall_go.sh
+    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC/Lib ${BUILD_DIR}/Lib
+    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC/Headers ${BUILD_DIR}/Headers
     RESULT_VARIABLE SOURCE_GEN_RESULT
     OUTPUT_FILE ${PROJECT_BINARY_DIR}/go.log
     ERROR_FILE ${PROJECT_BINARY_DIR}/go.err.log
