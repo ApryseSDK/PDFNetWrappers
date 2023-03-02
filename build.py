@@ -5,6 +5,7 @@ import shutil
 import platform
 import tarfile
 import subprocess
+import shlex
 from zipfile import ZipFile as zipfile
 from pathlib import Path as path
 
@@ -93,14 +94,23 @@ def replacego(filepath):
         f.write(go)
 
 def fixSamples():
-    samples_path = os.path.join(rootDir, "build/PDFTronGo/pdftron/Samples")
-
+    samples_path = os.path.join(rootDir, "Samples")
+    dest_path = os.path.join(rootDir, "build/PDFTronGo/pdftron/samples")
     if not os.path.isdir(samples_path):
         raise Exception("Samples dir not found.")
 
-    for dirName, subdirList, fileList in os.walk(samples_path):
-        if "GO" not in dirName:
-            shutil.rmtree(dirName)
+    for subdir, dirs, files in os.walk(samples_path):
+        if subdir.endswith("GO"):
+            for file_name in os.listdir(subdir):
+                if file_name.endswith(".go"):
+                    print(subdir.split("/")[-2])
+                    test_dest = os.path.join(dest_path, subdir.split("/")[-2])
+                    print(test_dest)
+                    shutil.copytree(os.path.join(subdir), test_dest)
+
+    shutil.copy(os.path.join(samples_path, "runall_go.bat"), dest_path)
+    shutil.copy(os.path.join(samples_path, "runall_go.sh"), dest_path)
+    shutil.copytree(os.path.join(samples_path, "TestFiles"), os.path.join(dest_path, "TestFiles"))
 
 def extractArchive(fileName, dest):
     ext = path(fileName)
@@ -111,15 +121,26 @@ def extractArchive(fileName, dest):
         with zipfile(fileName, 'r') as archive:
             archive.extractall(dest)
 
-def buildWindows(cmakeCommand):
+    dest_headers = os.path.join(dest, "Headers")
+    if os.path.exists(dest_headers):
+       shutil.rmtree(dest_headers)
+    shutil.copytree(os.path.join(dest, "PDFNetC64", "Headers"), dest_headers)
+
+    dest_libs = os.path.join(dest, "Lib")
+    if os.path.exists(dest_libs):
+      shutil.rmtree(dest_libs)
+    shutil.copytree(os.path.join(dest, "PDFNetC64", "Lib"), dest_libs)
+
+def buildWindows(custom_swig):
     if not os.path.exists("PDFNetC64.zip"):
         raise ValueError("Cannot find PDFNetC64.zip")
 
     extractArchive("PDFNetC64.zip")
-    gccCommand = "g++ -shared -I%s/Headers -L . -lPDFNetC pdftron_wrap.cxx -o pdftron.dll"
+    gccCommand = "g++ -shared -I./Headers -L./Lib -lPDFNetC Lib/pdftron_wrap.cxx -o Lib/pdftron.dll"
+    cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
-    runCommand(cmakeCommand)
+    subprocess.run(shlex.split(cmakeCommand), check=True)
 
     root_path = os.path.join(rootDir, "PDFTronGo", "CI", "Windows")
     dest_path = os.path.join(rootDir, "PDFTronGo", "pdftron")
@@ -127,64 +148,124 @@ def buildWindows(cmakeCommand):
     shutil.copy(os.path.join(root_path, "pdftron_wrap.cxx.replace"), dest_path)
     shutil.copy(os.path.join(root_path, "pdftron_wrap.h.replace"), dest_path)
     replacego(dest_path)
-    shutil.move(os.path.join(dest_path, "pdftron_wrap.cxx"), os.path.join("PDFNetC", "Lib"))
-    shutil.move(os.path.join(dest_path, "pdftron_wrap.h"), os.path.join("PDFNetC", "Lib"))
-    os.remove(os.path.join(dest_path, "pdfnetc.lib"))
 
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
-    runCommand(gccCommand)
-    os.chdir(rootDir)
+    shutil.move("pdftron_wrap.cxx", "Lib/")
+    shutil.move("pdftron_wrap.h", "Lib/")
+
+    subprocess.run(shlex.split(gccCommand), check=True)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
     ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
-    insertCGODirectives("%s/build/PDFTronGo/pdftron/pdftron.go" % rootDir, cxxflags, ldflags)
-    setBuildDirectives("%s/build/PDFTronGo/pdftron" % rootDir, "pdftron.go")
+    insertCGODirectives("pdftron.go", cxxflags, ldflags)
+    setBuildDirectives("pdftron.go")
 
-def buildLinux(cmakeCommand):
+    os.makedirs("shared_libs/win", exist_ok=True)
+    shutil.move("Lib", "shared_libs/win/Lib")
+    shutil.move("Headers", "shared_libs/win/Headers")
+    os.chdir(rootDir)
+
+def buildLinux(custom_swig):
     print("Running Linux build...")
     if not os.path.exists("PDFNetC64.tar.gz"):
         raise ValueError("Cannot find PDFNetC64.tar.gz")
 
     extractArchive("PDFNetC64.tar.gz", "%s/PDFNetC" % rootDir)
 
-    gccCommand = "g++ -fuse-ld=gold -fpic -I../Headers -L . -lPDFNetC -Wl,-rpath,. -shared -static-libstdc++ pdftron_wrap.cxx -o libpdftron.so"
+    gccCommand = "clang -fpic -I./Headers -L./Lib -lPDFNetC -Wl,-rpath,. -shared Lib/pdftron_wrap.cxx -o Lib/libpdftron.so"
+    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
-    runCommand(cmakeCommand)
+    subprocess.run(shlex.split(cmakeCommand), check=True)
+    os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
+    shutil.move("pdftron_wrap.cxx", "Lib/")
+    shutil.move("pdftron_wrap.h", "Lib/")
+
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
-    runCommand(gccCommand)
-    os.chdir(rootDir)
+    subprocess.run(shlex.split(gccCommand), check=True)
+
+    shutil.rmtree("Lib/net5.0")
+    shutil.rmtree("Lib/net6.0")
+    shutil.rmtree("Lib/netstandard2.0")
+    shutil.rmtree("Lib/netstandard2.1")
+    os.remove("Lib/PDFNet.jar")
+    shutil.rmtree("Lib/netcoreapp2.1")
+    os.remove("Lib/libinfo.txt")
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib"'
-    insertCGODirectives("%s/build/PDFTronGo/pdftron/pdftron.go" % rootDir, cxxflags, ldflags)
-    setBuildDirectives("%s/build/PDFTronGo/pdftron" % rootDir, "pdftron.go")
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
+    insertCGODirectives("pdftron.go", cxxflags, ldflags)
+    setBuildDirectives("pdftron.go")
 
-def buildDarwin(cmakeCommand):
+    os.makedirs("shared_libs/unix", exist_ok=True)
+    shutil.move("Lib", "shared_libs/unix/Lib")
+    shutil.move("Headers", "shared_libs/unix/Headers")
+    os.chdir(rootDir)
+
+def buildDarwin(custom_swig):
     if not os.path.exists("PDFNetCMac.zip"):
         raise ValueError("Cannot find PDFNetCMac.zip")
 
     extractArchive("PDFNetCMac.zip")
     os.remove("PDFNetCMac.zip")
-    gccCommand = "gcc -fPIC -lstdc++ -I../Headers -L. -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o libpdftron.dylib"
+    gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -o Lib/libpdftron.dylib"
+    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
-    runCommand(cmakeCommand)
+    subprocess.run(shlex.split(cmakeCommand), check=True)
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
-    runCommand(gccCommand)
-    os.chdir(rootDir)
+    subprocess.run(shlex.split(gccCommand), check=True)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
     ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib"'
-    insertCGODirectives("%s/build/PDFTronGo/pdftron/pdftron.go" % rootDir, cxxflags, ldflags)
-    setBuildDirectives("%s/build/PDFTronGo/pdftron" % rootDir, "pdftron.go")
+    insertCGODirectives("pdftron.go", cxxflags, ldflags)
+    setBuildDirectives("pdftron.go")
 
-def runCommand(cmd):
-    try:
-        for data in execute(cmd):
-            print(data, end="")
-    except subprocess.CalledProcessError as e:
-        print(e.stdout.decode())
+    os.makedirs("shared_libs/mac", exist_ok=True)
+    shutil.move("Lib", "shared_libs/mac/Lib")
+    shutil.move("Headers", "shared_libs/mac/Headers")
+    os.chdir(rootDir)
+
+def zipArchive(zipname, src_path):
+    with zipfile.ZipFile("../src_mac/pdftron/PDFNetC/Lib/libPDFNetC.zip",
+                         'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
+        zf.write("PDFTronGoMac/PDFNetC/Lib/libPDFNetC.dylib", arcname='libPDFNetC.dylib')
+
+
+# inserts CGO LDFLAGS/CXFLAGS for usage during go build
+# Should be inserted into any generated swig files at the start of the /* swig */ comment
+# https://pkg.go.dev/cmd/cgo
+def insertCGODirectives(filename, cxxflags, ldflags):
+    inserted = False
+    data = ''
+    with open(filename, "r") as original:
+        for line in original.readlines():
+            if "#define intgo swig_intgo" in line and not inserted:
+                inserted = True
+                data += "%s\n%s\n" % (cxxflags, ldflags)
+
+            data += line
+
+    with open(filename, "w") as modified:
+        modified.write(data)
+
+# Sets where the source file should build. For single OS files we just
+# change the name to the build machine type. For Linux we support multiple unix like architectures
+# https://pkg.go.dev/go/build
+# Should use +build instead of new //go:build to support 1.15
+def setBuildDirectives(filename):
+    if platform.system().startswith('Linux'):
+        data = ''
+        text = "// +build freebsd linux netbsd openbsd"
+        print("Writing %s to %s" % (text, filename))
+        with open(filename, "r") as original:
+            data = original.read()
+        with open(filename, "w") as modified:
+            modified.write("%s\n%s" % (text, data))
+    elif platform.system().startswith('Windows'):
+        os.rename(filename, 'pdftron_windows.go')
+    else:
+        os.rename(filename, 'pdftron_darwin.go')
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
@@ -200,65 +281,23 @@ def main():
 
     os.mkdir("build")
 
-    cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
-    if custom_swig:
-        cmakeCommand += " -D CUSTOM_SWIG=%s" % custom_swig
-
     if platform.system().startswith('Windows'):
-        buildWindows(cmakeCommand)
+        buildWindows(custom_swig)
     elif platform.system().startswith('Linux'):
-        buildLinux(cmakeCommand)
+        buildLinux(custom_swig)
     else:
-        buildDarwin(cmakeCommand)
+        buildDarwin(custom_swig)
 
-    os.chdir("../build")
+    os.chdir(os.path.join(rootDir, "build"));
+    shutil.copy(
+       os.path.join(rootDir, "PDFTronGo", "go.mod"),
+       os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
 
     print("Fixing samples...")
-    fixSamples(rootDir)
+    fixSamples()
 
     print("Build completed.")
     return 0
-
-# inserts CGO LDFLAGS/CXFLAGS for usage during go build
-# Should be inserted into any generated swig files at the start of the /* swig */ comment
-# https://pkg.go.dev/cmd/cgo
-def insertCGODirectives(cxxflags, ldflags, filename):
-    inserted = False
-    data = ''
-    with open(filename, "r") as original:
-        for line in original.read():
-            if "#define intgo swig_intgo" in line and not inserted:
-                inserted = True
-                data += "%s\n%s\n" % (cxxflags, ldflags)
-                data += line
-
-
-# Sets where the source file should build. For single OS files we just
-# change the name to the build machine type. For Linux we support multiple unix like architectures
-# https://pkg.go.dev/go/build
-# Should use +build instead of new //go:build to support 1.15
-def setBuildDirectives(src_dir, filename):
-    if platform.system().startswith('Linux'):
-        text = "// +build freebsd linux netbsd openbsd"
-        print("Writing %s to %s" % (text, filename))
-        actual_path = os.path.join(src_dir, filename)
-        with open(actual_path, "r") as original:
-            data = original.read()
-        with open(actual_path, "w") as modified:
-            modified.write("%s\n%s" % (text, data))
-    elif platform.system().startswith('Windows'):
-        os.rename(os.path.join(src_dir, filename), os.path.join(src_dir, 'pdftron_windows.go'))
-    else:
-        os.rename(os.path.join(src_dir, filename), os.path.join(src_dir, 'pdftron_darwin.go'))
-
-def execute(cmd):
-    popen = subprocess.Popen(cmd, stdout=subprocess.PIPE, universal_newlines=True, shell=True)
-    for stdout_line in iter(popen.stdout.readline, ""):
-        yield stdout_line
-        popen.stdout.close()
-        return_code = popen.wait()
-    if return_code:
-        raise subprocess.CalledProcessError(return_code, cmd)
 
 if __name__ == '__main__':
     main()
