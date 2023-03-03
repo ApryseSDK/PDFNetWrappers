@@ -1,4 +1,5 @@
 SET PATH=%cd%/../shared_libs/win/Lib/;%PATH%
+cd /D "%~dp0"
 
 set LICENSE_KEY=""
 set MODULE_PATH=""
@@ -9,4 +10,5 @@ if NOT exist go.mod (
     go mod tidy
 )
 
-go test -v ./... -license=%LICENSE_KEY% -modulePath=%MODULE_PATH%
+IF "%~1"=="" go test -v ./... -license=%LICENSE_KEY% -modulePath=%MODULE_PATH%
+ELSE go test -v ./%1 -license=%LICENSE_KEY% -modulePath=%MODULE_PATH%

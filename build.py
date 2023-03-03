@@ -125,26 +125,30 @@ def extractArchive(fileName, dest):
         with zipfile(fileName, 'r') as archive:
             archive.extractall(dest)
 
+    dir_name = fileName.split(".")[0]
     dest_headers = os.path.join(dest, "Headers")
     if os.path.exists(dest_headers):
        shutil.rmtree(dest_headers)
-    shutil.copytree(os.path.join(dest, "PDFNetC64", "Headers"), dest_headers)
+    shutil.copytree(os.path.join(dest, dir_name, "Headers"), dest_headers)
 
     dest_libs = os.path.join(dest, "Lib")
     if os.path.exists(dest_libs):
       shutil.rmtree(dest_libs)
-    shutil.copytree(os.path.join(dest, "PDFNetC64", "Lib"), dest_libs)
+    shutil.copytree(os.path.join(dest, dir_name, "Lib"), dest_libs)
 
     dest_res = os.path.join(dest, "Resources")
     if os.path.exists(dest_res):
       shutil.rmtree(dest_res)
-    shutil.copytree(os.path.join(dest, "PDFNetC64", "Resources"), dest_res)
+    shutil.copytree(os.path.join(dest, dir_name, "Resources"), dest_res)
+
+    shutil.rmtree(os.path.join(dest, dir_name))
 
 def buildWindows(custom_swig):
+    print("Running Windows build...")
     if not os.path.exists("PDFNetC64.zip"):
         raise ValueError("Cannot find PDFNetC64.zip")
 
-    extractArchive("PDFNetC64.zip", "%s/PDFNetC" % rootDir)
+    extractArchive("PDFNetC64.zip", "%s/build/PDFNetC" % rootDir)
 
     os.chdir("%s/build" % rootDir)
     cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
@@ -179,7 +183,7 @@ def buildLinux(custom_swig):
     if not os.path.exists("PDFNetC64.tar.gz"):
         raise ValueError("Cannot find PDFNetC64.tar.gz")
 
-    extractArchive("PDFNetC64.tar.gz", "%s/PDFNetC" % rootDir)
+    extractArchive("PDFNetC64.tar.gz", "%s/build/PDFNetC" % rootDir)
 
     os.chdir("%s/build" % rootDir)
 
@@ -205,10 +209,11 @@ def buildLinux(custom_swig):
     os.chdir(rootDir)
 
 def buildDarwin(custom_swig):
+    print("Running Mac build...")
     if not os.path.exists("PDFNetCMac.zip"):
         raise ValueError("Cannot find PDFNetCMac.zip")
 
-    extractArchive("PDFNetCMac.zip", "%s/PDFNetC" % rootDir)
+    extractArchive("PDFNetCMac.zip", "%s/build/PDFNetC" % rootDir)
     os.remove("PDFNetCMac.zip")
 
     os.chdir("%s/build" % rootDir)
