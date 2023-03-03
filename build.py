@@ -140,25 +140,26 @@ def buildWindows(custom_swig):
         raise ValueError("Cannot find PDFNetC64.zip")
 
     extractArchive("PDFNetC64.zip", "%s/PDFNetC" % rootDir)
-    gccCommand = "g++ -shared -I./Headers -L./Lib -lPDFNetC -L . pdftron_wrap.cxx -o ./Lib/pdftron.dll"
-    cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
+    cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
     subprocess.run(shlex.split(cmakeCommand), check=True)
 
-    root_path = os.path.join(rootDir, "PDFTronGo", "ci", "windows")
-    dest_path = os.path.join(rootDir, "build", "PDFTronGo", "pdftron")
-    replacego(root_path, dest_path)
-
+    # Fix issues with generated wrapper
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    replace_path = os.path.join(rootDir, "PDFTronGo", "ci", "windows")
+    replacego(replace_path, ".")
+    
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
+    ldflags = '#cgo LDFLAGS: -lstdc++ -Wl,-rpath,"${SRCDIR}/shared_libs/win Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
+    insertCGODirectives("pdftron.go", cxxflags, ldflags)
 
+    gccCommand = "g++ -I./Headers -L./Lib -lPDFNetC -shared pdftron_wrap.cxx -o ./Lib/pdftron.dll"
     subprocess.run(shlex.split(gccCommand), check=True)
     os.remove("pdftron_wrap.cxx")
     os.remove("pdftron_wrap.h")
 
-    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
-    ldflags = '#cgo LDFLAGS: -lstdc++ -Wl,-rpath,"${SRCDIR}/shared_libs/win/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
-    insertCGODirectives("pdftron.go", cxxflags, ldflags)
+   
     setBuildDirectives("pdftron.go")
 
     os.makedirs("shared_libs/win", exist_ok=True)
@@ -175,16 +176,17 @@ def buildLinux(custom_swig):
 
     extractArchive("PDFNetC64.tar.gz", "%s/PDFNetC" % rootDir)
 
-    gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib -lPDFNetC -shared Lib/pdftron_wrap.cxx -o Lib/libpdftron.so"
-    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
-
     os.chdir("%s/build" % rootDir)
+
+    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
     subprocess.run(shlex.split(cmakeCommand), check=True)
+    
     os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
     shutil.move("pdftron_wrap.cxx", "Lib/")
     shutil.move("pdftron_wrap.h", "Lib/")
 
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib -lPDFNetC -shared Lib/pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
@@ -204,12 +206,13 @@ def buildDarwin(custom_swig):
 
     extractArchive("PDFNetCMac.zip", "%s/PDFNetC" % rootDir)
     os.remove("PDFNetCMac.zip")
-    gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace Lib/pdftron_wrap.cxx -o Lib/libpdftron.dylib"
-    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
     os.chdir("%s/build" % rootDir)
+    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
     subprocess.run(shlex.split(cmakeCommand), check=True)
+
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace Lib/pdftron_wrap.cxx -o Lib/libpdftron.dylib"
     subprocess.run(shlex.split(gccCommand), check=True)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
