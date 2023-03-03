@@ -135,6 +135,11 @@ def extractArchive(fileName, dest):
       shutil.rmtree(dest_libs)
     shutil.copytree(os.path.join(dest, "PDFNetC64", "Lib"), dest_libs)
 
+    dest_res = os.path.join(dest, "Resources")
+    if os.path.exists(dest_res):
+      shutil.rmtree(dest_res)
+    shutil.copytree(os.path.join(dest, "PDFNetC64", "Resources"), dest_res)
+
 def buildWindows(custom_swig):
     if not os.path.exists("PDFNetC64.zip"):
         raise ValueError("Cannot find PDFNetC64.zip")
@@ -146,20 +151,20 @@ def buildWindows(custom_swig):
     subprocess.run(shlex.split(cmakeCommand), check=True)
 
     # Fix issues with generated wrapper
-    os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
     replace_path = os.path.join(rootDir, "PDFTronGo", "ci", "windows")
     replacego(replace_path, ".")
+    shutil.move("pdftron_wrap.cxx", "Lib/")
+    shutil.move("pdftron_wrap.h", "Lib/")
+    # If you don't remove this, g++ will grab it instead of the .dll
+    os.remove("Lib/PDFNetC.lib")
     
-    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
-    ldflags = '#cgo LDFLAGS: -lstdc++ -Wl,-rpath,"${SRCDIR}/shared_libs/win Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib"'
-    insertCGODirectives("pdftron.go", cxxflags, ldflags)
-
-    gccCommand = "g++ -I./Headers -L./Lib -lPDFNetC -shared pdftron_wrap.cxx -o ./Lib/pdftron.dll"
+    gccCommand = "g++ -I./Headers -L./Lib -lPDFNetC -shared Lib/pdftron_wrap.cxx -o Lib/pdftron.dll"
     subprocess.run(shlex.split(gccCommand), check=True)
-    os.remove("pdftron_wrap.cxx")
-    os.remove("pdftron_wrap.h")
 
-   
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
+    ldflags = '#cgo LDFLAGS: -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib" -lstdc++'
+    insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
 
     os.makedirs("shared_libs/win", exist_ok=True)
@@ -185,7 +190,6 @@ def buildLinux(custom_swig):
     shutil.move("pdftron_wrap.cxx", "Lib/")
     shutil.move("pdftron_wrap.h", "Lib/")
 
-    os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
     gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib -lPDFNetC -shared Lib/pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
