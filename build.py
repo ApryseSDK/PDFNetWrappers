@@ -151,7 +151,11 @@ def buildWindows(custom_swig):
     extractArchive("PDFNetC64.zip", "%s/build/PDFNetC" % rootDir)
 
     os.chdir("%s/build" % rootDir)
-    cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
+    if custom_swig:
+        cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..'
+    else:
+        cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON -D ..'
+
     subprocess.run(shlex.split(cmakeCommand), check=True)
 
     # Fix issues with generated wrapper
@@ -187,7 +191,11 @@ def buildLinux(custom_swig):
 
     os.chdir("%s/build" % rootDir)
 
-    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
+    if custom_swig:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..'
+    else:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D ..'
+
     subprocess.run(shlex.split(cmakeCommand), check=True)
     
     os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
@@ -217,10 +225,17 @@ def buildDarwin(custom_swig):
     os.remove("PDFNetCMac.zip")
 
     os.chdir("%s/build" % rootDir)
-    cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
+    if custom_swig:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..'
+    else:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D ..'
+
     subprocess.run(shlex.split(cmakeCommand), check=True)
 
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+    shutil.move("pdftron_wrap.cxx", "Lib/")
+    shutil.move("pdftron_wrap.h", "Lib/")
+
     gccCommand = "gcc -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace Lib/pdftron_wrap.cxx -o Lib/libpdftron.dylib"
     subprocess.run(shlex.split(gccCommand), check=True)
 
