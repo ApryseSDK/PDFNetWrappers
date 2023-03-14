@@ -38,6 +38,10 @@ file(MAKE_DIRECTORY ${BUILD_DIR}/Lib)
 file(MAKE_DIRECTORY ${BUILD_DIR}/Headers)
 file(MAKE_DIRECTORY ${BUILD_DIR}/Resources)
 
+if (NOT EXISTS ${CMAKE_SOURCE_DIR}/build/PDFNetC/Lib)
+    message(FATAL_ERROR "PDFNetC library cannot be found. Cannot continue.")
+endif ()
+
 # Copy PDFNetC and Samples folder
 message(STATUS "Copy PDFNetC")
 execute_process(
