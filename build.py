@@ -152,7 +152,7 @@ def buildWindows(custom_swig):
 
     os.chdir("%s/build" % rootDir)
     if custom_swig:
-        cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..'
+        cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..' % custom_swig
     else:
         cmakeCommand = 'cmake -G "MinGW Makefiles" -D BUILD_PDFTronGo=ON ..'
 
@@ -193,7 +193,7 @@ def buildLinux(custom_swig):
     os.chdir("%s/build" % rootDir)
     print(os.getcwd())
     if custom_swig:
-        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..'
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..' % custom_swig
     else:
         cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
@@ -226,7 +226,7 @@ def buildDarwin(custom_swig):
 
     os.chdir("%s/build" % rootDir)
     if custom_swig:
-        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..'
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..' % custom_swig
     else:
         cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
 
