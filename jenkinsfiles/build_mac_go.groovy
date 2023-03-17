@@ -34,22 +34,18 @@ pipeline {
                         pulling_branch = 'master'
                     }
 
-                    dir('PDFNetC') {
-                        s3ArtifactCopyInvoke("PDFNet Mac/" + pulling_branch.replace("/", "%2F"), "PDFNetCMac.zip", params.INVOKER_BUILD_ID)
-                    }
+                    s3ArtifactCopyInvoke("PDFNet Mac/" + pulling_branch.replace("/", "%2F"), "PDFNetCMac.zip", params.INVOKER_BUILD_ID)
                 }
 
                 sh '''
-                    python3 build.py -cs /usr/local/opt/swig/bin/swig --skip_dl
+                    python3 build.py -cs /usr/local/opt/swig/bin/swig
                 '''
-
-                zip zipFile: "build/PDFTronGoMac.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
             }
         }
 
-        // stage ('Samples') {
+        // stage ('Run test samples') {
         //     steps {
-        //         dir('build/PDFTronGo/pdftron/Samples') {
+        //         dir('build/PDFTronGo/pdftron/samples') {
         //             sh './runall_go.sh'
         //         }
         //     }
@@ -57,12 +53,8 @@ pipeline {
 
         stage ('Upload') {
             steps {
+                sh 'mv build/PDFTronGo.zip build/PDFTronGoMac.zip'
                 s3ArtifactUpload("build/PDFTronGoMac.zip")
-                withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                    sh '''
-                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoMac.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} --force
-                    '''
-                }
             }
         }
     }

@@ -34,23 +34,20 @@ pipeline {
                     if (env.BRANCH_NAME == 'next_release') {
                         pulling_branch = 'master'
                     }
-                    dir('PDFNetC') {
-                        s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.zip", params.INVOKER_BUILD_ID)
-                    }
+
+                    s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.zip", params.INVOKER_BUILD_ID)
                 }
 
 
                 powershell '''
-                    python3 build.py --skip_dl
+                    python3 build.py
                 '''
-
-                zip zipFile: "build/PDFTronGo.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
             }
         }
 
-        // stage ('Samples') {
+        // stage ('Run test samples') {
         //     steps {
-        //         dir('build/PDFTronGo/pdftron/Samples') {
+        //         dir('build/PDFTronGo/pdftron/samples') {
         //             sh './runall_go.sh'
         //         }
         //     }
@@ -58,12 +55,8 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                s3ArtifactUpload("build/PDFTronGo.zip")
-                withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                    powershell '''
-                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGo.zip -ak $env:AWS_ACCESS -s $env:AWS_SECRET -b $env:BUILD_TYPE --force
-                    '''
-                }
+                sh 'mv build/PDFTronGo.zip build/PDFTronGoWin.zip'
+                s3ArtifactUpload("build/PDFTronGoWin.zip")
             }
         }
     }

@@ -43,22 +43,19 @@ pipeline {
                         pulling_branch = 'master'
                     }
 
-                    dir('PDFNetC') {
-                        s3ArtifactCopyInvoke("PDFNetC64_GCC48/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.tar.gz", params.INVOKER_BUILD_ID)
-                    }
+                    s3ArtifactCopyInvoke("PDFNetC64_GCC48/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.tar.gz", params.INVOKER_BUILD_ID)
                 }
 
                 sh '''
-                    python3 build.py --skip_dl
+                    python3 build.py
                 '''
 
-                zip zipFile: "build/PDFTronGoLinux.zip", dir: "build/PDFTronGo/pdftron", overwrite: true
             }
         }
 
-        // stage ('Samples') {
+        // stage ('Run test samples') {
         //     steps {
-        //         dir('build/PDFTronGo/pdftron/Samples') {
+        //         dir('build/PDFTronGo/pdftron/samples') {
         //             sh './runall_go.sh'
         //         }
         //     }
@@ -66,12 +63,8 @@ pipeline {
 
         stage ('Upload') {
             steps {
+                sh 'mv build/PDFTronGo.zip build/PDFTronGoLinux.zip'
                 s3ArtifactUpload("build/PDFTronGoLinux.zip")
-                withCredentials([usernamePassword(credentialsId: 'jenkins/s3-upload-user', passwordVariable: 'AWS_SECRET', usernameVariable: 'AWS_ACCESS')]) {
-                    sh '''
-                        python3 ./script_tools/scripts/PDFTronUploaderGit.py build/PDFTronGoLinux.zip -ak ${AWS_ACCESS} -s ${AWS_SECRET} -b ${BUILD_TYPE} --force
-                    '''
-                }
             }
         }
     }
