@@ -204,7 +204,7 @@ def buildLinux(custom_swig):
     ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
-
+    shutil.copy("pdftron.go", "pdftron_linux.go")
 
     cleanupDirectories("unix")
     os.chdir(rootDir)
