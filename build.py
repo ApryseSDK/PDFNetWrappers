@@ -226,7 +226,7 @@ def buildDarwin(custom_swig):
     # splits binary into arm/x64 so the size isnt so large
     splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "arm64")
     splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "x86_64")
-    os.remove("libPDFNetC.dylib")
+    os.remove("%s/build/PDFNetC/Lib/libPDFNetC.dylib" % rootDir)
 
     os.chdir("%s/build" % rootDir)
     if custom_swig:
@@ -240,6 +240,7 @@ def buildDarwin(custom_swig):
 
     # We have to create slightly different binaries for each arch
     createMacBinaries("x86_64")
+
     createMacBinaries("arm64")
 
     os.makedirs("shared_libs/mac", exist_ok=True)
@@ -252,20 +253,22 @@ def buildDarwin(custom_swig):
 
 def createMacBinaries(arch):
     # We don't provide an output name and use install_name instead, so that mac does not inject the output name as a shared dependency
-    gccCommand = "clang -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC_%s\
+    gccCommand = "clang -fPIC -lstdc++ -I./Headers -L./Lib/%s -lPDFNetC\
      -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx\
-     -install_name @rpath/libpdftron_%s.dylib" % (arch, arch)
+     -install_name @rpath/libpdftron.dylib" % (arch, arch)
     subprocess.run(shlex.split(gccCommand), check=True)
-    shutil.move("a.out", "Lib/libpdftron_%s.dylib" % arch)
+    shutil.move("a.out", "Lib/%s/libpdftron.dylib" % arch)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib"\
-     -lpdftron_%s -lPDFNetC_%s -L"${SRCDIR}/shared_libs/mac/Lib"' % (arch, arch)
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib/%s/"\
+     -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib/%s/"' % (arch, arch)
     shutil.copy("pdftron.go", "pdftron_darwin_%s.go" % arch)
     insertCGODirectives("pdftron_darwin_%s.go" % arch, cxxflags, ldflags)
-    setBuildDirectives("pdftron_darwin_%s.go" % arch)
+    setBuildDirectives("pdftron_darwin_%s.go" % arch, arch)
 
 def splitBinaries(lib_path, lib_name, arch):
+    lastDir = os.getcwd()
+    os.chdir(lib_path)
     lib_names = lib_name.split(".")
 
     arm_lib_name = "%s_%s.%s" % (lib_names[0], arch, lib_names[1])
@@ -276,6 +279,11 @@ def splitBinaries(lib_path, lib_name, arch):
 
     split_x64 = "lipo %s -thin %s -output %s" % (lib_name, arch, x64_lib_name)
     subprocess.run(shlex.split(split_x64), check=True)
+
+    os.mkdir(arch)
+    os.move("libPDFNetC_%s.dylib" % arch, "%s/libPDFNetC.dylib" % arch)
+
+    os.chdir(lastDir)
 
 
 # inserts CGO LDFLAGS/CXFLAGS for usage during go build
@@ -299,7 +307,7 @@ def insertCGODirectives(filename, cxxflags, ldflags):
 # change the name to the build machine type. For Linux we support multiple unix like architectures
 # https://pkg.go.dev/go/build
 # Should use +build instead of new //go:build to support 1.15
-def setBuildDirectives(filename):
+def setBuildDirectives(filename, arch = ""):
     if platform.system().startswith('Linux'):
         data = ''
         text = "// +build freebsd linux netbsd openbsd\n"
@@ -316,7 +324,11 @@ def setBuildDirectives(filename):
         with open(filename, "w") as modified:
             modified.write("%s\n%s" % (text, data))
     else:
-        text = "// +build darwin\n\n"
+        directive_arch = "amd64"
+        if (arch == "arm64"):
+                directive_arch = "arm"
+
+        text = "// +build darwin && %s\n\n" % directive_arch
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
