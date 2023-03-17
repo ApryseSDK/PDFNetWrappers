@@ -175,14 +175,7 @@ def buildWindows(custom_swig):
     insertCGODirectives("pdftron_windows.go", cxxflags, ldflags)
     setBuildDirectives("pdftron_windows.go")
 
-    os.makedirs("shared_libs/win", exist_ok=True)
-    os.remove("pdftron_wrap.cxx")
-    os.remove("pdftron.go")
-    os.remove("pdftron_wrap.h")
-    shutil.rmtree("Headers")
-    shutil.move("Lib", "shared_libs/win/Lib")
-
-    shutil.move("Resources", "shared_libs/win/Resources")
+    cleanupDirectories("win")
 
     os.chdir(rootDir)
 
@@ -213,13 +206,7 @@ def buildLinux(custom_swig):
     setBuildDirectives("pdftron.go")
 
 
-    os.makedirs("shared_libs/unix", exist_ok=True)
-    os.remove("pdftron_wrap.cxx")
-    os.remove("pdftron.go")
-    os.remove("pdftron_wrap.h")
-    shutil.rmtree("Headers")
-    shutil.move("Lib", "shared_libs/unix/Lib")
-    shutil.move("Resources", "shared_libs/unix/Resources")
+    cleanupDirectories("unix")
     os.chdir(rootDir)
 
 def buildDarwin(custom_swig):
@@ -248,15 +235,19 @@ def buildDarwin(custom_swig):
     createMacBinaries("x86_64")
     createMacBinaries("arm64")
 
-    os.makedirs("shared_libs/mac", exist_ok=True)
+    cleanupDirectories("mac")
+
+    os.chdir(rootDir)
+
+def cleanupDirectories(system):
+    os.makedirs("shared_libs/%s" % system, exist_ok=True)
     os.remove("pdftron_wrap.cxx")
     os.remove("pdftron.go")
     os.remove("pdftron_wrap.h")
     shutil.rmtree("Headers")
-    shutil.move("Lib", "shared_libs/mac/Lib")
-    shutil.move("Resources", "shared_libs/mac/Resources")
-
-    os.chdir(rootDir)
+    os.remove("Lib/PDFNet.jar")
+    shutil.move("Lib", "shared_libs/%s/Lib" % system)
+    shutil.move("Resources", "shared_libs/%s/Resources" % system)
 
 def createMacBinaries(arch):
     # We don't provide an output name and use install_name instead, so that mac does not inject the output name as a shared dependency
