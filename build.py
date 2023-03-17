@@ -171,14 +171,14 @@ def buildWindows(custom_swig):
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
     ldflags = '#cgo LDFLAGS: -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib" -lstdc++'
-    insertCGODirectives("pdftron.go", cxxflags, ldflags)
-    setBuildDirectives("pdftron.go")
+    shutil.copy("pdftron.go", "pdftron_windows.go")
+    insertCGODirectives("pdftron_windows.go", cxxflags, ldflags)
+    setBuildDirectives("pdftron_windows.go")
 
     os.makedirs("shared_libs/win", exist_ok=True)
     os.remove("pdftron_wrap.cxx")
     os.remove("pdftron_wrap.h")
     shutil.move("Lib", "shared_libs/win/Lib")
-    shutil.move("Headers", "shared_libs/win/Headers")
     shutil.move("Resources", "shared_libs/win/Resources")
 
     os.chdir(rootDir)
@@ -213,7 +213,6 @@ def buildLinux(custom_swig):
     os.remove("pdftron_wrap.cxx")
     os.remove("pdftron_wrap.h")
     shutil.move("Lib", "shared_libs/unix/Lib")
-    shutil.move("Headers", "shared_libs/unix/Headers")
     shutil.move("Resources", "shared_libs/unix/Resources")
     os.chdir(rootDir)
 
@@ -223,6 +222,11 @@ def buildDarwin(custom_swig):
         raise ValueError("Cannot find PDFNetCMac.zip")
 
     extractArchive("PDFNetCMac.zip", "%s/build/PDFNetC" % rootDir)
+
+    # splits binary into arm/x64 so the size isnt so large
+    splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "arm64")
+    splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "x86_64")
+    os.remove("libPDFNetC.dylib")
 
     os.chdir("%s/build" % rootDir)
     if custom_swig:
@@ -234,23 +238,45 @@ def buildDarwin(custom_swig):
 
     os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
 
-    # We don't provide an output name and use install_name instead, so that mac does not inject the output name as a shared dependency
-    gccCommand = "clang -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx -install_name @rpath/libpdftron.dylib"
-    subprocess.run(shlex.split(gccCommand), check=True)
-    shutil.move("a.out", "Lib/libpdftron.dylib")
-
-    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib"'
-    insertCGODirectives("pdftron.go", cxxflags, ldflags)
-    setBuildDirectives("pdftron.go")
+    # We have to create slightly different binaries for each arch
+    createMacBinaries("x86_64")
+    createMacBinaries("arm64")
 
     os.makedirs("shared_libs/mac", exist_ok=True)
     os.remove("pdftron_wrap.cxx")
     os.remove("pdftron_wrap.h")
     shutil.move("Lib", "shared_libs/mac/Lib")
-    shutil.move("Headers", "shared_libs/mac/Headers")
     shutil.move("Resources", "shared_libs/mac/Resources")
+
     os.chdir(rootDir)
+
+def createMacBinaries(arch):
+    # We don't provide an output name and use install_name instead, so that mac does not inject the output name as a shared dependency
+    gccCommand = "clang -fPIC -lstdc++ -I./Headers -L./Lib -lPDFNetC_%s\
+     -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx\
+     -install_name @rpath/libpdftron_%s.dylib" % (arch, arch)
+    subprocess.run(shlex.split(gccCommand), check=True)
+    shutil.move("a.out", "Lib/libpdftron_%s.dylib" % arch)
+
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib"\
+     -lpdftron_%s -lPDFNetC_%s -L"${SRCDIR}/shared_libs/mac/Lib"' % (arch, arch)
+    shutil.copy("pdftron.go", "pdftron_darwin_%s.go" % arch)
+    insertCGODirectives("pdftron_darwin_%s.go" % arch, cxxflags, ldflags)
+    setBuildDirectives("pdftron_darwin_%s.go" % arch)
+
+def splitBinaries(lib_path, lib_name, arch):
+    lib_names = lib_name.split(".")
+
+    arm_lib_name = "%s_%s.%s" % (lib_names[0], arch, lib_names[1])
+    x64_lib_name = "%s_%s.%s" % (lib_names[0], arch, lib_names[1])
+
+    split_arm = "lipo %s -thin %s -output %s" % (lib_name, arch, arm_lib_name)
+    subprocess.run(shlex.split(split_arm), check=True)
+
+    split_x64 = "lipo %s -thin %s -output %s" % (lib_name, arch, x64_lib_name)
+    subprocess.run(shlex.split(split_x64), check=True)
+
 
 # inserts CGO LDFLAGS/CXFLAGS for usage during go build
 # Should be inserted into any generated swig files at the start of the /* swig */ comment
@@ -276,16 +302,26 @@ def insertCGODirectives(filename, cxxflags, ldflags):
 def setBuildDirectives(filename):
     if platform.system().startswith('Linux'):
         data = ''
-        text = "// +build freebsd linux netbsd openbsd"
+        text = "// +build freebsd linux netbsd openbsd\n"
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
         with open(filename, "w") as modified:
             modified.write("%s\n%s" % (text, data))
     elif platform.system().startswith('Windows'):
-        os.rename(filename, 'pdftron_windows.go')
+        text = "// +build windows\n\n"
+        print("Writing %s to %s" % (text, filename))
+        with open(filename, "r") as original:
+            data = original.read()
+        with open(filename, "w") as modified:
+            modified.write("%s\n%s" % (text, data))
     else:
-        os.rename(filename, 'pdftron_darwin.go')
+        text = "// +build darwin\n\n"
+        print("Writing %s to %s" % (text, filename))
+        with open(filename, "r") as original:
+            data = original.read()
+        with open(filename, "w") as modified:
+            modified.write("%s\n%s" % (text, data))
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
@@ -309,9 +345,12 @@ def main():
         buildDarwin(custom_swig)
 
     os.chdir(os.path.join(rootDir, "build"));
-    shutil.copy(
-       os.path.join(rootDir, "PDFTronGo", "go.mod"),
-       os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
+
+    shutil.copy(os.path.join(rootDir, "PDFTronGo", "README.md"),
+                os.path.join("PDFTronGo", "pdftron"))
+
+    shutil.copy(os.path.join(rootDir, "PDFTronGo", "go.mod"),
+                os.path.join("PDFTronGo", "pdftron"))
 
     print("Fixing samples...")
     fixSamples()

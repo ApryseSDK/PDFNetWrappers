@@ -7,7 +7,8 @@ set MODULE_PATH=""
 
 if NOT exist go.mod (
     go mod init pdftron-test
-    go mod edit -replace github.com/pdftron/pdftron-go=%cd%/../
+    go mod edit -replace github.com/pdftron/pdftron-go=../
+    go mod edit -require github.com/pdftron/pdftron-go@v1.0.0
     go mod tidy
 )
 
