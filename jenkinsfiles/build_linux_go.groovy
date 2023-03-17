@@ -45,7 +45,7 @@ pipeline {
                         pulling_branch = 'master'
                     }
 
-                    s3ArtifactCopyInvoke("PDFNetC64_GCC48/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.tar.gz", params.INVOKER_BUILD_ID)
+                    s3ArtifactCopyInvoke("PDFNetC64_GCC48/9.5", "PDFNetC64.tar.gz", params.INVOKER_BUILD_ID)
                 }
 
                 sh '''

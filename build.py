@@ -177,8 +177,11 @@ def buildWindows(custom_swig):
 
     os.makedirs("shared_libs/win", exist_ok=True)
     os.remove("pdftron_wrap.cxx")
+    os.remove("pdftron.go")
     os.remove("pdftron_wrap.h")
+    shutil.rmtree("Headers")
     shutil.move("Lib", "shared_libs/win/Lib")
+
     shutil.move("Resources", "shared_libs/win/Resources")
 
     os.chdir(rootDir)
@@ -209,9 +212,12 @@ def buildLinux(custom_swig):
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
 
+
     os.makedirs("shared_libs/unix", exist_ok=True)
     os.remove("pdftron_wrap.cxx")
+    os.remove("pdftron.go")
     os.remove("pdftron_wrap.h")
+    shutil.rmtree("Headers")
     shutil.move("Lib", "shared_libs/unix/Lib")
     shutil.move("Resources", "shared_libs/unix/Resources")
     os.chdir(rootDir)
@@ -246,6 +252,7 @@ def buildDarwin(custom_swig):
     os.remove("pdftron_wrap.cxx")
     os.remove("pdftron.go")
     os.remove("pdftron_wrap.h")
+    shutil.rmtree("Headers")
     shutil.move("Lib", "shared_libs/mac/Lib")
     shutil.move("Resources", "shared_libs/mac/Resources")
 

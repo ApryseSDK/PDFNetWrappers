@@ -34,7 +34,7 @@ pipeline {
                         pulling_branch = 'master'
                     }
 
-                    s3ArtifactCopyInvoke("PDFNetC64 VS2013/" + pulling_branch.replace("/", "%2F"), "PDFNetC64.zip", params.INVOKER_BUILD_ID)
+                    s3ArtifactCopyInvoke("PDFNetC64 VS2013/9.5", "PDFNetC64.zip", params.INVOKER_BUILD_ID)
                 }
 
 
@@ -54,7 +54,7 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                sh 'mv build/PDFTronGo.zip build/PDFTronGoWin.zip'
+                sh 'move build/PDFTronGo.zip build/PDFTronGoWin.zip'
                 s3ArtifactUpload("build/PDFTronGoWin.zip")
             }
         }
