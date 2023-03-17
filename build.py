@@ -240,11 +240,11 @@ def buildDarwin(custom_swig):
 
     # We have to create slightly different binaries for each arch
     createMacBinaries("x86_64")
-
     createMacBinaries("arm64")
 
     os.makedirs("shared_libs/mac", exist_ok=True)
     os.remove("pdftron_wrap.cxx")
+    os.remove("pdftron.go")
     os.remove("pdftron_wrap.h")
     shutil.move("Lib", "shared_libs/mac/Lib")
     shutil.move("Resources", "shared_libs/mac/Resources")
@@ -255,7 +255,7 @@ def createMacBinaries(arch):
     # We don't provide an output name and use install_name instead, so that mac does not inject the output name as a shared dependency
     gccCommand = "clang -fPIC -lstdc++ -I./Headers -L./Lib/%s -lPDFNetC\
      -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx\
-     -install_name @rpath/libpdftron.dylib" % (arch, arch)
+     -install_name @rpath/libpdftron.dylib" % (arch)
     subprocess.run(shlex.split(gccCommand), check=True)
     shutil.move("a.out", "Lib/%s/libpdftron.dylib" % arch)
 
@@ -271,20 +271,15 @@ def splitBinaries(lib_path, lib_name, arch):
     os.chdir(lib_path)
     lib_names = lib_name.split(".")
 
-    arm_lib_name = "%s_%s.%s" % (lib_names[0], arch, lib_names[1])
-    x64_lib_name = "%s_%s.%s" % (lib_names[0], arch, lib_names[1])
+    name = "%s_%s.%s" % (lib_names[0], arch, lib_names[1])
 
-    split_arm = "lipo %s -thin %s -output %s" % (lib_name, arch, arm_lib_name)
-    subprocess.run(shlex.split(split_arm), check=True)
-
-    split_x64 = "lipo %s -thin %s -output %s" % (lib_name, arch, x64_lib_name)
-    subprocess.run(shlex.split(split_x64), check=True)
+    split_obj = "lipo %s -thin %s -output %s" % (lib_name, arch, name)
+    subprocess.run(shlex.split(split_obj), check=True)
 
     os.mkdir(arch)
-    os.move("libPDFNetC_%s.dylib" % arch, "%s/libPDFNetC.dylib" % arch)
+    shutil.move(name, "%s/libPDFNetC.dylib" % arch)
 
     os.chdir(lastDir)
-
 
 # inserts CGO LDFLAGS/CXFLAGS for usage during go build
 # Should be inserted into any generated swig files at the start of the /* swig */ comment
