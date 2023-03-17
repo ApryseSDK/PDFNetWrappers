@@ -54,7 +54,7 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                sh 'move build/PDFTronGo.zip build/PDFTronGoWin.zip'
+                powershell 'move build/PDFTronGo.zip build/PDFTronGoWin.zip'
                 s3ArtifactUpload("build/PDFTronGoWin.zip")
             }
         }
