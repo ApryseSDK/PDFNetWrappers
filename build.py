@@ -325,11 +325,12 @@ def setBuildDirectives(filename, arch = ""):
         if (arch == "arm64"):
                 directive_arch = "arm"
 
+        text = "// +build darwin\n// +build %s\n" % directive_arch
+        print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
         with open(filename, "w") as modified:
-            modified.write("%s\n%s" % ("// +build darwin\n", data))
-            modified.write("%s\n%s" % ("// +build %s\n" % directive_arch, data))
+            modified.write("%s\n%s" % (text, data))
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
