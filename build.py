@@ -197,11 +197,15 @@ def buildLinux(custom_swig):
     
     os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
 
-    gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
+    gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib\
+ -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
+
+
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib" -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
+    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib"\
+ -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
     shutil.copy("pdftron.go", "pdftron_linux.go")
@@ -252,14 +256,14 @@ def cleanupDirectories(system):
 def createMacBinaries(arch):
     # We don't provide an output name and use install_name instead, so that mac does not inject the output name as a shared dependency
     gccCommand = "clang -fPIC -lstdc++ -I./Headers -L./Lib/%s -lPDFNetC\
-     -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx\
-     -install_name @rpath/libpdftron.dylib" % (arch)
+ -dynamiclib -undefined suppress -flat_namespace pdftron_wrap.cxx\
+ -install_name @rpath/libpdftron.dylib" % (arch)
     subprocess.run(shlex.split(gccCommand), check=True)
     shutil.move("a.out", "Lib/%s/libpdftron.dylib" % arch)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
     ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib/%s/"\
-     -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib/%s/"' % (arch, arch)
+ -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib/%s/"' % (arch, arch)
     shutil.copy("pdftron.go", "pdftron_darwin_%s.go" % arch)
     insertCGODirectives("pdftron_darwin_%s.go" % arch, cxxflags, ldflags)
     setBuildDirectives("pdftron_darwin_%s.go" % arch, arch)
@@ -310,7 +314,7 @@ def setBuildDirectives(filename, arch = ""):
         with open(filename, "w") as modified:
             modified.write("%s\n%s" % (text, data))
     elif platform.system().startswith('Windows'):
-        text = "// +build windows\n\n"
+        text = "// +build windows\n"
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
@@ -321,12 +325,12 @@ def setBuildDirectives(filename, arch = ""):
         if (arch == "arm64"):
                 directive_arch = "arm"
 
-        text = "// +build darwin && %s\n\n" % directive_arch
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
         with open(filename, "w") as modified:
-            modified.write("%s\n%s" % (text, data))
+            modified.write("%s\n%s" % ("// +build darwin\n", data))
+            modified.write("%s\n%s" % ("// +build %s\n" % directive_arch, data))
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
