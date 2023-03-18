@@ -325,7 +325,6 @@ def setBuildDirectives(filename, arch = ""):
         if (arch == "arm64"):
                 directive_arch = "arm"
 
-        print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
         with open(filename, "w") as modified:
