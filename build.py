@@ -197,7 +197,7 @@ def buildLinux(custom_swig):
     
     os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
 
-    gccCommand = "clang -I./Headers -L./Lib\
+    gccCommand = "clang -fpic -I./Headers -L./Lib\
  -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
