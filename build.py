@@ -197,14 +197,14 @@ def buildLinux(custom_swig):
     
     os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
 
-    gccCommand = "clang -fpic -I./Headers -L./Lib\
+    gccCommand = "clang -fuse-ld=gold -fpic -I./Headers -L./Lib\
  -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
 
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib"\
+    ldflags = '#cgo LDFLAGS: -Wl,--disable-new-dtags -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib"\
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
