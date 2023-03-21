@@ -53,8 +53,8 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                sh 'mv build/PDFTronGo.zip build/PDFTronGoMac.zip'
-                s3ArtifactUpload("build/PDFTronGoMac.zip")
+                sh 'mv build/PDFTronGo.zip build/PDFTronGoMacArm.zip'
+                s3ArtifactUpload("build/PDFTronGoMacArm.zip")
             }
         }
     }
