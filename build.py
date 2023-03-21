@@ -243,6 +243,33 @@ def buildDarwin(custom_swig):
 
     os.chdir(rootDir)
 
+def buildDarwinArm(custom_swig):
+    print("Running Mac build...")
+    if not os.path.exists("PDFNetCMac.zip"):
+        raise ValueError("Cannot find PDFNetCMac.zip")
+
+    extractArchive("PDFNetCMac.zip", "%s/build/PDFNetC" % rootDir)
+
+    # splits binary into arm/x64 so the size isnt so large
+    splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "arm64")
+    os.remove("%s/build/PDFNetC/Lib/libPDFNetC.dylib" % rootDir)
+
+    os.chdir("%s/build" % rootDir)
+    if custom_swig:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..' % custom_swig
+    else:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
+
+    subprocess.run(shlex.split(cmakeCommand), check=True)
+
+    os.chdir("%s/build/PDFTronGo/pdftron" % rootDir)
+
+    createMacBinaries("arm64")
+
+    cleanupDirectories("mac")
+
+    os.chdir(rootDir)
+
 def cleanupDirectories(system):
     os.makedirs("shared_libs/%s" % system, exist_ok=True)
     os.remove("pdftron_wrap.cxx")
@@ -323,7 +350,7 @@ def setBuildDirectives(filename, arch = ""):
     else:
         directive_arch = "amd64"
         if (arch == "arm64"):
-                directive_arch = "arm"
+                directive_arch = "arm64"
 
         text = "// +build darwin\n// +build %s\n" % directive_arch
         print("Writing %s to %s" % (text, filename))
@@ -350,6 +377,8 @@ def main():
         buildWindows(custom_swig)
     elif platform.system().startswith('Linux'):
         buildLinux(custom_swig)
+    elif platform.system().startswith('Darwin') and platform.processor().startswith('arm'):
+        buildDarwinArm(custom_swig)
     else:
         buildDarwin(custom_swig)
 
