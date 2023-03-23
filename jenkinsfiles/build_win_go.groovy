@@ -1,7 +1,3 @@
-String cron_default = "0 0 * * *"
-
-String cron_string = isBaseBranch(env.BRANCH_NAME) ? cron_default : ""
-
 pipeline {
     agent { label 'windows_fleet' }
 
@@ -11,36 +7,16 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
-    environment {
-        BUILD_TYPE   = "experimental"
-    }
-
-    parameters {
-        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
-    }
-
-
     stages {
-        stage('Checkout') {
-            steps {
-                toolsCheckout()
-            }
-        }
-
         stage ('Build') {
             steps {
-                script {
-                    def pulling_branch = env.BRANCH_NAME
-                    if (env.BRANCH_NAME == 'next_release') {
-                        pulling_branch = 'master'
-                    }
-
-                    s3ArtifactCopyInvoke("PDFNetC64 VS2013/9.5", "PDFNetC64.zip", params.INVOKER_BUILD_ID)
-                }
-
+                s3ArtifactCopyInvoke(
+                    "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                    "PDFNetC64.zip", params.INVOKER_BUILD_ID
+                )
 
                 powershell '''
-                    python3 build.py
+                    python3 PDFTronGo/build_go.py
                 '''
             }
         }

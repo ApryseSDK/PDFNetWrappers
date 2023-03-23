@@ -1,7 +1,3 @@
-String cron_default = "0 0 * * *"
-
-String cron_string = isBaseBranch(env.BRANCH_NAME) ? cron_default : ""
-
 pipeline {
     agent { label 'Courage' }
 
@@ -11,34 +7,16 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
-    environment {
-        BUILD_TYPE   = "experimental"
-    }
-
-    parameters {
-        string(defaultValue: "", description: "The calling build number", name: "INVOKER_BUILD_ID")
-    }
-
     stages {
-        stage('Checkout') {
-            steps {
-                toolsCheckout()
-            }
-        }
-
         stage ('Build') {
             steps {
-                script {
-                    def pulling_branch = env.BRANCH_NAME
-                    if (env.BRANCH_NAME == 'next_release') {
-                        pulling_branch = 'master'
-                    }
-
-                    s3ArtifactCopyInvoke("PDFNet Mac/9.5", "PDFNetCMac.zip", params.INVOKER_BUILD_ID)
-                }
+                s3ArtifactCopyInvoke(
+                    "PDFNet Mac/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                    "PDFNetCMac.zip", params.INVOKER_BUILD_ID
+                )
 
                 sh '''
-                    python3 build.py -cs /usr/local/opt/swig/bin/swig
+                    python3 PDFTronGo/build_go.py -cs /usr/local/opt/swig/bin/swig
                 '''
             }
         }
