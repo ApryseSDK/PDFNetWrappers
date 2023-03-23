@@ -7,12 +7,16 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
+    environment {
+        GOCACHE      = "/tmp/.cache"
+    }
+
     stages {
         stage ('Build') {
             steps {
                 s3ArtifactCopyInvoke(
                     "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
-                    "PDFNetC64.zip", params.INVOKER_BUILD_ID
+                    "PDFNetC64.zip"
                 )
 
                 powershell '''
@@ -21,13 +25,17 @@ pipeline {
             }
         }
 
-        // stage ('Run test samples') {
-        //     steps {
-        //         dir('build/PDFTronGo/pdftron/samples') {
-        //             sh './runall_go.sh'
-        //         }
-        //     }
-        // }
+        stage ('Run test samples') {
+            steps {
+                withCredentials([string(credentialsId: 'jenkins/core-sdk-key', variable: 'ENV_LICENSE_KEY')]) {
+                    dir('build/PDFTronGo/pdftron/samples') {
+                        sh '''
+                            ./runall_go.bat
+                        '''
+                    }
+                }
+            }
+        }
 
         stage ('Upload') {
             steps {

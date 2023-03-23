@@ -7,12 +7,16 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
+    environment {
+        GOCACHE      = "/tmp/.cache"
+    }
+
     stages {
         stage ('Build') {
             steps {
                 s3ArtifactCopyInvoke(
                     "PDFNet Mac/" + getWrappersBranch(branch: env.BRANCH_NAME),
-                    "PDFNetCMac.zip", params.INVOKER_BUILD_ID
+                    "PDFNetCMac.zip"
                 )
 
                 sh '''
@@ -21,13 +25,17 @@ pipeline {
             }
         }
 
-        // stage ('Run test samples') {
-        //     steps {
-        //         dir('build/PDFTronGo/pdftron/samples') {
-        //             sh './runall_go.sh'
-        //         }
-        //     }
-        // }
+        stage ('Run test samples') {
+            steps {
+                withCredentials([string(credentialsId: 'jenkins/core-sdk-key', variable: 'ENV_LICENSE_KEY')]) {
+                    dir('build/PDFTronGo/pdftron/samples') {
+                        sh '''
+                            ./runall_go.sh
+                        '''
+                    }
+                }
+            }
+        }
 
         stage ('Upload') {
             steps {

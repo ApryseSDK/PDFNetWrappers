@@ -15,12 +15,16 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
+    environment {
+        GOCACHE      = "/tmp/.cache"
+    }
+
     stages {
         stage ('Build') {
             steps {
                 s3ArtifactCopyInvoke(
                     "PDFNetC64_GCC48/" + getWrappersBranch(branch: env.BRANCH_NAME),
-                    "PDFNetC64.tar.gz", params.INVOKER_BUILD_ID
+                    "PDFNetC64.tar.gz"
                 )
 
                 sh '''
