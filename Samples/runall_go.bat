@@ -2,8 +2,8 @@
 SET PATH=%cd%/../shared_libs/win/Lib/;%PATH%
 cd /D "%~dp0"
 
-set LICENSE_KEY=""
-set MODULE_PATH=""
+set LICENSE_KEY="%ENV_LICENSE_KEY%"
+set MODULE_PATH="%ENV_MODULE_PATH%"
 
 if NOT exist go.mod (
     go mod init pdftron-test

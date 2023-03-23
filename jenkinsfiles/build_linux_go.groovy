@@ -30,13 +30,17 @@ pipeline {
             }
         }
 
-        // stage ('Run test samples') {
-        //     steps {
-        //         dir('build/PDFTronGo/pdftron/samples') {
-        //             sh './runall_go.sh'
-        //         }
-        //     }
-        // }
+        stage ('Run test samples') {
+            steps {
+                withCredentials([string(credentialsId: 'jenkins/core-sdk-key', variable: 'ENV_LICENSE_KEY')]) {
+                    dir('build/PDFTronGo/pdftron/samples') {
+                        sh '''
+                            ./runall_go.sh
+                        '''
+                    }
+                }
+            }
+        }
 
         stage ('Upload') {
             steps {
