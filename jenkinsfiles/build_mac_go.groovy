@@ -11,13 +11,25 @@ pipeline {
         GOCACHE      = "/tmp/.cache"
     }
 
+    parameters {
+        string(name: "FORCE_BRANCH_VERSION", defaultValue: "" ,
+               description: "Set to a version if you wish to change the core SDK version used.")
+    }
+
     stages {
         stage ('Build') {
             steps {
-                s3ArtifactCopyInvoke(
-                    "PDFNet Mac/" + getWrappersBranch(branch: env.BRANCH_NAME),
-                    "PDFNetCMac.zip"
-                )
+                if (params.FORCE_BRANCH_VERSION?.trim()) {
+                    s3ArtifactCopyInvoke(
+                        "PDFNet Mac/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                        "PDFNetCMac.zip"
+                    )
+                } else {
+                    s3ArtifactCopyInvoke(
+                        "PDFNet Mac/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                        "PDFNetCMac.zip"
+                    )
+                }
 
                 sh '''
                     python3 PDFTronGo/build_go.py -cs /usr/local/opt/swig/bin/swig

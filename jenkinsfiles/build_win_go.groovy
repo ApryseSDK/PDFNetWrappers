@@ -11,13 +11,27 @@ pipeline {
         GOCACHE      = "/tmp/.cache"
     }
 
+    parameters {
+        string(name: "FORCE_BRANCH_VERSION", defaultValue: "" ,
+               description: "Set to a version if you wish to change the core SDK version used.")
+    }
+
     stages {
         stage ('Build') {
             steps {
-                s3ArtifactCopyInvoke(
-                    "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
-                    "PDFNetC64.zip"
-                )
+                if (params.FORCE_BRANCH_VERSION?.trim()) {
+                    s3ArtifactCopyInvoke(
+                        "PDFNetC64 VS2013/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                        "PDFNetC64.zip"
+                    )
+
+                } else {
+                    s3ArtifactCopyInvoke(
+                        "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                        "PDFNetC64.zip"
+                    )
+                }
+                
 
                 powershell '''
                     python3 PDFTronGo/build_go.py
