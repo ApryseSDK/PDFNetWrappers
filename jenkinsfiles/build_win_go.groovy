@@ -19,17 +19,18 @@ pipeline {
     stages {
         stage ('Build') {
             steps {
-                if (params.FORCE_BRANCH_VERSION?.trim()) {
-                    s3ArtifactCopyInvoke(
-                        "PDFNetC64 VS2013/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
-                        "PDFNetC64.zip"
-                    )
-
-                } else {
-                    s3ArtifactCopyInvoke(
-                        "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
-                        "PDFNetC64.zip"
-                    )
+                script {
+                    if (params.FORCE_BRANCH_VERSION?.trim()) {
+                        s3ArtifactCopyInvoke(
+                            "PDFNetC64 VS2013/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "PDFNetC64.zip"
+                        )
+                    } else {
+                        s3ArtifactCopyInvoke(
+                            "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                            "PDFNetC64.zip"
+                        )
+                    }
                 }
                 
 
