@@ -229,7 +229,6 @@
 	// header files in /PDFNetC/Headers/Layout
 	#include "Layout/FlowDocument.h"
 	#include "Layout/Paragraph.h"
-	#include "Layout/TextStyle.h"
     
     using namespace pdftron;
     using namespace FDF;
@@ -852,7 +851,6 @@ namespace pdftron {
 
 %include "Layout/FlowDocument.h"
 %include "Layout/Paragraph.h"
-%include "Layout/TextStyle.h"
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{
