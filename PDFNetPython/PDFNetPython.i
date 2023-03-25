@@ -225,6 +225,10 @@
     #include "SDF/UndoManager.h"
     #include "SDF/ResultSnapshot.h"
     #include "SDF/DocSnapshot.h"
+	
+    // header files in /PDFNetC/Headers/Layout
+    #include "Layout/FlowDocument.h"
+    #include "Layout/Paragraph.h"
     
     using namespace pdftron;
     using namespace FDF;
@@ -844,6 +848,9 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+
+%include "Layout/Paragraph.h"
+%include "Layout/FlowDocument.h"
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{
