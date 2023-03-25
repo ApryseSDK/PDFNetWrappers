@@ -14,7 +14,6 @@ sys.path.append("../../LicenseKey/PYTHON")
 from LicenseKey import *
 
 # Relative path to the folder containing the test files.
-inputPath = "../../TestFiles/"
 outputPath = "../../TestFiles/Output/"
 
 def main():
