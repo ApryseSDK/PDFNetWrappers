@@ -7,7 +7,7 @@ package main
 import (
     "fmt"
     "testing"
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
     "flag"
 )
 

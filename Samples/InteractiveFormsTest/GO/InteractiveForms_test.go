@@ -11,7 +11,7 @@ import (
     "flag"
     "os"
     "math"
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
 )
 
 var licenseKey string

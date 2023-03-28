@@ -9,7 +9,7 @@ import (
     "testing"
     "flag"
     "strconv"
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
 )
 
 var licenseKey string

@@ -8,7 +8,7 @@ import (
     "testing"
     "flag"
     "fmt"
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
 )
 
 var licenseKey string

@@ -7,7 +7,7 @@ package main
 import (
     "testing"
     "flag"
-	. "github.com/pdftron/pdftron-go"
+	. "github.com/pdftron/pdftron-go/v2"
 )
 
 var licenseKey string

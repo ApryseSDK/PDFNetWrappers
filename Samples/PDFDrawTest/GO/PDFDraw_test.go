@@ -9,7 +9,7 @@ import (
     "strconv"
     "testing"
     "os"
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
     "flag"
 )
 

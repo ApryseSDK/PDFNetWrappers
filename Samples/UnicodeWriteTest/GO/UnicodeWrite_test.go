@@ -11,7 +11,7 @@ import (
     "testing"
     "strconv"
     "runtime"
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
     "flag"
     "golang.org/x/text/encoding/unicode"
     "golang.org/x/text/transform"

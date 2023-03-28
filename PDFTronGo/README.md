@@ -19,10 +19,10 @@ A commercial license key is required for use in a production environment. Please
 
 # Running PDFTron Go in your project
 
-1. Import `github.com/pdftron/pdftron-go` into your project
+1. Import `github.com/pdftron/pdftron-go/v2` into your project
    a. On **Windows**, you will have to locate the DLLs for running the project and append them to your path.
    ```
-   set PATH=%GOPATH%/pkg/mod/github.com/pdftron/pdftron-go@your_version/shared_libs/win/Lib
+   set PATH=%GOPATH%/pkg/mod/github.com/pdftron/pdftron-go/v2@your_version/shared_libs/win/Lib
    ```
    You may also copy these directly to your project directory.
    
@@ -32,7 +32,7 @@ A commercial license key is required for use in a production environment. Please
 package main
 
 import (
-    . "github.com/pdftron/pdftron-go"
+    . "github.com/pdftron/pdftron-go/v2"
 )
 
 
@@ -62,8 +62,8 @@ func main() {
 This can be done by modifying your go.mod via this command in your project directory.
 
 ```
-go mod edit -require github.com/pdftron/pdftron-go@v0.0.2`
-go mod tidy (or go get github.com/pdftron/pdftron-go)
+go mod edit -require github.com/pdftron/pdftron-go/v2@v0.0.2`
+go mod tidy (or go get github.com/pdftron/pdftron-go/v2)
 ```
 
 # Project Structure
