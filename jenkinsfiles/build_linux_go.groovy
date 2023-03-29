@@ -15,9 +15,13 @@ pipeline {
         timeout(time: 2, unit: 'HOURS')
     }
 
+
+    triggers { cron("0 0 * * *") }
+
     environment {
         GOCACHE      = "/tmp/.cache"
     }
+
 
     parameters {
         string(name: "FORCE_BRANCH_VERSION", defaultValue: "" ,
