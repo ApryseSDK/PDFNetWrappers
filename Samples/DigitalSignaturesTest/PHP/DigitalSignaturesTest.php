@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------------------------------------------------
-// Copyright (c) 2001-2022 by PDFTron Systems Inc. All Rights Reserved.
+// Copyright (c) 2001-2023 by Apryse Software Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //----------------------------------------------------------------------------------------------------------------------
 if(file_exists("../../../PDFNetC/Lib/PDFNetPHP.php"))
