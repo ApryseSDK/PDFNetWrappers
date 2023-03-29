@@ -14,7 +14,7 @@ This document shows a simple guide on how to build Golang bindings of PDFNet for
 # Build Instructions
 
 1. Download the correct PDFNetC64 for your version from https://www.pdftron.com/nightly, place this in the root directory
-2. Run `python build.py` from the root directory
+2. Run `python PDFTronGo/build_go.py` from the root directory
 3. You should now have generated a project within ./build/PDFTronGo/pdftron. The build has completed.
 
 # Testing
