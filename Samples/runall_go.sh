@@ -10,7 +10,7 @@ MODULE_PATH="$ENV_MODULE_PATH"
 if [ ! -f "go.mod" ]; then
 	go mod init pdftron-test
 	go mod edit -replace github.com/pdftron/pdftron-go/v2=../
-	go mod edit -require github.com/pdftron/pdftron-go/v2@v1.0.0
+	go mod edit -require github.com/pdftron/pdftron-go/v2@v2.0.0
 	go mod tidy
 fi
 
