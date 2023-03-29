@@ -3,9 +3,9 @@ This document shows a simple guide on how to build Golang bindings of PDFNet for
 # Required Dependencies:
 - This repository
 - CMake: http://www.cmake.org/download/ (version 2.8+)
-- The correct PDFNetC64 for your build: https://www.pdftron.com/downloads/PDFNetC64.zip (Windows)
+- The correct PDFNetC64 for your build: https://www.apryse.com/downloads/PDFNetC64.zip (Windows)
 - SWIG https://www.swig.org/download.html
-- Python3
+- Python3+
 - Go 1.15+
 
 ## Windows Only:
@@ -13,11 +13,17 @@ This document shows a simple guide on how to build Golang bindings of PDFNet for
 
 # Build Instructions
 
-1. Download the correct PDFNetC64 for your version from https://www.pdftron.com/nightly, place this in the root directory
-2. Run `python PDFTronGo/build_go.py` from the root directory
-3. You should now have generated a project within ./build/PDFTronGo/pdftron. The build has completed.
+1. Download the correct PDFNetC64 for your version from https://www.pdftron.com/nightly, place this in the root directory of this project and **ensure it is named according to the operating system**.
+
+Windows > PDFNetC64.zip
+Mac     > PDFNetCMac.zip
+Linux   > PDFNetC64.tar.gz
+
+2. Open a terminal in the root directory and run `python PDFTronGo/build_go.py`
+3. You should now have generated a project within ./build/PDFTronGo/pdftron. The build has completed. The project will be encapsulated within the 'pdftron' directory.
 
 # Testing
+
 1. Add your Apryse License to ./build/PDFTronGo/pdftron/samples/runall_go.sh variable `LICENSE_KEY`
 2. Run the tests via ./build/PDFTronGo/pdftron/samples/runall_go.sh (or .bat)
 
