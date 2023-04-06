@@ -66,7 +66,26 @@ def main():
 
             para.AddText(para_text)
             para.SetFontSize(point_size)
-         
+        
+        last_para = flowdoc.AddParagraph()
+        last_para.AddText("Last paragraph for testing first content tree features...")
+
+        # TODO: How to get the base class in Python?
+        content_node = last_para
+        print("Paragraph is content node and has node type %d" % content_node.GetContentNodeType())
+
+        # TODO: How to get the base class in Python?
+        content_element = content_node
+        print("ContentNode is content element and has element type %d" % content_element.GetContentElementType())
+
+        if content_element.GetContentElementType() == ContentElement.e_content_node:
+            content_node_from_element = content_element.GetContentNode()
+
+            if content_node_from_element.GetContentNodeType() == ContentNode.e_paragraph:
+                paragraph_from_content_node = content_node_from_element.GetParagraph()
+
+                paragraph_from_content_node.SetFontSize(20)
+
         my_pdf = flowdoc.PaginateToPDF()
         my_pdf.Save(outputPath + "created_doc.pdf", SDFDoc.e_linearized)
 
