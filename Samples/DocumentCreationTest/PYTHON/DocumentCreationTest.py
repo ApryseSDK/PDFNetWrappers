@@ -16,6 +16,8 @@ from LicenseKey import *
 # Relative path to the folder containing the test files.
 outputPath = "../../TestFiles/Output/"
 
+# Iterate over all text runs of the document and make every second run
+# bold with smaller font size.
 def ModifyContentTree(node):
     bold = False
 
