@@ -16,6 +16,26 @@ from LicenseKey import *
 # Relative path to the folder containing the test files.
 outputPath = "../../TestFiles/Output/"
 
+def ModifyContentTree(node):
+    bold = False
+
+    itr = node.GetContentNodeIterator()
+
+    while itr.HasNext():
+        el = itr.Current()
+        eltype = el.GetContentElementType()
+
+        if eltype == ContentElement.e_content_node:
+            ModifyContentTree(el.GetContentNode())
+        elif eltype == ContentElement.e_text_run:
+            text_run = el.GetTextRun()
+            if bold:
+                text_run.SetBold(True)
+                text_run.SetFontSize(text_run.GetFontSize() * 0.8)
+            bold = not bold
+        
+        itr.Next()
+
 def main():
     # The first step in every application using PDFNet is to initialize the 
     # library. The library is usually initialized only once, but calling 
@@ -44,6 +64,31 @@ def main():
         para.SetFontSize(24)
         para.SetTextColor(255, 0, 0)
         para.AddText("Start Red Text\n")
+        para.SetTextColor(0, 0, 255)
+        para.AddText("Start Blue Text\n")
+        last_run = para.AddText("Start Green Text\n")
+
+        itr = para.GetContentNodeIterator()
+        i = 0
+        while itr.HasNext():
+            el = itr.Current()
+
+            if el.GetContentElementType() == ContentElement.e_text_run:
+                run = el.GetTextRun()
+                run.SetFontSize(12)
+
+                if i == 0:
+                    # restore red color
+                    run.SetText(run.GetText() + "(restored red color)\n")
+                    run.SetTextColor(255, 0, 0)
+
+            itr.Next()
+            i += 1
+
+        last_run.SetTextColor(0, 255, 0)
+        last_run.SetItalic(True)
+        last_run.SetFontSize(18)
+
         flowdoc.SetDefaultMargins(0, 72.0, 144.0, 228.0)
         flowdoc.SetDefaultPageSize(650, 750)
         flowdoc.AddParagraph(para_text)
@@ -65,26 +110,12 @@ def main():
                 para.SetJustificationMode(ParagraphStyle.e_text_justify_right)
 
             para.AddText(para_text)
+            para.AddText(" " + para_text)
             para.SetFontSize(point_size)
-        
-        last_para = flowdoc.AddParagraph()
-        last_para.AddText("Last paragraph for testing first content tree features...")
 
-        # TODO: How to get the base class in Python?
-        content_node = last_para
-        print("Paragraph is content node and has node type %d" % content_node.GetContentNodeType())
-
-        # TODO: How to get the base class in Python?
-        content_element = content_node
-        print("ContentNode is content element and has element type %d" % content_element.GetContentElementType())
-
-        if content_element.GetContentElementType() == ContentElement.e_content_node:
-            content_node_from_element = content_element.GetContentNode()
-
-            if content_node_from_element.GetContentNodeType() == ContentNode.e_paragraph:
-                paragraph_from_content_node = content_node_from_element.GetParagraph()
-
-                paragraph_from_content_node.SetFontSize(20)
+        # Walk the content tree and modify some text runs.
+        body = flowdoc.GetBody()
+        ModifyContentTree(body)
 
         my_pdf = flowdoc.PaginateToPDF()
         my_pdf.Save(outputPath + "created_doc.pdf", SDFDoc.e_linearized)
