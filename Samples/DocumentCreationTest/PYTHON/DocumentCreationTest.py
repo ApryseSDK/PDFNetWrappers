@@ -25,16 +25,17 @@ def ModifyContentTree(node):
 
     while itr.HasNext():
         el = itr.Current()
-        eltype = el.GetContentElementType()
-
-        if eltype == ContentElement.e_content_node:
-            ModifyContentTree(el.GetContentNode())
-        elif eltype == ContentElement.e_text_run:
-            text_run = el.GetTextRun()
-            if bold:
-                text_run.SetBold(True)
-                text_run.SetFontSize(text_run.GetFontSize() * 0.8)
-            bold = not bold
+        maybe_content_node = el.AsContentNode()
+        if maybe_content_node.IsValid():
+            ModifyContentTree(maybe_content_node.GetContentNode())
+        else:
+            maybe_text_run = el.AsTextRun()
+            if maybe_text_run.IsValid():
+                if bold:
+                    text_run = maybe_text_run.GetTextRun()
+                    text_run.SetBold(True)
+                    text_run.SetFontSize(text_run.GetFontSize() * 0.8)
+                bold = not bold
         
         itr.Next()
 
@@ -75,8 +76,9 @@ def main():
         while itr.HasNext():
             el = itr.Current()
 
-            if el.GetContentElementType() == ContentElement.e_text_run:
-                run = el.GetTextRun()
+            maybe_text_run = el.AsTextRun()
+            if maybe_text_run.IsValid():
+                run = maybe_text_run.GetTextRun()
                 run.SetFontSize(12)
 
                 if i == 0:
