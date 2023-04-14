@@ -33,8 +33,8 @@ def ModifyContentTree(node):
             if maybe_text_run.IsValid():
                 if bold:
                     text_run = maybe_text_run.GetTextRun()
-                    text_run.SetBold(True)
-                    text_run.SetFontSize(text_run.GetFontSize() * 0.8)
+                    text_run.GetTextStyledElement().SetBold(True)
+                    text_run.GetTextStyledElement().SetFontSize(text_run.GetTextStyledElement().GetFontSize() * 0.8)
                 bold = not bold
         
         itr.Next()
@@ -63,12 +63,14 @@ def main():
     try:
         flowdoc = FlowDocument()
         para = flowdoc.AddParagraph()
+        st_para = para.GetTextStyledElement()
         
-        para.SetFontSize(24)
-        para.SetTextColor(255, 0, 0)
+        st_para.SetFontSize(24)
+        st_para.SetTextColor(255, 0, 0)
         para.AddText("Start Red Text\n")
-        para.SetTextColor(0, 0, 255)
+        st_para.SetTextColor(0, 0, 255)
         para.AddText("Start Blue Text\n")
+
         last_run = para.AddText("Start Green Text\n")
 
         itr = para.GetContentNodeIterator()
@@ -79,19 +81,25 @@ def main():
             maybe_text_run = el.AsTextRun()
             if maybe_text_run.IsValid():
                 run = maybe_text_run.GetTextRun()
-                run.SetFontSize(12)
+                run.GetTextStyledElement().SetFontSize(12)
 
                 if i == 0:
                     # restore red color
                     run.SetText(run.GetText() + "(restored red color)\n")
-                    run.SetTextColor(255, 0, 0)
+                    run.GetTextStyledElement().SetTextColor(255, 0, 0)
 
             itr.Next()
             i += 1
 
-        last_run.SetTextColor(0, 255, 0)
-        last_run.SetItalic(True)
-        last_run.SetFontSize(18)
+        st_last = last_run.GetTextStyledElement()
+
+        st_last.SetTextColor(0, 255, 0)
+        st_last.SetItalic(True)
+        st_last.SetFontSize(18)
+
+        para.GetTextStyledElement().SetBold(True)
+
+        st_last.SetBold(False)
 
         flowdoc.SetDefaultMargins(0, 72.0, 144.0, 228.0)
         flowdoc.SetDefaultPageSize(650, 750)
@@ -102,20 +110,22 @@ def main():
 
         for i in range(50):
             para = flowdoc.AddParagraph()
+            st = para.GetTextStyledElement()
+
             point_size = (17*i*i*i)%13+5
             if i % 2 == 0:
-                para.SetItalic(True)
-                para.SetTextColor(clr1[0], clr1[1], clr1[2])
+                st.SetItalic(True)
+                st.SetTextColor(clr1[0], clr1[1], clr1[2])
                 para.SetSpaceBefore(20)
                 para.SetJustificationMode(ParagraphStyle.e_text_justify_left)
             else:
-                para.SetTextColor(clr2[0], clr2[1], clr2[2])
+                st.SetTextColor(clr2[0], clr2[1], clr2[2])
                 para.SetSpaceBefore(50)
                 para.SetJustificationMode(ParagraphStyle.e_text_justify_right)
 
             para.AddText(para_text)
             para.AddText(" " + para_text)
-            para.SetFontSize(point_size)
+            st.SetFontSize(point_size)
 
         # Walk the content tree and modify some text runs.
         body = flowdoc.GetBody()
