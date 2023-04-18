@@ -267,7 +267,7 @@ func CreateTestAnnots(doc PDFDoc){
     line.SetContents( "Inline Caption" )
     line.SetShowCaption(true)
     line.SetCaptionPosition( &LineAnnotE_Inline )
-    line.SetLeaderLineExtensionLength( -4. )
+    line.SetLeaderLineExtensionLength( 4. )
     line.SetLeaderLineLength( -12. )
     line.SetLeaderLineOffset( 2. )
     line.RefreshAppearance()
