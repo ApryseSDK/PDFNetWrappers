@@ -17,7 +17,7 @@ import "pdftron/Samples/LicenseKey/GO"
 // extract various types of data from PDF documents.
 //
 // The PDFTron SDK Data Extraction suite can be downloaded from
-// https://www.pdftron.com/documentation/core/info/modules/
+// https://docs.apryse.com/documentation/core/info/modules/
 //
 // Please contact us if you have any questions.
 //---------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ func TestTabularData() (err error) {
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK Tabular Data module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
 		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
-		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
 		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
 		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
 		fmt.Println("")
@@ -129,7 +129,7 @@ func TestDocumentStructure() (err error) {
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
 		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
-		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
 		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
 		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
 		fmt.Println("")
@@ -171,7 +171,7 @@ func TestFormFields() (err error) {
 		fmt.Println("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
 		fmt.Println("-----------------------------------------------------------------------------")
 		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
-		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
 		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
 		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
 		fmt.Println("")

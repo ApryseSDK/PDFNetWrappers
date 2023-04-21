@@ -130,7 +130,7 @@ func main() {
 		fmt.Println("Unable to run part of the sample: PDFTron SDK Structured Output module not available.")
 		fmt.Println("-------------------------------------------------------------------------------------")
 		fmt.Println("The Structured Output module is an optional add-on, available for download")
-		fmt.Println("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
 		fmt.Println("downloaded this module, ensure that the SDK is able to find the required file")
 		fmt.Println("using the PDFNet::AddResourceSearchPath() function.")
 		fmt.Println("")
