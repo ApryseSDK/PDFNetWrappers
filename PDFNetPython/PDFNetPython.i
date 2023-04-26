@@ -228,7 +228,7 @@
 	
     // header files in /PDFNetC/Headers/Layout
     #include "Layout/FlowDocument.h"
-    #include "Layout/ContentTree.h"
+    #include "Layout/Paragraph.h"
     
     using namespace pdftron;
     using namespace FDF;
@@ -696,7 +696,6 @@ namespace pdftron {
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
 %template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
 %template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
-%template (ContentNodeIterator) pdftron::Common::Iterator<pdftron::Layout::ContentElement>; 
 
 //----------------------------------------------------------------------------------------------
 
@@ -850,7 +849,7 @@ namespace pdftron {
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
 
-%include "Layout/ContentTree.h"
+%include "Layout/Paragraph.h"
 %include "Layout/FlowDocument.h"
 
 //Extend Initialize method to call overloaded one internally
