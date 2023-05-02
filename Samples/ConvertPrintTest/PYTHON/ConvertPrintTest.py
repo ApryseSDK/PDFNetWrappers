@@ -42,8 +42,7 @@ outputPath = "../../TestFiles/Output/"
 
 def ConvertSpecificFormats():
     ret = 0
-    try: 
-        
+    try:
         # Convert MSWord document to PDF
         if platform.system() == 'Windows':
             s1 = inputPath + "simple-word_2007.docx"
@@ -52,16 +51,10 @@ def ConvertSpecificFormats():
             outputFile = "simple-word_2007.xps"
             pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
             print("Saved " + outputFile)
-
-
-        
-
-
     except:
         ret = 1
 
-    try: 
-        
+    try:
         # Convert the EMF document to PDF
         if platform.system() == 'Windows':
             s1 = inputPath + "simple-emf.emf"
@@ -70,11 +63,6 @@ def ConvertSpecificFormats():
             outputFile = "emf2pdf v2.pdf"
             pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
             print("Saved " + outputFile)
-
-
-        
-
-
     except:
         ret = 1
     return ret
@@ -130,35 +118,38 @@ def ConvertToPdfFromFile():
 
 
 def main():
-    # The first step in every application using PDFNet is to initialize the 
-    # library. The library is usually initialized only once, but calling 
-    # Initialize() multiple times is also fine.
-    PDFNet.Initialize(LicenseKey)
-    
-    # Demonstrate Convert.ToPdf and Convert.Printer
-    err = ConvertToPdfFromFile()
-    if err:
-        print("ConvertFile failed")
-    else:
-        print("ConvertFile succeeded")
-
-    # Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
-    err = ConvertSpecificFormats()
-    if err:
-        print("ConvertSpecificFormats failed")
-    else:
-        print("ConvertSpecificFormats succeeded")
-
     if platform.system() == 'Windows':
-        try:
-            print("Uninstalling printer (requires Windows platform and administrator)")
-            ConvertPrinter.Uninstall()
-            print("Uninstalled printer " + ConvertPrinter.getPrinterName())
-        except:
-            print("Unable to uninstall printer")
+        # The first step in every application using PDFNet is to initialize the 
+        # library. The library is usually initialized only once, but calling 
+        # Initialize() multiple times is also fine.
+        PDFNet.Initialize(LicenseKey)
+        
+        # Demonstrate Convert.ToPdf and Convert.Printer
+        err = ConvertToPdfFromFile()
+        if err:
+            print("ConvertFile failed")
+        else:
+            print("ConvertFile succeeded")
 
-    PDFNet.Terminate()
-    print("Done.")
-    
+        # Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
+        err = ConvertSpecificFormats()
+        if err:
+            print("ConvertSpecificFormats failed")
+        else:
+            print("ConvertSpecificFormats succeeded")
+
+
+            try:
+                print("Uninstalling printer (requires Windows platform and administrator)")
+                ConvertPrinter.Uninstall()
+                print("Uninstalled printer " + ConvertPrinter.getPrinterName())
+            except:
+                print("Unable to uninstall printer")
+
+        PDFNet.Terminate()
+        print("Done.")
+    else:
+        print("ConvertPrintTest only available on Windows")
+
 if __name__ == '__main__':
     main()
