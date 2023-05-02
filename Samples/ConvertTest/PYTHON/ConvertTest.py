@@ -130,7 +130,7 @@ def ConvertToPdfFromFile():
             pdfdoc = PDFDoc()
             inputFile = testfile[0]
             outputFile = testfile[1]
-            Convert.Printer.SetMode(Convert.Printer.e_prefer_builtin_converter);
+            Printer.SetMode(Printer.e_prefer_builtin_converter);
 
             Convert.ToPdf(pdfdoc, inputPath + inputFile)
             pdfdoc.Save(outputPath + outputFile, SDFDoc.e_linearized)
@@ -138,6 +138,7 @@ def ConvertToPdfFromFile():
             print("Converted file: " + inputFile + "\nto: " + outputFile)
         except:
             ret = 1
+            print("ERROR: on input file " + inputFile)
     return ret
 
 
