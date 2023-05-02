@@ -115,28 +115,25 @@ def ConvertSpecificFormats():
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile():
     testfiles = [
-    [ "simple-word_2007.docx","docx2pdf.pdf", False],
-    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf", False],
-    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf", False],
-    [ "simple-text.txt","txt2pdf.pdf", False],
-    [ "butterfly.png","png2pdf.pdf", False],
-    [ "simple-xps.xps","xps2pdf.pdf", False],
+    [ "simple-word_2007.docx","docx2pdf.pdf"],
+    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf"],
+    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf"],
+    [ "simple-text.txt","txt2pdf.pdf"],
+    [ "butterfly.png","png2pdf.pdf"],
+    [ "simple-xps.xps","xps2pdf.pdf"],
     ]
     ret = 0
 
 
     for testfile in testfiles:
-        if platform.system() != 'Windows':
-            if testfile[2]:
-                continue
         try:
             pdfdoc = PDFDoc()
             inputFile = testfile[0]
             outputFile = testfile[1]
-            if Convert.RequiresPrinter(inputPath + inputFile):
-                print("Using PDFNet printer to convert file " + inputFile)
+            Convert.Printer.SetMode(Convert.Printer.e_prefer_builtin_converter);
+
             Convert.ToPdf(pdfdoc, inputPath + inputFile)
-            pdfdoc.Save(outputPath + outputFile, SDFDoc.e_compatibility)
+            pdfdoc.Save(outputPath + outputFile, SDFDoc.e_linearized)
             pdfdoc.Close()
             print("Converted file: " + inputFile + "\nto: " + outputFile)
         except:
