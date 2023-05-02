@@ -138,13 +138,12 @@ def main():
         else:
             print("ConvertSpecificFormats succeeded")
 
-
-            try:
-                print("Uninstalling printer (requires Windows platform and administrator)")
-                ConvertPrinter.Uninstall()
-                print("Uninstalled printer " + ConvertPrinter.getPrinterName())
-            except:
-                print("Unable to uninstall printer")
+        try:
+            print("Uninstalling printer (requires Windows platform and administrator)")
+            ConvertPrinter.Uninstall()
+            print("Uninstalled printer " + ConvertPrinter.getPrinterName())
+        except:
+            print("Unable to uninstall printer")
 
         PDFNet.Terminate()
         print("Done.")
