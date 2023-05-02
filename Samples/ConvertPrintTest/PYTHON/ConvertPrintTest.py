@@ -44,25 +44,23 @@ def ConvertSpecificFormats():
     ret = 0
     try:
         # Convert MSWord document to PDF
-        if platform.system() == 'Windows':
-            s1 = inputPath + "simple-word_2007.docx"
-            print("Converting DOCX to XPS")
-            Convert.ToXps(pdfdoc, s1)
-            outputFile = "simple-word_2007.xps"
-            pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
-            print("Saved " + outputFile)
+        print("Converting DOCX to XPS")
+        outputFile = "simple-word_2007.xps"
+        Convert.ToXps(inputPath + "simple-word_2007.docx", outputFile)
+        print("Saved " + outputFile)
     except:
         ret = 1
 
     try:
+        # Start with a PDFDoc to collect the converted documents
+        pdfdoc = PDFDoc() 
         # Convert the EMF document to PDF
-        if platform.system() == 'Windows':
-            s1 = inputPath + "simple-emf.emf"
-            print("Converting from EMF")
-            Convert.FromEmf(pdfdoc, s1)
-            outputFile = "emf2pdf v2.pdf"
-            pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
-            print("Saved " + outputFile)
+        s1 = inputPath + "simple-emf.emf"
+        print("Converting from EMF")
+        Convert.FromEmf(pdfdoc, s1)
+        outputFile = "emf2pdf v2.pdf"
+        pdfdoc.Save(outputPath + outputFile, SDFDoc.e_remove_unused)
+        print("Saved " + outputFile)
     except:
         ret = 1
     return ret
