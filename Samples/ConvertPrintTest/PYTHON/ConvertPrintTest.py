@@ -43,7 +43,7 @@ outputPath = "../../TestFiles/Output/"
 def ConvertSpecificFormats():
     ret = 0
     try:
-        # Convert MSWord document to PDF
+        # Convert MSWord document to XPS
         print("Converting DOCX to XPS")
         outputFile = "simple-word_2007.xps"
         Convert.ToXps(inputPath + "simple-word_2007.docx", outputFile)
@@ -68,38 +68,34 @@ def ConvertSpecificFormats():
 # convert from a file to PDF automatically
 def ConvertToPdfFromFile():
     testfiles = [
-    [ "simple-word_2007.docx","docx2pdf.pdf", False],
-    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf", False],
-    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf", False],
-    [ "simple-publisher.pub","pub2pdf.pdf", True],
-    [ "simple-text.txt","txt2pdf.pdf", False],
-    [ "simple-rtf.rtf","rtf2pdf.pdf", True],
-    [ "simple-emf.emf","emf2pdf.pdf", True],
-    [ "simple-webpage.mht","mht2pdf.pdf", True],
-    [ "simple-webpage.html","html2pdf.pdf", True]
+    [ "simple-word_2007.docx","docx2pdf.pdf"],
+    [ "simple-powerpoint_2007.pptx","pptx2pdf.pdf"],
+    [ "simple-excel_2007.xlsx","xlsx2pdf.pdf"],
+    [ "simple-publisher.pub","pub2pdf.pdf"],
+    [ "simple-text.txt","txt2pdf.pdf"],
+    [ "simple-rtf.rtf","rtf2pdf.pdf"],
+    [ "simple-emf.emf","emf2pdf.pdf"],
+    [ "simple-webpage.mht","mht2pdf.pdf"],
+    [ "simple-webpage.html","html2pdf.pdf"]
     ]
     ret = 0
 
-    if platform.system() == 'Windows':
-        try:
-            if ConvertPrinter.IsInstalled("PDFTron PDFNet"):
-                ConvertPrinter.SetPrinterName("PDFTron PDFNet")
-            elif not ConvertPrinter.isInstalled():
-                try:
-                    print("Installing printer (requires Windows platform and administrator)")
-                    ConvertPrinter.Install()
-                    print("Installed printer " + ConvertPrinter.getPrinterName())
-                    # the function ConvertToXpsFromFile may require the printer so leave it installed
-                    # uninstallPrinterWhenDone = true;
-                except:
-                    print("ERROR: Unable to install printer.")
-        except:
-            print("ERROR: Unable to install printer.")
+    try:
+        if ConvertPrinter.IsInstalled("PDFTron PDFNet"):
+            ConvertPrinter.SetPrinterName("PDFTron PDFNet")
+        elif not ConvertPrinter.isInstalled():
+            try:
+                print("Installing printer (requires Windows platform and administrator)")
+                ConvertPrinter.Install()
+                print("Installed printer " + ConvertPrinter.getPrinterName())
+                # the function ConvertToXpsFromFile may require the printer so leave it installed
+                # uninstallPrinterWhenDone = true;
+            except:
+                print("ERROR: Unable to install printer.")
+    except:
+        print("ERROR: Unable to install printer.")
 
     for testfile in testfiles:
-        if platform.system() != 'Windows':
-            if testfile[2]:
-                continue
         try:
             pdfdoc = PDFDoc()
             inputFile = testfile[0]
@@ -112,6 +108,7 @@ def ConvertToPdfFromFile():
             print("Converted file: " + inputFile + "\nto: " + outputFile)
         except:
             ret = 1
+            print("ERROR: on input file " + inputFile)
     return ret
 
 
