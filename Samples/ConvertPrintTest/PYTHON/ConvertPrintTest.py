@@ -46,7 +46,7 @@ def ConvertSpecificFormats():
         # Convert MSWord document to XPS
         print("Converting DOCX to XPS")
         outputFile = "simple-word_2007.xps"
-        Convert.ToXps(inputPath + "simple-word_2007.docx", outputFile)
+        Convert.ToXps(inputPath + "simple-word_2007.docx", outputPath + outputFile)
         print("Saved " + outputFile)
     except:
         ret = 1
