@@ -21,8 +21,6 @@ from LicenseKey import *
 # Certain file formats such as XPS, EMF, PDF, and raster image formats can be directly 
 # converted to PDF or XPS. 
 #
-# Please contact us if you have any questions.	
-#
 # Please contact us if you have any questions.    
 #---------------------------------------------------------------------------------------
 
