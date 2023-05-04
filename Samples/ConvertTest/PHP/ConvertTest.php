@@ -9,61 +9,21 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to use the PDF::Convert utility class to convert 
-// documents and files to PDF, XPS, SVG, or EMF.
+// documents and files to PDF, XPS, or SVG, or EMF. The sample also shows how to convert MS Office files 
+// using our built in conversion.
 //
 // Certain file formats such as XPS, EMF, PDF, and raster image formats can be directly 
-// converted to PDF or XPS. Other formats are converted using a virtual driver. To check 
-// if ToPDF (or ToXPS) require that PDFNet printer is installed use Convert::RequiresPrinter(filename). 
-// The installing application must be run as administrator. The manifest for this sample 
-// specifies appropriate the UAC elevation.
-//
-// Note: the PDFNet printer is a virtual XPS printer supported on Vista SP1 and Windows 7.
-// For Windows XP SP2 or higher, or Vista SP0 you need to install the XPS Essentials Pack (or 
-// equivalent redistributables). You can download the XPS Essentials Pack from:
-//		http://www.microsoft.com/downloads/details.aspx?FamilyId=B8DCFFDD-E3A5-44CC-8021-7649FD37FFEE&displaylang=en
-// Windows XP Sp2 will also need the Microsoft Core XML Services (MSXML) 6.0:
-// 		http://www.microsoft.com/downloads/details.aspx?familyid=993C0BCF-3BCF-4009-BE21-27E85E1857B1&displaylang=en
-//
-// Note: Convert.FromEmf and Convert.ToEmf will only work on Windows and require GDI+.
+// converted to PDF or XPS. 
 //
 // Please contact us if you have any questions.	
+//
+// Please contact us if you have any questions.    
 //---------------------------------------------------------------------------------------
 
 // Relative path to the folder containing the test files.
 $inputPath = getcwd()."/../../TestFiles/";
 $outputPath = $inputPath."Output/";
 
-function ConvertToPdfFromFile()
-{
-	global $inputPath, $outputPath;
-
-	$testfiles = array(
-	array("simple-word_2007.docx","docx2pdf.pdf"),
-	array("simple-powerpoint_2007.pptx","pptx2pdf.pdf"),
-	array("simple-excel_2007.xlsx","xlsx2pdf.pdf"),
-	array("simple-text.txt","txt2pdf.pdf"),
-	array("butterfly.png", "png2pdf.pdf"),
-	array("simple-xps.xps", "xps2pdf.pdf"),
-    );
-    $ret = 0;
-    foreach ($testfiles as &$testfile) {
-		try{
-			$pdfdoc = new PDFDoc();
-			$inputFile = $testfile[0];
-			$outputFile = $testfile[1];
-			Convert::ToPdf($pdfdoc, $inputPath.$inputFile);
-			$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_compatibility);
-	        	$pdfdoc->Close();
-			echo(nl2br("Converted file: ".$inputFile."\n"));
-			echo(nl2br("to: ".$outputFile."\n"));
-		}
-		catch(Exception $e)
-		{
-			$ret = 1;
-		}
-    }
-	return $ret;
-}
 
 function ConvertSpecificFormats()
 {
@@ -149,6 +109,39 @@ function ConvertSpecificFormats()
         $ret = 1;
 	}
     return $ret;
+}
+
+function ConvertToPdfFromFile()
+{
+	global $inputPath, $outputPath;
+
+	$testfiles = array(
+	array("simple-word_2007.docx","docx2pdf.pdf"),
+	array("simple-powerpoint_2007.pptx","pptx2pdf.pdf"),
+	array("simple-excel_2007.xlsx","xlsx2pdf.pdf"),
+	array("simple-text.txt","txt2pdf.pdf"),
+	array("butterfly.png", "png2pdf.pdf"),
+	array("simple-xps.xps", "xps2pdf.pdf"),
+    );
+    $ret = 0;
+    foreach ($testfiles as &$testfile) {
+		try{
+			$pdfdoc = new PDFDoc();
+			$inputFile = $testfile[0];
+			$outputFile = $testfile[1];
+			Printer::SetMode(Printer::e_prefer_builtin_converter)
+			Convert::ToPdf($pdfdoc, $inputPath.$inputFile);
+			$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_linearized);
+	        	$pdfdoc->Close();
+			echo(nl2br("Converted file: ".$inputFile."\n"));
+			echo(nl2br("to: ".$outputFile."\n"));
+		}
+		catch(Exception $e)
+		{
+			$ret = 1;
+		}
+    }
+	return $ret;
 }
 
 function main()
