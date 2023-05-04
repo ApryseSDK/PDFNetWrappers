@@ -129,7 +129,7 @@ function ConvertToPdfFromFile()
 			$pdfdoc = new PDFDoc();
 			$inputFile = $testfile[0];
 			$outputFile = $testfile[1];
-			Printer::SetMode(Printer::e_prefer_builtin_converter)
+			Printer::SetMode(Printer::e_prefer_builtin_converter);
 			Convert::ToPdf($pdfdoc, $inputPath.$inputFile);
 			$pdfdoc->Save($outputPath.$outputFile, SDFDoc::e_linearized);
 	        	$pdfdoc->Close();
