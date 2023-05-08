@@ -25,7 +25,11 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 ## Get PDFNetC
 
-Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: https://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
+Lastly, you will need to obtain the most recent package for PDFNetC. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC. 
+
+- [**Download Linux C++ SDK**](https://dev.apryse.com/?platform=linux&product=cpp-64)
+- [**Download Windows C++ SDK**](https://dev.apryse.com/?platform=windows&product=cpp-64)
+- [**Download Mac C++ SDK**](https://dev.apryse.com/?platform=mac&product=cpp)
 
 ## Strict PHP and SWIG version compatibility for PHP wrapper
 
