@@ -29,39 +29,41 @@ elseif (APPLE)
     return ()
 endif (WIN32)
 
+
 message(STATUS "Generating sources for Go bindings using swig...")
-set(PDFTronGo_SourcesDir ${PROJECT_BINARY_DIR}/pdftron)
-file(MAKE_DIRECTORY ${PDFTronGo_SourcesDir})
-file(MAKE_DIRECTORY ${PDFTronGo_SourcesDir}/PDFNetC)
-file(MAKE_DIRECTORY ${PDFTronGo_SourcesDir}/Samples)
-execute_process(
-    COMMAND ${SWIG_EXECUTABLE} -go -cgo -c++ -intgosize 64 ${SWIG_DEFINE} -I${PDFNetC_Include_Dir} -outdir ${PDFTronGo_SourcesDir} -o ${PDFTronGo_SourcesDir}/pdftron_wrap.cxx -oh ${PDFTronGo_SourcesDir}/pdftron_wrap.h pdftron.i
-    RESULT_VARIABLE SOURCE_GEN_RESULT
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
-if ("${SOURCE_GEN_RESULT}" STREQUAL "0")
-    message(STATUS "Generating sources for Go bindings using swig... OK")
-else ()
-    message(FATAL_ERROR "An error has occurred while generating sources using swig.")
-    return ()
+set(BUILD_DIR ${PROJECT_BINARY_DIR}/pdftron)
+set(PDFNETC_HEADERS ${BUILD_DIR}/Headers CACHE PATH "Path to the PDFNetC header files.")
+file(MAKE_DIRECTORY ${BUILD_DIR})
+file(MAKE_DIRECTORY ${BUILD_DIR}/Lib)
+file(MAKE_DIRECTORY ${BUILD_DIR}/Headers)
+file(MAKE_DIRECTORY ${BUILD_DIR}/Resources)
+
+if (NOT EXISTS ${CMAKE_SOURCE_DIR}/build/PDFNetC/Lib)
+    message(FATAL_ERROR "PDFNetC library cannot be found. Cannot continue.")
 endif ()
-# Insert cgo flags
-message(STATUS "Inserting cgo flags..")
+
+# Copy PDFNetC and Samples folder
+message(STATUS "Copy PDFNetC")
 execute_process(
-    COMMAND go run -x ./helper/insertflags.go -- "${PDFTronGo_SourcesDir}/pdftron.go" "#cgo CXXFLAGS: -I./PDFNetC/Headers" "#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC"
+    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/build/PDFNetC/Lib ${BUILD_DIR}/Lib
+    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/build/PDFNetC/Headers ${BUILD_DIR}/Headers
+    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/build/PDFNetC/Resources ${BUILD_DIR}/Resources
     RESULT_VARIABLE SOURCE_GEN_RESULT
     OUTPUT_FILE ${PROJECT_BINARY_DIR}/go.log
     ERROR_FILE ${PROJECT_BINARY_DIR}/go.err.log
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-# Copy PDFNetC and Samples folder
-message(STATUS "Copy PDFNetC and Samples folder..")
+message(STATUS "Running ${SWIG_EXECUTABLE} -go -cgo -c++ -intgosize 64 ${SWIG_DEFINE} -I${PDFNETC_HEADERS} -outdir ${BUILD_DIR} -o ${BUILD_DIR}/pdftron_wrap.cxx -oh ${BUILD_DIR}/pdftron_wrap.h pdftron.i")
 execute_process(
-    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/PDFNetC ${PDFTronGo_SourcesDir}/PDFNetC
-    COMMAND cmake -E copy_directory ${CMAKE_SOURCE_DIR}/Samples ${PDFTronGo_SourcesDir}/Samples
+    COMMAND ${SWIG_EXECUTABLE} -go -cgo -c++ -intgosize 64 ${SWIG_DEFINE} -I${PDFNETC_HEADERS} -outdir ${BUILD_DIR} -o ${BUILD_DIR}/pdftron_wrap.cxx -oh ${BUILD_DIR}/pdftron_wrap.h pdftron.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
-    OUTPUT_FILE ${PROJECT_BINARY_DIR}/go.log
-    ERROR_FILE ${PROJECT_BINARY_DIR}/go.err.log
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+if ("${SOURCE_GEN_RESULT}" STREQUAL "0")
+    message(STATUS "Generating sources for Go bindings using swig... OK")
+else ()
+    message(FATAL_ERROR "An error has occurred while generating sources using swig.")
+    return ()
+endif ()

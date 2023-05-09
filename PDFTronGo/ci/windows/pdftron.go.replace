@@ -1,10 +1,4 @@
 /
-#cgo LDFLAGS: -L./PDFNetC/Lib -lPDFNetC
-/
-#cgo LDFLAGS: -L./PDFNetC/Lib -lpdftron -lPDFNetC -lstdc++
-/
-
-/
 type _ sync.Mutex
 
 /

@@ -1,18 +1,17 @@
 @echo off
-if not exist .\bin\ (
-  md .\bin\ >nul
-)
-if not exist .\bin\PDFNetC.dll (
-	copy ..\PDFNetC\Lib\PDFNetC.dll .\bin\PDFNetC.dll >nul
-)
-for /D %%s in (*) do (
-    if exist %%s\GO\RunTest.bat (
-        cd %%s\GO
-        echo %%s starting...
-        call RunTest.bat
-        cd ..\..
-        echo %%s finished.
-    )
+SET PATH=%cd%/../shared_libs/win/Lib/;%PATH%
+cd /D "%~dp0"
+
+set LICENSE_KEY="%ENV_LICENSE_KEY%"
+set MODULE_PATH="%ENV_MODULE_PATH%"
+
+if NOT exist go.mod (
+    go mod init pdftron-test
+    go mod edit -replace github.com/pdftron/pdftron-go/v2=../
+    go mod edit -require github.com/pdftron/pdftron-go/v2@v2.0.0
+    go mod tidy
 )
 
-echo Build and run all tests finished.
+IF "%~1"=="" (
+    go test -v ./... -license=%LICENSE_KEY% -modulePath=%MODULE_PATH%
+) ELSE (go test -v ./%1 -license=%LICENSE_KEY% -modulePath=%MODULE_PATH%)
