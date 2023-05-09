@@ -252,7 +252,7 @@ function CreateTestAnnots($doc) {
 	$line->SetContents("Inline Caption");
 	$line->SetShowCaption(true);
 	$line->SetCaptionPosition( LineAnnot::e_Inline );
-	$line->SetLeaderLineExtensionLength( -4.0 );
+	$line->SetLeaderLineExtensionLength( 4.0 );
 	$line->SetLeaderLineLength( -12.0 );
 	$line->SetLeaderLineOffset( 2.0 );
 	$line->RefreshAppearance();

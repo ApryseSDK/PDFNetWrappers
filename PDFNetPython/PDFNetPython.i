@@ -225,6 +225,10 @@
     #include "SDF/UndoManager.h"
     #include "SDF/ResultSnapshot.h"
     #include "SDF/DocSnapshot.h"
+	
+    // header files in /PDFNetC/Headers/Layout
+    #include "Layout/FlowDocument.h"
+    #include "Layout/Paragraph.h"
     
     using namespace pdftron;
     using namespace FDF;
@@ -687,7 +691,7 @@ namespace pdftron {
 
 %template (GSChangesIterator) pdftron::Common::Iterator<int>;
 %template (UInt32Iterator) pdftron::Common::Iterator<unsigned int>;
-%template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>; 
+%template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>;
 %template (FDFFieldIterator) pdftron::Common::Iterator<pdftron::FDF::FDFField>;
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
 %template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
@@ -844,6 +848,9 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+
+%include "Layout/Paragraph.h"
+%include "Layout/FlowDocument.h"
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{

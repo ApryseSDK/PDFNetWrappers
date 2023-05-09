@@ -25,7 +25,7 @@ func init() {
 // with content supplied via json
 //
 // For a detailed specification of the template format and supported features,
-// see: https://www.pdftron.com/documentation/core/guides/generate-via-template/data-model/
+// see: https://docs.apryse.com/documentation/core/guides/generate-via-template/data-model/
 //
 // This conversion is performed entirely within the PDFNet and has *no*
 // external or system dependencies -- Conversion results will be

@@ -12,7 +12,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 // extract various types of data from PDF documents.
 //
 // The PDFTron SDK Data Extraction suite can be downloaded from
-// https://www.pdftron.com/documentation/core/info/modules/
+// https://docs.apryse.com/documentation/core/info/modules/
 //
 // Please contact us if you have any questions.
 //---------------------------------------------------------------------------------------
@@ -51,7 +51,7 @@ function main()
 		echo(nl2br("Unable to run Data Extraction: PDFTron SDK Tabular Data module not available.\n"));
 		echo(nl2br("-----------------------------------------------------------------------------\n"));
 		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
-		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
 		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
 		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
 		echo(nl2br("\n"));
@@ -114,7 +114,7 @@ function main()
 		echo(nl2br("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.\n"));
 		echo(nl2br("-----------------------------------------------------------------------------\n"));
 		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
-		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
 		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
 		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
 		echo(nl2br("\n"));
@@ -154,7 +154,7 @@ function main()
 		echo(nl2br("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.\n"));
 		echo(nl2br("-----------------------------------------------------------------------------\n"));
 		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
-		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
 		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
 		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
 		echo(nl2br("\n"));

@@ -57,7 +57,7 @@ def main()
 		puts "Unable to run part of the sample: PDFTron SDK Structured Output module not available."
 		puts "-------------------------------------------------------------------------------------"
 		puts "The Structured Output module is an optional add-on, available for download"
-		puts "at https://www.pdftron.com/documentation/core/info/modules/. If you have already"
+		puts "at https://docs.apryse.com/documentation/core/info/modules/. If you have already"
 		puts "downloaded this module, ensure that the SDK is able to find the required files"
 		puts "using the PDFNet::AddResourceSearchPath() function."
 		puts ""

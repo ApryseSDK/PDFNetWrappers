@@ -21,7 +21,7 @@ from LicenseKey import *
 # and other documents into Word, Excel, PowerPoint and HTML format.
 #
 # The PDFTron SDK Structured Output module can be downloaded from
-# https://www.pdftron.com/documentation/core/info/modules/
+# https://docs.apryse.com/documentation/core/info/modules/
 #
 # Please contact us if you have any questions.
 #---------------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ def main():
         print("Unable to run the sample: PDFTron SDK Structured Output module not available.")
         print("-----------------------------------------------------------------------------")
         print("The Structured Output module is an optional add-on, available for download")
-        print("at https://www.pdftron.com/documentation/core/info/modules/. If you have already")
+        print("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
         print("downloaded this module, ensure that the SDK is able to find the required files")
         print("using the PDFNet::AddResourceSearchPath() function.")
         print("")
