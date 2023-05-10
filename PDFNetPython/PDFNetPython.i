@@ -691,7 +691,7 @@ namespace pdftron {
 
 %template (GSChangesIterator) pdftron::Common::Iterator<int>;
 %template (UInt32Iterator) pdftron::Common::Iterator<unsigned int>;
-%template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>; 
+%template (PageIterator) pdftron::Common::Iterator<pdftron::PDF::Page>;
 %template (FDFFieldIterator) pdftron::Common::Iterator<pdftron::FDF::FDFField>;
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
 %template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;

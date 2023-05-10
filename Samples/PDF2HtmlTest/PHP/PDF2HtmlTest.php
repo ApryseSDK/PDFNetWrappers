@@ -60,7 +60,7 @@ function main()
 		echo(nl2br("Unable to run part of the sample: PDFTron SDK Structured Output module not available.\n"));
 		echo(nl2br("-------------------------------------------------------------------------------------\n"));
 		echo(nl2br("The Structured Output module is an optional add-on, available for download\n"));
-		echo(nl2br("at https://www.pdftron.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
 		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
 		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
 		echo(nl2br("\n"));

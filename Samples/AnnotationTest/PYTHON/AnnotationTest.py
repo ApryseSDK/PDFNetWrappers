@@ -251,7 +251,7 @@ def CreateTestAnnots(doc):
     line.SetContents( "Inline Caption" )
     line.SetShowCaption(True)
     line.SetCaptionPosition( LineAnnot.e_Inline )
-    line.SetLeaderLineExtensionLength( -4. )
+    line.SetLeaderLineExtensionLength( 4. )
     line.SetLeaderLineLength( -12. )
     line.SetLeaderLineOffset( 2. )
     line.RefreshAppearance()

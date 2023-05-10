@@ -66,7 +66,7 @@ def main():
 
             para.AddText(para_text)
             para.SetFontSize(point_size)
-         
+
         my_pdf = flowdoc.PaginateToPDF()
         my_pdf.Save(outputPath + "created_doc.pdf", SDFDoc.e_linearized)
 
