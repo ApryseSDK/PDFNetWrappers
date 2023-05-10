@@ -1,6 +1,6 @@
 ## NOTE FOR DEVELOPERS
 
-No commit to `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` is the current stable (`9.4`) and should not have changes unless applicable. `next_release` is merged into `master` following an offical release.
+No commit to `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` synchronizes with the latest `stable` `PDFNet` and should not have changes unless applicable. `next_release` is merged into `master` following an offical release.
 
 # About
 
@@ -268,7 +268,7 @@ In order to change the install location, modify the top level CMakelists.txt. Re
 
 ## How can I build wrappers for PDFNet `9.3` and under?
 
-The master branch supports PDFNet `9.4`. In order to build wrappers using PDFNet `9.3.x` and under, please use the following command to clone `9.3` branch instead (line 3 in `Example`): 
+The master branch is used for the latest stable PDFNet. In order to build wrappers using PDFNet `9.3.x`, please use the following command to clone `9.3` branch instead (line 3 in `Example`): 
 
     git clone -b 9.3 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
