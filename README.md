@@ -1,6 +1,6 @@
 ## NOTE FOR DEVELOPERS
 
-No commit to `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` is the current stable (`9.4`) and should not have changes unless applicable. `next_release` is merged into `master` following an offical release.
+No commit to `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` synchronizes with the latest `stable` `PDFNet` and should not have changes unless applicable. `next_release` is merged into `master` following an offical release.
 
 # About
 
@@ -25,7 +25,11 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 ## Get PDFNetC
 
-Lastly, you will need to obtain the most recent package for PDFNetC. The package can be downloaded from here: https://www.pdftron.com/pdfnet/downloads.html. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC.
+Lastly, you will need to obtain the most recent package for PDFNetC. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC. 
+
+- [**Download Linux C++ SDK**](https://dev.apryse.com/?platform=linux&product=cpp-64)
+- [**Download Windows C++ SDK**](https://dev.apryse.com/?platform=windows&product=cpp-64)
+- [**Download Mac C++ SDK**](https://dev.apryse.com/?platform=mac&product=cpp)
 
 ## Strict PHP and SWIG version compatibility for PHP wrapper
 
@@ -141,7 +145,7 @@ Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You 
     # Now, build PHP wrapper. Navigate to the location where you want to build the wrapper
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
-    git clone https://github.com/PDFTron/PDFNetWrappers -b next_release --single-branch # Git the code.
+    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
     wget https://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
     tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
@@ -264,7 +268,7 @@ In order to change the install location, modify the top level CMakelists.txt. Re
 
 ## How can I build wrappers for PDFNet `9.3` and under?
 
-The master branch supports PDFNet `9.4`. In order to build wrappers using PDFNet `9.3.x` and under, please use the following command to clone `9.3` branch instead (line 3 in `Example`): 
+The master branch is used for the latest stable PDFNet. In order to build wrappers using PDFNet `9.3.x`, please use the following command to clone `9.3` branch instead (line 3 in `Example`): 
 
     git clone -b 9.3 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
 
