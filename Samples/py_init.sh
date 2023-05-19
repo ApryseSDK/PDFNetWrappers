@@ -24,9 +24,12 @@ fi
 
 # Select the compatible python from the user's machine if applicable 
 py=$(which python)
+py2=$(which python2)
 py3=$(which python3)
 if [ ! -z "$py" ] && [ $pylib -eq 2 ] ; then
 	python_exe="python"
+elif [ ! -z "$py2" ] && [ $pylib -eq 2 ] ; then
+	python_exe="python2"
 elif [ ! -z "$py3" ] && [ $pylib -eq 3 ] ; then
 	python_exe="python3"
 	export PYTHONIOENCODING=UTF-8
@@ -34,4 +37,3 @@ else
 	echo Error: Python library and installed Python are not compatible! 1>&2
 	exit 1
 fi
-
