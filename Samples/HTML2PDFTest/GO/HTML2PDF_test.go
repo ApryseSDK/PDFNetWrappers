@@ -74,7 +74,7 @@ func TestHTM2PDF(t *testing.T){
     // existing PDF document. 
     
     // open the existing PDF, and initialize the security handler
-    doc = NewPDFDoc("../../TestFiles/numbered.pdf")
+    doc = NewPDFDoc("../TestFiles/numbered.pdf")
     doc.InitSecurityHandler()
     
     // create the HTML2PDF converter object and modify the output of the PDF pages
@@ -141,7 +141,7 @@ func TestHTM2PDF(t *testing.T){
     doc = NewPDFDoc()
     // now convert a web page, sending generated PDF pages to doc
     converter = NewHTML2PDF()
-    converter.SetLogFilePath("../../TestFiles/Output/html2pdf.log")
+    converter.SetLogFilePath("../TestFiles/Output/html2pdf.log")
     converter.InsertFromURL("https://docs.apryse.com/")
     converter.Convert(doc)
     doc.Save(outputPath + "_05.pdf", uint(SDFDocE_linearized))
