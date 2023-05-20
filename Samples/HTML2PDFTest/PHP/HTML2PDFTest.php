@@ -30,9 +30,6 @@ $output_path = $input_path."Output/";
 
 	$output_path = "../../TestFiles/Output/html2pdf_example";
 	$host = "https://docs.apryse.com";
-	$page0 = "/";
-	$page1 = "/support";
-	$page2 = "/blog";
 
 	// The first step in every application using PDFNet is to initialize the 
 	// library and set the path to common PDF resources. The library is usually 
@@ -61,7 +58,7 @@ $output_path = $input_path."Output/";
 
 	// now convert a web page, sending generated PDF pages to doc
 	$converter = new HTML2PDF();
-	$converter->InsertFromURL($host.$page0);
+	$converter->InsertFromURL($host);
 	$converter->Convert($doc);
 	$doc->Save($output_path."_01.pdf", SDFDoc::e_linearized);
 	$doc->Close();
@@ -79,7 +76,7 @@ $output_path = $input_path."Output/";
 	$converter->SetPaperSize(PrinterMode::e_11x17);
 
 	// insert the web page to convert
-	$converter->InsertFromURL($host.$page0);
+	$converter->InsertFromURL($host);
 
 	// convert the web page, appending generated PDF pages to doc
 	$converter->Convert($doc);
@@ -101,11 +98,11 @@ $output_path = $input_path."Output/";
     
 	$settings = new WebPageSettings();
 	$settings->SetZoom(0.5);
-	$converter->InsertFromURL($host.$page0, $settings);
+	$converter->InsertFromURL($host, $settings);
 	$converter->Convert($doc);
 
 	//convert page 1 with the same settings, appending generated PDF pages to doc
-	$converter->InsertFromURL($host.$page1, $settings);
+	$converter->InsertFromURL($host, $settings);
 	$converter->Convert($doc);
 	
 	//convert page 2 with different settings, appending generated PDF pages to doc
@@ -113,7 +110,7 @@ $output_path = $input_path."Output/";
 	$another_converter->SetLandscape(True);
 	$another_settings = new WebPageSettings();
 	$another_settings->SetPrintBackground(False);
-	$another_converter->InsertFromURL($host.$page2, $another_settings);
+	$another_converter->InsertFromURL($host, $another_settings);
 	$another_converter->Convert($doc);
     
 	$doc->Save($output_path."_03.pdf", SDFDoc::e_linearized);
@@ -145,7 +142,7 @@ $output_path = $input_path."Output/";
 	// now convert a web page, sending generated PDF pages to doc
 	$converter = new HTML2PDF();
 	$converter->SetLogFilePath("../../TestFiles/Output/html2pdf.log");
-	$converter->InsertFromURL($host.$page0);
+	$converter->InsertFromURL($host);
 	$converter->Convert($doc);
 	$doc->Save($output_path."_05.pdf", SDFDoc::e_linearized);
 	$doc->Close();
