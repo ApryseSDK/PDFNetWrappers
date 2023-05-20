@@ -138,9 +138,9 @@ func TestHTM2PDF(t *testing.T){
     //--------------------------------------------------------------------------------
     // Example 5) Set the location of the log file to be used during conversion. 
 
-    doc := NewPDFDoc()
+    doc = NewPDFDoc()
     // now convert a web page, sending generated PDF pages to doc
-    converter := NewHTML2PDF()
+    converter = NewHTML2PDF()
     converter.SetLogFilePath("../../TestFiles/Output/html2pdf.log")
     converter.InsertFromURL("https://docs.apryse.com/")
     converter.Convert(doc)
