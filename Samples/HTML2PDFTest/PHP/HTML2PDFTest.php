@@ -102,7 +102,7 @@ $output_path = $input_path."Output/";
 	$settings = new WebPageSettings();
 	$settings->SetZoom(0.5);
 	$converter->InsertFromURL($host.$page0, $settings);
-	$is_conversion_0_successful = $converter->Convert($doc);
+	$converter->Convert($doc);
 
 	//convert page 1 with the same settings, appending generated PDF pages to doc
 	$converter->InsertFromURL($host.$page1, $settings);
