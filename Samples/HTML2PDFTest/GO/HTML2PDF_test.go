@@ -39,6 +39,10 @@ func init() {
 
 func TestHTM2PDF(t *testing.T){
     outputPath := "../TestFiles/Output/html2pdf_example"
+    host := "https://docs.apryse.com"
+    page0 := "/"
+    page1 := "/all-products/"
+    page2 := "/documentation/web/faq"
  
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
@@ -65,7 +69,7 @@ func TestHTM2PDF(t *testing.T){
     doc := NewPDFDoc()
     // now convert a web page, sending generated PDF pages to doc
     converter := NewHTML2PDF()
-    converter.InsertFromURL("https://docs.apryse.com/")
+    converter.InsertFromURL(host + page0)
     converter.Convert(doc)
     doc.Save(outputPath + "_01.pdf", uint(SDFDocE_linearized))
 
@@ -82,7 +86,7 @@ func TestHTM2PDF(t *testing.T){
     converter.SetPaperSize(PrinterModeE_11x17)
     
     // insert the web page to convert
-    converter.InsertFromURL("https://docs.apryse.com/")
+    converter.InsertFromURL(host + page0)
     
     // convert the web page, appending generated PDF pages to doc
     converter.Convert(doc)
@@ -102,11 +106,11 @@ func TestHTM2PDF(t *testing.T){
     converter.SetMargins("1cm", "2cm", ".5cm", "1.5cm")
     settings := NewWebPageSettings()
     settings.SetZoom(0.5)
-    converter.InsertFromURL("https://docs.apryse.com/", settings)
+    converter.InsertFromURL(host + page0, settings)
     converter.Convert(doc)
 
     // convert page 1 with the same settings, appending generated PDF pages to doc
-    converter.InsertFromURL("https://www.apryse.com/support", settings)
+    converter.InsertFromURL(host + page1, settings)
     converter.Convert(doc)
 
     // convert page 2 with different settings, appending generated PDF pages to doc
@@ -114,7 +118,7 @@ func TestHTM2PDF(t *testing.T){
     another_converter.SetLandscape(true)
     another_settings := NewWebPageSettings()
     another_settings.SetPrintBackground(false)
-    another_converter.InsertFromURL("https://www.apryse.com/blog", another_settings)
+    another_converter.InsertFromURL(host + page2, another_settings)
     another_converter.Convert(doc);
 
     doc.Save(outputPath + "_03.pdf", uint(SDFDocE_linearized))
@@ -142,7 +146,7 @@ func TestHTM2PDF(t *testing.T){
     // now convert a web page, sending generated PDF pages to doc
     converter = NewHTML2PDF()
     converter.SetLogFilePath("../TestFiles/Output/html2pdf.log")
-    converter.InsertFromURL("https://docs.apryse.com/")
+    converter.InsertFromURL(host + page0)
     converter.Convert(doc)
     doc.Save(outputPath + "_05.pdf", uint(SDFDocE_linearized))
 
