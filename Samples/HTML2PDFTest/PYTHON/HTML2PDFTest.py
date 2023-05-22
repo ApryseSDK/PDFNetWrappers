@@ -96,7 +96,7 @@ def main():
     converter.Convert(doc)
 
     # convert page 1 with the same settings, appending generated PDF pages to doc
-    converter.InsertFromURL("https://www.apryse.com/support", settings)
+    converter.InsertFromURL("https://docs.apryse.com/all-products/", settings)
     converter.Convert(doc)
 
     # convert page 2 with different settings, appending generated PDF pages to doc
@@ -104,7 +104,7 @@ def main():
     another_converter.SetLandscape(True)
     another_settings = WebPageSettings()
     another_settings.SetPrintBackground(False)
-    another_converter.InsertFromURL("https://www.apryse.com/blog", another_settings)
+    another_converter.InsertFromURL("https://docs.apryse.com/documentation/web/faq", another_settings)
     another_converter.Convert(doc)
     
     doc.Save(output_path + "_03.pdf", SDFDoc.e_linearized)

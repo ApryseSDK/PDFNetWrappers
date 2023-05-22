@@ -27,10 +27,6 @@ $stdout.sync = true
 #---------------------------------------------------------------------------------------
 
 	output_path = "../../TestFiles/Output/html2pdf_example"
-	host = "https://www.pdftron.com"
-	page0 = "/"
-	page1 = "/support"
-	page2 = "/blog"
 	
 	# The first step in every application using PDFNet is to initialize the 
 	# library and set the path to common PDF resources. The library is usually 
@@ -57,12 +53,9 @@ $stdout.sync = true
 	doc = PDFDoc.new()
 	# now convert a web page, sending generated PDF pages to doc
 	converter = HTML2PDF.new()
-	converter.InsertFromURL(host + page0)
-	if converter.Convert(doc)
-		doc.Save(output_path + "_01.pdf", SDFDoc::E_linearized)
-	else
-		print "Conversion failed."
-	end
+	converter.InsertFromURL("https://docs.apryse.com/")
+	converter.Convert(doc)
+	doc.Save(output_path + "_01.pdf", SDFDoc::E_linearized)
 	
 	#--------------------------------------------------------------------------------
 	# Example 2) Modify the settings of the generated PDF pages and attach to an
@@ -77,14 +70,11 @@ $stdout.sync = true
 	converter.SetPaperSize(PrinterMode::E_11x17)
 	
 	# insert the web page to convert
-	converter.InsertFromURL(host + page0)
+	converter.InsertFromURL("https://docs.apryse.com/")
 	
 	# convert the web page, appending generated PDF pages to doc
-	if converter.Convert(doc)
-		doc.Save(output_path + "_02.pdf", SDFDoc::E_linearized)
-	else
-		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
-	end
+	converter.Convert(doc)
+	doc.Save(output_path + "_02.pdf", SDFDoc::E_linearized)
 	
 	#--------------------------------------------------------------------------------
 	# Example 3) Convert multiple web pages
@@ -100,26 +90,22 @@ $stdout.sync = true
     
 	settings = WebPageSettings.new()
 	settings.SetZoom(0.5)
-	converter.InsertFromURL(host + page0, settings)
-	is_conversion_0_successful = converter.Convert(doc)
+	converter.InsertFromURL("https://docs.apryse.com/", settings)
+	converter.Convert(doc)
 
 	# convert page 1 with the same settings, appending generated PDF pages to doc
-	converter.InsertFromURL(host + page1, settings)
-	is_conversion_1_successful = converter.Convert(doc)
+	converter.InsertFromURL("https://docs.apryse.com/all-products/", settings)
+	converter.Convert(doc)
 	
 	# convert page 2 with different settings, appending generated PDF pages to doc
 	another_converter = HTML2PDF.new()
 	another_converter.SetLandscape(true)
 	another_settings = WebPageSettings.new()
 	another_settings.SetPrintBackground(false)
-	another_converter.InsertFromURL(host + page2, another_settings)
-	is_conversion_2_successful = another_converter.Convert(doc)
+	another_converter.InsertFromURL("https://docs.apryse.com/documentation/web/faq", another_settings)
+	another_converter.Convert(doc)
     
-	if is_conversion_0_successful and is_conversion_1_successful and is_conversion_2_successful
-		doc.Save(output_path + "_03.pdf", SDFDoc::E_linearized)
-	else
-		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
-	end
+	doc.Save(output_path + "_03.pdf", SDFDoc::E_linearized)
 		
 	#--------------------------------------------------------------------------------
 	# Example 4) Convert HTML string to PDF. 
@@ -134,10 +120,24 @@ $stdout.sync = true
 	converter.InsertFromHtmlString(html)
 	# Note, InsertFromHtmlString can be mixed with the other Insert methods.
 	
-	if converter.Convert(doc)
-		doc.Save(output_path + "_04.pdf", SDFDoc::E_linearized)
-	else
-		print "Conversion failed. HTTP Code: " + converter.GetHTTPErrorCode().to_s + "\n" + converter.GetLog()
-	end
+	converter.Convert(doc)
+	doc.Save(output_path + "_04.pdf", SDFDoc::E_linearized)
+
+	#--------------------------------------------------------------------------------
+	# Example 5) Set the location of the log file to be used during conversion.
+	
+	doc = PDFDoc.new()
+	converter = HTML2PDF.new()
+
+	# specify the log file name
+	converter.SetLogFilePath('../../TestFiles/Output/html2pdf.log')
+	
+	# insert the web page to convert
+	converter.InsertFromURL("https://docs.apryse.com/")
+	
+	# convert the web page
+	converter.Convert(doc)
+	doc.Save(output_path + "_05.pdf", SDFDoc::E_linearized)
+
 	PDFNet.Terminate
 
