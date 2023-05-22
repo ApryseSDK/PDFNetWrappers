@@ -30,6 +30,10 @@ from LicenseKey import *
 
 def main():
     output_path = "../../TestFiles/Output/html2pdf_example"
+    host = "https://docs.apryse.com"
+    page0 = "/"
+    page1 = "/all-products/"
+    page2 = "/documentation/web/faq"
 
     # The first step in every application using PDFNet is to initialize the 
     # library and set the path to common PDF resources. The library is usually 
@@ -56,7 +60,7 @@ def main():
     doc = PDFDoc()
     # now convert a web page, sending generated PDF pages to doc
     converter = HTML2PDF()
-    converter.InsertFromURL("https://docs.apryse.com/")
+    converter.InsertFromURL(host + page0)
     converter.Convert(doc)
     doc.Save(output_path + "_01.pdf", SDFDoc.e_linearized)
 
@@ -73,7 +77,7 @@ def main():
     converter.SetPaperSize(PrinterMode.e_11x17)
     
     # insert the web page to convert
-    converter.InsertFromURL("https://docs.apryse.com/")
+    converter.InsertFromURL(host + page0)
     
     # convert the web page, appending generated PDF pages to doc
     converter.Convert(doc)
@@ -92,11 +96,11 @@ def main():
     
     settings = WebPageSettings()
     settings.SetZoom(0.5)
-    converter.InsertFromURL("https://docs.apryse.com/", settings)
+    converter.InsertFromURL(host + page0)
     converter.Convert(doc)
 
     # convert page 1 with the same settings, appending generated PDF pages to doc
-    converter.InsertFromURL("https://docs.apryse.com/all-products/", settings)
+    converter.InsertFromURL(host + page1, settings)
     converter.Convert(doc)
 
     # convert page 2 with different settings, appending generated PDF pages to doc
@@ -104,7 +108,7 @@ def main():
     another_converter.SetLandscape(True)
     another_settings = WebPageSettings()
     another_settings.SetPrintBackground(False)
-    another_converter.InsertFromURL("https://docs.apryse.com/documentation/web/faq", another_settings)
+    another_converter.InsertFromURL(host + page2, another_settings)
     another_converter.Convert(doc)
     
     doc.Save(output_path + "_03.pdf", SDFDoc.e_linearized)
@@ -132,7 +136,7 @@ def main():
     # now convert a web page, sending generated PDF pages to doc
     converter = HTML2PDF()
     converter.SetLogFilePath("../../TestFiles/Output/html2pdf.log")
-    converter.InsertFromURL("https://docs.apryse.com/")
+    converter.InsertFromURL(host + page0)
     converter.Convert(doc)
     doc.Save(output_path + "_05.pdf", SDFDoc.e_linearized)
 
