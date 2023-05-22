@@ -30,10 +30,10 @@ from LicenseKey import *
 
 def main():
     output_path = "../../TestFiles/Output/html2pdf_example"
-    host = "https://www.pdftron.com"
+    host = "https://docs.apryse.com"
     page0 = "/"
-    page1 = "/support"
-    page2 = "/blog"
+    page1 = "/all-products/"
+    page2 = "/documentation/web/faq"
 
     # The first step in every application using PDFNet is to initialize the 
     # library and set the path to common PDF resources. The library is usually 
@@ -61,11 +61,9 @@ def main():
     # now convert a web page, sending generated PDF pages to doc
     converter = HTML2PDF()
     converter.InsertFromURL(host + page0)
-    if converter.Convert(doc):
-        doc.Save(output_path + "_01.pdf", SDFDoc.e_linearized)
-    else:
-        print("Conversion failed.")
-    
+    converter.Convert(doc)
+    doc.Save(output_path + "_01.pdf", SDFDoc.e_linearized)
+
     #--------------------------------------------------------------------------------
     # Example 2) Modify the settings of the generated PDF pages and attach to an
     # existing PDF document. 
@@ -82,10 +80,8 @@ def main():
     converter.InsertFromURL(host + page0)
     
     # convert the web page, appending generated PDF pages to doc
-    if converter.Convert(doc):
-        doc.Save(output_path + "_02.pdf", SDFDoc.e_linearized)
-    else:
-        print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
+    converter.Convert(doc)
+    doc.Save(output_path + "_02.pdf", SDFDoc.e_linearized)
     #--------------------------------------------------------------------------------
     # Example 3) Convert multiple web pages
     
@@ -100,12 +96,12 @@ def main():
     
     settings = WebPageSettings()
     settings.SetZoom(0.5)
-    converter.InsertFromURL(host + page0, settings)
-    is_conversion_0_successful = converter.Convert(doc)
+    converter.InsertFromURL(host + page0)
+    converter.Convert(doc)
 
     # convert page 1 with the same settings, appending generated PDF pages to doc
     converter.InsertFromURL(host + page1, settings)
-    is_conversion_1_successful = converter.Convert(doc)
+    converter.Convert(doc)
 
     # convert page 2 with different settings, appending generated PDF pages to doc
     another_converter = HTML2PDF()
@@ -113,12 +109,9 @@ def main():
     another_settings = WebPageSettings()
     another_settings.SetPrintBackground(False)
     another_converter.InsertFromURL(host + page2, another_settings)
-    is_conversion_2_successful = another_converter.Convert(doc)
+    another_converter.Convert(doc)
     
-    if is_conversion_0_successful and is_conversion_1_successful and is_conversion_2_successful:
-        doc.Save(output_path + "_03.pdf", SDFDoc.e_linearized)
-    else:
-        print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
+    doc.Save(output_path + "_03.pdf", SDFDoc.e_linearized)
     
     #--------------------------------------------------------------------------------
     # Example 4) Convert HTML string to PDF. 
@@ -133,10 +126,20 @@ def main():
     converter.InsertFromHtmlString(html)
     # Note, InsertFromHtmlString can be mixed with the other Insert methods.
     
-    if converter.Convert(doc):
-        doc.Save(output_path + "_04.pdf", SDFDoc.e_linearized)
-    else:
-        print("Conversion failed. HTTP Code: " + str(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
+    converter.Convert(doc)
+    doc.Save(output_path + "_04.pdf", SDFDoc.e_linearized)
+
+    #--------------------------------------------------------------------------------
+    # Example 5) Set the location of the log file to be used during conversion. 
+
+    doc = PDFDoc()
+    # now convert a web page, sending generated PDF pages to doc
+    converter = HTML2PDF()
+    converter.SetLogFilePath("../../TestFiles/Output/html2pdf.log")
+    converter.InsertFromURL(host + page0)
+    converter.Convert(doc)
+    doc.Save(output_path + "_05.pdf", SDFDoc.e_linearized)
+
     PDFNet.Terminate()
         
 if __name__ == '__main__':
