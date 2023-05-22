@@ -39,10 +39,10 @@ func init() {
 
 func TestHTM2PDF(t *testing.T){
     outputPath := "../TestFiles/Output/html2pdf_example"
-    host := "https://www.pdftron.com"
+    host := "https://docs.apryse.com"
     page0 := "/"
-    page1 := "/support"
-    page2 := "/blog"
+    page1 := "/all-products/"
+    page2 := "/documentation/web/faq"
  
     // The first step in every application using PDFNet is to initialize the 
     // library and set the path to common PDF resources. The library is usually 
@@ -70,18 +70,15 @@ func TestHTM2PDF(t *testing.T){
     // now convert a web page, sending generated PDF pages to doc
     converter := NewHTML2PDF()
     converter.InsertFromURL(host + page0)
-    if converter.Convert(doc){
-        doc.Save(outputPath + "_01.pdf", uint(SDFDocE_linearized))
-	}else{
-        fmt.Println("Conversion failed.")
-    }
+    converter.Convert(doc)
+    doc.Save(outputPath + "_01.pdf", uint(SDFDocE_linearized))
 
     //--------------------------------------------------------------------------------
     // Example 2) Modify the settings of the generated PDF pages and attach to an
     // existing PDF document. 
     
     // open the existing PDF, and initialize the security handler
-    doc = NewPDFDoc("../../TestFiles/numbered.pdf")
+    doc = NewPDFDoc("../TestFiles/numbered.pdf")
     doc.InitSecurityHandler()
     
     // create the HTML2PDF converter object and modify the output of the PDF pages
@@ -92,11 +89,9 @@ func TestHTM2PDF(t *testing.T){
     converter.InsertFromURL(host + page0)
     
     // convert the web page, appending generated PDF pages to doc
-    if converter.Convert(doc){
-        doc.Save(outputPath + "_02.pdf", uint(SDFDocE_linearized))
-    }else{
-        fmt.Println("Conversion failed. HTTP Code: " + strconv.Itoa(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
-	}
+    converter.Convert(doc)
+    doc.Save(outputPath + "_02.pdf", uint(SDFDocE_linearized))
+
     //--------------------------------------------------------------------------------
     // Example 3) Convert multiple web pages, adding a table of contents, and setting
     // the first page as a cover page, not to be included with the table of contents outline.
@@ -112,11 +107,11 @@ func TestHTM2PDF(t *testing.T){
     settings := NewWebPageSettings()
     settings.SetZoom(0.5)
     converter.InsertFromURL(host + page0, settings)
-    is_conversion_0_successful := converter.Convert(doc)
+    converter.Convert(doc)
 
     // convert page 1 with the same settings, appending generated PDF pages to doc
     converter.InsertFromURL(host + page1, settings)
-    is_conversion_1_successful := converter.Convert(doc)
+    converter.Convert(doc)
 
     // convert page 2 with different settings, appending generated PDF pages to doc
     another_converter := NewHTML2PDF()
@@ -124,13 +119,9 @@ func TestHTM2PDF(t *testing.T){
     another_settings := NewWebPageSettings()
     another_settings.SetPrintBackground(false)
     another_converter.InsertFromURL(host + page2, another_settings)
-    is_conversion_2_successful := another_converter.Convert(doc);
+    another_converter.Convert(doc);
 
-    if(is_conversion_0_successful && is_conversion_1_successful && is_conversion_2_successful){
-        doc.Save(outputPath + "_03.pdf", uint(SDFDocE_linearized))
-    }else{
-        fmt.Println("Conversion failed. HTTP Code: " + strconv.Itoa(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
-    }
+    doc.Save(outputPath + "_03.pdf", uint(SDFDocE_linearized))
 
     //--------------------------------------------------------------------------------
     // Example 4) Convert HTML string to PDF. 
@@ -145,10 +136,19 @@ func TestHTM2PDF(t *testing.T){
     converter.InsertFromHtmlString(html)
     // Note, InsertFromHtmlString can be mixed with the other Insert methods.
     
-    if converter.Convert(doc){
-        doc.Save(outputPath + "_04.pdf", uint(SDFDocE_linearized))
-    }else{
-        fmt.Println("Conversion failed. HTTP Code: " + strconv.Itoa(converter.GetHTTPErrorCode()) + "\n" + converter.GetLog())
-	}
+    converter.Convert(doc)
+    doc.Save(outputPath + "_04.pdf", uint(SDFDocE_linearized))
+
+    //--------------------------------------------------------------------------------
+    // Example 5) Set the location of the log file to be used during conversion. 
+
+    doc = NewPDFDoc()
+    // now convert a web page, sending generated PDF pages to doc
+    converter = NewHTML2PDF()
+    converter.SetLogFilePath("../TestFiles/Output/html2pdf.log")
+    converter.InsertFromURL(host + page0)
+    converter.Convert(doc)
+    doc.Save(outputPath + "_05.pdf", uint(SDFDocE_linearized))
+
     PDFNetTerminate()
 }
