@@ -7,7 +7,6 @@ package HTML2PDFTest
 import (
     "fmt"
     "testing"
-    "strconv"
     . "github.com/pdftron/pdftron-go/v2"
     "flag"
 )
