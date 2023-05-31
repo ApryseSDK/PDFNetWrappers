@@ -52,7 +52,7 @@ func ConvertSpecificFormats() bool{
         
 	// Convert MSWord document to XPS
 	fmt.Println("Converting DOCX to XPS")
-	outputFile = "simple-word_2007.xps"
+	outputFile := "simple-word_2007.xps"
 	ConvertToXps(inputPath + "simple-word_2007.docx", outputPath + outputFile)
 	fmt.Println("Saved " + outputFile)
 
@@ -113,7 +113,7 @@ func main(){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
-    PDFNetInitialize(PDFTronLicense.Key)
+	PDFNetInitialize(licenseKey)
 
     // Demonstrate Convert.ToPdf and Convert.Printer
     err := ConvertToPdfFromFile()
