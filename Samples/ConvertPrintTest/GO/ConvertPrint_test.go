@@ -59,7 +59,7 @@ func ConvertSpecificFormats() bool{
     // Start with a PDFDoc to collect the converted documents
     pdfdoc := NewPDFDoc()
     // Convert the EMF document to PDF
-    s1 := inputPath + ""simple-emf.emf"
+    s1 := inputPath + "simple-emf.emf"
 
     fmt.Println("Converting from EMF")
     ConvertFromEmf(pdfdoc, s1)

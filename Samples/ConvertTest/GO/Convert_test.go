@@ -129,7 +129,7 @@ func ConvertToPdfFromFile() bool{
         pdfdoc := NewPDFDoc()
         inputFile := testfile[0]
         outputFile := testfile[1]
-        PrinterSetMode(uint(PrinterE_prefer_builtin_converter))
+        PrinterSetMode(PrinterE_prefer_builtin_converter)
         ConvertToPdf(pdfdoc, inputPath + inputFile)
         pdfdoc.Save(outputPath + outputFile, uint(SDFDocE_linearized))
         pdfdoc.Close()
