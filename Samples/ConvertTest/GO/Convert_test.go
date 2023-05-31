@@ -8,7 +8,6 @@ import (
 	"testing"
 	"fmt"
 	"flag"
-	"runtime"
 	. "github.com/pdftron/pdftron-go/v2"
 )
 

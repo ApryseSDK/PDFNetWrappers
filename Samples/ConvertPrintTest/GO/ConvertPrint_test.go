@@ -8,7 +8,6 @@ import (
 	"testing"
 	"fmt"
 	"flag"
-	"runtime"
 	. "github.com/pdftron/pdftron-go/v2"
 )
 
@@ -63,13 +62,10 @@ func ConvertSpecificFormats() bool{
 
     fmt.Println("Converting from EMF")
     ConvertFromEmf(pdfdoc, s1)
-    outputFile := "emf2pdf v2.pdf"
+    outputFile = "emf2pdf v2.pdf"
     pdfdoc.Save(outputPath + outputFile, uint(SDFDocE_remove_unused))
     fmt.Println("Saved " + outputFile)
         
-
-
-
     return ret
 }
 func ConvertToPdfFromFile() bool{
@@ -109,7 +105,7 @@ func ConvertToPdfFromFile() bool{
     return ret
 }
 
-func main(){
+func TestConvertPrint(t *testing.T){
     // The first step in every application using PDFNet is to initialize the 
     // library. The library is usually initialized only once, but calling 
     // Initialize() multiple times is also fine.
