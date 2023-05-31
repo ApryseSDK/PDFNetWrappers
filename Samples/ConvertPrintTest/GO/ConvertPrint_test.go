@@ -8,6 +8,7 @@ import (
 	"testing"
 	"fmt"
 	"flag"
+	"runtime"
 	. "github.com/pdftron/pdftron-go/v2"
 )
 
@@ -106,29 +107,33 @@ func ConvertToPdfFromFile() bool{
 }
 
 func TestConvertPrint(t *testing.T){
-    // The first step in every application using PDFNet is to initialize the 
-    // library. The library is usually initialized only once, but calling 
-    // Initialize() multiple times is also fine.
-	PDFNetInitialize(licenseKey)
+ `	if runtime.GOOS == "windows" {
+		// The first step in every application using PDFNet is to initialize the 
+		// library. The library is usually initialized only once, but calling 
+		// Initialize() multiple times is also fine.
+		PDFNetInitialize(licenseKey)
 
-    // Demonstrate Convert.ToPdf and Convert.Printer
-    err := ConvertToPdfFromFile()
-    if err{
-		fmt.Println("ConvertFile failed")
-	}else{
-		fmt.Println("ConvertFile succeeded")
-	}
-    // Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
-    err = ConvertSpecificFormats()
-    if err{
-		fmt.Println("ConvertSpecificFormats failed")
-	}else{
-		fmt.Println("ConvertSpecificFormats succeeded")
-	}
-    fmt.Println("Uninstalling printer (requires Windows platform and administrator)")
-    PrinterUninstall()
-    fmt.Println("Uninstalled printer " + PrinterGetPrinterName())
+		// Demonstrate Convert.ToPdf and Convert.Printer
+		err := ConvertToPdfFromFile()
+		if err{
+			fmt.Println("ConvertFile failed")
+		}else{
+			fmt.Println("ConvertFile succeeded")
+		}
+		// Demonstrate Convert.[FromEmf, FromXps, ToEmf, ToSVG, ToXPS]
+		err = ConvertSpecificFormats()
+		if err{
+			fmt.Println("ConvertSpecificFormats failed")
+		}else{
+			fmt.Println("ConvertSpecificFormats succeeded")
+		}
+		fmt.Println("Uninstalling printer (requires Windows platform and administrator)")
+		PrinterUninstall()
+		fmt.Println("Uninstalled printer " + PrinterGetPrinterName())
 
-    PDFNetTerminate()
-    fmt.Println("Done.")
+		PDFNetTerminate()
+		fmt.Println("Done.")
+	}else{
+		fmt.Println("ConvertPrintTest only available on Windows")
+	}
 }
