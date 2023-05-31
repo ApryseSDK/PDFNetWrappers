@@ -5,12 +5,20 @@
 
 package main
 import (
+	"testing"
 	"fmt"
+	"flag"
 	"runtime"
-	. "pdftron"
+	. "github.com/pdftron/pdftron-go/v2"
 )
 
-import  "pdftron/Samples/LicenseKey/GO"
+var licenseKey string
+var modulePath string
+
+func init() {
+    flag.StringVar(&licenseKey, "license", "", "License key for Apryse SDK")
+    flag.StringVar(&modulePath, "modulePath", "", "Module path for Apryse SDK")
+}
 
 //---------------------------------------------------------------------------------------
 // The following sample illustrates how to convert to PDF with virtual printer on Windows.
@@ -65,7 +73,7 @@ func ConvertSpecificFormats() bool{
     return ret
 }
 func ConvertToPdfFromFile() bool{
-	testFiles := [][]string{	
+	testFiles := [][]string{
 	{"simple-word_2007.docx","docx2pdf.pdf"}, 
 	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf"}, 
 	{"simple-excel_2007.xlsx","xlsx2pdf.pdf"}, 
@@ -74,8 +82,7 @@ func ConvertToPdfFromFile() bool{
     { "simple-rtf.rtf","rtf2pdf.pdf"},
     { "simple-emf.emf","emf2pdf.pdf"},
     { "simple-webpage.mht","mht2pdf.pdf"},
-    { "simple-webpage.html","html2pdf.pdf"}
-	}
+    { "simple-webpage.html","html2pdf.pdf"}}
     ret := false
 
     if PrinterIsInstalled("PDFTron PDFNet"){
