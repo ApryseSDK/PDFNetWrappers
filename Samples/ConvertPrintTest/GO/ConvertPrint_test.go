@@ -107,7 +107,7 @@ func ConvertToPdfFromFile() bool{
 }
 
 func TestConvertPrint(t *testing.T){
- `	if runtime.GOOS == "windows" {
+	if runtime.GOOS == "windows" {
 		// The first step in every application using PDFNet is to initialize the 
 		// library. The library is usually initialized only once, but calling 
 		// Initialize() multiple times is also fine.
