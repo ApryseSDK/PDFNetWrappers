@@ -302,7 +302,7 @@ def main():
                     for nested_row_index in range(3):
                         nested_row = nested_table.AddTableRow()
                         for nested_column_index in range(3):
-                            para_str = f"{nested_row_index}/{nested_column_index}"
+                            para_str = str(nested_row_index) + "/" + str(nested_column_index)
                             nested_cell = nested_row.AddTableCell()
                             nested_cell.SetBackgroundColor(200, 200, 255)
                             nested_cell.SetBorder(0.1, 0, 255, 0)
