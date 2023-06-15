@@ -162,14 +162,14 @@ def main():
 
             list = el.AsList()
             if list is not None:
-                if list.IndentationLevel() == 1:
+                if list.GetIndentationLevel() == 1:
                     p = list.AddItem().AddParagraph("Item added during iteration")
                     ps = p.GetTextStyledElement()
                     ps.SetTextColor(0, 127, 0)
 
             list_item = el.AsListItem()
             if list_item is not None:
-                if list_item.IndentationLevel() == 2:
+                if list_item.GetIndentationLevel() == 2:
                     p = list_item.AddParagraph("* Paragraph added during iteration")
                     ps = p.GetTextStyledElement()
                     ps.SetTextColor(0, 0, 255)
