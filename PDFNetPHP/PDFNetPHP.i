@@ -13,6 +13,7 @@
 #endif
 
 %rename (OCGConfig) pdftron::PDF::OCG::Config;
+%rename(ListContainer) List;
 
 %include "PDFNet_StdStringPHP.i"
 /**
@@ -229,6 +230,10 @@
     #include "SDF/UndoManager.h"
     #include "SDF/ResultSnapshot.h"
     #include "SDF/DocSnapshot.h"
+    
+    // header files in /PDFNetC/Headers/Layout
+    #include "Layout/FlowDocument.h"
+    #include "Layout/ContentTree.h"
 
     using namespace pdftron;
     using namespace FDF;
@@ -731,6 +736,63 @@ namespace pdftron {
         return;
     }
 %}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::ContentNode> {
+    if ($1.IsValid()) {
+        pdftron::Layout::ContentNode* resultobj = new pdftron::Layout::ContentNode($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__ContentNode, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Paragraph> {
+    if ($1.IsValid()) {
+        pdftron::Layout::Paragraph* resultobj = new pdftron::Layout::Paragraph($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__Paragraph, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::TextRun> {
+    if ($1.IsValid()) {
+        pdftron::Layout::TextRun* resultobj = new pdftron::Layout::TextRun($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__TextRun, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Table> {
+    if ($1.IsValid()) {
+        pdftron::Layout::Table* resultobj = new pdftron::Layout::Table($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__Table, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::TableRow> {
+    if ($1.IsValid()) {
+        pdftron::Layout::TableRow* resultobj = new pdftron::Layout::TableRow($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__TableRow, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::TableCell> {
+    if ($1.IsValid()) {
+        pdftron::Layout::TableCell* resultobj = new pdftron::Layout::TableCell($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__TableCell, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::List> {
+    if ($1.IsValid()) {
+        pdftron::Layout::List* resultobj = new pdftron::Layout::List($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__List, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::ListItem> {
+    if ($1.IsValid()) {
+        pdftron::Layout::ListItem* resultobj = new pdftron::Layout::ListItem($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__ListItem, 1);
+    }
+}
+
 /**
  * Mapping of C++ vector<int> to PHP array
  */
@@ -856,6 +918,7 @@ namespace pdftron {
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
 %template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
 %template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
+%template (ContentNodeIterator) pdftron::Common::Iterator<pdftron::Layout::ContentElement>;
 
 //----------------------------------------------------------------------------------------------
 
@@ -1013,6 +1076,19 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+%include "Layout/ContentTree.h"
+%include "Layout/FlowDocument.h"
+
+// The Ref tyoes are not used (automatically converted to either null or the underlying object)
+// but we still need to difine them so they are handled correctly.
+%template (ContentNodeRef) pdftron::Layout::ElementRef<pdftron::Layout::ContentNode>;
+%template (ParagraphRef) pdftron::Layout::ElementRef<pdftron::Layout::Paragraph>;
+%template (TextRunRef) pdftron::Layout::ElementRef<pdftron::Layout::TextRun>;
+%template (TableRef) pdftron::Layout::ElementRef<pdftron::Layout::Table>;
+%template (TableRowRef) pdftron::Layout::ElementRef<pdftron::Layout::TableRow>;
+%template (TableCellRef) pdftron::Layout::ElementRef<pdftron::Layout::TableCell>;
+%template (ListRef) pdftron::Layout::ElementRef<pdftron::Layout::List>;
+%template (ListItemRef) pdftron::Layout::ElementRef<pdftron::Layout::ListItem>;
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{
