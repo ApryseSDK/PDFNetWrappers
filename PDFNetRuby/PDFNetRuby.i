@@ -201,6 +201,8 @@
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
     #include "PDF/WebFontDownloader.h"
+    #include "Layout/ContentTree.h"
+    #include "Layout/FlowDocument.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -536,6 +538,94 @@ namespace pdftron {
     return Qnil;
 %}
 
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::ContentNode> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::ContentNode($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__ContentNode,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::TextRun> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::TextRun($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__TextRun,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Paragraph> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::Paragraph($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__Paragraph,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Table> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::Table($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__Table,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::TableRow> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::TableRow($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__TableRow,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::TableCell> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::TableCell($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__TableCell,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::List> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::List($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__List,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::ListItem> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::ListItem($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__ListItem,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
 //----------------------------------------------------------------------------------------------
 /**
  * Typemap for function pointers
@@ -613,6 +703,7 @@ namespace pdftron {
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
 %template (CharIterator) pdftron::Common::Iterator<TRN_CharData>; 
 %template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
+%template (ContentNodeIterator) pdftron::Common::Iterator<pdftron::Layout::ContentElement>;
 
 //----------------------------------------------------------------------------------------------
 
@@ -761,6 +852,8 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+%include "Layout/ContentTree.h"
+%include "Layout/FlowDocument.h"
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{

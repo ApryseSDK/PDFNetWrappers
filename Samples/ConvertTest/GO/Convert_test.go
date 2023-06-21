@@ -8,7 +8,6 @@ import (
 	"testing"
 	"fmt"
 	"flag"
-	"runtime"
 	. "github.com/pdftron/pdftron-go/v2"
 )
 
@@ -21,23 +20,12 @@ func init() {
 }
 
 //---------------------------------------------------------------------------------------
-// The following sample illustrates how to use the PDF.Convert utility class to convert 
-// documents and files to PDF, XPS, SVG, or EMF.
+// The following sample illustrates how to use the PDF::Convert utility class to convert 
+// documents and files to PDF, XPS, or SVG, or EMF. The sample also shows how to convert MS Office files 
+// using our built in conversion.
 //
 // Certain file formats such as XPS, EMF, PDF, and raster image formats can be directly 
-// converted to PDF or XPS. Other formats are converted using a virtual driver. To check 
-// if ToPDF (or ToXPS) require that PDFNet printer is installed use Convert.RequiresPrinter(filename). 
-// The installing application must be run as administrator. The manifest for this sample 
-// specifies appropriate the UAC elevation.
-//
-// Note: the PDFNet printer is a virtual XPS printer supported on Vista SP1 and Windows 7.
-// For Windows XP SP2 or higher, or Vista SP0 you need to install the XPS Essentials Pack (or 
-// equivalent redistributables). You can download the XPS Essentials Pack from:
-//        http://www.microsoft.com/downloads/details.aspx?FamilyId=B8DCFFDD-E3A5-44CC-8021-7649FD37FFEE&displaylang=en
-// Windows XP Sp2 will also need the Microsoft Core XML Services (MSXML) 6.0:
-//         http://www.microsoft.com/downloads/details.aspx?familyid=993C0BCF-3BCF-4009-BE21-27E85E1857B1&displaylang=en
-//
-// Note: Convert.fromEmf and Convert.toEmf will only work on Windows and require GDI+.
+// converted to PDF or XPS. 
 //
 // Please contact us if you have any questions.    
 //---------------------------------------------------------------------------------------
@@ -46,51 +34,6 @@ func init() {
 var inputPath = "../TestFiles/"
 var outputPath = "../TestFiles/Output/"
 
-func ConvertToPdfFromFile() bool{
-	testFiles := [][]string{	
-	{"simple-word_2007.docx","docx2pdf.pdf", "false"}, 
-	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf", "false"}, 
-	{"simple-excel_2007.xlsx","xlsx2pdf.pdf", "false"}, 
-	{"simple-publisher.pub","pub2pdf.pdf", "true"},
-	//{"simple-visio.vsd","vsd2pdf.pdf}, // requires Microsoft Office Visio 
-	{"simple-text.txt","txt2pdf.pdf", "false"}, 
-	{"simple-rtf.rtf","rtf2pdf.pdf", "true"}, 
-	{"butterfly.png","png2pdf.pdf", "false"}, 
-	{"simple-emf.emf","emf2pdf.pdf", "true"}, 
-	{"simple-xps.xps","xps2pdf.pdf", "false"}, 
-	//{"simple-webpage.mht","mht2pdf.pdf", true}, 
-	{"simple-webpage.html","html2pdf.pdf", "true"}}
-    ret := false
-
-    if runtime.GOOS == "windows" {
-        if PrinterIsInstalled("PDFTron PDFNet"){
-			PrinterSetPrinterName("PDFTron PDFNet")
-        }else if ! PrinterIsInstalled(){
-			fmt.Println("Installing printer (requires Windows platform and administrator)")
-			PrinterInstall()
-			fmt.Println("Installed printer " + PrinterGetPrinterName())
-		}
-	}
-
-	for _, testfile := range testFiles {
-	    if runtime.GOOS != "windows" {
-            if testfile[2] == "true" {
-                continue
-			}
-		}
-        pdfdoc := NewPDFDoc()
-        inputFile := testfile[0]
-        outputFile := testfile[1]
-        if ConvertRequiresPrinter(inputPath + inputFile){
-            fmt.Println("Using PDFNet printer to convert file " + inputFile)
-		}
-        ConvertToPdf(pdfdoc, inputPath + inputFile)
-        pdfdoc.Save(outputPath + outputFile, uint(SDFDocE_compatibility))
-        pdfdoc.Close()
-        fmt.Println("Converted file: " + inputFile + "\nto: " + outputFile)
-	}
-    return ret
-}
 
 func ConvertSpecificFormats() bool{
 	ret := false
@@ -104,15 +47,6 @@ func ConvertSpecificFormats() bool{
     pdfdoc.Save(outputPath + outputFile, uint(SDFDocE_remove_unused))
     fmt.Println("Saved " + outputFile)
         
-    // Convert the EMF document to PDF
-	if runtime.GOOS == "windows" {
-		s1 = inputPath + "simple-emf.emf"
-		fmt.Println("Converting from EMF")
-		ConvertFromEmf(pdfdoc, s1)
-		outputFile = "emf2pdf v2.pdf"
-		pdfdoc.Save(outputPath + outputFile, uint(SDFDocE_remove_unused))
-		fmt.Println("Saved " + outputFile)
-	}
 
 	// Convert the TXT document to PDF
 	set :=  NewObjSet()
@@ -177,6 +111,31 @@ func ConvertSpecificFormats() bool{
 
     return ret
 }
+func ConvertToPdfFromFile() bool{
+	testFiles := [][]string{
+	{"simple-word_2007.docx","docx2pdf.pdf"}, 
+	{"simple-powerpoint_2007.pptx","pptx2pdf.pdf"}, 
+	{"simple-excel_2007.xlsx","xlsx2pdf.pdf"}, 
+
+	{"simple-text.txt","txt2pdf.pdf"}, 
+	{"butterfly.png","png2pdf.pdf"}, 
+	{"simple-xps.xps","xps2pdf.pdf"}}
+    ret := false
+
+
+	for _, testfile := range testFiles {
+
+        pdfdoc := NewPDFDoc()
+        inputFile := testfile[0]
+        outputFile := testfile[1]
+        PrinterSetMode(PrinterE_prefer_builtin_converter)
+        ConvertToPdf(pdfdoc, inputPath + inputFile)
+        pdfdoc.Save(outputPath + outputFile, uint(SDFDocE_linearized))
+        pdfdoc.Close()
+        fmt.Println("Converted file: " + inputFile + "\nto: " + outputFile)
+	}
+    return ret
+}
 
 func TestConvert(t *testing.T){
     // The first step in every application using PDFNet is to initialize the 
@@ -198,11 +157,7 @@ func TestConvert(t *testing.T){
 	}else{
 		fmt.Println("ConvertSpecificFormats succeeded")
 	}
-	if runtime.GOOS == "windows" {
-        fmt.Println("Uninstalling printer (requires Windows platform and administrator)")
-        PrinterUninstall()
-        fmt.Println("Uninstalled printer " + PrinterGetPrinterName())
-	}
+
     PDFNetTerminate()
     fmt.Println("Done.")
 }
