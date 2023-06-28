@@ -36,7 +36,7 @@ func AddPackage(doc PDFDoc, file string, desc string){
     }
     files.Put(&key[0], len(key), fs.GetSDFObj())
     fs.SetDesc(desc)
-
+    
     collection := doc.GetRoot().FindObj("Collection")
     if collection == nil {
         collection = doc.GetRoot().PutDict("Collection")
