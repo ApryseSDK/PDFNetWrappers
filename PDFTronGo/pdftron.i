@@ -204,6 +204,16 @@
     }
 }
 
+%typemap(goout) pdftron::SDF::Obj
+%{
+    if swig_r.GetMp_obj().Swigcptr() == 0 {
+        $result = $1
+        return $result
+    }
+
+    $result = nil
+%}
+
 /**
  * Provides mapping for C++ vectors.
  * For example, vector<double> will be called as VectorDouble in GoLang.
