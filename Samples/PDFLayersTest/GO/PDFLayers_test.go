@@ -58,7 +58,7 @@ func CreateLayer(doc PDFDoc, layerName string) Group{
     }   
     // Add the new OCG to the list of layers that should appear in PDF viewer GUI.
     layerOrderArray := cfg.GetOrder()
-    if layerOrderArray.GetMp_obj().Swigcptr() == 0{
+    if layerOrderArray == nil {
         layerOrderArray = doc.CreateIndirectArray()
         cfg.SetOrder(layerOrderArray)
     }
