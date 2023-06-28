@@ -206,7 +206,8 @@
 
 %typemap(goout) pdftron::SDF::Obj
 %{
-    if swig_r.GetMp_obj().Swigcptr() == 0 {
+    // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
+    if ($1).GetMp_obj().Swigcptr() != 0 {
         $result = $1
         return $result
     }
