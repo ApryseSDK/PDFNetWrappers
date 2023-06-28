@@ -278,7 +278,7 @@ func TestInteractiveForms(t *testing.T){
 		}else if (fieldType == FieldE_text){
             os.Stdout.Write([]byte("Text" + "\n"))
             // Edit all variable text in the document
-            if itr.Current().GetValue().GetMp_obj().Swigcptr() != 0 {
+            if itr.Current().GetValue() != nil {
                 old_value := itr.Current().GetValueAsString();
                 itr.Current().SetValue("This is a new value. The old one was: " + old_value)
 			}

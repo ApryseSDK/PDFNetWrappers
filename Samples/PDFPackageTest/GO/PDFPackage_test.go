@@ -38,7 +38,7 @@ func AddPackage(doc PDFDoc, file string, desc string){
     fs.SetDesc(desc)
     
     collection := doc.GetRoot().FindObj("Collection")
-    if collection.GetMp_obj().Swigcptr() == 0{
+    if collection == nil {
         collection = doc.GetRoot().PutDict("Collection")
     }
 
