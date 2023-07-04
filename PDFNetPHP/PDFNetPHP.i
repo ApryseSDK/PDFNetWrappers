@@ -658,11 +658,13 @@ namespace pdftron {
 #if PHP_MAJOR_VERSION >= 7
     convert_to_string_ex(&$input);
     unsigned char* temp = (unsigned char*)Z_STRVAL_P(&$input);
+	$1 = new std::vector<unsigned char>();
     $1->resize(Z_STRLEN_P(&$input));
     memcpy(&((*$1)[0]), temp, Z_STRLEN_P(&$input));
 #else
     convert_to_string_ex($input);
     unsigned char* temp = (unsigned char*)Z_STRVAL_PP($input);
+	$1 = new std::vector<unsigned char>();
     $1->resize(Z_STRLEN_PP($input));
     memcpy(&((*$1)[0]), temp, Z_STRLEN_PP($input));
 #endif
@@ -676,6 +678,16 @@ namespace pdftron {
     $1 = ( Z_TYPE_PP($input) == IS_STRING ) ? 1 : 0;
 #endif
 }
+
+%typemap(typecheck) const std::vector<unsigned char>&
+{
+#if PHP_MAJOR_VERSION >= 7
+    $1 = ( Z_TYPE_P(&$input) == IS_STRING ) ? 1 : 0;
+#else
+    $1 = ( Z_TYPE_PP($input) == IS_STRING ) ? 1 : 0;
+#endif
+}
+
 /**
  * Typemap for directors
  */
@@ -712,6 +724,11 @@ namespace pdftron {
     ZVAL_STRINGL($input, (const char*) &($1_name[0]), $1_name.size(), 1);
 #endif
 }
+
+%typemap(freearg) const std::vector<unsigned char>&
+%{
+	if($1){ delete($1); $1 = 0; }
+%}
 
 //----------------------------------------------------------------------------------------------
 /**
