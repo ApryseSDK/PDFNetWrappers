@@ -93,7 +93,7 @@ def main():
             outputFile = outputPath + "financial.xlsx"
             options = DataExtractionOptions()
             options.SetPages("1") # page 1
-            outputXlsxStream = Filters.MemoryFilter(0, False)
+            outputXlsxStream = MemoryFilter(0, False)
             DataExtractionModule.ExtractToXLSX(inputPath + "financial.pdf", outputXlsxStream, options)
             outputXlsxStream.SetAsInputFilter()
             outputXlsxStream.WriteToFile(outputFile, False)

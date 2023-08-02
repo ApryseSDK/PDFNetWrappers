@@ -204,6 +204,17 @@
     }
 }
 
+%typemap(goout) pdftron::SDF::Obj
+%{
+    // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
+    if ($1).GetMp_obj().Swigcptr() != 0 {
+        $result = $1
+        return $result
+    }
+
+    $result = nil
+%}
+
 /**
  * Provides mapping for C++ vectors.
  * For example, vector<double> will be called as VectorDouble in GoLang.
