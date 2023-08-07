@@ -45,8 +45,6 @@ endif ()
 execute_process(
     COMMAND ${SWIG_EXECUTABLE} -c++ -python ${SWIG_DEFINE} -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
-    OUTPUT_FILE ${PROJECT_BINARY_DIR}/swig.log
-    ERROR_FILE ${PROJECT_BINARY_DIR}/swig.err.log
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
