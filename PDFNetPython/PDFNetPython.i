@@ -9,6 +9,7 @@
  */
 %module(directors="1") PDFNetPython
 
+%feature("doxygen:notranslate") ""
 
 /**
  * Different versions of UString typemap will be used pending
