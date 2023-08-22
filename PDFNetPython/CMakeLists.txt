@@ -42,8 +42,12 @@ elseif (PYTHON_3)
     set(SWIG_DEFINE "-DPYTHON3")
 endif ()
 
+set(DOXYGEN "")
+if(WIN32)
+    set(DOXYGEN "-doxygen")
+endif()
 execute_process(
-    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${SWIG_DEFINE} -doxygen -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${SWIG_DEFINE} ${DOXYGEN} -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
