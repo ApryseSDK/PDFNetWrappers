@@ -29,7 +29,7 @@ pipeline {
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNet Mac/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                            "PDFNet Mac/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetCMac.zip"
                         )
                     }
