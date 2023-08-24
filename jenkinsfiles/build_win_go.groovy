@@ -29,7 +29,7 @@ pipeline {
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64 VS2013/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                            "PDFNetC64 VS2013/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetC64.zip"
                         )
                     }
