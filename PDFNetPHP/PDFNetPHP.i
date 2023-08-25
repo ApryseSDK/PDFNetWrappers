@@ -122,7 +122,7 @@
 
     // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
-	#include "PDF/PDFA/PDFAOptions.h"
+    #include "PDF/PDFA/PDFAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
