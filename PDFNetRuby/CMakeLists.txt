@@ -6,47 +6,21 @@
 project(PDFNetRuby CXX)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-# For usage with RVM, otherwise it won't be able to find the virtual environment version
-if (DEFINED ENV{MY_RUBY_HOME})
-    set(MY_RUBY_HOME "$ENV{MY_RUBY_HOME}")
-    message(STATUS "MY_RUBY_HOME detected, searching for virtual environment.. ${MY_RUBY_HOME}")
-    string(TOLOWER "${CMAKE_HOST_SYSTEM_NAME}" CMAKE_HOST_TOLOWER_NAME)
+# Checks the header and library directory of the current active ruby install
+# This will respond to virtual enviroments
+execute_process(
+    COMMAND ruby -rrbconfig -e "puts \"#{RbConfig::TOPDIR}\""
+    OUTPUT_VARIABLE RUBY_LIBRARY
+)
 
-    string(REPLACE "." ";" CMAKE_VERSION_LIST "${CMAKE_HOST_SYSTEM_VERSION}")
-    list(GET CMAKE_VERSION_LIST 0 MAJOR_SYS_VERSION)
+execute_process(
+    COMMAND ruby -rrbconfig -e "puts \"#{RbConfig::CONFIG[%q{rubyhdrdir}]};#{RbConfig::CONFIG[%q{rubyarchhdrdir}]}\""
+    OUTPUT_VARIABLE RUBY_INCLUDE_DIRS
+)
 
-    # Get major and minor versions and append a 0 for the include directories
-    # Ruby happens to store includes under a base version for x.x.0
-    string(REPLACE "-" ";" CMAKE_VERSION_LIST "${MY_RUBY_HOME}")
-    list(GET CMAKE_VERSION_LIST -1 RUBY_BASE_VERSION)
-    string(REPLACE "." ";" CMAKE_VERSION_LIST "${RUBY_BASE_VERSION}")
-    list(GET CMAKE_VERSION_LIST 0 RUBY_MAJOR)
-    list(GET CMAKE_VERSION_LIST 1 RUBY_MINOR)
-    set(RUBY_BASE_VERSION "${RUBY_MAJOR}.${RUBY_MINOR}.0")
-
-    set(RUBY_LIBRARY "${MY_RUBY_HOME}")
-    if (APPLE)
-        # On apple the directory includes a version number
-        set(RUBY_INCLUDE_DIRS "${MY_RUBY_HOME}/include/ruby-${RUBY_BASE_VERSION};${MY_RUBY_HOME}/include/ruby-${RUBY_BASE_VERSION}/${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_HOST_TOLOWER_NAME}${MAJOR_SYS_VERSION}")
-    else ()
-        set(RUBY_INCLUDE_DIRS "${MY_RUBY_HOME}/include/ruby-${RUBY_BASE_VERSION};${MY_RUBY_HOME}/include/ruby-${RUBY_BASE_VERSION}/${CMAKE_HOST_SYSTEM_PROCESSOR}-${CMAKE_HOST_TOLOWER_NAME}")
-    endif ()
-
-    message(STATUS "Using Ruby ${MY_RUBY_HOME}")
-    message(STATUS "Ruby include directory: ${RUBY_INCLUDE_DIRS}")
-    message(STATUS "Ruby library: ${RUBY_LIBRARY}")
-else ()
-    message(STATUS "Auto detecting via find_package...")
-    find_package(Ruby)
-    if (RUBY_FOUND)
-        message(STATUS "Using Ruby ${RUBY_VERSION}")
-        message(STATUS "Ruby include directory: ${RUBY_INCLUDE_DIRS}")
-        message(STATUS "Ruby library: ${RUBY_LIBRARY}")
-    else ()
-        message(FATAL_ERROR "Cannot find Ruby libraries, please set the variables specified by the error message then try again.")
-        return ()
-    endif ()
-endif ()
+message(STATUS "Using Ruby ${MY_RUBY_HOME}")
+message(STATUS "Ruby include directory: ${RUBY_INCLUDE_DIRS}")
+message(STATUS "Ruby library: ${RUBY_LIBRARY}")
 
 message(STATUS "Generating sources for Ruby bindings using swig...")
 set(PDFNetRuby_SourcesDir ${PROJECT_BINARY_DIR})
