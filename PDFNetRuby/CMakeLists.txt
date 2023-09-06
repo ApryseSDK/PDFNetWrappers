@@ -10,11 +10,13 @@ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 # This will respond to virtual enviroments
 execute_process(
     COMMAND ruby -rrbconfig -e "puts \"#{RbConfig::TOPDIR}\""
+    OUTPUT_STRIP_TRAILING_WHITESPACE
     OUTPUT_VARIABLE RUBY_LIBRARY
 )
 
 execute_process(
     COMMAND ruby -rrbconfig -e "puts \"#{RbConfig::CONFIG[%q{rubyhdrdir}]};#{RbConfig::CONFIG[%q{rubyarchhdrdir}]}\""
+    OUTPUT_STRIP_TRAILING_WHITESPACE
     OUTPUT_VARIABLE RUBY_INCLUDE_DIRS
 )
 
