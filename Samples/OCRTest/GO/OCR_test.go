@@ -75,8 +75,9 @@ func TestOCR(t *testing.T){
         // B) Setup options with multiple target languages, English will always be considered as secondary language
 
         opts := NewOCROptions()
-        opts.AddLang("rus")
         opts.AddLang("deu")
+        opts.AddLang("fra")
+        opts.AddLang("eng")
 
         // C) Run OCR on the .jpg with options
 

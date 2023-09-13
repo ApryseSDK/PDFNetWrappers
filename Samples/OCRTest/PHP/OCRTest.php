@@ -60,8 +60,9 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		// B) Setup options with multiple target languages, English will always be considered as secondary language
 
 		$opts = new OCROptions();
-		$opts->AddLang("rus");
 		$opts->AddLang("deu");
+		$opts->AddLang("fra");
+		$opts->AddLang("eng");
 
 		// B) Run OCR on the .png with options
 

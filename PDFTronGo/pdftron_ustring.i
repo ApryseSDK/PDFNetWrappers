@@ -45,24 +45,33 @@ namespace pdftron {
 	%typemap(out) UString, const UString
 	%{  
 		{
-			std::string str = $1.ConvertToUtf8();
-			_gostring_ ret;
-			ret.p = (char*)malloc(str.length());
-			memcpy(ret.p, str.c_str(), str.length());
-			ret.n = str.length();
-			$result = ret;
+			try {
+				std::string str = $1.ConvertToUtf8();
+				_gostring_ ret;
+				ret.p = (char*)malloc(str.length());
+				memcpy(ret.p, str.c_str(), str.length());
+				ret.n = str.length();
+				$result = ret;
+			} catch (std::exception &e) {
+				_swig_gopanic(e.what());
+			}
 		}
 	%}
 
 	%typemap(out) const UString &
 	%{ 
 		{
-			std::string str = $1->ConvertToUtf8();
-			_gostring_ ret;
-			ret.p = (char*)malloc(str.length());
-			memcpy(ret.p, str.c_str(), str.length());
-			ret.n = str.length();
-			$result = ret;
+			// Wrapped functions are not catched by the general exception handler
+			try {
+				std::string str = $1->ConvertToUtf8();
+				_gostring_ ret;
+				ret.p = (char*)malloc(str.length());
+				memcpy(ret.p, str.c_str(), str.length());
+				ret.n = str.length();
+				$result = ret;
+			} catch (std::exception &e) {
+				_swig_gopanic(e.what());
+			}
 		}
 	%}
 	

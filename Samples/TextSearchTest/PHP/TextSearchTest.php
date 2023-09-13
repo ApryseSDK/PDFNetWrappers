@@ -105,7 +105,7 @@ $output_path = $input_path."Output/";
 						$x2 = max(max(max($q->p1->x, $q->p2->x), $q->p3->x), $q->p4->x);
 						$y1 = min(min(min($q->p1->y, $q->p2->y), $q->p3->y), $q->p4->y);
 						$y2 = max(max(max($q->p1->y, $q->p2->y), $q->p3->y), $q->p4->y);
-						$hyper_link = Link::Create($doc->GetSDFDoc(), new Rect($x1, $y1, $x2, $y2), 
+						$hyper_link = Link::CreateAnnot($doc->GetSDFDoc(), new Rect($x1, $y1, $x2, $y2), 
 										Action::CreateURI($doc->GetSDFDoc(), "http://www.pdftron.com"));
 						$cur_page->AnnotPushBack($hyper_link);
 					}
