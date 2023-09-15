@@ -206,9 +206,13 @@ def buildWindows(custom_swig):
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/win/Headers"'
     ldflags = '#cgo LDFLAGS: -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/win/Lib" -lstdc++'
-    shutil.copy("pdftron.go", "pdftron_windows.go")
-    insertCGODirectives("pdftron_windows.go", cxxflags, ldflags)
-    setBuildDirectives("pdftron_windows.go")
+    output_name = "pdftron_windows.go"
+    shutil.copy("pdftron.go", output_name)
+    insertCGODirectives(output_name, cxxflags, ldflags)
+    setBuildDirectives(output_name)
+    splitGoFile(output_name);
+    os.remove(output_name)
+
 
     cleanupDirectories("win")
 
@@ -241,9 +245,10 @@ def buildLinux(custom_swig):
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
-    shutil.copy("pdftron.go", "pdftron_linux.go")
-    splitGoFile("pdftron_linux.go");
-    os.remove("pdftron_linux.go")
+    output_name = "pdftron_linux.go"
+    shutil.copy("pdftron.go", output_name)
+    splitGoFile(output_name);
+    os.remove(output_name)
 
     cleanupDirectories("unix")
     os.chdir(rootDir)
@@ -326,9 +331,12 @@ def createMacBinaries(arch):
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
     ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib/%s/"\
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib/%s/"' % (arch, arch)
-    shutil.copy("pdftron.go", "pdftron_darwin_%s.go" % arch)
-    insertCGODirectives("pdftron_darwin_%s.go" % arch, cxxflags, ldflags)
-    setBuildDirectives("pdftron_darwin_%s.go" % arch, arch)
+    output_name = "pdftron_darwin_%s.go" % arch
+    shutil.copy("pdftron.go", output_name)
+    insertCGODirectives(output_name, cxxflags, ldflags)
+    setBuildDirectives(output_name, arch)
+    splitGoFile(output_name);
+    os.remove(output_name)
 
 def splitBinaries(lib_path, lib_name, arch):
     lastDir = os.getcwd()
