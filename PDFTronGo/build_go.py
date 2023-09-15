@@ -143,6 +143,41 @@ def extractArchive(fileName, dest):
 
     shutil.rmtree(os.path.join(dest, dir_name))
 
+# This splits the final pdftron_linux.go artifact for faster compile times, these split points have been manually determined to
+# be safe. This may change as the product updates and will have to be adjusted accordingly.
+def splitGoFile(go_file):
+    original = open(go_file).read()
+    header_split = "type _ unsafe.Pointer\n"
+    header = "%s\n%s" % (original.split(header_split)[0], header_split)
+
+    # Split 1
+    splits = original.split("type PdftronPDFAnnotType int\n")
+    first_split = splits[0]
+    split_file = open("%s_%s.go" % (go_file.split(".go")[0], "0"), "w")
+    split_file.write(first_split)
+
+    remaining = "type PdftronPDFAnnotType int\n%s" % splits[1]
+    # Split 2
+    splits = remaining.split("type PdftronPDFPDFDocViewPrefsPageMode int\n")
+    second_split = splits[0]
+    split_file = open("%s_%s.go" % (go_file.split(".go")[0], "1"), "w")
+    # unused import needs to be removed from header
+    split_file.write("%s\n%s" % (header.replace("import \"sync\"\n", "\n"), second_split))
+
+    remaining = "type PdftronPDFPDFDocViewPrefsPageMode int\n%s" % splits[1]
+
+    # Split 3
+    splits = remaining.split("type PdftronPDFAnnotsScreenIconCaptionRelation int\n")
+    third_split = splits[0]
+    split_file = open("%s_%s.go" % (go_file.split(".go")[0], "2"), "w")
+    # unused import needs to be removed from header
+    split_file.write("%s\n%s" % (header.replace("import \"sync\"\n", "\n"), third_split))
+
+    # Split 4
+    remaining = "type PdftronPDFAnnotsScreenIconCaptionRelation int\n%s" % splits[1]
+    split_file = open("%s_%s.go" % (go_file.split(".go")[0], "3"), "w")
+    split_file.write("%s\n%s" % (header, remaining))
+
 def buildWindows(custom_swig):
     print("Running Windows build...")
     if not os.path.exists("PDFNetC64.zip"):
@@ -201,14 +236,14 @@ def buildLinux(custom_swig):
  -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
-
-
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
     ldflags = '#cgo LDFLAGS: -Wl,--disable-new-dtags -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib"\
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
     shutil.copy("pdftron.go", "pdftron_linux.go")
+    splitGoFile("pdftron_linux.go");
+    os.remove("pdftron_linux.go")
 
     cleanupDirectories("unix")
     os.chdir(rootDir)
