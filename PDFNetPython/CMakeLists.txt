@@ -36,17 +36,16 @@ if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
     return ()
 endif ()
 
+set(DOXYGEN "")
 if (PYTHON_2)
     set(SWIG_DEFINE "-DPYTHON2")
 elseif (PYTHON_3)
     set(SWIG_DEFINE "-DPYTHON3")
+    set(DOXYGEN "-doxygen")
 endif ()
 
-set(DOXYGEN "")
-if(WIN32)
-    set(DOXYGEN "-doxygen")
-endif()
 message(STATUS "-- ${DOXYGEN}")
+
 execute_process(
     COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
