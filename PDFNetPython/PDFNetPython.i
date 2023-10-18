@@ -463,7 +463,7 @@ namespace pdftron {
                 PyErr_SetString(PyExc_ValueError,"Only one character allowed per list item");
                 return NULL;
             }
-            int kind = PyUnicode_KIND(PyList_GetItem($input, i))
+            int kind = PyUnicode_KIND(PyList_GetItem($input, i));
             char* $temp1 = 0;
             if (kind == (int)PyUnicode_1BYTE_KIND) {
                 char* $temp1 = (char*)PyUnicode_1BYTE_DATA($str);
