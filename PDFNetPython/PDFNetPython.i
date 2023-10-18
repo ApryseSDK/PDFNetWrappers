@@ -332,7 +332,7 @@ namespace pdftron {
     #endif
     #ifdef PYTHON3 
         if (PyUnicode_Check(PyList_GetItem($input, i))) {
-            int kind = PyUnicode_KIND(PyList_GetItem($input, i))
+            int kind = PyUnicode_KIND(PyList_GetItem($input, i));
             if (kind == PyUnicode_1BYTE_KIND) {
                 arr[i] = (char*)PyUnicode_1BYTE_DATA(PyList_GetItem($input, i));
             }
