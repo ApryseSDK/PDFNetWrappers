@@ -342,10 +342,6 @@ namespace pdftron {
             else if (kind == PyUnicode_4BYTE_KIND) {
                 arr[i] = (char*)PyUnicode_4BYTE_DATA(PyList_GetItem($input, i));
             }
-            else {
-                //for 3.11 and under since its deprecated
-                arr[i] = (char*)PyUnicode_AS_DATA(PyList_GetItem($input, i));
-            }
         }
     #endif
         else {
@@ -478,10 +474,7 @@ namespace pdftron {
             else if (kind == (int)PyUnicode_4BYTE_KIND) {
                 char* $temp1 = (char*)PyUnicode_4BYTE_DATA($str);
             }
-            else {
-                //for 3.11 and under since its deprecated
-                char* $temp1 = (char*)PyUnicode_AS_DATA($str);
-            }
+
             $temp[i] = (pdftron::Unicode)*$temp1;
         }
         else {
