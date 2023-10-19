@@ -333,13 +333,13 @@ namespace pdftron {
     #ifdef PYTHON3 
         if (PyUnicode_Check(PyList_GetItem($input, i))) {
             int kind = PyUnicode_KIND(PyList_GetItem($input, i));
-            if (kind == PyUnicode_1BYTE_KIND) {
+            if (kind == (int)(PyUnicode_1BYTE_KIND) {
                 arr[i] = (char*)PyUnicode_1BYTE_DATA(PyList_GetItem($input, i));
             }
-            else if (kind == PyUnicode_2BYTE_KIND) {
+            else if (kind == (int)PyUnicode_2BYTE_KIND) {
                 arr[i] = (char*)PyUnicode_2BYTE_DATA(PyList_GetItem($input, i));
             }
-            else if (kind == PyUnicode_4BYTE_KIND) {
+            else if (kind == (int)PyUnicode_4BYTE_KIND) {
                 arr[i] = (char*)PyUnicode_4BYTE_DATA(PyList_GetItem($input, i));
             }
         }
