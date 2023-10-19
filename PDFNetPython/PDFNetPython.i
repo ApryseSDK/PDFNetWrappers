@@ -463,19 +463,19 @@ namespace pdftron {
                 PyErr_SetString(PyExc_ValueError,"Only one character allowed per list item");
                 return NULL;
             }
-            int kind = PyUnicode_KIND(PyList_GetItem($input, i));
-            char* $temp1 = 0;
+            int kind = PyUnicode_KIND($str);
             if (kind == (int)PyUnicode_1BYTE_KIND) {
                 char* $temp1 = (char*)PyUnicode_1BYTE_DATA($str);
+                $temp[i] = (pdftron::Unicode)*$temp1;
             }
             else if (kind == (int)PyUnicode_2BYTE_KIND) {
                 char* $temp1 = (char*)PyUnicode_2BYTE_DATA($str);
+                $temp[i] = (pdftron::Unicode)*$temp1;
             }
             else if (kind == (int)PyUnicode_4BYTE_KIND) {
                 char* $temp1 = (char*)PyUnicode_4BYTE_DATA($str);
+                $temp[i] = (pdftron::Unicode)*$temp1;
             }
-
-            $temp[i] = (pdftron::Unicode)*$temp1;
         }
         else {
             $temp[i] = (pdftron::Unicode)PyInt_AsLong($str);
