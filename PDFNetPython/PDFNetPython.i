@@ -212,6 +212,8 @@
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
     #include "PDF/WebFontDownloader.h"
+    #include "PDF/PrintToPdfOptions.h"
+    #include "PDF/PrintToPdfModule.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -871,6 +873,8 @@ namespace pdftron {
 %include "PDF/PDFDocViewPrefs.h"
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
+%include "PDF/PrintToPdfOptions.h"
+%include "PDF/PrintToPdfModule.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
