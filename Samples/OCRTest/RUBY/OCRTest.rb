@@ -66,8 +66,9 @@ output_path = "../../TestFiles/Output/"
 			# B) Setup options with multiple target languages, English will always be considered as secondary language
 
 			opts = OCROptions.new
-			opts.AddLang("rus")
 			opts.AddLang("deu")
+			opts.AddLang("fra")
+			opts.AddLang("eng")
 
 			# C) Run OCR on the .jpg with options
 

@@ -6,16 +6,23 @@
 project(PDFNetRuby CXX)
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
-find_package(Ruby)
+# Checks the header and library directory of the current active ruby install
+# This will respond to virtual enviroments
+execute_process(
+    COMMAND ruby -rrbconfig -e "puts \"#{RbConfig::TOPDIR}\""
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    OUTPUT_VARIABLE RUBY_LIBRARY
+)
 
-if (RUBY_FOUND)
-    message(STATUS "Using Ruby ${RUBY_VERSION}")
-    message(STATUS "Ruby include directory: ${RUBY_INCLUDE_DIRS}")
-    message(STATUS "Ruby library: ${RUBY_LIBRARY}")
-else ()
-    message(FATAL_ERROR "Cannot find Ruby libraries, please set the variables specified by the error message then try again.")
-    return ()
-endif ()
+execute_process(
+    COMMAND ruby -rrbconfig -e "puts \"#{RbConfig::CONFIG[%q{rubyhdrdir}]};#{RbConfig::CONFIG[%q{rubyarchhdrdir}]}\""
+    OUTPUT_STRIP_TRAILING_WHITESPACE
+    OUTPUT_VARIABLE RUBY_INCLUDE_DIRS
+)
+
+message(STATUS "Using Ruby ${MY_RUBY_HOME}")
+message(STATUS "Ruby include directory: ${RUBY_INCLUDE_DIRS}")
+message(STATUS "Ruby library: ${RUBY_LIBRARY}")
 
 message(STATUS "Generating sources for Ruby bindings using swig...")
 set(PDFNetRuby_SourcesDir ${PROJECT_BINARY_DIR})
@@ -23,8 +30,6 @@ set(PDFNetRuby_SourcesDir ${PROJECT_BINARY_DIR})
 execute_process(
     COMMAND ${SWIG_EXECUTABLE} -c++ -ruby -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetRuby_SourcesDir} -o ${PDFNetRuby_SourcesDir}/PDFNetRuby.cpp -oh ${PDFNetRuby_SourcesDir}/PDFNetRuby.hpp PDFNetRuby.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
-    OUTPUT_FILE ${PROJECT_BINARY_DIR}/swig.log
-    ERROR_FILE ${PROJECT_BINARY_DIR}/swig.err.log
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 

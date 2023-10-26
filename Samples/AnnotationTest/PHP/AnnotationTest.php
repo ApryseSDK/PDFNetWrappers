@@ -438,7 +438,7 @@ function CreateTestAnnots($doc) {
 	$sq->RefreshAppearance();
 	$page4->AnnotPushBack( $sq );
 
-	$cr = Caret::Create( $doc->GetSDFDoc(), new Rect(100.0,40.0,129.0,69.0) );
+	$cr = Caret::CreateAnnot( $doc->GetSDFDoc(), new Rect(100.0,40.0,129.0,69.0) );
 	$cr->SetColor( new ColorPt(0.0,0.0,1.0), 3 );
 	$cr->SetSymbol( "P" );
 	$cr->RefreshAppearance();

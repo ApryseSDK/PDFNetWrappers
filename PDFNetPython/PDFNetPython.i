@@ -9,6 +9,7 @@
  */
 %module(directors="1") PDFNetPython
 
+// %feature("doxygen:notranslate") ""
 
 /**
  * Different versions of UString typemap will be used pending
@@ -116,6 +117,7 @@
 
     // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
+    #include "PDF/PDFA/PDFAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
@@ -212,6 +214,8 @@
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
     #include "PDF/WebFontDownloader.h"
+    #include "PDF/PrintToPdfOptions.h"
+    #include "PDF/PrintToPdfModule.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -834,6 +838,7 @@ namespace pdftron {
 %include "PDF/OCG/Group.h"
 %include "PDF/OCG/Context.h"
 %include "PDF/OCG/OCMD.h"
+%include "PDF/PDFA/PDFAOptions.h"
 %include "PDF/PDFA/PDFACompliance.h"
 %include "PDF/Struct/AttrObj.h"
 %include "PDF/Struct/ClassMap.h"
@@ -870,6 +875,8 @@ namespace pdftron {
 %include "PDF/PDFDocViewPrefs.h"
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
+%include "PDF/PrintToPdfOptions.h"
+%include "PDF/PrintToPdfModule.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"

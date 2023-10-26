@@ -39,7 +39,7 @@ pipeline {
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC48/" + getWrappersBranch(branch: env.BRANCH_NAME),
+                            "PDFNetC64_GCC48/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetC64.tar.gz"
                         )
                     }
