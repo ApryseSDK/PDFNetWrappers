@@ -212,6 +212,84 @@ func FormFieldsTest() (err error) {
 }
 
 //---------------------------------------------------------------------------------------
+// The following sample illustrates how to extract form fields from a scanned PDF document.
+// Document already has form fields, and this sample will keep the original fields.
+//---------------------------------------------------------------------------------------
+
+func FormFieldsOldTest() (err error) {
+	defer catch(&err)
+
+	// Test if the add-on is installed
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Form) {
+		fmt.Println("")
+		fmt.Println("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
+		fmt.Println("-----------------------------------------------------------------------------")
+		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
+		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
+		fmt.Println("")
+		return nil
+	}
+
+	// Extract form fields as a PDF file
+	doc := NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+	
+	// Setup DataExtractionOptions to keep old fields
+	options := NewDataExtractionOptions()
+	options.SetOverlappingFormFieldBehavior("KeepOld")
+	
+	fmt.Println("Extract form fields as a PDF file, keep old fields")
+	DataExtractionModuleDetectAndAddFormFieldsToPDF(doc, options)
+	
+	outputFile := outputPath + "formfields-scanned-fields-old.pdf"
+        doc.Save(outputFile, uint(SDFDocE_linearized))
+	
+	fmt.Println("Result saved in " + outputFile)
+
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
+// The following sample illustrates how to extract form fields from a scanned PDF document.
+// Document already has form fields, and this sample will update to new found fields.
+//---------------------------------------------------------------------------------------
+
+func FormFieldsNewTest() (err error) {
+	defer catch(&err)
+
+	// Test if the add-on is installed
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_Form) {
+		fmt.Println("")
+		fmt.Println("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
+		fmt.Println("-----------------------------------------------------------------------------")
+		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
+		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
+		fmt.Println("")
+		return nil
+	}
+
+	// Extract form fields as a PDF file
+	doc := NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+	
+	// Setup DataExtractionOptions to keep old fields
+	options := NewDataExtractionOptions()
+	options.SetOverlappingFormFieldBehavior("KeepNew")
+	
+	fmt.Println("Extract form fields as a PDF file, keep new fields")
+	DataExtractionModuleDetectAndAddFormFieldsToPDF(doc, options)
+	
+	outputFile := outputPath + "formfields-scanned-fields-new.pdf"
+        doc.Save(outputFile, uint(SDFDocE_linearized))
+	
+	fmt.Println("Result saved in " + outputFile)
+
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
 
 func TestDataExtraction(t *testing.T) {
 	// The first step in every application using PDFNet is to initialize the 
@@ -240,6 +318,16 @@ func TestDataExtraction(t *testing.T) {
 	//-----------------------------------------------------------------------------------
 
 	err = FormFieldsTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to extract form fields data, error: %s", err))
+	}
+
+	err = FormFieldsOldTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to extract form fields data, error: %s", err))
+	}
+
+	err = FormFieldsNewTest()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to extract form fields data, error: %s", err))
 	}
