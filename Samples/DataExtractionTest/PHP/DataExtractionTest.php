@@ -89,15 +89,15 @@ function main()
 			// Extract tabular data as an XLSX stream (also known as filter)
 			echo(nl2br("Extract tabular data as an XLSX stream\n"));
 
-			$outputFile = $outputPath."financial.xlsx";
-			$outputXlsxStream = new MemoryFilter(0, false);
-			$options = new DataExtractionOptions();
-			$options.setPages("1"); // page 1
-			DataExtractionModule::ExtractToXLSX($inputPath."financial.pdf", $outputXlsxStream, $options);
-			$outputXlsxStream.setAsInputFilter();
-			$outputXlsxStream.writeToFile($outputFile, false);
+			//$outputFile = $outputPath."financial.xlsx";
+			//$outputXlsxStream = new MemoryFilter(0, false);
+			//$options = new DataExtractionOptions();
+			//$options.setPages("1"); // page 1
+			//DataExtractionModule::ExtractToXLSX($inputPath."financial.pdf", $outputXlsxStream, $options);
+			//$outputXlsxStream.setAsInputFilter();
+			//$outputXlsxStream.writeToFile($outputFile, false);
 
-			echo(nl2br("Result saved in " . $outputFile . "\n"));
+			//echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}
 		catch(Exception $e) {
 			echo(nl2br("Unable to extract tabular data, error: " . $e->getMessage() . "\n"));
