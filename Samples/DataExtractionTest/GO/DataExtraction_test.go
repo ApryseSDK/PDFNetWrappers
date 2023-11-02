@@ -224,16 +224,16 @@ func FormFieldsTest() (err error) {
 	fmt.Println("Result saved in " + outputFile)
 
 	// Extract form fields as a PDF file
-	doc := NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+	doc = NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
 
 	// Setup DataExtractionOptions to keep new fields
-	options := NewDataExtractionOptions()
+	options = NewDataExtractionOptions()
 	options.SetOverlappingFormFieldBehavior("KeepNew")
 
 	fmt.Println("Extract form fields as a PDF file, keep new fields")
 	DataExtractionModuleDetectAndAddFormFieldsToPDF(doc, options)
 
-	outputFile := outputPath + "formfields-scanned-fields-new.pdf"
+	outputFile = outputPath + "formfields-scanned-fields-new.pdf"
 	doc.Save(outputFile, uint(SDFDocE_linearized))
 
 	fmt.Println("Result saved in " + outputFile)

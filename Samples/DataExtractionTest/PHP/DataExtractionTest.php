@@ -178,31 +178,9 @@ function main()
 			WriteTextToFile($outputFile, $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract form fields data, error: " . $e->getMessage() . "\n"));
-		}
-	}
 
-	//////////////////////////////////////////////////////////////////////////
-	// The following sample illustrates how to extract form fields from a scanned PDF document.
-	// Document already has form fields, and this sample will keep the original fields.
-	//////////////////////////////////////////////////////////////////////////
-
-	// Test if the add-on is installed
-	if (!DataExtractionModule::IsModuleAvailable(DataExtractionModule::e_Form)) {
-		echo(nl2br("\n"));
-		echo(nl2br("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.\n"));
-		echo(nl2br("-----------------------------------------------------------------------------\n"));
-		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
-		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
-		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
-		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
-		echo(nl2br("\n"));
-	}
-	else {
-		try {
-			// Extract form fields as a PDF file
+			///////////////////////////////////////////////////////
+			// PDF document already has form fields, and this sample will keep the original fields.
 			echo(nl2br("Extract form fields as a PDF file\n"));
 			
 			$doc = new PDFDoc($inputPath."formfields-scanned-withfields.pdf");
@@ -212,33 +190,11 @@ function main()
             		$doc->Save($outputPath."formfields-scanned-fields-old.pdf", 0);
 
 			echo(nl2br("Result saved in " . $outputPath ."formfields-scanned-fields-old.pdf" . "\n"));
-		}
-		catch(Exception $e) {
-			echo(nl2br("Unable to extract form fields data, error: " . $e->getMessage() . "\n"));
-		}
-	}
 
-	//////////////////////////////////////////////////////////////////////////
-	// The following sample illustrates how to extract form fields from a scanned PDF document.
-	// Document already has form fields, and this sample will update to new found fields.
-	//////////////////////////////////////////////////////////////////////////
-
-	// Test if the add-on is installed
-	if (!DataExtractionModule::IsModuleAvailable(DataExtractionModule::e_Form)) {
-		echo(nl2br("\n"));
-		echo(nl2br("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.\n"));
-		echo(nl2br("-----------------------------------------------------------------------------\n"));
-		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
-		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
-		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
-		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
-		echo(nl2br("\n"));
-	}
-	else {
-		try {
-			// Extract form fields as a PDF file
+			///////////////////////////////////////////////////////
+			// PDF document already has form fields, and this sample will update to new found fields.
 			echo(nl2br("Extract form fields as a PDF file\n"));
-			
+
 			$doc = new PDFDoc($inputPath."formfields-scanned-withfields.pdf");
             		$options = new DataExtractionOptions();
             		$options->SetOverlappingFormFieldBehavior("KeepNew");
@@ -246,12 +202,12 @@ function main()
             		$doc->Save($outputPath."formfields-scanned-fields-new.pdf", 0);
 
 			echo(nl2br("Result saved in " . $outputPath ."formfields-scanned-fields-new.pdf" . "\n"));
+
 		}
 		catch(Exception $e) {
 			echo(nl2br("Unable to extract form fields data, error: " . $e->getMessage() . "\n"));
 		}
 	}
-
 
 	//-----------------------------------------------------------------------------------
 

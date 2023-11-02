@@ -163,28 +163,11 @@ def main()
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
-		rescue => error
-			puts "Unable to extract form fields data, error: " + error.message
-		end
-	end
+			
+			#-----------------------------------------------------------------------------------
+			# PDF document already has form fields, and this sample will keep the original fields.
+			#-----------------------------------------------------------------------------------
 
-	#-----------------------------------------------------------------------------------
-	# The following sample illustrates how to extract form fields from a scanned PDF document.
-	# Document already has form fields, and this sample will keep the original fields.
-	#-----------------------------------------------------------------------------------
-
-	# Test if the add-on is installed
-	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::E_Form) then
-		puts ""
-		puts "Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available."
-		puts "-----------------------------------------------------------------------------"
-		puts "The Data Extraction suite is an optional add-on, available for download"
-		puts "at https://docs.apryse.com/documentation/core/info/modules/. If you have already"
-		puts "downloaded this module, ensure that the SDK is able to find the required files"
-		puts "using the PDFNet.AddResourceSearchPath() function."
-		puts ""
-	else
-		begin
 			puts "Extract document structure as a PDF file"
 	                doc = PDFDoc.new($inputPath + "formfields-scanned-withfields.pdf")
 	
@@ -197,28 +180,9 @@ def main()
 
 			puts "Result saved in " + outputFile
 
-		rescue => error
-			puts "Unable to extract document structure data, error: " + error.message
-		end
-	end
-
-	#-----------------------------------------------------------------------------------
-	# The following sample illustrates how to extract form fields from a scanned PDF document.
-	# Document already has form fields, and this sample will update to new found fields.
-	#-----------------------------------------------------------------------------------
-
-	# Test if the add-on is installed
-	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::E_Form) then
-		puts ""
-		puts "Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available."
-		puts "-----------------------------------------------------------------------------"
-		puts "The Data Extraction suite is an optional add-on, available for download"
-		puts "at https://docs.apryse.com/documentation/core/info/modules/. If you have already"
-		puts "downloaded this module, ensure that the SDK is able to find the required files"
-		puts "using the PDFNet.AddResourceSearchPath() function."
-		puts ""
-	else
-		begin
+			#-----------------------------------------------------------------------------------
+			# PDF document already has form fields, and this sample will update to the new fields.
+			#-----------------------------------------------------------------------------------			
 			puts "Extract document structure as a PDF file"
 	                doc = PDFDoc.new($inputPath + "formfields-scanned-withfields.pdf")
 	
@@ -231,8 +195,9 @@ def main()
 
 			puts "Result saved in " + outputFile
 
+
 		rescue => error
-			puts "Unable to extract document structure data, error: " + error.message
+			puts "Unable to extract form fields data, error: " + error.message
 		end
 	end
 

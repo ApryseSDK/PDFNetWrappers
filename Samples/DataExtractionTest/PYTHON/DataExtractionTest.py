@@ -171,30 +171,13 @@ def main():
             WriteTextToFile(outputFile, json)
 
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract form fields data, error: " + str(e))
 
-    #-----------------------------------------------------------------------------------
-    # The following sample illustrates how to extract form fields from a scanned PDF document.
-    # Document already has form fields, and this sample will keep the original fields.
-    #-----------------------------------------------------------------------------------
+            #-----------------------------------------------------------------------------------
+            # PDF document already has form fields, and this sample will keep the original fields.
+            #-----------------------------------------------------------------------------------
+            print("Extract form fields as a pdf file, keep original")
 
-    # Test if the add-on is installed
-    if not DataExtractionModule.IsModuleAvailable(DataExtractionModule.e_Form):
-        print("")
-        print("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
-        print("-----------------------------------------------------------------------------")
-        print("The Data Extraction suite is an optional add-on, available for download")
-        print("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
-        print("downloaded this module, ensure that the SDK is able to find the required files")
-        print("using the PDFNet.AddResourceSearchPath() function.")
-        print("")
-    else:
-        try:
-            # Extract form fields as a PDF file
-            print("Extract form fields as a pdf file")
-
-            doc=PDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+            doc = PDFDoc(inputPath + "formfields-scanned-withfields.pdf")
             
             options = DataExtractionOptions()
             options.SetOverlappingFormFieldBehavior("KeepOld")
@@ -204,30 +187,13 @@ def main():
             doc.Save(outputFile, 0)
             
             print("Result saved in " + outputFile)
-        except Exception as e:
-            print("Unable to extract form fields data, error: " + str(e))
 
-    #-----------------------------------------------------------------------------------
-    # The following sample illustrates how to extract form fields from a scanned PDF document.
-    # ocument already has form fields, and this sample will update to new found fields.
-    #-----------------------------------------------------------------------------------
+            #-----------------------------------------------------------------------------------
+            # PDF document already has form fields, and this sample will update to new found fields.
+            #-----------------------------------------------------------------------------------
+            print("Extract form fields as a pdf file, update to new")
 
-    # Test if the add-on is installed
-    if not DataExtractionModule.IsModuleAvailable(DataExtractionModule.e_Form):
-        print("")
-        print("Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available.")
-        print("-----------------------------------------------------------------------------")
-        print("The Data Extraction suite is an optional add-on, available for download")
-        print("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
-        print("downloaded this module, ensure that the SDK is able to find the required files")
-        print("using the PDFNet.AddResourceSearchPath() function.")
-        print("")
-    else:
-        try:
-            # Extract form fields as a PDF file
-            print("Extract form fields as a pdf file")
-
-            doc=PDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+            doc = PDFDoc(inputPath + "formfields-scanned-withfields.pdf")
             
             options = DataExtractionOptions()
             options.SetOverlappingFormFieldBehavior("KeepNew")
@@ -237,6 +203,7 @@ def main():
             doc.Save(outputFile, 0)
             
             print("Result saved in " + outputFile)
+
         except Exception as e:
             print("Unable to extract form fields data, error: " + str(e))
 
