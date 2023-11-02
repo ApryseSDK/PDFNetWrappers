@@ -218,7 +218,7 @@ func FormFieldsTest() (err error) {
 	fmt.Println("Extract form fields as a PDF file, keep old fields")
 	DataExtractionModuleDetectAndAddFormFieldsToPDF(doc, options)
 
-	outputFile := outputPath + "formfields-scanned-fields-old.pdf"
+	outputFile = outputPath + "formfields-scanned-fields-old.pdf"
 	doc.Save(outputFile, uint(SDFDocE_linearized))
 
 	fmt.Println("Result saved in " + outputFile)
