@@ -166,6 +166,20 @@ def main()
 			
 			#-----------------------------------------------------------------------------------
 			# Detect and add form fields to a PDF document.
+			# PDF document already has form fields, and this sample will update to the new fields.
+			puts "Extract document structure as a PDF file"
+			doc = PDFDoc.new($inputPath + "formfields-scanned-withfields.pdf")
+	
+			outputFile = $outputPath + "formfields-scanned-fields-new.pdf"
+			
+			DataExtractionModule.DetectAndAddFormFieldsToPDF(doc)
+			doc.Save(outputFile, SDFDoc::E_linearized);
+			doc.Close
+
+			puts "Result saved in " + outputFile
+
+			#-----------------------------------------------------------------------------------
+			# Detect and add form fields to a PDF document.
 			# PDF document already has form fields, and this sample will keep the original fields.
 			puts "Extract document structure as a PDF file"
 			doc = PDFDoc.new($inputPath + "formfields-scanned-withfields.pdf")
@@ -174,22 +188,6 @@ def main()
 			
 			options = DataExtractionOptions.new()
 			options.SetOverlappingFormFieldBehavior("KeepOld")
-			DataExtractionModule.DetectAndAddFormFieldsToPDF(doc, options)
-			doc.Save(outputFile, SDFDoc::E_linearized);
-			doc.Close
-
-			puts "Result saved in " + outputFile
-
-			#-----------------------------------------------------------------------------------
-			# Detect and add form fields to a PDF document.
-			# PDF document already has form fields, and this sample will update to the new fields.
-			puts "Extract document structure as a PDF file"
-			doc = PDFDoc.new($inputPath + "formfields-scanned-withfields.pdf")
-	
-			outputFile = $outputPath + "formfields-scanned-fields-new.pdf"
-			
-			options = DataExtractionOptions.new()
-			options.SetOverlappingFormFieldBehavior("KeepNew")
 			DataExtractionModule.DetectAndAddFormFieldsToPDF(doc, options)
 			doc.Save(outputFile, SDFDoc::E_linearized);
 			doc.Close
