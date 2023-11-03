@@ -115,9 +115,10 @@ func TabularDataTest() (err error) {
 	inputFile = inputPath + "financial.pdf"
 	outputFile = outputPath + "financial.xlsx"
 	outputXlsxStream := NewMemoryFilter(0, false)
+	outputFilter := NewFilter(outputXlsxStream)
 	options := NewDataExtractionOptions()
 	options.SetPages("1"); // page 1
-	DataExtractionModuleExtractToXLSX(inputFile, outputXlsxStream, options)
+	DataExtractionModuleExtractToXLSX(inputFile, outputFilter, options)
 	outputXlsxStream.SetAsInputFilter()
 	outputXlsxStream.WriteToFile(outputFile, false)
 
