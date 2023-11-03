@@ -209,7 +209,9 @@ func FormFieldsTest() (err error) {
 
 	fmt.Println("Result saved in " + outputFile)
 
-	// Extract form fields as a PDF file.
+	//////////////////////////////////////////////////////////////////////////
+	// Detect and add form fields to a PDF document.
+	// PDF document already has form fields, and this sample will keep the original fields.
 	doc := NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
 
 	// Setup DataExtractionOptions to keep old fields
@@ -221,10 +223,13 @@ func FormFieldsTest() (err error) {
 
 	outputFile = outputPath + "formfields-scanned-fields-old.pdf"
 	doc.Save(outputFile, uint(SDFDocE_linearized))
+	doc.Close()
 
 	fmt.Println("Result saved in " + outputFile)
 
-	// Extract form fields as a PDF file
+	//////////////////////////////////////////////////////////////////////////
+	// Detect and add form fields to a PDF document.
+	// PDF document already has form fields, and this sample will update to new found fields.
 	doc = NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
 
 	// Setup DataExtractionOptions to keep new fields
@@ -236,6 +241,7 @@ func FormFieldsTest() (err error) {
 
 	outputFile = outputPath + "formfields-scanned-fields-new.pdf"
 	doc.Save(outputFile, uint(SDFDocE_linearized))
+	doc.Close()
 
 	fmt.Println("Result saved in " + outputFile)
 

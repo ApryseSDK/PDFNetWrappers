@@ -173,8 +173,8 @@ def main():
             print("Result saved in " + outputFile)
 
             #-----------------------------------------------------------------------------------
+            # Detect and add form fields to a PDF document.
             # PDF document already has form fields, and this sample will keep the original fields.
-            #-----------------------------------------------------------------------------------
             print("Extract form fields as a pdf file, keep original")
 
             doc = PDFDoc(inputPath + "formfields-scanned-withfields.pdf")
@@ -184,13 +184,14 @@ def main():
             DataExtractionModule.DetectAndAddFormFieldsToPDF(doc, options)
             
             outputFile = outputPath + "formfields-scanned-fields-old.pdf"
-            doc.Save(outputFile, 0)
+            doc.Save(outputFile, SDFDoc.e_linearized)
+            doc.Close()
             
             print("Result saved in " + outputFile)
 
             #-----------------------------------------------------------------------------------
+            # Detect and add form fields to a PDF document.
             # PDF document already has form fields, and this sample will update to new found fields.
-            #-----------------------------------------------------------------------------------
             print("Extract form fields as a pdf file, update to new")
 
             doc = PDFDoc(inputPath + "formfields-scanned-withfields.pdf")
@@ -200,7 +201,8 @@ def main():
             DataExtractionModule.DetectAndAddFormFieldsToPDF(doc, options)
             
             outputFile = outputPath + "formfields-scanned-fields-new.pdf"
-            doc.Save(outputFile, 0)
+            doc.Save(outputFile, SDFDoc.e_linearized)
+            doc.Close()
             
             print("Result saved in " + outputFile)
 
