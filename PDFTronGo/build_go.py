@@ -218,6 +218,42 @@ def buildWindows(custom_swig):
 
     os.chdir(rootDir)
 
+def buildAlpineLinux(custom_swig):
+    print("Running Linux build...")
+    if not os.path.exists("PDFNetC64.tar.gz"):
+        raise ValueError("Cannot find PDFNetC64.tar.gz")
+
+    extractArchive("PDFNetC64.tar.gz", "%s/build/PDFNetC" % rootDir)
+
+    os.chdir("%s/build" % rootDir)
+    print(os.getcwd())
+    if custom_swig:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON -D CUSTOM_SWIG=%s ..' % custom_swig
+    else:
+        cmakeCommand = 'cmake -D BUILD_PDFTronGo=ON ..'
+
+    subprocess.run(shlex.split(cmakeCommand), check=True)
+
+    os.chdir(os.path.join(rootDir, "build", "PDFTronGo", "pdftron"))
+
+    gccCommand = "clang -fpic -I./Headers -L./Lib\
+ -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
+    subprocess.run(shlex.split(gccCommand), check=True)
+
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
+    ldflags = '#cgo LDFLAGS: -Wl,--disable-new-dtags -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib"\
+ -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
+    insertCGODirectives("pdftron.go", cxxflags, ldflags)
+    setBuildDirectives("pdftron.go")
+    output_name = "pdftron_linux.go"
+    shutil.copy("pdftron.go", output_name)
+    splitGoFile(output_name);
+    os.remove(output_name)
+
+    cleanupDirectories("unix")
+    os.chdir(rootDir)
+
+
 def buildLinux(custom_swig):
     print("Running Linux build...")
     if not os.path.exists("PDFNetC64.tar.gz"):
@@ -419,7 +455,10 @@ def main():
     if platform.system().startswith('Windows'):
         buildWindows(custom_swig)
     elif platform.system().startswith('Linux'):
-        buildLinux(custom_swig)
+        if os.path.exists('/etc/alpine-release'):
+            buildAlpineLinux(custom_swig)
+        else:
+            buildLinux(custom_swig)
     elif platform.system().startswith('Darwin') and platform.processor().startswith('arm'):
         buildDarwinArm(custom_swig)
     else:
