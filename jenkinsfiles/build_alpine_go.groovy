@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             label 'linux_fleet'
-            image 'linux_alpine_gowrappers:latest'
+            image 'alpine_gowrappers:latest'
             registryUrl 'https://448036597521.dkr.ecr.us-east-1.amazonaws.com'
             registryCredentialsId 'ecr:us-east-1:Jenkins'
             alwaysPull true
