@@ -178,33 +178,6 @@ function main()
 			WriteTextToFile($outputFile, $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
-
-			///////////////////////////////////////////////////////
-			// Detect and add form fields to a PDF document.
-			// PDF document already has form fields, and this sample will update to new found fields.
-			echo(nl2br("Extract form fields as a PDF file\n"));
-
-			$doc = new PDFDoc($inputPath."formfields-scanned-withfields.pdf");
-			DataExtractionModule::DetectAndAddFormFieldsToPDF($doc);
-			$doc->Save($outputPath."formfields-scanned-fields-new.pdf", SDFDoc::e_linearized);
-			$doc->Close();
-
-			echo(nl2br("Result saved in " . $outputPath ."formfields-scanned-fields-new.pdf" . "\n"));
-
-			///////////////////////////////////////////////////////
-			// Detect and add form fields to a PDF document.
-			// PDF document already has form fields, and this sample will keep the original fields.
-			echo(nl2br("Extract form fields as a PDF file\n"));
-			
-			$doc = new PDFDoc($inputPath."formfields-scanned-withfields.pdf");
-			$options = new DataExtractionOptions();
-			$options->SetOverlappingFormFieldBehavior("KeepOld");
-			DataExtractionModule::DetectAndAddFormFieldsToPDF($doc, $options);
-			$doc->Save($outputPath."formfields-scanned-fields-old.pdf", SDFDoc::e_linearized);
-			$doc->Close();
-
-			echo(nl2br("Result saved in " . $outputPath ."formfields-scanned-fields-old.pdf" . "\n"));
-
 		}
 		catch(Exception $e) {
 			echo(nl2br("Unable to extract form fields data, error: " . $e->getMessage() . "\n"));
