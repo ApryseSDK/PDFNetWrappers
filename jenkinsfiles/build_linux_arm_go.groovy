@@ -46,7 +46,6 @@ pipeline {
                 }
 
                 sh '''
-                    mv PDFNetCArm64.tar.gz PDFNetC64.tar.gz
                     python3 PDFTronGo/build_go.py
                 '''
 
