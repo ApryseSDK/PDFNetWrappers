@@ -66,8 +66,8 @@ pipeline {
 
         stage ('Upload') {
             steps {
-                sh 'mv build/PDFTronGo.zip build/PDFTronGoLinux.zip'
-                s3ArtifactUpload("build/PDFTronGoLinux.zip")
+                sh 'mv build/PDFTronGo.zip build/PDFTronGoLinuxArm.zip'
+                s3ArtifactUpload("build/PDFTronGoLinuxArm.zip")
             }
         }
     }
