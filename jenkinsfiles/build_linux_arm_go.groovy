@@ -34,19 +34,18 @@ pipeline {
                 script {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC8_ARM64/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "PDFNetC64_GCC8_ARM64/master",
                             "PDFNetCArm64.tar.gz"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC8_ARM64/" + getWrappersBranch(env.BRANCH_NAME),
+                            "PDFNetC64_GCC8_ARM64/master",
                             "PDFNetCArm64.tar.gz"
                         )
                     }
                 }
 
                 sh '''
-                    mv PDFNetCArm64.tar.gz PDFNetC64.tar.gz
                     python3 PDFTronGo/build_go.py
                 '''
 

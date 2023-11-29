@@ -220,12 +220,14 @@ def buildWindows(custom_swig):
 
 def buildLinux(custom_swig):
     print("Running Linux build...")
-    if not os.path.exists("PDFNetC64.tar.gz"):
-        raise ValueError("Cannot find PDFNetC64.tar.gz")
+    binary_name = "PDFNetC64.tar.gz"
+    if "aarch64" in platform.machine().lower():
+        binary_name = "PDFNetCArm64.tar.gz"
 
-    extractArchive("PDFNetC64.tar.gz", "%s/build/PDFNetC" % rootDir)
-    if "arm" in platform.machine().lower():
-        shutil.copytree("%s/build/PDFNetC/PDFNetCArm64" % rootDir, "%s/build/PDFNetC/", dirs_exist_ok=True)
+    if not os.path.exists(binary_name):
+        raise ValueError(binary_name)
+
+    extractArchive(binary_name, "%s/build/PDFNetC" % rootDir)
 
     os.chdir("%s/build" % rootDir)
     print(os.getcwd())
@@ -261,6 +263,7 @@ def buildDarwin(custom_swig):
         raise ValueError("Cannot find PDFNetCMac.zip")
 
     extractArchive("PDFNetCMac.zip", "%s/build/PDFNetC" % rootDir)
+
 
     # splits binary into arm/x64 so the size isnt so large
     splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "arm64")
