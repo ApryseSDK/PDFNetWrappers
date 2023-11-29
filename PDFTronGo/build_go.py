@@ -224,7 +224,7 @@ def buildLinux(custom_swig):
         raise ValueError("Cannot find PDFNetC64.tar.gz")
 
     extractArchive("PDFNetC64.tar.gz", "%s/build/PDFNetC" % rootDir)
-    if "arm" in platform.system().lower():
+    if "arm" in platform.machine().lower():
         shutil.copytree("%s/build/PDFNetC/PDFNetCArm64" % rootDir, "%s/build/PDFNetC/", dirs_exist_ok=True)
 
     os.chdir("%s/build" % rootDir)
