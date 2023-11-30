@@ -19,7 +19,7 @@ function ProcessPath($reader, $path)
 	$opr = $pathData->GetOperators();
 
 	$opr_index = 0;
-	$opr_end = count($opr);
+	$opr_end = count((array)$opr);
 	$data_index = 0;
 	$data_end = count($data);
 
