@@ -13,7 +13,7 @@ import (
     "runtime"
     . "github.com/pdftron/pdftron-go/v2"
     "flag"
-    "unicode"
+    "golang.org/x/text/encoding/unicode"
     "golang.org/x/text/transform"
 )
 
