@@ -121,7 +121,8 @@ function AnnotationHighLevelAPI($doc) {
 }
 
 function AnnotationLowLevelAPI($doc) {
-	$page = $doc->GetPageIterator()->Current();
+	$ir = $doc->GetPageIterator();
+	$page = $ir->Current();
 	$annots = $page->GetAnnots();
 
 	if (!$annots)
