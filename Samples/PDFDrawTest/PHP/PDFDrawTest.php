@@ -43,7 +43,6 @@ $output_path = $input_path."Output/";
 	// PDFNet::AddFontSubst(PDFNet::e_Korea1, "AdobeMyungjoStd-Medium.otf");
 	// PDFNet::AddFontSubst(PDFNet::e_CNS1, "AdobeSongStd-Light.otf");
 	// PDFNet::AddFontSubst(PDFNet::e_GB1, "AdobeMingStd-Light.otf");
-	
 	$draw = new PDFDraw();
 
 	//--------------------------------------------------------------------------------
@@ -60,12 +59,13 @@ $output_path = $input_path."Output/";
 	$draw->SetDPI(92);
 
 	// C) Rasterize the first page in the document and save the result as PNG.
-	$draw->Export($doc->GetPageIterator()->Current(), $output_path."tiger_92dpi.png");
+	$ir = $doc->GetPageIterator();
+	$draw->Export($ir->Current(), $output_path."tiger_92dpi.png");
 
 	echo nl2br("Example 1: tiger_92dpi.png\n");
 
 	// Export the same page as TIFF
-	$draw->Export($doc->GetPageIterator()->Current(), $output_path."tiger_92dpi.tif", "TIFF");
+	$draw->Export($ir->Current(), $output_path."tiger_92dpi.tif", "TIFF");
 
 	//--------------------------------------------------------------------------------
 	// Example 2) Convert the all pages in a given document to JPEG at 72 DPI.
@@ -229,17 +229,18 @@ $output_path = $input_path."Output/";
 
 	$draw->SetImageSmoothing(false, false);
 	$filename = "raster_text_no_smoothing.png";
-	$draw->Export($text_doc->GetPageIterator()->Current(), $output_path.$filename);
+	$ir = $text_doc->GetPageIterator();
+	$draw->Export($ir->Current(), $output_path.$filename);
 	echo nl2br("Example 9 a): ".$filename.". Done.\n");
 
 	$filename = "raster_text_smoothed.png";
 	$draw->SetImageSmoothing(true, false /*default quality bilinear resampling*/);
-	$draw->Export($text_doc->GetPageIterator()->Current(), $output_path.$filename);
+	$draw->Export($ir->Current(), $output_path.$filename);
 	echo nl2br("Example 9 b): ".$filename.". Done.\n");
 
 	$filename = "raster_text_high_quality.png";
 	$draw->SetImageSmoothing(true, true /*high quality area resampling*/);
-	$draw->Export($text_doc->GetPageIterator()->Current(), $output_path.$filename);
+	$draw->Export($ir->Current(), $output_path.$filename);
 	echo nl2br("Example 9 c): ".$filename.". Done.\n");
 
 	//--------------------------------------------------------------------------------
@@ -253,15 +254,16 @@ $output_path = $input_path."Output/";
 	$draw->SetOverprint(PDFRasterizer::e_op_on);
 
 	$filename = "merged_separations.png";
-	$draw->Export($separation_doc->GetPageIterator()->Current(), $output_path.$filename, "PNG");
+	$ir = $separation_doc->GetPageIterator();
+	$draw->Export($ir->Current(), $output_path.$filename, "PNG");
 	echo nl2br("Example 10 a): ".$filename.". Done.\n");
 
 	$filename = "separation";
-	$draw->Export($separation_doc->GetPageIterator()->Current(), $output_path.$filename, "PNG", $separation_hint);
+	$draw->Export($ir->Current(), $output_path.$filename, "PNG", $separation_hint);
 	echo nl2br("Example 10 b): ".$filename."_[ink].png. Done.\n");
 
 	$filename = "separation_NChannel.tif";
-	$draw->Export($separation_doc->GetPageIterator()->Current(), $output_path.$filename, "TIFF", $separation_hint);
+	$draw->Export($ir->Current(), $output_path.$filename, "TIFF", $separation_hint);
 	echo nl2br("Example 10 c): ".$filename.". Done.\n");
 	PDFNet::Terminate();
 ?>
