@@ -35,17 +35,18 @@ pipeline {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
                             "PDFNetC64 Alpine/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
-                            "PDFNetC64.tar.gz"
+                            "PDFNetC64_Alpine.tar.gz"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
                             "PDFNetC64 Alpine/" + getWrappersBranch(env.BRANCH_NAME),
-                            "PDFNetC64.tar.gz"
+                            "PDFNetC64_Alpine.tar.gz"
                         )
                     }
                 }
 
                 sh '''
+                    mv PDFNetC64_Alpine.tar.gz PDFNetC64.tar.gz
                     python3 PDFTronGo/build_go.py
                 '''
 
