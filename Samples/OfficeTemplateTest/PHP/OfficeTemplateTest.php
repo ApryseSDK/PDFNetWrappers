@@ -58,7 +58,7 @@ function main()
 	$pdfdoc = $template_doc->FillTemplateJson($json);
 
 	// Save the PDF to a file.
-	$pdfdoc->Save($output_path.$output_filename, SDFDoc::e_linearized);
+	$pdfdoc->Save($output_path.$output_filename, SDFDoc::e_linearized, NULL);
 
 	// And we're done!
 	echo nl2br("Saved ".$output_filename . "\n");
