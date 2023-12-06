@@ -220,8 +220,6 @@ def buildWindows(custom_swig):
 
 def buildLinux(custom_swig):
     sys = 'unix_%s' % platform.machine()
-    if os.path.exists('/etc/alpine-release'):
-        sys = 'alpine'
 
     print("Running Linux build...")
     binary_name = "PDFNetC64.tar.gz"
@@ -253,7 +251,10 @@ def buildLinux(custom_swig):
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/%s/Lib" -lstdc++' % (sys, sys)
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
-    output_name = "pdftron_linux.go"
+    output_name = ""
+    if "aarch64" in platform.machine().lower():
+        output_name = "pdftron_linux_arm64.go"
+
     shutil.copy("pdftron.go", output_name)
     splitGoFile(output_name);
     os.remove(output_name)
