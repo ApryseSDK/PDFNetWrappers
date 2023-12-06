@@ -219,7 +219,7 @@ def buildWindows(custom_swig):
     os.chdir(rootDir)
 
 def buildLinux(custom_swig):
-    sys = 'unix'
+    sys = 'unix_%s' % platform.machine()
     if os.path.exists('/etc/alpine-release'):
         sys = 'alpine'
 
