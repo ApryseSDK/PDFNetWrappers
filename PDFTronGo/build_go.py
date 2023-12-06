@@ -251,7 +251,7 @@ def buildLinux(custom_swig):
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/%s/Lib" -lstdc++' % (sys, sys)
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
-    output_name = ""
+    output_name = "pdftron_linux.go"
     if "aarch64" in platform.machine().lower():
         output_name = "pdftron_linux_arm64.go"
 
