@@ -64,6 +64,7 @@ def main()
 
     # And we're done!
     print("Saved " + outputFilename)
+    print("Done.")
 end
 
 main()
