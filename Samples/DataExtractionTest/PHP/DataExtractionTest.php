@@ -92,10 +92,10 @@ function main()
 			$outputFile = $outputPath."financial.xlsx";
 			$outputXlsxStream = new MemoryFilter(0, false);
 			$options = new DataExtractionOptions();
-			$options.setPages("1"); // page 1
+			$options->SetPages("1"); // page 1
 			DataExtractionModule::ExtractToXLSX($inputPath."financial.pdf", $outputXlsxStream, $options);
-			$outputXlsxStream.setAsInputFilter();
-			$outputXlsxStream.writeToFile($outputFile, false);
+			$outputXlsxStream->SetAsInputFilter();
+			$outputXlsxStream->WriteToFile($outputFile, false);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}

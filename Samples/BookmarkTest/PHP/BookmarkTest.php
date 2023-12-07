@@ -57,9 +57,6 @@ function PrintOutlineTree($item) {
 	$input_path = getcwd()."/../../TestFiles/";
 	$output_path = $input_path."Output/";
 
-	$doc = new PDFDoc($input_path."numbered.pdf");
-	$doc->InitSecurityHandler();
-
 	// The following example illustrates how to create and edit the outline tree 
 	// using high-level Bookmark methods.
 	$doc = new PDFDoc($input_path."numbered.pdf");
@@ -82,7 +79,8 @@ function PrintOutlineTree($item) {
 
 	// The following example creates an 'explicit' destination (see 
 	// section '8.2.1 Destinations' in PDF Reference for more details)
-	$red_dest = Destination::CreateFit($doc->GetPageIterator()->Current());
+	$ir= $doc->GetPageIterator();
+	$red_dest = Destination::CreateFit($ir->Current());
 	$red->SetAction(Action::CreateGoto($red_dest));
 
 	// Create an explicit destination to the first green page in the document
