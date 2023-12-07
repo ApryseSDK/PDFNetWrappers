@@ -387,14 +387,18 @@ def insertCGODirectives(filename, cxxflags, ldflags):
 def setBuildDirectives(filename, arch = ""):
     if platform.system().startswith('Linux'):
         data = ''
-        text = "// +build freebsd linux netbsd openbsd\n"
+        text = ''
+        if 'aarch64' in platform.machine().lower():
+            text = "//go:build (freebsd || linux || netbsd || openbsd) && arm64\n"
+        else:
+            text = "//go:build (freebsd || linux || netbsd || openbsd)\n"
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
         with open(filename, "w") as modified:
             modified.write("%s\n%s" % (text, data))
     elif platform.system().startswith('Windows'):
-        text = "// +build windows\n"
+        text = "//go:build windows\n"
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
