@@ -391,7 +391,7 @@ def setBuildDirectives(filename, arch = ""):
         if 'aarch64' in platform.machine().lower():
             text = "//go:build (freebsd || linux || netbsd || openbsd) && arm64\n"
         else:
-            text = "//go:build (freebsd || linux || netbsd || openbsd)\n"
+            text = "//go:build (freebsd || linux || netbsd || openbsd) && amd64\n"
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
@@ -409,7 +409,7 @@ def setBuildDirectives(filename, arch = ""):
         if (arch == "arm64"):
                 directive_arch = "arm64"
 
-        text = "// +build darwin\n// +build %s\n" % directive_arch
+        text = "//go:build darwin && %s\n" % directive_arch
         print("Writing %s to %s" % (text, filename))
         with open(filename, "r") as original:
             data = original.read()
