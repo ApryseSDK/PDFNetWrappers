@@ -219,6 +219,8 @@ def buildWindows(custom_swig):
     os.chdir(rootDir)
 
 def buildLinux(custom_swig):
+    sys = 'unix_%s' % platform.machine()
+
     print("Running Linux build...")
     binary_name = "PDFNetC64.tar.gz"
     if "aarch64" in platform.machine().lower():
@@ -244,17 +246,20 @@ def buildLinux(custom_swig):
  -lPDFNetC -shared pdftron_wrap.cxx -o Lib/libpdftron.so"
     subprocess.run(shlex.split(gccCommand), check=True)
 
-    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/unix/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,--disable-new-dtags -Wl,-rpath,"${SRCDIR}/shared_libs/unix/Lib"\
- -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/unix/Lib" -lstdc++'
+    cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/%s/Headers"' % sys
+    ldflags = '#cgo LDFLAGS: -Wl,--disable-new-dtags -Wl,-rpath,"${SRCDIR}/shared_libs/%s/Lib"\
+ -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/%s/Lib" -lstdc++' % (sys, sys)
     insertCGODirectives("pdftron.go", cxxflags, ldflags)
     setBuildDirectives("pdftron.go")
     output_name = "pdftron_linux.go"
+    if "aarch64" in platform.machine().lower():
+        output_name = "pdftron_linux_arm64.go"
+
     shutil.copy("pdftron.go", output_name)
     splitGoFile(output_name);
     os.remove(output_name)
 
-    cleanupDirectories("unix")
+    cleanupDirectories(sys)
     os.chdir(rootDir)
 
 def buildDarwin(custom_swig):
