@@ -64,6 +64,7 @@ def main():
 
     # And we're done!
     print("Saved " + output_filename )
+    print("Done.")
 
 if __name__ == '__main__':
     main()

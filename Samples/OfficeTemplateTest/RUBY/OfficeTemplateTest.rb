@@ -63,7 +63,8 @@ def main()
     pdfdoc.Save(outputFile, SDFDoc::E_linearized)
 
     # And we're done!
-    print("Saved " + outputFilename)
+    puts "Saved " + outputFilename
+    puts "Done."
 end
 
 main()

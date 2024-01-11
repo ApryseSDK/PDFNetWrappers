@@ -62,6 +62,7 @@ function main()
 
 	// And we're done!
 	echo nl2br("Saved ".$output_filename . "\n");
+	echo nl2br("Done.\n");
 }
 
 main()
