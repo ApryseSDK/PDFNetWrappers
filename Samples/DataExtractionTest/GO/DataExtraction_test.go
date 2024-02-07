@@ -209,6 +209,38 @@ func FormFieldsTest() (err error) {
 
 	fmt.Println("Result saved in " + outputFile)
 
+	//////////////////////////////////////////////////////////////////////////
+	// Detect and add form fields to a PDF document.
+	// PDF document already has form fields, and this sample will update to new found fields.
+	doc := NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+
+	fmt.Println("Extract form fields as a PDF file, keep new fields")
+	DataExtractionModuleDetectAndAddFormFieldsToPDF(doc)
+
+	outputFile = outputPath + "formfields-scanned-fields-new.pdf"
+	doc.Save(outputFile, uint(SDFDocE_linearized))
+	doc.Close()
+
+	fmt.Println("Result saved in " + outputFile)
+
+	//////////////////////////////////////////////////////////////////////////
+	// Detect and add form fields to a PDF document.
+	// PDF document already has form fields, and this sample will keep the original fields.
+	doc = NewPDFDoc(inputPath + "formfields-scanned-withfields.pdf")
+
+	// Setup DataExtractionOptions to keep old fields
+	options := NewDataExtractionOptions()
+	options.SetOverlappingFormFieldBehavior("KeepOld")
+
+	fmt.Println("Extract form fields as a PDF file, keep old fields")
+	DataExtractionModuleDetectAndAddFormFieldsToPDF(doc, options)
+
+	outputFile = outputPath + "formfields-scanned-fields-old.pdf"
+	doc.Save(outputFile, uint(SDFDocE_linearized))
+	doc.Close()
+
+	fmt.Println("Result saved in " + outputFile)
+
 	return nil
 }
 
