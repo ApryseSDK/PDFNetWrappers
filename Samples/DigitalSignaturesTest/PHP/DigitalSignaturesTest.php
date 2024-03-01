@@ -513,7 +513,7 @@ function CustomSigningAPI($doc_path,
 	$page1 = $doc->GetPage(1);
 
 	$digsig_field = $doc->CreateDigitalSignatureField($cert_field_name);
-	$widgetAnnot = SignatureWidget::Create($doc, new Rect(143, 287, 219, 306), $digsig_field);
+	$widgetAnnot = SignatureWidget::Create($doc, new Rect(143.0, 287.0, 219.0, 306.0), $digsig_field);
 	$page1->AnnotPushBack($widgetAnnot);
 
 	// (OPTIONAL) Add an appearance to the signature field.
