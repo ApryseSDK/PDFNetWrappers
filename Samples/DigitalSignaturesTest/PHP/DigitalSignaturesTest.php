@@ -512,7 +512,7 @@ function CustomSigningAPI($doc_path,
 	$doc = new PDFDoc($doc_path);
 	$page1 = $doc->GetPage(1);
 
-	$digsig_field = doc->CreateDigitalSignatureField($cert_field_name);
+	$digsig_field = $doc->CreateDigitalSignatureField($cert_field_name);
 	$widgetAnnot = SignatureWidget::Create($doc, new Rect(143, 287, 219, 306), $digsig_field);
 	$page1->AnnotPushBack($widgetAnnot);
 
@@ -540,19 +540,19 @@ function CustomSigningAPI($doc_path,
 
 	// Optionally, you can add a custom signed attribute at this point, such as one of the PAdES ESS attributes.
 	// The function we provide takes care of generating the correct PAdES ESS attribute depending on your digest algorithm.
-	$pades_versioned_ess_signing_cert_attribute = DigitalSignatureField->GenerateESSSigningCertPAdESAttribute($signer_cert, $digest_algorithm_type);
+	$pades_versioned_ess_signing_cert_attribute = DigitalSignatureField::GenerateESSSigningCertPAdESAttribute($signer_cert, $digest_algorithm_type);
 
 	// Generate the signedAttrs component of CMS, passing any optional custom signedAttrs (e.g. PAdES ESS).
 	// The signedAttrs are certain attributes that become protected by their inclusion in the signature.
-	$signedAttrs = DigitalSignatureField->GenerateCMSSignedAttributes($pdf_digest, $pades_versioned_ess_signing_cert_attribute);
+	$signedAttrs = DigitalSignatureField::GenerateCMSSignedAttributes($pdf_digest, $pades_versioned_ess_signing_cert_attribute);
 
 	// Calculate the digest of the signedAttrs (i.e. not the PDF digest, this time).
-	$signedAttrs_digest = DigestAlgorithm->CalculateDigest($digest_algorithm_type, $signedAttrs);
+	$signedAttrs_digest = DigestAlgorithm::CalculateDigest($digest_algorithm_type, $signedAttrs);
 
 	//////////////////////////// custom digest signing starts ////////////////////////////
 	// At this point, you can sign the digest (for example, with HSM). We use our own SignDigest function instead here as an example,
 	// which you can also use for your purposes if necessary as an alternative to the handler/callback APIs (i.e. Certify/SignOnNextSave).
-	$signature_value = DigestAlgorithm->SignDigest(
+	$signature_value = DigestAlgorithm::SignDigest(
 		$signedAttrs_digest,
 		$digest_algorithm_type,
 		$private_key_file_path,
@@ -560,7 +560,7 @@ function CustomSigningAPI($doc_path,
 	//////////////////////////// custom digest signing ends //////////////////////////////
 
 	// Then, load all your chain certificates into a container of X509Certificate.
-	$chain_certs = array( signer_cert );
+	$chain_certs = array( $signer_cert );
 
 	// Then, create ObjectIdentifiers for the algorithms you have used.
 	// Here we use digest_algorithm_type (usually SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
@@ -568,7 +568,7 @@ function CustomSigningAPI($doc_path,
 	$signature_algorithm_oid = new ObjectIdentifier(ObjectIdentifier::e_RSA_encryption_PKCS1);
 
 	// Then, put the CMS signature components together.
-	$cms_signature = DigitalSignatureField->GenerateCMSSignature(
+	$cms_signature = DigitalSignatureField::GenerateCMSSignature(
 		$signer_cert, $chain_certs, $digest_algorithm_oid, $signature_algorithm_oid,
 		$signature_value, $signedAttrs);
 
