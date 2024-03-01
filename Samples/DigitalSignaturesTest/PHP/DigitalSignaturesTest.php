@@ -517,7 +517,7 @@ function CustomSigningAPI($doc_path,
 	$page1->AnnotPushBack($widgetAnnot);
 
 	// (OPTIONAL) Add an appearance to the signature field.
-	$img = Image::Create($doc, $appearance_image_path);
+	$img = Image::Create($doc->GetSDFDoc(), $appearance_image_path);
 	$widgetAnnot->CreateSignatureAppearance($img);
 
 	// Create a digital signature dictionary inside the digital signature field, in preparation for signing.

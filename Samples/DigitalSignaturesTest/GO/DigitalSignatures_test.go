@@ -453,7 +453,7 @@ func CustomSigningAPI(doc_path string,
     page1.AnnotPushBack(widgetAnnot)
 
     // (OPTIONAL) Add an appearance to the signature field.
-    img := ImageCreate(doc, appearance_image_path)
+    img := ImageCreate(doc.GetSDFDoc(), appearance_image_path)
     widgetAnnot.CreateSignatureAppearance(img)
 
     signing_mode := DigitalSignatureFieldE_adbe_pkcs7_detached
@@ -471,7 +471,7 @@ func CustomSigningAPI(doc_path string,
     current_date.SetCurrentTime()
     digsig_field.SetSigDictTimeOfSigning(current_date)
 
-    doc.Save(output_path, SDFDocE_incremental)
+    doc.Save(output_path, uint(SDFDocE_incremental))
 
     // Digest the relevant bytes of the document in accordance with ByteRanges surrounding the signature.
     pdf_digest := digsig_field.CalculateDigest(digest_algorithm_type)
