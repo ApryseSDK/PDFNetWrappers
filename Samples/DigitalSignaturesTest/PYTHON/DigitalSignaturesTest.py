@@ -420,12 +420,12 @@ def CustomSigningAPI(doc_path,
 	page1.AnnotPushBack(widgetAnnot)
 
 	# (OPTIONAL) Add an appearance to the signature field.
-	img = Image.Create(doc, appearance_image_path)
+	img = Image.Create(doc.GetSDFDoc(), appearance_image_path)
 	widgetAnnot.CreateSignatureAppearance(img)
 
 	# Create a digital signature dictionary inside the digital signature field, in preparation for signing.
-	digsig_field.CreateSigDictForCustomSigning("Adobe.PPKLite",
-		DigitalSignatureField.SubFilterType.e_ETSI_CAdES_detached if PAdES_signing_mode else DigitalSignatureField.SubFilterType.e_adbe_pkcs7_detached,
+	digsig_field.CreateSigDictForCustomSigning('Adobe.PPKLite',
+		DigitalSignatureField.e_ETSI_CAdES_detached if PAdES_signing_mode else DigitalSignatureField.e_adbe_pkcs7_detached,
 		7500) # For security reasons, set the contents size to a value greater than but as close as possible to the size you expect your final signature to be, in bytes.
 				# ... or, if you want to apply a certification signature, use CreateSigDictForCustomCertification instead.
 
@@ -466,9 +466,9 @@ def CustomSigningAPI(doc_path,
 	chain_certs = [ signer_cert ]
 
 	# Then, create ObjectIdentifiers for the algorithms you have used.
-	# Here we use digest_algorithm_type (usually SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
-	digest_algorithm_oid = ObjectIdentifier(digest_algorithm_type)
-	signature_algorithm_oid = ObjectIdentifier(ObjectIdentifier.Predefined.RSA_encryption_PKCS1)
+	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
+	digest_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_SHA256)
+	signature_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1)
 
 	# Then, put the CMS signature components together.
 	cms_signature = DigitalSignatureField.GenerateCMSSignature(
