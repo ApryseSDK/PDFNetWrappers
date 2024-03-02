@@ -442,8 +442,8 @@ def CustomSigningAPI(doc_path,
 		public_key_file_path,
 		appearance_image_path,
 		digest_algorithm_type,
-		PAdES_signing_mode,
-		output_path):
+		pades_signing_mode,
+		output_path)
 	puts('================================================================================');
 	puts('Custom signing PDF document');
 
@@ -461,7 +461,7 @@ def CustomSigningAPI(doc_path,
 
 	# Create a digital signature dictionary inside the digital signature field, in preparation for signing.
 	digsig_field.CreateSigDictForCustomSigning("Adobe.PPKLite",
-		DigitalSignatureField.SubFilterType.e_ETSI_CAdES_detached if PAdES_signing_mode else DigitalSignatureField.SubFilterType.e_adbe_pkcs7_detached,
+		pades_signing_mode ? DigitalSignatureField.SubFilterType.e_ETSI_CAdES_detached : DigitalSignatureField.SubFilterType.e_adbe_pkcs7_detached,
 		7500); # For security reasons, set the contents size to a value greater than but as close as possible to the size you expect your final signature to be, in bytes.
 				# ... or, if you want to apply a certification signature, use CreateSigDictForCustomCertification instead.
 
