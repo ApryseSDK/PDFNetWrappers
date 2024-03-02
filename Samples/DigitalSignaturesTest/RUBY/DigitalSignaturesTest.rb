@@ -461,7 +461,7 @@ def CustomSigningAPI(doc_path,
 
 	# Create a digital signature dictionary inside the digital signature field, in preparation for signing.
 	digsig_field.CreateSigDictForCustomSigning("Adobe.PPKLite",
-		pades_signing_mode ? DigitalSignatureField.SubFilterType.e_ETSI_CAdES_detached : DigitalSignatureField.SubFilterType.e_adbe_pkcs7_detached,
+		pades_signing_mode ? DigitalSignatureField::E_ETSI_CAdES_detached : DigitalSignatureField::E_adbe_pkcs7_detached,
 		7500); # For security reasons, set the contents size to a value greater than but as close as possible to the size you expect your final signature to be, in bytes.
 				# ... or, if you want to apply a certification signature, use CreateSigDictForCustomCertification instead.
 
@@ -504,7 +504,7 @@ def CustomSigningAPI(doc_path,
 	# Then, create ObjectIdentifiers for the algorithms you have used.
 	# Here we use digest_algorithm_type (usually SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
 	digest_algorithm_oid = ObjectIdentifier.new(digest_algorithm_type);
-	signature_algorithm_oid = ObjectIdentifier.new(ObjectIdentifier.Predefined.RSA_encryption_PKCS1);
+	signature_algorithm_oid = ObjectIdentifier.new(ObjectIdentifier::E_RSA_encryption_PKCS1);
 
 	# Then, put the CMS signature components together.
 	cms_signature = DigitalSignatureField.GenerateCMSSignature(
@@ -680,7 +680,7 @@ def main()
 			"password",
 			input_path + "pdftron.cer",
 			input_path + "signature.jpg",
-			DigestAlgorithm.e_SHA256,
+			DigestAlgorithm::E_SHA256,
 			True,
 			output_path + "waiver_custom_signed.pdf")
 	rescue Exception => e
