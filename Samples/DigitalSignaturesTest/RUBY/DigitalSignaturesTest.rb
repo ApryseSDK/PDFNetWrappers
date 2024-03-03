@@ -470,7 +470,7 @@ def CustomSigningAPI(doc_path,
 	current_date.SetCurrentTime();
 	digsig_field.SetSigDictTimeOfSigning(current_date);
 
-	doc.Save(output_path, SDFDoc.e_incremental);
+	doc.Save(output_path, SDFDoc::E_incremental);
 
 	# Digest the relevant bytes of the document in accordance with ByteRanges surrounding the signature.
 	pdf_digest = digsig_field.CalculateDigest(digest_algorithm_type);
