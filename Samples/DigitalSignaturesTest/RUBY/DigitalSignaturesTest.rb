@@ -681,7 +681,7 @@ def main()
 			input_path + "pdftron.cer",
 			input_path + "signature.jpg",
 			DigestAlgorithm::E_SHA256,
-			True,
+			true,
 			output_path + "waiver_custom_signed.pdf")
 	rescue Exception => e
 		puts(e.message);
