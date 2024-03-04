@@ -479,11 +479,11 @@ def CustomSigningAPI(doc_path,
 
 	# Optionally, you can add a custom signed attribute at this point, such as one of the PAdES ESS attributes.
 	# The function we provide takes care of generating the correct PAdES ESS attribute depending on your digest algorithm.
-	pades_versioned_ess_signing_cert_attribute = DigitalSignatureField.GenerateESSSigningCertPAdESAttribute(signer_cert, digest_algorithm_type);
+	#pades_versioned_ess_signing_cert_attribute = DigitalSignatureField.GenerateESSSigningCertPAdESAttribute(signer_cert, digest_algorithm_type);
 
 	# Generate the signedAttrs component of CMS, passing any optional custom signedAttrs (e.g. PAdES ESS).
 	# The signedAttrs are certain attributes that become protected by their inclusion in the signature.
-	signedAttrs = DigitalSignatureField.GenerateCMSSignedAttributes(pdf_digest, pades_versioned_ess_signing_cert_attribute);
+	signedAttrs = DigitalSignatureField.GenerateCMSSignedAttributes(pdf_digest);
 
 	# Calculate the digest of the signedAttrs (i.e. not the PDF digest, this time).
 	signedAttrs_digest = DigestAlgorithm.CalculateDigest(digest_algorithm_type, signedAttrs);
