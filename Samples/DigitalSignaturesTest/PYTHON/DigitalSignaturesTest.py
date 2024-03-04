@@ -463,7 +463,7 @@ def CustomSigningAPI(doc_path,
 	############################ custom digest signing ends ##############################
 
 	# Then, load all your chain certificates into a container of X509Certificate.
-	chain_certs = [ signer_cert ]
+	chain_certs = []
 
 	# Then, create ObjectIdentifiers for the algorithms you have used.
 	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.

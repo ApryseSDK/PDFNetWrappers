@@ -501,7 +501,6 @@ func CustomSigningAPI(doc_path string,
 
     // Then, load all your chain certificates into a container of X509Certificate.
     chain_certs := NewVectorX509Certificate()
-    chain_certs.Add(signer_cert)
 
     // Then, create ObjectIdentifiers for the algorithms you have used.
     // Here we use digest_algorithm_type (usually SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
