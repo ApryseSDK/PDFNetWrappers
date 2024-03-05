@@ -474,7 +474,6 @@ def CustomSigningAPI(doc_path,
 
 	# Digest the relevant bytes of the document in accordance with ByteRanges surrounding the signature.
 	pdf_digest = digsig_field.CalculateDigest(digest_algorithm_type);
-	puts("pdf_digest size: " + pdf_digest.length.to_s);
 
 	signer_cert = X509Certificate.new(public_key_file_path);
 
@@ -484,7 +483,7 @@ def CustomSigningAPI(doc_path,
 
 	# Generate the signedAttrs component of CMS, passing any optional custom signedAttrs (e.g. PAdES ESS).
 	# The signedAttrs are certain attributes that become protected by their inclusion in the signature.
-	signedAttrs = DigitalSignatureField.GenerateCMSSignedAttributes(VectorUChar.new(pdf_digest), VectorUChar.new(pades_versioned_ess_signing_cert_attribute));
+	signedAttrs = DigitalSignatureField.GenerateCMSSignedAttributes(pdf_digest, pades_versioned_ess_signing_cert_attribute);
 
 	# Calculate the digest of the signedAttrs (i.e. not the PDF digest, this time).
 	signedAttrs_digest = DigestAlgorithm.CalculateDigest(digest_algorithm_type, signedAttrs);
