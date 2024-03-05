@@ -532,6 +532,11 @@ namespace pdftron {
     $input = rb_str_new((char*) &($1_name[0]), $1_name.size());
 }
 
+%typemap(freearg) const std::vector<unsigned char>&
+%{
+    if($1){ delete($1); $1 = 0; }
+%}
+
 //----------------------------------------------------------------------------------------------
 /**
  * Typemap to ensure Ruby nil is returned if a C++ function returns NULL.
