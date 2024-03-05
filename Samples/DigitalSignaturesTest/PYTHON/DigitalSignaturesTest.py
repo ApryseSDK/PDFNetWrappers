@@ -604,8 +604,8 @@ def main():
 	except Exception as e:
 		print(e.args)
 		result = False
-	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 
+	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try:
 		if not VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer'):
 			result = False
