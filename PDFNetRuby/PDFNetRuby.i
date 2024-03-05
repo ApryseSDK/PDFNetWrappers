@@ -404,7 +404,7 @@ namespace pdftron {
 //----------------------------------------------------------------------------------------------
 
 /**
- * Maps PHP array (of floats) to C++ vector<double>
+ * Maps Ruby array (of floats) to C++ vector<double>
  *//*
 %typemap (in) std::vector<double> {
     int size = RARRAY_LEN($input);
@@ -417,7 +417,7 @@ namespace pdftron {
 }
 
 /**
- * Maps PHP array (of floats) to C++ vector<double>&
+ * Maps Ruby array (of floats) to C++ vector<double>&
  *//*
 %typemap (in) std::vector<double>& {
     int size = RARRAY_LEN($input);
@@ -483,7 +483,25 @@ namespace pdftron {
     memcpy(&$1[0], temp, NUM2INT(rb_str_length($input)));
 }
 
+%typemap(in) const std::vector<unsigned char>&
+{
+    unsigned char* temp = (unsigned char*)StringValuePtr($input);
+    $1 = new std::vector<unsigned char>();
+    $1->resize(NUM2INT(rb_str_length($input)));
+    memcpy(&((*$1)[0]), temp, NUM2INT(rb_str_length($input)));
+}
+
 %typemap(typecheck) std::vector<unsigned char>
+{
+    if (rb_type($input) == T_STRING) {
+        $1 = 1;
+    }
+    else {
+        $1 = 0;
+    }
+}
+
+%typemap(typecheck) const std::vector<unsigned char>&
 {
     if (rb_type($input) == T_STRING) {
         $1 = 1;
