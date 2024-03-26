@@ -399,6 +399,87 @@ def PrintSignaturesInfo(in_docpath):
 
 	print('================================================================================')
 
+def CustomSigningAPI(doc_path,
+		cert_field_name,
+		private_key_file_path,
+		keyfile_password,
+		public_key_file_path,
+		appearance_image_path,
+		digest_algorithm_type,
+		PAdES_signing_mode,
+		output_path):
+	print('================================================================================')
+	print('Custom signing PDF document')
+
+	doc = PDFDoc(doc_path)
+
+	page1 = doc.GetPage(1)
+
+	digsig_field = doc.CreateDigitalSignatureField(cert_field_name)
+	widgetAnnot = SignatureWidget.Create(doc, Rect(143, 287, 219, 306), digsig_field)
+	page1.AnnotPushBack(widgetAnnot)
+
+	# (OPTIONAL) Add an appearance to the signature field.
+	img = Image.Create(doc.GetSDFDoc(), appearance_image_path)
+	widgetAnnot.CreateSignatureAppearance(img)
+
+	# Create a digital signature dictionary inside the digital signature field, in preparation for signing.
+	digsig_field.CreateSigDictForCustomSigning('Adobe.PPKLite',
+		DigitalSignatureField.e_ETSI_CAdES_detached if PAdES_signing_mode else DigitalSignatureField.e_adbe_pkcs7_detached,
+		7500) # For security reasons, set the contents size to a value greater than but as close as possible to the size you expect your final signature to be, in bytes.
+				# ... or, if you want to apply a certification signature, use CreateSigDictForCustomCertification instead.
+
+	# (OPTIONAL) Set the signing time in the signature dictionary, if no secure embedded timestamping support is available from your signing provider.
+	current_date = Date()
+	current_date.SetCurrentTime()
+	digsig_field.SetSigDictTimeOfSigning(current_date)
+
+	doc.Save(output_path, SDFDoc.e_incremental)
+
+	# Digest the relevant bytes of the document in accordance with ByteRanges surrounding the signature.
+	pdf_digest = digsig_field.CalculateDigest(digest_algorithm_type)
+
+	signer_cert = X509Certificate(public_key_file_path)
+
+	# Optionally, you can add a custom signed attribute at this point, such as one of the PAdES ESS attributes.
+	# The function we provide takes care of generating the correct PAdES ESS attribute depending on your digest algorithm.
+	pades_versioned_ess_signing_cert_attribute = DigitalSignatureField.GenerateESSSigningCertPAdESAttribute(signer_cert, digest_algorithm_type)
+
+	# Generate the signedAttrs component of CMS, passing any optional custom signedAttrs (e.g. PAdES ESS).
+	# The signedAttrs are certain attributes that become protected by their inclusion in the signature.
+	signedAttrs = DigitalSignatureField.GenerateCMSSignedAttributes(pdf_digest, pades_versioned_ess_signing_cert_attribute)
+
+	# Calculate the digest of the signedAttrs (i.e. not the PDF digest, this time).
+	signedAttrs_digest = DigestAlgorithm.CalculateDigest(digest_algorithm_type, signedAttrs)
+
+	############################ custom digest signing starts ############################
+	# At this point, you can sign the digest (for example, with HSM). We use our own SignDigest function instead here as an example,
+	# which you can also use for your purposes if necessary as an alternative to the handler/callback APIs (i.e. Certify/SignOnNextSave).
+	signature_value = DigestAlgorithm.SignDigest(
+		signedAttrs_digest,
+		digest_algorithm_type,
+		private_key_file_path,
+		keyfile_password)
+	############################ custom digest signing ends ##############################
+
+	# Then, load all your chain certificates into a container of X509Certificate.
+	chain_certs = []
+
+	# Then, create ObjectIdentifiers for the algorithms you have used.
+	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
+	digest_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_SHA256)
+	signature_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1)
+
+	# Then, put the CMS signature components together.
+	cms_signature = DigitalSignatureField.GenerateCMSSignature(
+		signer_cert, chain_certs, digest_algorithm_oid, signature_algorithm_oid,
+		signature_value, signedAttrs)
+
+	# Write the signature to the document.
+	doc.SaveCustomSignature(cms_signature, digsig_field, output_path)
+
+	print('================================================================================')
+
 def TimestampAndEnableLTV(in_docpath, 
 	in_trusted_cert_path, 
 	in_appearance_img_path,
@@ -523,6 +604,7 @@ def main():
 	except Exception as e:
 		print(e.args)
 		result = False
+
 	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try:
 		if not VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer'):
@@ -530,7 +612,28 @@ def main():
 	except Exception as e:
 		print(e.args)
 		result = False
-	#################### TEST 6: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
+
+	#################### TEST 6: Custom signing API.
+	# The Apryse custom signing API is a set of APIs related to cryptographic digital signatures
+	# which allows users to customize the process of signing documents. Among other things, this
+	# includes the capability to allow for easy integration of PDF-specific signing-related operations
+	# with access to Hardware Security Module (HSM) tokens/devices, access to cloud keystores, access
+	# to system keystores, etc.
+	try:
+		CustomSigningAPI(input_path + "waiver.pdf",
+			"PDFTronApprovalSig",
+			input_path + "pdftron.pfx",
+			"password",
+			input_path + "pdftron.cer",
+			input_path + "signature.jpg",
+			DigestAlgorithm.e_SHA256,
+			True,
+			output_path + "waiver_custom_signed.pdf")
+	except Exception as e:
+		print(e.args)
+		result = False
+
+	#################### TEST 7: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	#try:
 	#	if not TimestampAndEnableLTV(input_path + 'waiver.pdf',
 	#		input_path + 'GlobalSignRootForTST.cer',
