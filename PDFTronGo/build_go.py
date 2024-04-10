@@ -288,7 +288,6 @@ def buildDarwin(custom_swig):
     # We have to create slightly different binaries for each arch
     createMacBinaries("x86_64")
     createMacBinaries("arm64")
-
     cleanupDirectories("mac")
 
     os.chdir(rootDir)
@@ -339,7 +338,7 @@ def createMacBinaries(arch):
     shutil.move("a.out", "Lib/%s/libpdftron.dylib" % arch)
 
     cxxflags = '#cgo CXXFLAGS: -I"${SRCDIR}/shared_libs/mac/Headers"'
-    ldflags = '#cgo LDFLAGS: -Wl,-rpath,"${SRCDIR}/shared_libs/mac/Lib/%s/"\
+    ldflags = '#cgo LDFLAGS: -Wl,--no_warn_duplicate_libraries,-rpath,"${SRCDIR}/shared_libs/mac/Lib/%s/"\
  -lpdftron -lPDFNetC -L"${SRCDIR}/shared_libs/mac/Lib/%s/"' % (arch, arch)
     output_name = "pdftron_darwin_%s.go" % arch
     shutil.copy("pdftron.go", output_name)
