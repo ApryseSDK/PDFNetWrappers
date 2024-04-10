@@ -24,12 +24,12 @@ pipeline {
                 script {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
-                            "PDFNet Mac/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "PDFNet Mac/master",
                             "PDFNetCMac.zip"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNet Mac/" + getWrappersBranch(env.BRANCH_NAME),
+                            "PDFNet Mac/master",
                             "PDFNetCMac.zip"
                         )
                     }
