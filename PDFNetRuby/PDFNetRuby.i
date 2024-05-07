@@ -245,7 +245,7 @@ namespace std {
    %template(VectorDouble) vector<double>;
    %template(VectorObj) vector<pdftron::SDF::Obj>;
    %template(VectorPage) vector<pdftron::PDF::Page>;
-   %template(VectorUChar) vector<unsigned char, std::allocator< unsigned char > >;
+   %template(VectorUChar) vector<unsigned char>;
    %template(VectorChar) vector<char>;
    %template(VectorInt) vector<int>;
    %template(VectorString) vector<std::string>;
