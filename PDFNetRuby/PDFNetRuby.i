@@ -487,25 +487,7 @@ namespace pdftron {
     memcpy(&$1[0], temp, NUM2INT(rb_str_length($input)));
 }
 
-%typemap(in) const std::vector<unsigned char>&
-{
-    unsigned char* temp = (unsigned char*)StringValuePtr($input);
-    $1 = new std::vector<unsigned char>();
-    $1->resize(NUM2INT(rb_str_length($input)));
-    memcpy(&((*$1)[0]), temp, NUM2INT(rb_str_length($input)));
-}
-
 %typemap(typecheck) std::vector<unsigned char>
-{
-    if (rb_type($input) == T_STRING) {
-        $1 = 1;
-    }
-    else {
-        $1 = 0;
-    }
-}
-
-%typemap(typecheck) const std::vector<unsigned char>&
 {
     if (rb_type($input) == T_STRING) {
         $1 = 1;
@@ -535,11 +517,6 @@ namespace pdftron {
 {
     $input = rb_str_new((char*) &($1_name[0]), $1_name.size());
 }
-
-%typemap(freearg) const std::vector<unsigned char>&
-%{
-    if($1){ delete($1); $1 = 0; }
-%}
 
 //----------------------------------------------------------------------------------------------
 /**
