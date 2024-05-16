@@ -1,3 +1,6 @@
+String cron_default = "0 0 * * *"
+String cron_string = (env.BRANCH_NAME != 'pre_release') ? cron_default : (getWrappersBranch('pre_release') == 'master') ? cron_default : ""
+
 pipeline {
     agent { label 'windows_fleet' }
 
@@ -11,7 +14,7 @@ pipeline {
         GOCACHE      = "/tmp/.cache"
     }
 
-    triggers { cron("0 0 * * *") }
+    triggers { cron(cron_string) }
 
     parameters {
         string(name: "FORCE_BRANCH_VERSION", defaultValue: "" ,
