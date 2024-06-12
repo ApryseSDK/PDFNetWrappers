@@ -1,3 +1,6 @@
+String cron_default = "0 0 * * *"
+String cron_string = (env.BRANCH_NAME != 'pre_release') ? cron_default : (getWrappersBranch('pre_release') == 'master') ? cron_default : ""
+
 pipeline {
     agent {
         docker {
@@ -16,7 +19,7 @@ pipeline {
     }
 
 
-    triggers { cron("0 0 * * *") }
+    triggers { cron(cron_string) }
 
     environment {
         GOCACHE      = "/tmp/.cache"
