@@ -578,14 +578,15 @@ function CustomSigningAPI($doc_path,
 	echo(nl2br('================================================================================'.PHP_EOL));
 }
 
-function TimestampAndEnableLTV($in_docpath, 
+function TimestampAndEnableLTV($in_docpath,
+	$in_tsa_url,
 	$in_trusted_cert_path, 
 	$in_appearance_img_path,
 	$in_outpath)
 {
 	$doc = new PDFDoc($in_docpath);
 	$doctimestamp_signature_field = $doc->CreateDigitalSignatureField();
-	$tst_config = new TimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced");
+	$tst_config = new TimestampingConfiguration($in_tsa_url);
 	$opts = new VerificationOptions(VerificationOptions::e_compatibility_and_archiving);
 	/* It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -645,6 +646,7 @@ function TimestampAndEnableLTV($in_docpath,
 
 	return true;
 }
+
 function main()
 {
 	global $LicenseKey;
@@ -776,22 +778,42 @@ function main()
 	}
 
 	//////////////////// TEST 7: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	//try
-	//{
-	//	if(!TimestampAndEnableLTV($input_path.'waiver.pdf',
-	//				$input_path.'GlobalSignRootForTST.cer',
-	//				$input_path.'signature.jpg',
-	//				$output_path.'waiver_DocTimeStamp_LTV.pdf'))
-	//	{
-	//		$result = false;
-	//	}
-	//}
-	//catch (Exception $e)
-	//{
-    //    echo(nl2br($e->getMessage().PHP_EOL));
-    //    echo(nl2br($e->getTraceAsString().PHP_EOL));
-    //    $result = false;
-    //}
+	// try
+	// {
+	// 	// Replace YOUR_URL_OF_TSA with the timestamp authority (TSA) URL to use during timestamping.
+	// 	// For example, as of July 2024, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
+	// 	// Note that this url may not work in the future. A reliable solution requires using your own TSA.
+	// 	$tsa_url = 'YOUR_URL_OF_TSA';
+	// 	if ($tsa_url == 'YOUR_URL_OF_TSA')
+	// 	{
+	// 		throw new Exception('Error: The URL of your timestamp authority was not specified.');
+	// 	}
+	
+
+	// 	// Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
+	// 	// For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
+	// 	// Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
+	// 	$trusted_cert_path = 'YOUR_CERTIFICATE';
+	// 	if ($trusted_cert_path == 'YOUR_CERTIFICATE')
+	// 	{
+	// 		throw new Exception('Error: The path to your timestamp authority trusted root certificate was not specified.');
+	// 	}
+
+	// 	if(!TimestampAndEnableLTV($input_path.'waiver.pdf',
+	// 				$tsa_url,
+	// 				$trusted_cert_path,
+	// 				$input_path.'signature.jpg',
+	// 				$output_path.'waiver_DocTimeStamp_LTV.pdf'))
+	// 	{
+	// 		$result = false;
+	// 	}
+	// }
+	// catch (Exception $e)
+	// {
+	// 	echo(nl2br($e->getMessage().PHP_EOL));
+	// 	echo(nl2br($e->getTraceAsString().PHP_EOL));
+	// 	$result = false;
+    // }
 
 	//////////////////// End of tests. ////////////////////
 	PDFNet::Terminate();

@@ -481,12 +481,13 @@ def CustomSigningAPI(doc_path,
 	print('================================================================================')
 
 def TimestampAndEnableLTV(in_docpath, 
+	in_tsa_url,
 	in_trusted_cert_path, 
 	in_appearance_img_path,
 	in_outpath):
 	doc = PDFDoc(in_docpath)
 	doctimestamp_signature_field = doc.CreateDigitalSignatureField()
-	tst_config = TimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced")
+	tst_config = TimestampingConfiguration(in_tsa_url)
 	opts = VerificationOptions(VerificationOptions.e_compatibility_and_archiving)
 #	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 #	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -634,15 +635,31 @@ def main():
 		result = False
 
 	#################### TEST 7: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	#try:
-	#	if not TimestampAndEnableLTV(input_path + 'waiver.pdf',
-	#		input_path + 'GlobalSignRootForTST.cer',
-	#		input_path + 'signature.jpg',
-	#		output_path+ 'waiver_DocTimeStamp_LTV.pdf'):
-	#		result = False
-	#except Exception as e:
-	#	print(e.args)
-	#	result = False
+	# try:
+	# 	# Replace YOUR_URL_OF_TSA with the timestamp authority (TSA) URL to use during timestamping.
+	# 	# For example, as of July 2024, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
+	# 	# Note that this url may not work in the future. A reliable solution requires using your own TSA.
+	# 	tsa_url = 'YOUR_URL_OF_TSA'
+	# 	if tsa_url == 'YOUR_URL_OF_TSA':
+	# 		raise Exception('Error: The URL of your timestamp authority was not specified.')
+	
+
+	# 	# Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
+	# 	# For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
+	# 	# Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
+	# 	trusted_cert_path = 'YOUR_CERTIFICATE'
+	# 	if trusted_cert_path == 'YOUR_CERTIFICATE':
+	# 		raise Exception('Error: The path to your timestamp authority trusted root certificate was not specified.')
+
+	# 	if not TimestampAndEnableLTV(input_path + 'waiver.pdf',
+	# 		tsa_url,
+	# 		trusted_cert_path,
+	# 		input_path + 'signature.jpg',
+	# 		output_path+ 'waiver_DocTimeStamp_LTV.pdf'):
+	# 		result = False
+	# except Exception as e:
+	# 	print(e.args)
+	# 	result = False
 	
 	#################### End of tests. #####################
 
