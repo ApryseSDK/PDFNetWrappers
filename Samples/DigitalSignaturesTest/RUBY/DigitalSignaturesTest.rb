@@ -698,7 +698,7 @@ def main()
 	# 	if tsa_url == 'YOUR_URL_OF_TSA'
 	# 		raise 'Error: The URL of your timestamp authority was not specified.';
 	# 	end
-
+	#
 	# 	# Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
 	# 	# For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
 	# 	# Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
@@ -706,7 +706,7 @@ def main()
 	# 	if trusted_cert_path == 'YOUR_CERTIFICATE'
 	# 		raise 'Error: The path to your timestamp authority trusted root certificate was not specified.';
 	# 	end
-
+	#
 	# 	if !TimestampAndEnableLTV(input_path + 'waiver.pdf',
 	# 		tsa_url,
 	# 		trusted_cert_path,

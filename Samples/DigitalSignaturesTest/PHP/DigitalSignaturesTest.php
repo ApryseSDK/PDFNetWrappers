@@ -788,8 +788,7 @@ function main()
 	// 	{
 	// 		throw new Exception('Error: The URL of your timestamp authority was not specified.');
 	// 	}
-	
-
+	//
 	// 	// Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
 	// 	// For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
 	// 	// Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
@@ -798,7 +797,7 @@ function main()
 	// 	{
 	// 		throw new Exception('Error: The path to your timestamp authority trusted root certificate was not specified.');
 	// 	}
-
+	//
 	// 	if(!TimestampAndEnableLTV($input_path.'waiver.pdf',
 	// 				$tsa_url,
 	// 				$trusted_cert_path,
@@ -813,7 +812,7 @@ function main()
 	// 	echo(nl2br($e->getMessage().PHP_EOL));
 	// 	echo(nl2br($e->getTraceAsString().PHP_EOL));
 	// 	$result = false;
-    // }
+	// }
 
 	//////////////////// End of tests. ////////////////////
 	PDFNet::Terminate();

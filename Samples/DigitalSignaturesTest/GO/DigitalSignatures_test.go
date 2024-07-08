@@ -657,12 +657,12 @@ func TestDigitalSignatures(t *testing.T){
     // // For example, as of July 2024, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
     // // Note that this url may not work in the future. A reliable solution requires using your own TSA.
     // tsaUrl := "YOUR_URL_OF_TSA"
-
+    //
     // // Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
     // // For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
     // // Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
     // trustedCertPath := "YOUR_CERTIFICATE";
-
+    //
     // if tsaUrl == "YOUR_URL_OF_TSA" {
     //     fmt.Println("Error: The URL of your timestamp authority was not specified.")
     //     result = false
