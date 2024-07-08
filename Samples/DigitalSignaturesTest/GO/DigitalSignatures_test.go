@@ -518,13 +518,14 @@ func CustomSigningAPI(doc_path string,
     fmt.Println("================================================================================")
 }
 
-func TimestampAndEnableLTV(inDocpath string, 
+func TimestampAndEnableLTV(inDocpath string,
+    inTsaUrl string,
     inTrustedCertPath string, 
     inAppearanceImgPath string,
     inOutpath string) bool{
     doc := NewPDFDoc(inDocpath)
     doctimestampSignatureField := doc.CreateDigitalSignatureField()
-    tstConfig := NewTimestampingConfiguration("http://rfc3161timestamp.globalsign.com/advanced")
+    tstConfig := NewTimestampingConfiguration(inTsaUrl)
     opts := NewVerificationOptions(VerificationOptionsE_compatibility_and_archiving)
 //   It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 //   the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -651,12 +652,30 @@ func TestDigitalSignatures(t *testing.T){
             outputPath + "waiver_custom_signed.pdf")
 
     //////////////////////////////////////// TEST 7: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-    //if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
-    //    inputPath + "GlobalSignRootForTST.cer",
+    
+    // // Replace YOUR_URL_OF_TSA with the timestamp authority (TSA) URL to use during timestamping.
+    // // For example, as of July 2024, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
+    // // Note that this url may not work in the future. A reliable solution requires using your own TSA.
+    // tsaUrl := "YOUR_URL_OF_TSA"
+    //
+    // // Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
+    // // For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
+    // // Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
+    // trustedCertPath := "YOUR_CERTIFICATE";
+    //
+    // if tsaUrl == "YOUR_URL_OF_TSA" {
+    //     fmt.Println("Error: The URL of your timestamp authority was not specified.")
+    //     result = false
+    // } else if trustedCertPath == "YOUR_CERTIFICATE" {
+    //     fmt.Println("Error: The path to your timestamp authority trusted root certificate was not specified.")
+    //     result = false
+    // } else if !TimestampAndEnableLTV(inputPath + "waiver.pdf",
+    //    tsaUrl,
+    //    trustedCertPath,
     //    inputPath + "signature.jpg",
-    //    outputPath + "waiver_DocTimeStamp_LTV.pdf"){
+    //    outputPath + "waiver_DocTimeStamp_LTV.pdf") {
     //    result = false
-    //}
+    // }
      
     //////////////////////////////////////// End of tests. ////////////////////////////////////////
 
