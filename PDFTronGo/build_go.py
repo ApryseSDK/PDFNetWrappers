@@ -156,6 +156,10 @@ def splitGoFile(go_file):
     split_file = open("%s_%s.go" % (go_file.split(".go")[0], "0"), "w")
     split_file.write(first_split)
 
+    # remove cgo lines from the header since we only require them in one file
+    header = '\n'.join('' if line.startswith("#cgo") else line
+                                for line in header.splitlines())
+
     remaining = "type PdftronPDFAnnotType int\n%s" % splits[1]
     # Split 2
     splits = remaining.split("type PdftronPDFPDFDocViewPrefsPageMode int\n")
