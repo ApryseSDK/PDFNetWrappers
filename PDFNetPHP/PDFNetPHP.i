@@ -163,7 +163,7 @@
     #include "PDF/VerificationResult.h"
     #include "PDF/EmbeddedTimestampVerificationResult.h"
     #include "Crypto/DigestAlgorithm.h"
-    #include "Crypto/DigestAlgorithm.h"
+    #include "PDF/CMSSignatureOptions.h"
     #include "PDF/DigitalSignatureField.h"
     #include "PDF/FileSpec.h"
     #include "PDF/Flattener.h"
