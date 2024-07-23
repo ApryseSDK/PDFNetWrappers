@@ -278,7 +278,6 @@ namespace std {
    %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
    %template(VectorVectorX509Certificate) vector<vector<pdftron::Crypto::X509Certificate> >;
 
-   specialize_std_vector(pdftron::PDF::PDFUA::PDFUAConformance::ValidationError, PyInt_Check, PyInt_AsLong, PyInt_FromLong);
    %template(VectorValidationError) vector<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>;
 };
 
