@@ -278,9 +278,11 @@ namespace std {
    %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
    %template(VectorVectorX509Certificate) vector<vector<pdftron::Crypto::X509Certificate> >;
 
+   // note that the c-style cast is pretty hax, only works because the lexigraphical replacement works out,
+   // I'm not actually sure what the best way is to do more complex logic, declare a function?
+   specialize_std_vector(pdftron::PDF::PDFUA::PDFUAConformance::ValidationError, PyInt_Check, (pdftron::PDF::PDFUA::PDFUAConformance::ValidationError)PyInt_AsLong, PyInt_FromLong);
    %template(VectorValidationError) vector<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>;
 };
-//%template(VectorValidationError) std::vector<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>;
 
 /**
  * Forward declaration of some classes which helps solve circular dependency
@@ -404,26 +406,27 @@ namespace pdftron {
 
 //----------------------------------------------------------------------------------------------
 
-/** 
- * Typemapping for enums
- * Python can takes in an integer which is then converted to an enum
- * in the wrapper. The following mapping is needed because ErrorCode is
- * passed in as a pointer
- */
-/* Convert from Python --> C */
-%typemap(in) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError
-{
-	$1 = static_cast<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>(PyInt_AsLong($input));
-}
-
-/* Convert from C --> Python */
-%typemap(out) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError {
-	$result = PyInt_FromLong($1);
-}
-
-%typemap(typecheck) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError {
-	$1 = PyInt_Check($input) ? 1 : 0;
-}
+//// Not needed after all?
+///** 
+// * Typemapping for enums
+// * Python can takes in an integer which is then converted to an enum
+// * in the wrapper. The following mapping is needed because ErrorCode is
+// * passed in as a pointer
+// */
+///* Convert from Python --> C */
+//%typemap(in) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError
+//{
+//	$1 = static_cast<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>(PyInt_AsLong($input));
+//}
+//
+///* Convert from C --> Python */
+//%typemap(out) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError {
+//	$result = PyInt_FromLong($1);
+//}
+//
+//%typemap(typecheck) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError {
+//	$1 = PyInt_Check($input) ? 1 : 0;
+//}
 
 //----------------------------------------------------------------------------------------------
 /** 
