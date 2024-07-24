@@ -517,13 +517,14 @@ def CustomSigningAPI(doc_path,
 	puts('================================================================================');
 end # def CustomSigningAPI
 
-def TimestampAndEnableLTV(in_docpath, 
-	in_trusted_cert_path, 
+def TimestampAndEnableLTV(in_docpath,
+	in_tsa_url,
+	in_trusted_cert_path,
 	in_appearance_img_path,
 	in_outpath)
 	doc = PDFDoc.new(in_docpath);
 	doctimestamp_signature_field = doc.CreateDigitalSignatureField();
-	tst_config = TimestampingConfiguration.new('http://rfc3161timestamp.globalsign.com/advanced');
+	tst_config = TimestampingConfiguration.new(in_tsa_url);
 	opts = VerificationOptions.new(VerificationOptions::E_compatibility_and_archiving);
 #	It is necessary to add to the VerificationOptions a trusted root certificate corresponding to 
 #	the chain used by the timestamp authority to sign the timestamp token, in order for the timestamp
@@ -689,17 +690,35 @@ def main()
 	end
 
 	#################### TEST 7: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
-	#begin
-	#	if !TimestampAndEnableLTV(input_path + 'waiver.pdf',
-	#		input_path + 'GlobalSignRootForTST.cer',
-	#		input_path + 'signature.jpg',
-	#		output_path+ 'waiver_DocTimeStamp_LTV.pdf')
-	#		result = false;
-	#	end
-	#rescue Exception => e
-    #    puts(e.message);
-    #    puts(e.backtrace.inspect);
-	#end
+	# begin
+	# 	# Replace YOUR_URL_OF_TSA with the timestamp authority (TSA) URL to use during timestamping.
+	# 	# For example, as of July 2024, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
+	# 	# Note that this url may not work in the future. A reliable solution requires using your own TSA.
+	# 	tsa_url = 'YOUR_URL_OF_TSA';
+	# 	if tsa_url == 'YOUR_URL_OF_TSA'
+	# 		raise 'Error: The URL of your timestamp authority was not specified.';
+	# 	end
+	#
+	# 	# Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
+	# 	# For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
+	# 	# Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
+	# 	trusted_cert_path = 'YOUR_CERTIFICATE';
+	# 	if trusted_cert_path == 'YOUR_CERTIFICATE'
+	# 		raise 'Error: The path to your timestamp authority trusted root certificate was not specified.';
+	# 	end
+	#
+	# 	if !TimestampAndEnableLTV(input_path + 'waiver.pdf',
+	# 		tsa_url,
+	# 		trusted_cert_path,
+	# 		input_path + 'signature.jpg',
+	# 		output_path+ 'waiver_DocTimeStamp_LTV.pdf')
+	# 		result = false;
+	# 	end
+	# rescue Exception => e
+	# 	puts(e.message);
+	# 	puts(e.backtrace.inspect);
+	# 	result = false;
+	# end
 
 	#################### End of tests. ####################
 	PDFNet.Terminate
