@@ -280,6 +280,7 @@ namespace std {
 
    %template(VectorValidationError) vector<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>;
 };
+//%template(VectorValidationError) std::vector<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>;
 
 /**
  * Forward declaration of some classes which helps solve circular dependency
@@ -400,6 +401,33 @@ namespace pdftron {
 %typemap (typecheck) pdftron::PDF::PDFA::PDFACompliance::ErrorCode* {
     $1 = PyInt_Check($input) ? 1 : 0;
 }
+
+//----------------------------------------------------------------------------------------------
+
+/** 
+ * Typemapping for enums
+ * Python can takes in an integer which is then converted to an enum
+ * in the wrapper. The following mapping is needed because ErrorCode is
+ * passed in as a pointer
+ */
+namespace pdftrong { namespace PDF { namespace PDFUA { 
+
+	/* Convert from Python --> C */
+	%typemap(in) PDFUAConformance::ValidationError
+	{
+		$1 = PyInt_AsLong($input);
+	}
+
+	/* Convert from C --> Python */
+	%typemap(out) PDFUAConformance::ValidationError {
+		$result = static_cast<PDFUAConformance::ValidationError>(PyInt_FromLong($1));
+	}
+
+	%typemap(typecheck) PDFUAConformance::ValidationError {
+		$1 = PyInt_Check($input) ? 1 : 0;
+	}
+
+}}};
 
 //----------------------------------------------------------------------------------------------
 /** 
