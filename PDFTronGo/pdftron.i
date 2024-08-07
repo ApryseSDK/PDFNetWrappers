@@ -240,6 +240,7 @@ namespace std {
    %template(VectorUChar) vector<UChar>;
    %template(VectorChar) vector<char>;
    %template(VectorInt) vector<int>;
+   %template(VectorUInt) vector<unsigned int>;
    %template(VectorString) vector<std::string>;
    %template(VectorRedaction) vector<pdftron::PDF::Redaction>;
    %template(VectorQuadPoint) vector<pdftron::PDF::QuadPoint>;
@@ -251,6 +252,12 @@ namespace std {
    %template(VectorX501AttributeTypeAndValue) vector<pdftron::Crypto::X501AttributeTypeAndValue>;
    %template(VectorByteRange) vector<pdftron::Common::ByteRange>;
    %template(VectorVectorX509Certificate) vector<vector<pdftron::Crypto::X509Certificate> >;
+
+   // note that the c-style cast (to ValidationError) is pretty hax,
+   // only works because the lexicographical replacement works out in SWIG's generator impl.
+   // I'm not actually sure what the best way is to do more complex logic, declare a function?
+   specialize_std_vector(pdftron::PDF::PDFUA::PDFUAConformance::ValidationError, PyInt_Check, (pdftron::PDF::PDFUA::PDFUAConformance::ValidationError)PyInt_AsLong, PyInt_FromLong);
+   %template(VectorValidationError) vector<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>;
 };
 
 /**
