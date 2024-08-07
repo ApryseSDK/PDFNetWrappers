@@ -407,30 +407,6 @@ namespace pdftron {
 }
 
 //----------------------------------------------------------------------------------------------
-
-//// Not needed after all?
-///** 
-// * Typemapping for enums
-// * Python can takes in an integer which is then converted to an enum
-// * in the wrapper. The following mapping is needed because ErrorCode is
-// * passed in as a pointer
-// */
-///* Convert from Python --> C */
-//%typemap(in) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError
-//{
-//	$1 = static_cast<pdftron::PDF::PDFUA::PDFUAConformance::ValidationError>(PyInt_AsLong($input));
-//}
-//
-///* Convert from C --> Python */
-//%typemap(out) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError {
-//	$result = PyInt_FromLong($1);
-//}
-//
-//%typemap(typecheck) pdftron::PDF::PDFUA::PDFUAConformance::ValidationError {
-//	$1 = PyInt_Check($input) ? 1 : 0;
-//}
-
-//----------------------------------------------------------------------------------------------
 /** 
  * Ignoring one of the overloaded methods
  */
