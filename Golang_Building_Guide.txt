@@ -3,7 +3,7 @@ This document shows a simple guide on how to build Golang bindings of PDFNet for
 # Required Dependencies:
 - This repository
 - CMake: http://www.cmake.org/download/ (version 2.8+)
-- The correct PDFNetC64 for your build: https://www.apryse.com/downloads/PDFNetC64.zip (Windows)
+- The correct PDFNetC64 for your build: https://www.pdftron.com/downloads/PDFNetC64.zip (Windows)
 - SWIG https://www.swig.org/download.html
 - Python3+
 - Go 1.15+
