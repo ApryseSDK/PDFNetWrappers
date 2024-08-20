@@ -45,7 +45,7 @@ $stdout.sync = true
 		puts 'Unable to run HTML2PDFTest: PDFTron SDK HTML2PDF module not available.'
 		puts '---------------------------------------------------------------'
 		puts 'The HTML2PDF module is an optional add-on, available for download'
-		puts 'at http://www.pdftron.com/. If you have already downloaded this'
+		puts 'at https://dev.apryse.com/. If you have already downloaded this'
 		puts 'module, ensure that the SDK is able to find the required files'
 		puts 'using the HTML2PDF.SetModulePath function.'
 		return 

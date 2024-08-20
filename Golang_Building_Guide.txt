@@ -13,7 +13,7 @@ This document shows a simple guide on how to build Golang bindings of PDFNet for
 
 # Build Instructions
 
-1. Download the correct PDFNetC64 for your version from https://www.pdftron.com/nightly, place this in the root directory of this project and **ensure it is named according to the operating system**.
+1. Download the correct PDFNetC64 for your version from https://dev.apryse.com/nightly, place this in the root directory of this project and **ensure it is named according to the operating system**.
 
 Windows > PDFNetC64.zip
 Mac     > PDFNetCMac.zip

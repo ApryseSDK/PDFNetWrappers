@@ -4,7 +4,7 @@ This document shows a simple guide on how to build PHP bindings of PDFNet for Wi
 
 2. Because we just obtained x86 of PHP, we want to also obtain the required PDFNetC which must be 32-bit as well: https://www.pdftron.com/downloads/PDFNetC.zip (For x64, please obtain `PDFNetC64` from https://www.pdftron.com/downloads/PDFNetC64.zip) 
 
-3. Download the Github repository for the wrappers: https://github.com/PDFTron/PDFNetWrappers/archive/master.zip
+3. Download the Github repository for the wrappers: https://github.com/ApryseSDK/PDFNetWrappers/archive/master.zip
 
 4. Download and install CMake: http://www.cmake.org/download/ (it does not matter which version)
 
