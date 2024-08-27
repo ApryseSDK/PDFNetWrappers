@@ -42,7 +42,7 @@ func TestCAD2PDF(t *testing.T){
         fmt.Println("Unable to run CAD2PDFTest: PDFTron SDK CAD module not available.\n" +
         "---------------------------------------------------------------\n" +
         "The CAD module is an optional add-on, available for download\n" +
-        "at http://www.pdftron.com/. If you have already downloaded this\n" +
+        "at https://dev.apryse.com/. If you have already downloaded this\n" +
         "module, ensure that the SDK is able to find the required files\n" +
         "using the PDFNet::AddResourceSearchPath() function.")
 

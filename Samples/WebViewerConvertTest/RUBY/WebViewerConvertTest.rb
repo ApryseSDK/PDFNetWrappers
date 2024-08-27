@@ -29,7 +29,7 @@ $stdout.sync = true
 #
 # Please note that PDFNet Publisher (i.e. 'pdftron.PDF.Convert.ToXod') is an
 # optionally licensable add-on to PDFNet Core SDK. For details, please see
-# http://www.pdftron.com/webviewer/licensing.html.
+# https://apryse.com/pricing.
 #---------------------------------------------------------------------------------------
 
 # Relative path to the folder containing the test files.

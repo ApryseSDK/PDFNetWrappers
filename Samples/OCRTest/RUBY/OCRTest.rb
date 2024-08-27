@@ -33,7 +33,7 @@ output_path = "../../TestFiles/Output/"
 			puts 'Unable to run OCRTest: PDFTron SDK OCR module not available.'
 			puts '---------------------------------------------------------------'
 			puts 'The OCR module is an optional add-on, available for download'
-			puts 'at http://www.pdftron.com/. If you have already downloaded this'
+			puts 'at https://dev.apryse.com/. If you have already downloaded this'
 			puts 'module, ensure that the SDK is able to find the required files'
 			puts 'using the PDFNet::AddResourceSearchPath() function.'
 

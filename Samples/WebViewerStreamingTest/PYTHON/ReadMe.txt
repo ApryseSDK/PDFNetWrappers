@@ -5,7 +5,7 @@ ConvertAndStream.py is a Python Django script that will convert a source file to
 
 1. Download Django from http://www.djangoproject.com and install it.
 
-2. Download the WebViewer Redistributable (WebViewer.zip) from here: http://www.pdftron.com/webviewer/download.html
+2. Download the WebViewer Redistributable (WebViewer.zip) from here: https://dev.apryse.com/
 
 3. Extract the contents of WebViewer.zip to Samples/WebViewerStreaming/PYTHON (make sure you get the directory: Samples/WebViewerStreaming/PYTHON/WebViewer after extraction).
 

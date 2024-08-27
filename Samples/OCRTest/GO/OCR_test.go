@@ -42,7 +42,7 @@ func TestOCR(t *testing.T){
         fmt.Println("Unable to run OCRTest: PDFTron SDK OCR module not available.\n" +
         "---------------------------------------------------------------\n" +
         "The OCR module is an optional add-on, available for download\n" +
-        "at http://www.pdftron.com/. If you have already downloaded this\n" +
+        "at https://dev.apryse.com/. If you have already downloaded this\n" +
         "module, ensure that the SDK is able to find the required files\n" +
         "using the PDFNet::AddResourceSearchPath() function.")
 

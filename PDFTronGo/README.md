@@ -3,7 +3,7 @@
   <p>
   </p>
   <h3>
-    <a href="https://www.pdftron.com/documentation/go/">Website</a>
+    <a href="https://docs.apryse.com/documentation/core/guides/?language=go">Website</a>
   </h3>
 </div>
 <hr/>

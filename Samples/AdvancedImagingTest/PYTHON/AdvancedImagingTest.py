@@ -35,7 +35,7 @@ def main():
         Unable to run AdvancedImaging2PDFTest: PDFTron SDK Advanced Imaging module not available.
         ---------------------------------------------------------------
         The Advanced Imaging module is an optional add-on, available for download
-        at http://www.pdftron.com/. If you have already downloaded this
+        at https://dev.apryse.com/. If you have already downloaded this
         module, ensure that the SDK is able to find the required files
         using the PDFNet::AddResourceSearchPath() function.""")
 
