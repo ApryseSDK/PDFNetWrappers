@@ -116,6 +116,10 @@
     // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
     #include "PDF/PDFA/PDFAOptions.h"
+    
+    // header files in /PDFNetC/Headers/PDF/PDFUA
+	#include "PDF/PDFUA/PDFUAConformance.h"
+	#include "PDF/PDFUA/PDFUAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
@@ -867,6 +871,8 @@ namespace pdftron {
 %include "PDF/OCG/OCMD.h"
 %include "PDF/PDFA/PDFAOptions.h"
 %include "PDF/PDFA/PDFACompliance.h"
+%include "PDF/PDFUA/PDFUAConformance.h"
+%include "PDF/PDFUA/PDFUAOptions.h"
 %include "PDF/Struct/AttrObj.h"
 %include "PDF/Struct/ClassMap.h"
 %include "PDF/Struct/ContentItem.h"
