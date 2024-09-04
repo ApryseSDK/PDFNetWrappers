@@ -29,7 +29,7 @@ func init() {
 // 2. The optional add-on module is used to convert PDF documents to HTML documents with
 //    text flowing across the browser window.
 //
-// The PDFTron SDK HTML add-on module can be downloaded from http://www.pdftron.com/
+// The PDFTron SDK HTML add-on module can be downloaded from https://dev.apryse.com/
 //
 // Please contact us if you have any questions.
 //---------------------------------------------------------------------------------------

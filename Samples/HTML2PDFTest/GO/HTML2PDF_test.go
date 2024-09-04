@@ -26,7 +26,7 @@ func init() {
 // 'pdftron.PDF.HTML2PDF' is an optional PDFNet Add-On utility class that can be 
 // used to convert HTML web pages into PDF documents by using an external module (html2pdf).
 //
-// html2pdf modules can be downloaded from http://www.pdftron.com/pdfnet/downloads.html.
+// html2pdf modules can be downloaded from https://dev.apryse.com/.
 //
 // Users can convert HTML pages to PDF using the following operations:
 // - Simple one line static method to convert a single web page to PDF. 
@@ -56,7 +56,7 @@ func TestHTM2PDF(t *testing.T){
         fmt.Println("Unable to run HTML2PDFTest: PDFTron SDK HTML2PDF module not available.\n" +
         "---------------------------------------------------------------\n" +
         "The HTML2PDF module is an optional add-on, available for download\n" +
-        "at http://www.pdftron.com/. If you have already downloaded this\n" +
+        "at https://dev.apryse.com/. If you have already downloaded this\n" +
         "module, ensure that the SDK is able to find the required files\n" +
         "using the HTML2PDF::SetModulePath() function.")
         return
