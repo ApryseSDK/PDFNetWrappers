@@ -14,8 +14,6 @@ pipeline {
         GOCACHE      = "/tmp/.cache"
     }
 
-    triggers { cron(cron_string) }
-
     parameters {
         string(name: "FORCE_BRANCH_VERSION", defaultValue: "" ,
                description: "Set to a version if you wish to change the core SDK version used.")
