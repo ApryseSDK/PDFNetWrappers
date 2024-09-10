@@ -19,17 +19,17 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 function main()
 {
 	// Relative path to the folder containing the test files.
-	$input_path = "../../TestFiles/"
-	$output_path = "../../TestFiles/Output/"
+	$input_path = "../../TestFiles/";
+	$output_path = "../../TestFiles/Output/";
 
 	// DataExtraction library location, replace if desired, should point to a folder that includes the contents of <DataExtractionModuleRoot>/Lib.
 	// If using default, unzip the DataExtraction zip to the parent folder of Samples, and merge with existing "Lib" folder.
-	$extraction_module_path = "../../../PDFNetC/Lib/"
+	$extraction_module_path = "../../../PDFNetC/Lib/";
 
-	$input_file1 = $input_path."autotag_input.pdf"
-	$input_file2 = $input_path."table.pdf"
-	$output_file1 = $output_path."autotag_pdfua.pdf"
-	$output_file2 = $output_path."table_pdfua_linearized.pdf"
+	$input_file1 = $input_path."autotag_input.pdf";
+	$input_file2 = $input_path."table.pdf";
+	$output_file1 = $output_path."autotag_pdfua.pdf";
+	$output_file2 = $output_path."table_pdfua_linearized.pdf";
 
 	global $LicenseKey;
 	PDFNet::Initialize($LicenseKey);
