@@ -20,15 +20,15 @@ from LicenseKey import *
 # https://docs.apryse.com/documentation/core/info/modules/#structured-output-module (Mac)
 #---------------------------------------------------------------------------------------
 
+# Relative path to the folder containing the test files.
+input_path = "../../TestFiles/"
+output_path = "../../TestFiles/Output/"
+
+# DataExtraction library location, replace if desired, should point to a folder that includes the contents of <DataExtractionModuleRoot>/Lib.
+# If using default, unzip the DataExtraction zip to the parent folder of Samples, and merge with existing "Lib" folder.
+extraction_module_path = "../../../PDFNetC/Lib/"
+
 def main():
-    # Relative path to the folder containing the test files.
-    input_path = "../../TestFiles/"
-    output_path = "../../TestFiles/Output/"
-
-    # DataExtraction library location, replace if desired, should point to a folder that includes the contents of <DataExtractionModuleRoot>/Lib.
-    # If using default, unzip the DataExtraction zip to the parent folder of Samples, and merge with existing "Lib" folder.
-    extraction_module_path = "../../../PDFNetC/Lib/"
-
     input_file1 = input_path + "autotag_input.pdf"
     input_file2 = input_path + "table.pdf"
     output_file1 = output_path + "autotag_pdfua.pdf"
