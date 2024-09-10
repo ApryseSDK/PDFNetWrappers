@@ -35,10 +35,10 @@ var outputPath = "../TestFiles/Output/"
 
 func TestPDFUA(t *testing.T) {
 
-	input_file1 := input_path + "autotag_input.pdf"
-	input_file2 := input_path + "table.pdf"
-	output_file1 := output_path + "autotag_pdfua.pdf"
-	output_file2 := output_path + "table_pdfua_linearized.pdf"
+	inputFile1 := inputPath + "autotag_input.pdf"
+	inputFile2 := inputPath + "table.pdf"
+	outputFile1 := outputPath + "autotag_pdfua.pdf"
+	outputFile2 := outputPath + "table_pdfua_linearized.pdf"
 
 	PDFNetInitialize(licenseKey)
 
@@ -56,24 +56,24 @@ func TestPDFUA(t *testing.T) {
 		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
 		fmt.Println("")
 		PDFNetTerminate()
-		return nil
+		return
 	}
 
-	pdf_ua := NewPDFUAConformance()
+	pdfua := NewPDFUAConformance()
 
 	fmt.Println("Simple Conversion...")
 
 	// Perform conversion using default options
-	pdf_ua.AutoConvert(input_file1, output_file1)
+	pdfua.AutoConvert(inputFile1, outputFile1)
 
 	fmt.Println("Converting With Options...")
 
-	pdf_ua_opts := NewPDFUAOptions()
-	pdf_ua_opts.SetSaveLinearized(true) // Linearize when saving output
-	// Note: if file is password protected, you can use pdf_ua_opts.SetPassword()
+	pdfuaOpts := NewPDFUAOptions()
+	pdfuaOpts.SetSaveLinearized(true) // Linearize when saving output
+	// Note: if file is password protected, you can use pdfuaOpts.SetPassword()
 
 	// Perform conversion using the options we specify
-	pdf_ua.AutoConvert(input_file2, output_file2, pdf_ua_opts)
+	pdfua.AutoConvert(inputFile2, outputFile2, pdfuaOpts)
 
 	PDFNetTerminate()
 	fmt.Println("")
