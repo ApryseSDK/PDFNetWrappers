@@ -38,7 +38,7 @@ def main()
 
 	PDFNet.AddResourceSearchPath($extraction_module_path)
 
-	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::e_DocStructure) then
+	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::E_DocStructure) then
 		puts ""
 		puts "Unable to run Data Extraction: PDFTron SDK Structured Output module not available."
 		puts "-----------------------------------------------------------------------------"
