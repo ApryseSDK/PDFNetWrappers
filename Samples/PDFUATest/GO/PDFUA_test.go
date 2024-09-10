@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"testing"
 	"flag"
-	"strconv"
 	. "github.com/pdftron/pdftron-go/v2"
 )
 
