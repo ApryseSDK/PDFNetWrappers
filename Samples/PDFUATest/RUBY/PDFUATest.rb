@@ -40,7 +40,7 @@ def main()
 
 	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::e_DocStructure) then
 		puts ""
-		puts "Unable to run Data Extraction: PDFTron SDK Tabular Data module not available."
+		puts "Unable to run Data Extraction: PDFTron SDK Structured Output module not available."
 		puts "-----------------------------------------------------------------------------"
 		puts "The Data Extraction suite is an optional add-on, available for download"
 		puts "at https://docs.apryse.com/documentation/core/info/modules/. If you have already"

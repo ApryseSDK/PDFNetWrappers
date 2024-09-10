@@ -42,7 +42,7 @@ def main():
 
     if not DataExtractionModule.IsModuleAvailable(DataExtractionModule.e_DocStructure):
         print("")
-        print("Unable to run Data Extraction: PDFTron SDK Tabular Data module not available.")
+        print("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.")
         print("-----------------------------------------------------------------------------")
         print("The Data Extraction suite is an optional add-on, available for download")
         print("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
@@ -63,7 +63,7 @@ def main():
         print("Converting With Options...")
 
         pdf_ua_opts = PDFUAOptions()
-        pdf_ua_opts.SetSaveLinearized(True) # Linearize when saving output
+        pdf_ua_opts.SetSaveLinearized(True)  # Linearize when saving output
         # Note: if file is password protected, you can use pdf_ua_opts.SetPassword()
 
         # Perform conversion using the options we specify

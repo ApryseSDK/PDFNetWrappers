@@ -40,7 +40,7 @@ function main()
 
 	if (!DataExtractionModule::IsModuleAvailable(DataExtractionModule::e_DocStructure)) {
 		echo(nl2br("\n"));
-		echo(nl2br("Unable to run Data Extraction: PDFTron SDK Tabular Data module not available.\n"));
+		echo(nl2br("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.\n"));
 		echo(nl2br("-----------------------------------------------------------------------------\n"));
 		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
 		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
