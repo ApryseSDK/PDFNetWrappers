@@ -10,7 +10,7 @@
 %{
 #define SWIG
     // header files from PDFNet SDK
-	#include "C/Common/TRN_Exception.h"
+    #include "C/Common/TRN_Exception.h"
     // header files in /PDFNetC/Headers/Common
     #include "Common/BasicTypes.h"
     #include "Common/Common.h"
@@ -81,8 +81,8 @@
     #include "PDF/PDFA/PDFAOptions.h"
     
     // header files in /PDFNetC/Headers/PDF/PDFUA
-	#include "PDF/PDFUA/PDFUAConformance.h"
-	#include "PDF/PDFUA/PDFUAOptions.h"
+    #include "PDF/PDFUA/PDFUAConformance.h"
+    #include "PDF/PDFUA/PDFUAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
@@ -133,8 +133,8 @@
     #include "PDF/TextRange.h"
     #include "PDF/HTML2PDF.h"
     #include "PDF/Image.h"
-	#include "PDF/OCROptions.h"
-	#include "PDF/OCRModule.h"
+    #include "PDF/OCROptions.h"
+    #include "PDF/OCRModule.h"
     #include "PDF/Optimizer.h"
     #include "PDF/Page.h"
     #include "PDF/PageLabel.h"
@@ -170,7 +170,7 @@
     #include "PDF/Point.h"
     #include "PDF/Print.h"
     #include "PDF/QuadPoint.h"
-	#include "PDF/RectCollection.h"
+    #include "PDF/RectCollection.h"
     #include "PDF/Redactor.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
@@ -181,7 +181,7 @@
     #include "PDF/PrintToPdfModule.h"
 
     // header files in /PDFNetC/Headers/SDF
-	#include "SDF/DictIterator.h"
+    #include "SDF/DictIterator.h"
     #include "SDF/NameTree.h"
     #include "SDF/NumberTree.h"
     #include "SDF/Obj.h"
@@ -261,15 +261,15 @@ namespace std {
  * of one of the classes.
  */
 namespace pdftron {
-	namespace Crypto
-	{
+    namespace Crypto
+    {
         class DigestAlgorithm;
-	}
+    }
     namespace PDF {
         class Font;
         class ColorPt;
         class Field;
-		class PatternColor;
+        class PatternColor;
         class ViewerOptimizedOptions;
         class EmbeddedTimestampVerificationResult;
         class TrustVerificationResult;

@@ -109,8 +109,8 @@
     #include "PDF/PDFA/PDFAOptions.h"
     
     // header files in /PDFNetC/Headers/PDF/PDFUA
-	#include "PDF/PDFUA/PDFUAConformance.h"
-	#include "PDF/PDFUA/PDFUAOptions.h"
+    #include "PDF/PDFUA/PDFUAConformance.h"
+    #include "PDF/PDFUA/PDFUAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
@@ -273,15 +273,15 @@ namespace std {
  * of one of the classes.
  */
 namespace pdftron {
-	namespace Crypto
-	{
+    namespace Crypto
+    {
         class DigestAlgorithm;
-	}
+    }
     namespace PDF {
         class Font;
         class ColorPt;
         class Field;
-		class PatternColor;
+        class PatternColor;
         class ViewerOptimizedOptions;
         class EmbeddedTimestampVerificationResult;
         class TrustVerificationResult;
@@ -406,7 +406,7 @@ namespace pdftron {
  */
 %typemap(freearg) const pdftron::Unicode* text_data  
 %{
-	if($1){ delete[]($1); $1 = 0; }
+    if($1){ delete[]($1); $1 = 0; }
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -452,7 +452,7 @@ namespace pdftron {
 
 %typemap(freearg) std::vector<double>&
 %{
-	if($1){	delete($1);$1 = 0;}
+    if($1){	delete($1);$1 = 0;}
 %}
 
 //----------------------------------------------------------------------------------------------
