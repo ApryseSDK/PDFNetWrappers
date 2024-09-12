@@ -120,8 +120,8 @@ function main()
 	// then the more flexible line-by-line conversion API
 	FlexibleDocxConvert("the_rime_of_the_ancient_mariner.docx", "the_rime_of_the_ancient_mariner.pdf");
 
-    // conversion of RTL content
-    FlexibleDocxConvert("factsheet_Arabic.docx", "factsheet_Arabic.pdf");	
+	// conversion of RTL content
+	FlexibleDocxConvert("factsheet_Arabic.docx", "factsheet_Arabic.pdf");
 	PDFNet::Terminate();
 	echo(nl2br("Done.\n"));
 }
