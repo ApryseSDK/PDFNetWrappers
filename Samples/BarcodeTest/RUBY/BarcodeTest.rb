@@ -44,19 +44,21 @@ def main()
 			# Example 1) Detect and extract all barcodes from a PDF document into a JSON file
 			# --------------------------------------------------------------------------------
 
+			puts "Example 1: extracting barcodes from barcodes.pdf to barcodes.json"
+
 			# A) Open the .pdf document
 			doc = PDFDoc.new($input_path + "barcodes.pdf")
 	
 			# B) Detect PDF barcodes with the default options
 			BarcodeModule.ExtractBarcodes(doc, $output_path + "barcodes.json")
 
-			puts "Example 1: extracting barcodes from barcodes.pdf to barcodes.json"
-
 			doc.Close
 
 			# Example 2) Limit barcode extraction to a range of pages, and retrieve the JSON into a
 			# local string variable, which is then written to a file in a separate function call
 			# --------------------------------------------------------------------------------
+
+			puts "Example 2: extracting barcodes from pages 1-2 to barcodes_from_pages_1-2.json"
 
 			# A) Open the .pdf document
 			doc = PDFDoc.new($input_path + "barcodes.pdf")
@@ -72,13 +74,13 @@ def main()
 			# C) Save JSON to file
 			File.open($output_path + "barcodes_from_pages_1-2.json", 'w') { |file| file.write(json) }
 
-			puts "Example 2: extracting barcodes from pages 1-2 to barcodes_from_pages_1-2.json"
-
 			doc.Close
 
 			# Example 3) Narrow down barcode types and allow the detection of both horizontal
 			# and vertical barcodes
 			# --------------------------------------------------------------------------------
+
+			puts "Example 3: extracting basic horizontal and vertical barcodes"
 
 			# A) Open the .pdf document
 			doc = PDFDoc.new($input_path + "barcodes.pdf")
@@ -96,8 +98,6 @@ def main()
 				BarcodeOptions::E_barcode_direction_vertical)
 
 			BarcodeModule.ExtractBarcodes(doc, $output_path + "barcodes_1D.json", options)
-
-			puts "Example 3: extracting basic horizontal and vertical barcodes"
 
 			doc.Close
 

@@ -57,17 +57,21 @@ def main():
         # Example 1) Detect and extract all barcodes from a PDF document into a JSON file
         # --------------------------------------------------------------------------------
 
+        print("Example 1: extracting barcodes from barcodes.pdf to barcodes.json")
+
         # A) Open the .pdf document
         doc = PDFDoc(input_path + "barcodes.pdf")
 
         # B) Detect PDF barcodes with the default options
         BarcodeModule.ExtractBarcodes(doc, output_path + "barcodes.json")
 
-        print("Example 1: extracting barcodes from barcodes.pdf to barcodes.json")
+        doc.Close()
 
         # Example 2) Limit barcode extraction to a range of pages, and retrieve the JSON into a
         # local string variable, which is then written to a file in a separate function call
         # --------------------------------------------------------------------------------
+
+        print("Example 2: extracting barcodes from pages 1-2 to barcodes_from_pages_1-2.json")
 
         # A) Open the .pdf document
         doc = PDFDoc(input_path + "barcodes.pdf")
@@ -83,11 +87,13 @@ def main():
         # C) Save JSON to file
         WriteTextToFile(output_path + "barcodes_from_pages_1-2.json", json)
 
-        print("Example 2: extracting barcodes from pages 1-2 to barcodes_from_pages_1-2.json")
+        doc.Close()
 
         # Example 3) Narrow down barcode types and allow the detection of both horizontal
         # and vertical barcodes
         # --------------------------------------------------------------------------------
+
+        print("Example 3: extracting basic horizontal and vertical barcodes")
 
         # A) Open the .pdf document
         doc = PDFDoc(input_path + "barcodes.pdf")
@@ -106,8 +112,10 @@ def main():
 
         BarcodeModule.ExtractBarcodes(doc, output_path + "barcodes_1D.json", options)
 
-        print("Example 3: extracting basic horizontal and vertical barcodes")
+        doc.Close()
 
+    PDFNet.Terminate()
+    print("Done.")
 
 
 if __name__ == '__main__':

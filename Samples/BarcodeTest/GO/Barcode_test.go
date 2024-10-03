@@ -73,18 +73,21 @@ func TestBarcode(t *testing.T) {
         // Example 1) Detect and extract all barcodes from a PDF document into a JSON file
         // --------------------------------------------------------------------------------
 
+        fmt.Println("Example 1: extracting barcodes from barcodes.pdf to barcodes.json")
+
         // A) Open the .pdf document
         doc := NewPDFDoc(inputPath + "barcodes.pdf")
 
         // B) Detect PDF barcodes with the default options
         BarcodeModuleExtractBarcodes(doc, outputPath + "barcodes.json")
 
-        fmt.Println("Example 1: extracting barcodes from barcodes.pdf to barcodes.json")
+        doc.Close()
 
         // Example 2) Limit barcode extraction to a range of pages, and retrieve the JSON into a
         // local string variable, which is then written to a file in a separate function call
         // --------------------------------------------------------------------------------
 
+        fmt.Println("Example 2: extracting barcodes from pages 1-2 to barcodes_from_pages_1-2.json")
 
         // A) Open the .pdf document
         doc = NewPDFDoc(inputPath + "barcodes.pdf")
@@ -100,11 +103,13 @@ func TestBarcode(t *testing.T) {
         // C) Save JSON to file
         WriteTextToFile(outputPath + "barcodes_from_pages_1-2.json", json)
 
-        fmt.Println("Example 2: extracting barcodes from pages 1-2 to barcodes_from_pages_1-2.json")
+        doc.Close()
 
         // Example 3) Narrow down barcode types and allow the detection of both horizontal
         // and vertical barcodes
         // --------------------------------------------------------------------------------
+
+        fmt.Println("Example 3: extracting basic horizontal and vertical barcodes")
 
         // A) Open the .pdf document
         doc = NewPDFDoc(inputPath + "barcodes.pdf")
@@ -123,7 +128,7 @@ func TestBarcode(t *testing.T) {
 
         BarcodeModuleExtractBarcodes(doc, outputPath + "barcodes_1D.json", options)
 
-        fmt.Println("Example 3: extracting basic horizontal and vertical barcodes")
+        doc.Close()
 	}
 
 	PDFNetTerminate()
