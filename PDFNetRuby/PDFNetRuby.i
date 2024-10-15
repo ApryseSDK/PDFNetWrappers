@@ -104,9 +104,13 @@
     #include "PDF/OCG/Group.h"
     #include "PDF/OCG/OCMD.h"
 
-    // header files in /PDFNetC/Headers/PDF/PDfA
+    // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
     #include "PDF/PDFA/PDFAOptions.h"
+    
+    // header files in /PDFNetC/Headers/PDF/PDFUA
+    #include "PDF/PDFUA/PDFUAConformance.h"
+    #include "PDF/PDFUA/PDFUAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
@@ -162,6 +166,8 @@
     #include "PDF/Image.h"
     #include "PDF/OCROptions.h"
     #include "PDF/OCRModule.h"
+    #include "PDF/BarcodeOptions.h"
+    #include "PDF/BarcodeModule.h"
     #include "PDF/Optimizer.h"
     #include "PDF/Page.h"
     #include "PDF/PageLabel.h"
@@ -269,15 +275,15 @@ namespace std {
  * of one of the classes.
  */
 namespace pdftron {
-	namespace Crypto
-	{
+    namespace Crypto
+    {
         class DigestAlgorithm;
-	}
+    }
     namespace PDF {
         class Font;
         class ColorPt;
         class Field;
-		class PatternColor;
+        class PatternColor;
         class ViewerOptimizedOptions;
         class EmbeddedTimestampVerificationResult;
         class TrustVerificationResult;
@@ -402,7 +408,7 @@ namespace pdftron {
  */
 %typemap(freearg) const pdftron::Unicode* text_data  
 %{
-	if($1){ delete[]($1); $1 = 0; }
+    if($1){ delete[]($1); $1 = 0; }
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -448,7 +454,7 @@ namespace pdftron {
 
 %typemap(freearg) std::vector<double>&
 %{
-	if($1){	delete($1);$1 = 0;}
+    if($1){	delete($1);$1 = 0;}
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -802,6 +808,8 @@ namespace pdftron {
 %include "PDF/OCG/OCMD.h"
 %include "PDF/PDFA/PDFAOptions.h"
 %include "PDF/PDFA/PDFACompliance.h"
+%include "PDF/PDFUA/PDFUAConformance.h"
+%include "PDF/PDFUA/PDFUAOptions.h"
 %include "PDF/Struct/AttrObj.h"
 %include "PDF/Struct/ClassMap.h"
 %include "PDF/Struct/ContentItem.h"
@@ -832,6 +840,8 @@ namespace pdftron {
 %include "PDF/Image.h"
 %include "PDF/OCROptions.h"
 %include "PDF/OCRModule.h"
+%include "PDF/BarcodeOptions.h"
+%include "PDF/BarcodeModule.h"
 %include "PDF/CADModule.h"
 %include "PDF/AdvancedImagingModule.h"
 %include "PDF/PDF2HtmlReflowParagraphsModule.h"
