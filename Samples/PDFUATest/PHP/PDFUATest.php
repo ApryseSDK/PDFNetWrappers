@@ -52,7 +52,7 @@ function main()
 	}
 
 	try {
-		$pdf_ua = PDFUAConformance();
+		$pdf_ua = new PDFUAConformance();
 
 		echo(nl2br("Simple Conversion...\n"));
 
@@ -73,7 +73,6 @@ function main()
 	}
 
 	PDFNet::Terminate();
-	echo(nl2br("\n"));
 	echo(nl2br("PDFUAConformance test completed.\n"));
 }
 
