@@ -75,6 +75,5 @@ func TestPDFUA(t *testing.T) {
 	pdfua.AutoConvert(inputFile2, outputFile2, pdfuaOpts)
 
 	PDFNetTerminate()
-	fmt.Println("")
 	fmt.Println("PDFUAConformance test completed.")
 }

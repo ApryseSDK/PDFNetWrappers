@@ -73,7 +73,6 @@ def main()
 	end
 
 	PDFNet.Terminate
-	puts ""
 	puts "PDFUAConformance test completed."
 end
 

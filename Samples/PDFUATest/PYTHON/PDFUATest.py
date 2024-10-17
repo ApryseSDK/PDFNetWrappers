@@ -73,7 +73,6 @@ def main():
         print(str(e))
 
     PDFNet.Terminate()
-    print("")
     print("PDFUAConformance test completed.")
 
 if __name__ == '__main__':
