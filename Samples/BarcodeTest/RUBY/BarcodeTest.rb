@@ -90,12 +90,12 @@ def main()
 
 			# Limit extraction to basic 1D barcode types, such as EAN 13, EAN 8, UPCA, UPCE,
 			# Code 3 of 9, Code 128, Code 2 of 5, Code 93, Code 11 and GS1 Databar.
-			options.SetBarcodeSearchTypes(BarcodeOptions::E_barcode_group_linear)
+			options.SetBarcodeSearchTypes(BarcodeOptions::E_linear)
 
 			# Search for barcodes oriented horizontally and vertically
 			options.SetBarcodeOrientations(
-				BarcodeOptions::E_barcode_direction_horizontal |
-				BarcodeOptions::E_barcode_direction_vertical)
+				BarcodeOptions::E_horizontal |
+				BarcodeOptions::E_vertical)
 
 			BarcodeModule.ExtractBarcodes(doc, $output_path + "barcodes_1D.json", options)
 
