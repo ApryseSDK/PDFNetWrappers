@@ -119,12 +119,12 @@ func TestBarcode(t *testing.T) {
 
         // Limit extraction to basic 1D barcode types, such as EAN 13, EAN 8, UPCA, UPCE,
         // Code 3 of 9, Code 128, Code 2 of 5, Code 93, Code 11 and GS1 Databar.
-        options.SetBarcodeSearchTypes(uint(BarcodeOptionsE_barcode_group_linear))
+        options.SetBarcodeSearchTypes(uint(BarcodeOptionsE_linear))
 
         // Search for barcodes oriented horizontally and vertically
         options.SetBarcodeOrientations(
-				uint(BarcodeOptionsE_barcode_direction_horizontal) |
-				uint(BarcodeOptionsE_barcode_direction_vertical))
+				uint(BarcodeOptionsE_horizontal) |
+				uint(BarcodeOptionsE_vertical))
 
         BarcodeModuleExtractBarcodes(doc, outputPath + "barcodes_1D.json", options)
 
