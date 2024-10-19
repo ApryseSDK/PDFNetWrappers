@@ -35,7 +35,7 @@ function main()
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// The location of the Barcode Module
-	PDFNet::AddResourceSearchPath("../../../Lib/");
+	PDFNet::AddResourceSearchPath("../../../PDFNetC/Lib/");
 
 	if (!BarcodeModule::IsModuleAvailable()) {
 		echo(nl2br("\n"));
@@ -100,12 +100,12 @@ function main()
 
 			// Limit extraction to basic 1D barcode types, such as EAN 13, EAN 8, UPCA, UPCE,
 			// Code 3 of 9, Code 128, Code 2 of 5, Code 93, Code 11 and GS1 Databar.
-			$options->SetBarcodeSearchTypes(BarcodeOptions::e_barcode_group_linear);
+			$options->SetBarcodeSearchTypes(BarcodeOptions::e_linear);
 
 			// Search for barcodes oriented horizontally and vertically
 			$options->SetBarcodeOrientations(
-				BarcodeOptions::e_barcode_direction_horizontal |
-				BarcodeOptions::e_barcode_direction_vertical);
+				BarcodeOptions::e_horizontal |
+				BarcodeOptions::e_vertical);
 
 			BarcodeModule::ExtractBarcodes($doc, $output_path."barcodes_1D.json", $options);
 
