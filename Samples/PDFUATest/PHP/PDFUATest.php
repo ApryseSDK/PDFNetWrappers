@@ -33,6 +33,7 @@ function main()
 
 	global $LicenseKey;
 	PDFNet::Initialize($LicenseKey);
+	PDFNet::GetSystemFontList();
 
 	echo(nl2br("AutoConverting...\n"));
 
