@@ -123,6 +123,10 @@
     // header files in /PDFNetC/Headers/PDF/PDFA
     #include "PDF/PDFA/PDFACompliance.h"
     #include "PDF/PDFA/PDFAOptions.h"
+    
+    // header files in /PDFNetC/Headers/PDF/PDFUA
+    #include "PDF/PDFUA/PDFUAConformance.h"
+    #include "PDF/PDFUA/PDFUAOptions.h"
 
     // header files in /PDFNetC/Headers/PDF/Struct
     #include "PDF/Struct/AttrObj.h"
@@ -176,8 +180,10 @@
     #include "PDF/TextRange.h"
     #include "PDF/HTML2PDF.h"
     #include "PDF/Image.h"
-	#include "PDF/OCROptions.h"
-	#include "PDF/OCRModule.h"
+    #include "PDF/OCROptions.h"
+    #include "PDF/OCRModule.h"
+    #include "PDF/BarcodeOptions.h"
+    #include "PDF/BarcodeModule.h"
     #include "PDF/Optimizer.h"
     #include "PDF/Page.h"
     #include "PDF/PageLabel.h"
@@ -215,7 +221,7 @@
     #include "PDF/Print.h"
     #include "PDF/QuadPoint.h"
     #include "PDF/Rect.h"
-	#include "PDF/RectCollection.h"
+    #include "PDF/RectCollection.h"
     #include "PDF/Redactor.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
@@ -287,15 +293,15 @@ namespace std {
  * of one of the classes.
  */
 namespace pdftron {
-	namespace Crypto
-	{
+    namespace Crypto
+    {
         class DigestAlgorithm;
-	}
+    }
     namespace PDF {
         class Font;
         class ColorPt;
         class Field;
-		class PatternColor;
+        class PatternColor;
         class ViewerOptimizedOptions;
         class EmbeddedTimestampVerificationResult;
         class TrustVerificationResult;
@@ -331,7 +337,7 @@ namespace pdftron {
     char ** result;
     int i = 0;
 #if PHP_MAJOR_VERSION >= 7
-	zval *data;
+    zval *data;
     	convert_to_array_ex(&$input);
         arr_hash = Z_ARRVAL_P(&$input);
         array_count = zend_hash_num_elements(arr_hash);
@@ -344,8 +350,8 @@ namespace pdftron {
             result[i] = Z_STRVAL_P(data);
            }
 #else
-	zval **data;
-	convert_to_array_ex($input);
+    zval **data;
+    convert_to_array_ex($input);
         arr_hash = Z_ARRVAL_PP($input);
         array_count = zend_hash_num_elements(arr_hash);
 
@@ -429,7 +435,7 @@ namespace pdftron {
     int array_count;
     int i = 0;
 #if PHP_MAJOR_VERSION >= 7
-	zval *data;
+    zval *data;
     convert_to_array_ex(&$input);
     arr_hash = Z_ARRVAL_P(&$input);
     array_count = zend_hash_num_elements(arr_hash);
@@ -446,7 +452,7 @@ namespace pdftron {
             $temp[i] = (pdftron::Unicode)Z_LVAL_P(data);
         }
 #else
-	zval **data;
+    zval **data;
     convert_to_array_ex($input);
     arr_hash = Z_ARRVAL_PP($input);
     array_count = zend_hash_num_elements(arr_hash);
@@ -484,7 +490,7 @@ namespace pdftron {
  */
 %typemap(freearg) const pdftron::Unicode* text_data  
 %{
-	if($1){ delete[]($1); $1 = 0; }
+    if($1){ delete[]($1); $1 = 0; }
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -507,15 +513,15 @@ namespace pdftron {
     array_count = zend_hash_num_elements(arr_hash);
     $vec.resize(array_count);
 
-		for(zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
+        for(zend_hash_internal_pointer_reset_ex(arr_hash, &pointer); 
     (data = zend_hash_get_current_data_ex(arr_hash, &pointer)) != NULL && i < array_count; 
     zend_hash_move_forward_ex(arr_hash, &pointer)) {
 
     if (Z_TYPE_P(data) == IS_DOUBLE) {
-		$vec[i] = Z_DVAL_P(data);
-	}
+        $vec[i] = Z_DVAL_P(data);
+    }
 #else
-	zval **data;
+    zval **data;
     convert_to_array_ex($input);
         arr_hash = Z_ARRVAL_PP($input);
         array_count = zend_hash_num_elements(arr_hash);
@@ -562,7 +568,7 @@ namespace pdftron {
             (*vec$argnum)[i$argnum] = Z_DVAL_P(data);
            }
 #else
-	zval **data;
+    zval **data;
     convert_to_array_ex($input);
         arr_hash = Z_ARRVAL_PP($input);
         array_count = zend_hash_num_elements(arr_hash);
@@ -602,7 +608,7 @@ namespace pdftron {
 
 %typemap(freearg) std::vector<double>&
 %{
-	if($1){	delete($1);$1 = 0;}
+    if($1){	delete($1);$1 = 0;}
 %}
 
 //----------------------------------------------------------------------------------------------
@@ -1018,6 +1024,8 @@ namespace pdftron {
 %include "PDF/OCG/OCMD.h"
 %include "PDF/PDFA/PDFAOptions.h"
 %include "PDF/PDFA/PDFACompliance.h"
+%include "PDF/PDFUA/PDFUAConformance.h"
+%include "PDF/PDFUA/PDFUAOptions.h"
 %include "PDF/Struct/AttrObj.h"
 %include "PDF/Struct/ClassMap.h"
 %include "PDF/Struct/ContentItem.h"
@@ -1093,6 +1101,8 @@ namespace pdftron {
 %include "PDF/TextRange.h"
 %include "PDF/OCROptions.h"
 %include "PDF/OCRModule.h"
+%include "PDF/BarcodeOptions.h"
+%include "PDF/BarcodeModule.h"
 %include "PDF/CADModule.h"
 %include "PDF/AdvancedImagingModule.h"
 %include "PDF/PDF2HtmlReflowParagraphsModule.h"

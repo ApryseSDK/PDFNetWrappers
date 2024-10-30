@@ -18,7 +18,7 @@ from LicenseKey import *
 # 'pdftron.PDF.HTML2PDF' is an optional PDFNet Add-On utility class that can be 
 # used to convert HTML web pages into PDF documents by using an external module (html2pdf).
 #
-# html2pdf modules can be downloaded from http:#www.pdftron.com/pdfnet/downloads.html.
+# html2pdf modules can be downloaded from https://dev.apryse.com.
 #
 # Users can convert HTML pages to PDF using the following operations:
 # - Simple one line static method to convert a single web page to PDF. 
