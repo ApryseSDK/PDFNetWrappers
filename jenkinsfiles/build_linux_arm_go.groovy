@@ -1,5 +1,5 @@
 String cron_default = "0 0 * * *"
-String cron_string = (env.BRANCH_NAME != 'pre_release') ? cron_default : (getWrappersBranch('pre_release') == 'master') ? cron_default : ""
+String cron_string = (env.BRANCH_NAME == "pre_release" || env.BRANCH_NAME == "master" || env.BRANCH_NAME == "next_release") && getWrappersBranch(env.BRANCH_NAME) != "disabled" ? cron_default : ""
 
 pipeline {
     agent {
