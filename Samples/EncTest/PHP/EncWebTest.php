@@ -1,6 +1,6 @@
 <?php
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2023 by Apryse Software Inc. All Rights Reserved.
+// Copyright (c) 2001-2024 by Apryse Software Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 include("../../../PDFNetC/Lib/PDFNetPHP.php");
