@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2023 by Apryse Software Inc. All Rights Reserved.
+# Copyright (c) 2001-2025 by Apryse Software Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ def main():
             outputFileName1 = inputFileName1 + ".pdf"
             doc1 = PDFDoc()
             Convert.FromDICOM(doc1, input_path + inputFileName1, None)
-            doc1.Save(output_path + outputFileName1, 0)
+            doc1.Save(output_path + outputFileName1, SDFDoc.e_linearized)
         except Exception as e:
             print("Unable to convert DICOM test file, error: " + str(e))
 
@@ -54,7 +54,7 @@ def main():
             outputFileName2 = inputFileName2 + ".pdf"
             doc2 = PDFDoc()
             Convert.ToPdf(doc2, input_path + inputFileName2)
-            doc2.Save(output_path + outputFileName2, 0)
+            doc2.Save(output_path + outputFileName2, SDFDoc.e_linearized)
         except Exception as e:
             print("Unable to convert the HEIC test file, error: " + str(e))
 
@@ -63,7 +63,7 @@ def main():
             outputFileName3 = inputFileName3 + ".pdf"
             doc3 = PDFDoc()
             Convert.ToPdf(doc3, input_path + inputFileName3)
-            doc3.Save(output_path + outputFileName3, 0)
+            doc3.Save(output_path + outputFileName3, SDFDoc.e_linearized)
         except Exception as e:
             print("Unable to convert the PSD test file, error: " + str(e))
 

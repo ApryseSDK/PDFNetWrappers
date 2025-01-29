@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2023 by Apryse Software Inc. All Rights Reserved.
+# Copyright (c) 2001-2025 by Apryse Software Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ def main()
       outputFileName1 = inputFileName1 + ".pdf"
       doc1 = PDFDoc.new()
       Convert.FromDICOM(doc1, inputPath + inputFileName1, nil)
-      doc1.Save(outputPath + outputFileName1, 0)
+      doc1.Save(outputPath + outputFileName1, SDFDoc::E_linearized)
     rescue => error
       puts "Unable to convert DICOM test file, error: " + error.message
     end
@@ -52,7 +52,7 @@ def main()
       outputFileName2 = inputFileName2 + ".pdf"
       doc2 = PDFDoc.new()
       Convert.ToPdf(doc2, inputPath + inputFileName2)
-      doc2.Save(outputPath + outputFileName2, 0)
+      doc2.Save(outputPath + outputFileName2, SDFDoc::E_linearized)
     rescue => error
       puts "Unable to convert DICOM test file, error: " + error.message
     end
@@ -62,7 +62,7 @@ def main()
       outputFileName3 = inputFileName3 + ".pdf"
       doc3 = PDFDoc.new()
       Convert.ToPdf(doc3, inputPath + inputFileName3)
-      doc3.Save(outputPath + outputFileName3, 0)
+      doc3.Save(outputPath + outputFileName3, SDFDoc::E_linearized)
     rescue => error
       puts "Unable to convert the PSD test file, error: " + error.message
     end
