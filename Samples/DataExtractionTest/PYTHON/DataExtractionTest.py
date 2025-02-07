@@ -207,7 +207,50 @@ def main():
         except Exception as e:
             print("Unable to extract form fields data, error: " + str(e))
 
-    #-----------------------------------------------------------------------------------
+    #---------------------------------------------------------------------------------------
+    # The following sample illustrates how to extract key-value pairs from PDF documents.
+    #---------------------------------------------------------------------------------------
+    if not DataExtractionModule.IsModuleAvailable(DataExtractionModule.e_GenericKeyValue):
+        print()
+        print("Unable to run Data Extraction: Apryse SDK AIPageObjectExtractor module not available.")
+        print("---------------------------------------------------------------")
+        print("The Data Extraction suite is an optional add-on, available for download")
+        print("at http://www.pdftron.com/. If you have already downloaded this")
+        print("module, ensure that the SDK is able to find the required files")
+        print("using the PDFNet.AddResourceSearchPath() function.")
+        print()
+    else:
+        try:
+            print("Extract key-value pairs from a PDF")
+            # Simple example: Extract Keys & Values as a JSON file
+            DataExtractionModule.ExtractData(inputPath + "newsletter.pdf", outputPath + "newsletter_key_val.json", DataExtractionModule.e_GenericKeyValue)
+            print("Result saved in " + outputPath + "newsletter_key_val.json")
+
+            # Example with customized options:
+            # Extract Keys & Values from pages 2-4, excluding ads
+            options = DataExtractionOptions()
+            options.SetPages("2-4")
+
+            p2_exclusion_zones = RectCollection()
+            # Exclude the ad on page 2
+            # These coordinates are in PDF user space, with the origin at the bottom left corner of the page
+            # Coordinates rotate with the page, if it has rotation applied.
+            p2_exclusion_zones.AddRect(Rect(166, 47, 562, 222))
+            options.AddExclusionZonesForPage(p2_exclusion_zones, 2)
+
+            p4_inclusion_zones = RectCollection()
+            p4_exclusion_zones = RectCollection()
+            # Only include the article text for page 4, exclude ads and headings
+            p4_inclusion_zones.AddRect(Rect(30, 432, 562, 684))
+            p4_exclusion_zones.AddRect(Rect(30, 657, 295, 684))
+            options.AddInclusionZonesForPage(p4_inclusion_zones, 4)
+            options.AddExclusionZonesForPage(p4_exclusion_zones, 4)
+            print("Extract Key-Value pairs from specific pages and zones as a JSON file")
+            DataExtractionModule.ExtractData(inputPath + "newsletter.pdf", outputPath + "newsletter_key_val_with_zones.json", DataExtractionModule.e_GenericKeyValue, options)
+            print("Result saved in " + outputPath + "newsletter_key_val_with_zones.json")
+        except Exception as e:
+                print("Unable to extract key-value data, error: " + str(e))
+
 
     PDFNet.Terminate()
     print("Done.")

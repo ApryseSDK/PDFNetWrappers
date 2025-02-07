@@ -211,6 +211,62 @@ function main()
 		}
 	}
 
+	//////////////////////////////////////////////////////////////////////////
+	// The following sample illustrates how to extract document structure from PDF documents.
+	//////////////////////////////////////////////////////////////////////////
+
+	// Test if the add-on is installed
+	if (!DataExtractionModule::IsModuleAvailable(DataExtractionModule::e_GenericKeyValue)) {
+		echo(nl2br("\n"));
+		echo(nl2br("Unable to run Data Extraction: PDFTron SDK AIPageObjectExtractor module not available.\n"));
+		echo(nl2br("-----------------------------------------------------------------------------\n"));
+		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
+		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
+		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
+		echo(nl2br("\n"));
+	}
+	else {
+		try {
+			
+			echo(nl2br("Extract key-value pairs from a PDF\n"));
+			// Simple example: Extract Keys & Values as a JSON file
+			$outputFile = $outputPath."newsletter_key_val.json";
+			DataExtractionModule::ExtractData($inputPath."newsletter.pdf", $outputFile, DataExtractionModule::e_GenericKeyValue);
+
+			echo(nl2br("Result saved in " . $outputFile . "\n"));
+
+			// Example with customized options:
+			// Extract Keys & Values from pages 2-4, excluding ads
+			$options = new DataExtractionOptions();
+			$options->setPages("2-4");
+
+			$p2ExclusionZones = new RectCollection();
+			// Exclude the ad on page 2
+			// These coordinates are in PDF user space, with the origin at the bottom left corner of the page
+			// Coordinates rotate with the page, if it has rotation applied.
+			$p2ExclusionZones->AddRect(new Rect(166.0, 47.0, 562.0, 222.0));
+			$options->AddExclusionZonesForPage($p2ExclusionZones, 2);
+
+			$p4InclusionZones = new RectCollection();
+			$p4ExclusionZones = new RectCollection();
+			// Only include the article text for page 4, exclude ads and headings
+			$p4InclusionZones->AddRect(new Rect(30.0, 432.0, 562.0, 684.0));
+			$p4ExclusionZones->AddRect(new Rect(30.0, 657.0, 295.0, 684.0));
+			$options->AddInclusionZonesForPage($p4InclusionZones, 4);
+			$options->AddExclusionZonesForPage($p4ExclusionZones, 4);
+
+			echo(nl2br("Extract Key-Value pairs from specific pages and zones as a JSON file\n"));
+			$outputFile = $outputPath."newsletter_key_val_with_zones.json";
+			DataExtractionModule::ExtractData($inputPath."newsletter.pdf", $outputFile, DataExtractionModule::e_GenericKeyValue, $options);
+
+			echo(nl2br("Result saved in " . $outputFile . "\n"));
+		}
+		catch(Exception $e) {
+			echo(nl2br("Unable to extract document structure data, error: " . $e->getMessage() . "\n"));
+		}
+	}
+
 	//-----------------------------------------------------------------------------------
 
 	PDFNet::Terminate();
