@@ -220,33 +220,36 @@ def main():
         print("using the PDFNet.AddResourceSearchPath() function.")
         print()
     else:
-        print("Extract key-value pairs from a PDF")
-        # Simple example: Extract Keys & Values as a JSON file
-        DataExtractionModule.ExtractData(inputPath + "newsletter.pdf", outputPath + "newsletter_key_val.json", DataExtractionModule.e_GenericKeyValue)
-        print("Result saved in " + outputPath + "newsletter_key_val.json")
+        try:
+            print("Extract key-value pairs from a PDF")
+            # Simple example: Extract Keys & Values as a JSON file
+            DataExtractionModule.ExtractData(inputPath + "newsletter.pdf", outputPath + "newsletter_key_val.json", DataExtractionModule.e_GenericKeyValue)
+            print("Result saved in " + outputPath + "newsletter_key_val.json")
 
-        # Example with customized options:
-        # Extract Keys & Values from pages 2-4, excluding ads
-        options = DataExtractionOptions()
-        options.SetPages("2-4")
+            # Example with customized options:
+            # Extract Keys & Values from pages 2-4, excluding ads
+            options = DataExtractionOptions()
+            options.SetPages("2-4")
 
-        p2_exclusion_zones = RectCollection()
-        # Exclude the ad on page 2
-        # These coordinates are in PDF user space, with the origin at the bottom left corner of the page
-        # Coordinates rotate with the page, if it has rotation applied.
-        p2_exclusion_zones.AddRect(Rect(166, 47, 562, 222))
-        options.AddExclusionZonesForPage(p2_exclusion_zones, 2)
+            p2_exclusion_zones = RectCollection()
+            # Exclude the ad on page 2
+            # These coordinates are in PDF user space, with the origin at the bottom left corner of the page
+            # Coordinates rotate with the page, if it has rotation applied.
+            p2_exclusion_zones.AddRect(Rect(166, 47, 562, 222))
+            options.AddExclusionZonesForPage(p2_exclusion_zones, 2)
 
-        p4_inclusion_zones = RectCollection()
-        p4_exclusion_zones = RectCollection()
-        # Only include the article text for page 4, exclude ads and headings
-        p4_inclusion_zones.AddRect(Rect(30, 432, 562, 684))
-        p4_exclusion_zones.AddRect(Rect(30, 657, 295, 684))
-        options.AddInclusionZonesForPage(p4_inclusion_zones, 4)
-        options.AddExclusionZonesForPage(p4_exclusion_zones, 4)
-        print("Extract Key-Value pairs from specific pages and zones as a JSON file")
-        DataExtractionModule.ExtractData(inputPath + "newsletter.pdf", outputPath + "newsletter_key_val_with_zones.json", DataExtractionModule.e_GenericKeyValue, options)
-        print("Result saved in " + outputPath + "newsletter_key_val_with_zones.json")
+            p4_inclusion_zones = RectCollection()
+            p4_exclusion_zones = RectCollection()
+            # Only include the article text for page 4, exclude ads and headings
+            p4_inclusion_zones.AddRect(Rect(30, 432, 562, 684))
+            p4_exclusion_zones.AddRect(Rect(30, 657, 295, 684))
+            options.AddInclusionZonesForPage(p4_inclusion_zones, 4)
+            options.AddExclusionZonesForPage(p4_exclusion_zones, 4)
+            print("Extract Key-Value pairs from specific pages and zones as a JSON file")
+            DataExtractionModule.ExtractData(inputPath + "newsletter.pdf", outputPath + "newsletter_key_val_with_zones.json", DataExtractionModule.e_GenericKeyValue, options)
+            print("Result saved in " + outputPath + "newsletter_key_val_with_zones.json")
+        except Exception as e:
+                print("Unable to extract key-value data, error: " + str(e))
 
 
     PDFNet.Terminate()
