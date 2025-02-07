@@ -257,7 +257,7 @@ function main()
 			$options->AddExclusionZonesForPage($p4ExclusionZones, 4);
 
 			echo(nl2br("Extract Key-Value pairs from specific pages and zones as a JSON file\n"));
-			$outputFile = $outputPath."newsletter_key_val.json";
+			$outputFile = $outputPath."newsletter_key_val_with_zones.json";
 			DataExtractionModule::ExtractData($inputPath."newsletter.pdf", $outputFile, DataExtractionModule::e_GenericKeyValue, $options);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
