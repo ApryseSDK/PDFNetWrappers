@@ -1,7 +1,7 @@
 /* pdftron.i */
  %module(directors="1") pdftron
  //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2024 by Apryse Software Inc. All Rights Reserved.
+// Copyright (c) 2001-2025 by Apryse Software Inc. All Rights Reserved.
 // Consult legal.txt regarding legal and license information.
 //---------------------------------------------------------------------------------------
 
