@@ -235,12 +235,12 @@ https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
 ## Which versions of the interpreters are supported by this project?
 
 Technically, any versions can be supported provided that some minor changes to the SWIG interface file must be made.
-Within PDFTron, we have successfully built language bindings for the following versions of the interpreter:
+Within Apryse, we have successfully built language bindings for the following versions of the interpreter:
     
-    - PHP 5.3.x to 5.5.x, PHP 7.x
-    - Python 2.7.x to 3.3.x
-    - Ruby 2.x
-    - Go 1.15
+    - PHP 5.3.x to 5.5.x, >= 7.x
+    - Python 2.7.x, >= 3.x
+    - Ruby >= 2.x
+    - Go >= 1.15
 
 ## Does this project support UCS4 builds of Python?
 

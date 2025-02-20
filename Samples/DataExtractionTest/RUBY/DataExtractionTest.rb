@@ -1,5 +1,5 @@
 #---------------------------------------------------------------------------------------
-# Copyright (c) 2001-2024 by Apryse Software Inc. All Rights Reserved.
+# Copyright (c) 2001-2025 by Apryse Software Inc. All Rights Reserved.
 # Consult LICENSE.txt regarding license information.
 #---------------------------------------------------------------------------------------
 
@@ -194,6 +194,50 @@ def main()
 
 			puts "Result saved in " + outputFile
 
+
+		rescue => error
+			puts "Unable to extract form fields data, error: " + error.message
+		end
+	end
+
+	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::E_GenericKeyValue) then
+		puts ""
+		puts "Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available."
+		puts "-----------------------------------------------------------------------------"
+		puts "The Data Extraction suite is an optional add-on, available for download"
+		puts "at https://docs.apryse.com/documentation/core/info/modules/. If you have already"
+		puts "downloaded this module, ensure that the SDK is able to find the required files"
+		puts "using the PDFNet.AddResourceSearchPath() function."
+		puts ""
+	else
+		begin
+        	puts "Extract key-value pairs from a PDF"
+			# Simple example: Extract Keys & Values as a JSON file
+			DataExtractionModule.ExtractData($inputPath + "newsletter.pdf", $outputPath + "newsletter_key_val.json", DataExtractionModule::E_GenericKeyValue)
+			puts "Result saved in " + $outputPath + "newsletter_key_val.json"
+
+			# Example with customized options:
+			# Extract Keys & Values from pages 2-4, excluding ads
+			options = DataExtractionOptions.new()
+			options.SetPages("2-4")
+
+			p2_exclusion_zones = RectCollection.new()
+			# Exclude the ad on page 2
+			# These coordinates are in PDF user space, with the origin at the bottom left corner of the page
+			# Coordinates rotate with the page, if it has rotation applied.
+			p2_exclusion_zones.AddRect(Rect.new(166, 47, 562, 222))
+			options.AddExclusionZonesForPage(p2_exclusion_zones, 2)
+
+			p4_inclusion_zones = RectCollection.new()
+			p4_exclusion_zones = RectCollection.new()
+			# Only include the article text for page 4, exclude ads and headings
+			p4_inclusion_zones.AddRect(Rect.new(30, 432, 562, 684))
+			p4_exclusion_zones.AddRect(Rect.new(30, 657, 295, 684))
+			options.AddInclusionZonesForPage(p4_inclusion_zones, 4)
+			options.AddExclusionZonesForPage(p4_exclusion_zones, 4)
+			puts "Extract Key-Value pairs from specific pages and zones as a JSON file"
+			DataExtractionModule.ExtractData($inputPath + "newsletter.pdf", $outputPath + "newsletter_key_val_with_zones.json", DataExtractionModule::E_GenericKeyValue, options)
+			puts "Result saved in " + $outputPath + "newsletter_key_val_with_zones.json"
 
 		rescue => error
 			puts "Unable to extract form fields data, error: " + error.message

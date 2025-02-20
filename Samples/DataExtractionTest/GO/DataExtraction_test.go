@@ -1,5 +1,5 @@
 //---------------------------------------------------------------------------------------
-// Copyright (c) 2001-2024 by Apryse Software Inc. All Rights Reserved.
+// Copyright (c) 2001-2025 by Apryse Software Inc. All Rights Reserved.
 // Consult LICENSE.txt regarding license information.
 //---------------------------------------------------------------------------------------
 
@@ -245,6 +245,64 @@ func FormFieldsTest() (err error) {
 }
 
 //---------------------------------------------------------------------------------------
+// The following sample illustrates how to extract key-value pairs from PDF documents.
+//---------------------------------------------------------------------------------------
+
+func GenericKeyValueTest() (err error) {
+	defer catch(&err)
+
+	// Test if the add-on is installed
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_GenericKeyValue) {
+		fmt.Println("")
+		fmt.Println("Unable to run Data Extraction: PDFTron SDK AIPageObjectExtractor module not available.")
+		fmt.Println("-----------------------------------------------------------------------------")
+		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
+		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
+		fmt.Println("")
+		return nil
+	}
+
+	fmt.Println("Extract key-value pairs from a PDF")
+
+	inputFile := inputPath + "newsletter.pdf"
+	outputFile := outputPath + "newsletter_key_val.json"
+	// Simple example: Extract Keys & Values as a JSON file
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_GenericKeyValue)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	// Example with customized options:
+	// Extract Keys & Values from pages 2-4, excluding ads
+	options := NewDataExtractionOptions()
+	options.SetPages("2-4")
+	
+	p2ExclusionZones := NewRectCollection()
+	// Exclude the ad on page 2
+	// These coordinates are in PDF user space, with the origin at the bottom left corner of the page
+	// Coordinates rotate with the page, if it has rotation applied.
+	p2ExclusionZones.AddRect(NewRect(166, 47, 562, 222))
+	options.AddExclusionZonesForPage(p2ExclusionZones, 2)
+
+	p4InclusionZones := NewRectCollection()
+	p4ExclusionZones := NewRectCollection()
+	// Only include the article text for page 4, exclude ads and headings
+	p4InclusionZones.AddRect(NewRect(30, 432, 562, 684))
+	p4ExclusionZones.AddRect(NewRect(30, 657, 295, 684))
+	options.AddInclusionZonesForPage(p4InclusionZones, 4)
+	options.AddExclusionZonesForPage(p4ExclusionZones, 4)
+	
+	fmt.Println("Extract Key-Value pairs from specific pages and zones as a JSON file")
+	outputFile = outputPath + "newsletter_key_val_with_zones.json"
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_GenericKeyValue, options)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
 
 func TestDataExtraction(t *testing.T) {
 	// The first step in every application using PDFNet is to initialize the 
@@ -275,6 +333,11 @@ func TestDataExtraction(t *testing.T) {
 	err = FormFieldsTest()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to extract form fields data, error: %s", err))
+	}
+
+	err = GenericKeyValueTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to extract key-value pairs, error: %s", err))
 	}
 
 	//-----------------------------------------------------------------------------------
