@@ -42,6 +42,20 @@
 }
 
 /**
+ * Fix ambiguous overloaded methods.
+ * - Warning 509: Overloaded method 'a' effectively ignored as it is shadowed by 'b'
+ * The second affected overloaded method in order is marked as ignored and later renamed to preserve the functionality.
+ */
+%ignore pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+%rename (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+
+%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
+%rename (AlgorithmIdentifierFromDigestAlgorithm) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
+
+%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
+%rename (AlgorithmIdentifierFromObjectIdenifier) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
+
+/**
  * Text enclosed in the following %{...%} block is not processed by the SWIG preprocessor
  * They are copied directly to the .c/.cxx file generated.
  */
