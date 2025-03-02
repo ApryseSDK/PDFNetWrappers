@@ -43,8 +43,8 @@
 
 /**
  * Fix ambiguous overloaded methods.
- * - Warning 509: Overloaded method 'a' effectively ignored as it is shadowed by 'b'
- * The second affected overloaded method in order is marked as ignored and later renamed to preserve the functionality.
+ * - Warning 509: Overloaded method 'b' effectively ignored as it is shadowed by 'a'
+ * The second affected overloaded method in order (b) is marked as ignored and later renamed - to preserve functionality.
  */
 %ignore pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
 %rename (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
