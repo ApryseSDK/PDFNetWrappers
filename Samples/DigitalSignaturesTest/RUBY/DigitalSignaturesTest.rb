@@ -446,9 +446,9 @@ def CustomSigningAPI(doc_path,
 		output_path)
 	puts('================================================================================');
 	puts('Custom signing PDF document');
-	puts digest_algorithm_type.class;
+
 	doc = PDFDoc.new(doc_path);
-	puts "digest_algorithm_type value: #{digest_algorithm_type}";
+
 	page1 = doc.GetPage(1);
 
 	digsig_field = doc.CreateDigitalSignatureField(cert_field_name);
@@ -675,9 +675,6 @@ def main()
 	# with access to Hardware Security Module (HSM) tokens/devices, access to cloud keystores, access
 	# to system keystores, etc.
 	begin
-		DigestAlgorithm.each_with_object("xyz") do |item, obj|;
-			puts "#{obj}: #{item}"
-		end
 		CustomSigningAPI(input_path + "waiver.pdf",
 			"PDFTronApprovalSig",
 			input_path + "pdftron.pfx",
