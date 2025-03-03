@@ -446,9 +446,9 @@ def CustomSigningAPI(doc_path,
 		output_path)
 	puts('================================================================================');
 	puts('Custom signing PDF document');
-
+	puts digest_algorithm_type.class;
 	doc = PDFDoc.new(doc_path);
-
+	puts "digest_algorithm_type value: #{digest_algorithm_type}";
 	page1 = doc.GetPage(1);
 
 	digsig_field = doc.CreateDigitalSignatureField(cert_field_name);
