@@ -38,7 +38,7 @@
  * The second affected overloaded method in order (b) is marked as ignored and later renamed - to preserve functionality.
  */
 #%ignore pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
-%rename (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+%rename (FromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
 
 #%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
 %rename (AlgorithmIdentifierFromDigestAlgorithm) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);

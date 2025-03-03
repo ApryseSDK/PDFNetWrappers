@@ -446,9 +446,9 @@ def CustomSigningAPI(doc_path,
 		output_path)
 	puts('================================================================================');
 	puts('Custom signing PDF document');
-
+	puts digest_algorithm_type.class;
 	doc = PDFDoc.new(doc_path);
-
+	puts "digest_algorithm_type value: #{digest_algorithm_type}";
 	page1 = doc.GetPage(1);
 
 	digsig_field = doc.CreateDigitalSignatureField(cert_field_name);
@@ -503,7 +503,7 @@ def CustomSigningAPI(doc_path,
 
 	# Then, create ObjectIdentifiers for the algorithms you have used.
 	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
-	digest_algorithm_oid = ObjectIdentifier.new(DigestAlgorithm::E_SHA256);
+	digest_algorithm_oid = ObjectIdentifier.ObjectIdentifierFromDigestAlgorithm(digest_algorithm_type);
 	signature_algorithm_oid = ObjectIdentifier.new(ObjectIdentifier::E_RSA_encryption_PKCS1);
 
 	# Then, put the CMS signature components together.
@@ -675,6 +675,9 @@ def main()
 	# with access to Hardware Security Module (HSM) tokens/devices, access to cloud keystores, access
 	# to system keystores, etc.
 	begin
+		DigestAlgorithm.each_with_object("xyz") do |item, obj|;
+			puts "#{obj}: #{item}"
+		end
 		CustomSigningAPI(input_path + "waiver.pdf",
 			"PDFTronApprovalSig",
 			input_path + "pdftron.pfx",
