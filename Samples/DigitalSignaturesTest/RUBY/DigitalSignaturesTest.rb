@@ -675,6 +675,9 @@ def main()
 	# with access to Hardware Security Module (HSM) tokens/devices, access to cloud keystores, access
 	# to system keystores, etc.
 	begin
+		DigestAlgorithm.each_with_object("xyz") do |item, obj|;
+			puts "#{obj}: #{item}"
+		end
 		CustomSigningAPI(input_path + "waiver.pdf",
 			"PDFTronApprovalSig",
 			input_path + "pdftron.pfx",
