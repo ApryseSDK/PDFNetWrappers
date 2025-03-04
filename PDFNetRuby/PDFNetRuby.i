@@ -37,7 +37,7 @@
  * - Warning 509: Overloaded method 'b' effectively ignored as it is shadowed by 'a'
  * The second affected overloaded method in order (b) is renamed - to preserve intended functionality.
  */
-%rename (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+%ignore pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
 %rename (AlgorithmIdentifierFromDigestAlgorithm) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
 %rename (AlgorithmIdentifierFromObjectIdenifier) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
 
@@ -934,3 +934,17 @@ namespace pdftron {
 %include "PDF/TextSearch.h"
 %include "PDF/Redactor.h"
 
+// Derive from ObjectIdentifier to fix overloaded constructor
+namespace pdftron {
+    namespace Crypto
+    {
+        class ObjectIdentifierFromDigestAlgorithm : public ObjectIdentifier
+        {
+        public:
+            ObjectIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm_type)
+                : ObjectIdentifier(in_digest_algorithm_type)
+            {
+            }
+        }
+    }
+}
