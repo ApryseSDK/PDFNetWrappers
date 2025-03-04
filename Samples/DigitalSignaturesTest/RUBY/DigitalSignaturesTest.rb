@@ -503,6 +503,9 @@ def CustomSigningAPI(doc_path,
 
 	# Then, create ObjectIdentifiers for the algorithms you have used.
 	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
+	a = ObjectIdentifier.new;
+	a.methods.length;
+	a.methods;
 	digest_algorithm_oid = ObjectIdentifierFromDigestAlgorithm.new(digest_algorithm_type);
 	signature_algorithm_oid = ObjectIdentifier.new(ObjectIdentifier::E_RSA_encryption_PKCS1);
 
