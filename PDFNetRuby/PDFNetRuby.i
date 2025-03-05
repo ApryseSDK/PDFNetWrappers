@@ -945,6 +945,6 @@ namespace pdftron {
                 : ObjectIdentifier(in_digest_algorithm_type)
             {
             }
-        }
+        };
     }
 }
