@@ -935,9 +935,7 @@ namespace pdftron {
 %include "PDF/Redactor.h"
 
 // Extend from ObjectIdentifier to fix overloaded constructor
-%extend pdftron::Crypto {
-        public:
+%extend {
 		pdftron::Crypto::ObjectIdentifier* ObjectIdentifierCreateFromDigestAlgorithm(const pdftron::Crypto::DigestAlgorithm::Type in_digest_algorithm_type) {
 			return new pdftron::Crypto::ObjectIdentifier(in_digest_algorithm_type);
-		}
 }
