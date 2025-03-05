@@ -287,7 +287,6 @@ namespace pdftron {
     namespace Crypto
     {
         class DigestAlgorithm;
-        class ObjectIdentifierFromDigestAlgorithm;
     }
     namespace PDF {
         class Font;
@@ -935,17 +934,10 @@ namespace pdftron {
 %include "PDF/TextSearch.h"
 %include "PDF/Redactor.h"
 
-// Derive from ObjectIdentifier to fix overloaded constructor
-namespace pdftron {
-    namespace Crypto
-    {
-        class ObjectIdentifierFromDigestAlgorithm : public ObjectIdentifier
-        {
+// Extend from ObjectIdentifier to fix overloaded constructor
+%extend pdftron::Crypto::ObjectIdentifier {
         public:
-            ObjectIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm_type)
-                : ObjectIdentifier(in_digest_algorithm_type)
-            {
-            }
-        };
-    }
+		pdftron::Crypto::ObjectIdentifier* CreateFromDigestAlgorithm(const pdftron::Crypto::DigestAlgorithm::Type in_digest_algorithm_type) {
+			return new pdftron::Crypto::ObjectIdentifier(in_digest_algorithm_type);
+		}
 }
