@@ -287,6 +287,7 @@ namespace pdftron {
     namespace Crypto
     {
         class DigestAlgorithm;
+        class ObjectIdentifierFromDigestAlgorithm;
     }
     namespace PDF {
         class Font;
