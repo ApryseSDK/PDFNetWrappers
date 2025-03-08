@@ -44,9 +44,9 @@
 /**
  * Fix ambiguous overloaded methods.
  */
-%rename (CreateFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
-%rename (CreateFromDigestAlgorithm) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
-%rename (CreateFromObjectIdentifier) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
+%rename (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
+%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
 
 /**
  * Text enclosed in the following %{...%} block is not processed by the SWIG preprocessor
