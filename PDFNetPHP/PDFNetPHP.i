@@ -1176,17 +1176,17 @@ namespace pdftron {
 	namespace Crypto {
 		ObjectIdentifier* ObjectIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm)
 		{
-			return new ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type in_digest_algorithm);
+			return new ObjectIdentifier(const DigestAlgorithm::Type in_digest_algorithm);
 		}
 
 		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm)
 		{
-			return new AlgorithmIdentifier::AlgorithmIdentifier(in_digest_algorithm);
+			return new AlgorithmIdentifier(in_digest_algorithm);
 		}
 		
 		AlgorithmIdentifier* AlgorithmIdentifierFromObjectIdentifier(const ObjectIdentifier::Predefined in_object_identifier, const AlgorithmParams& in_algo_params)
 		{
-			return new pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(in_object_identifier, in_algo_params);
+			return new AlgorithmIdentifier(in_object_identifier, in_algo_params);
 		}
 	}
 }
