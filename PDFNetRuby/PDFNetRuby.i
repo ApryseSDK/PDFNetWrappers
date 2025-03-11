@@ -33,6 +33,13 @@
 }
 
 /**
+ * Fix ambiguous overloaded methods
+ */
+%ignore pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
+%ignore pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
+
+/**
  * Text enclosed in the following %{...%} block is not processed by the SWIG preprocessor
  * They are copied directly to the .c/.cxx file generated.
  */
@@ -925,3 +932,21 @@ namespace pdftron {
 %include "PDF/TextSearch.h"
 %include "PDF/Redactor.h"
 
+// Create a instances by using ignored overloaded constructors
+%inline %{
+namespace pdftron {
+	namespace Crypto {
+		ObjectIdentifier* ObjectIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
+			return new ObjectIdentifier(in_digest_algorithm);
+		}
+
+		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
+			return new AlgorithmIdentifier(in_digest_algorithm);
+		}
+		
+		AlgorithmIdentifier* AlgorithmIdentifierFromObjectIdentifier(const ObjectIdentifier::Predefined in_object_identifier, const AlgorithmParams& in_algo_params) {
+			return new AlgorithmIdentifier(in_object_identifier, in_algo_params);
+		}
+	}
+}
+%}
