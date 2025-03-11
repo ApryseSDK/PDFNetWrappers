@@ -1179,7 +1179,7 @@ namespace pdftron {
 			return new ObjectIdetnifier::ObjectIdetnifier(const DigestAlgorithm::Type in_digest_algorithm);
 		}
 
-		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm)(const DigestAlgorithm::Type in_digest_algorithm)
+		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm)
 		{
 			return new AlgorithmIdentifier::AlgorithmIdentifier(in_digest_algorithm);
 		}
