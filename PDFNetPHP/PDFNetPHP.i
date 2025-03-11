@@ -1176,7 +1176,7 @@ namespace pdftron {
 	namespace Crypto {
 		ObjectIdentifier* ObjectIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm)
 		{
-			return new ObjectIdentifier(const DigestAlgorithm::Type in_digest_algorithm);
+			return new ObjectIdentifier(in_digest_algorithm);
 		}
 
 		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm)
