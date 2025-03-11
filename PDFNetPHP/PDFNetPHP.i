@@ -42,9 +42,9 @@
 /**
  * Fix ambiguous overloaded methods
  */
-%rename (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
-%rename (AlgorithmIdentifierFromDigestAlgorithm) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
-%rename (AlgorithmIdentifierFromObjectIdentifier) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
+%ignore (ObjectIdentifierFromDigestAlgorithm) pdftron::Crypto::ObjectIdentifier::ObjectIdentifier(const DigestAlgorithm::Type);
+%ignore (AlgorithmIdentifierFromDigestAlgorithm) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const DigestAlgorithm::Type);
+%ignore (AlgorithmIdentifierFromObjectIdentifier) pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(const ObjectIdentifier::Predefined, const AlgorithmParams&);
 
 /**
  * Text enclosed in the following %{...%} block is not processed by the SWIG preprocessor
@@ -1169,3 +1169,25 @@ namespace pdftron {
 //#define Redaction Redaction
 %include "PDF/Redactor.h"
 //#undef Redaction
+
+// Create a instances by using ignored overloaded constructors
+%inline %{
+namespace pdftron {
+	namespace Crypto {
+		ObjectIdentifier* ObjectIdetnifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm)
+		{
+			return new ObjectIdetnifier::ObjectIdetnifier(const DigestAlgorithm::Type in_digest_algorithm);
+		}
+
+		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm)(const DigestAlgorithm::Type in_digest_algorithm)
+		{
+			return new AlgorithmIdentifier::AlgorithmIdentifier(in_digest_algorithm);
+		}
+		
+		AlgorithmIdentifier* AlgorithmIdentifierFromObjectIdentifier(const ObjectIdentifier::Predefined in_object_identifier, const AlgorithmParams& in_algo_params)
+		{
+			return new pdftron::Crypto::AlgorithmIdentifier::AlgorithmIdentifier(in_object_identifier, in_algo_params);
+		}
+	}
+}
+%}
