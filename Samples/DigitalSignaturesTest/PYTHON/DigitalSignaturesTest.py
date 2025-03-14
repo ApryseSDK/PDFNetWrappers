@@ -503,17 +503,17 @@ def CustomSigningAPI(doc_path,
 	elif version == 3:
 		print("-- Version 3")
 		params = AlgorithmParams()
-
+		print("-- 506")
 		# C++:
 		# Crypto::AlgorithmIdentifier digest_algorithm(digest_algorithm_type, params);
 		digest_algorithm_oid = AlgorithmIdentifier(digest_algorithm_type, params)
-
+		print("-- 510")
 		# C++:
 		# Crypto::AlgorithmIdentifier signature_algorithm (Crypto::ObjectIdentifier::e_RSA_encryption_PKCS1, params);
 		signature_algorithm_oid = AlgorithmIdentifierFromObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1, params)
-
+		print("-- 514")
 		options = CMSSignatureOptions()
-
+		print("-- 516")
 		# Then, put the CMS signature components together.
 
 		# C++:
@@ -523,10 +523,10 @@ def CustomSigningAPI(doc_path,
 		cms_signature = DigitalSignatureField.GenerateCMSSignature(
 			signer_cert, chain_certs, digest_algorithm_oid, signature_algorithm_oid,
 			signature_value, signedAttrs, options)
-
+		print("-- 526")
 	# Write the signature to the document.
 	doc.SaveCustomSignature(cms_signature, digsig_field, output_path)
-
+	print("-- 529")
 	print('================================================================================')
 
 def TimestampAndEnableLTV(in_docpath, 
