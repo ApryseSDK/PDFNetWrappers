@@ -465,7 +465,7 @@ def CustomSigningAPI(doc_path,
 	# Then, load all your chain certificates into a container of X509Certificate.
 	chain_certs = []
 
-	version = 2           # 1, 2, 3
+	version = 3           # 1, 2, 3
 	if version == 1:
 		print("-- Version 1")
 		# Then, create ObjectIdentifiers for the algorithms you have used.
