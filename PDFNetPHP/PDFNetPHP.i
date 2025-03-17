@@ -1174,7 +1174,7 @@ namespace pdftron {
 %extend pdftron::Crypto::ObjectIdentifier {
 %extend pdftron::Crypto::ObjectIdentifier {
         public:
-        static ObjectIdentifier* FromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
-            return new ObjectIdentifier(in_digest_algorithm);
+        static pdftron::Crypto::ObjectIdentifier* FromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
+            return new pdftron::Crypto::ObjectIdentifier(in_digest_algorithm);
         }
 }
