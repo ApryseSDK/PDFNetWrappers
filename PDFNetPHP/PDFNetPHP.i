@@ -1170,11 +1170,11 @@ namespace pdftron {
 %include "PDF/Redactor.h"
 //#undef Redaction
 
-// Create a static method for ambiguous overloaded constructor
+// Create a static methods for ambiguous overloaded constructors
+%extend pdftron::Crypto::ObjectIdentifier {
 %extend pdftron::Crypto::ObjectIdentifier {
         public:
-		static ObjectIdentifier* FromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
-			return new ObjectIdentifier(in_digest_algorithm);
-		}
+        static ObjectIdentifier* FromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
+            return new ObjectIdentifier(in_digest_algorithm);
+        }
 }
-%}
