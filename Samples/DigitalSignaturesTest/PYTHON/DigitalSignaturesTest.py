@@ -465,68 +465,19 @@ def CustomSigningAPI(doc_path,
 	# Then, load all your chain certificates into a container of X509Certificate.
 	chain_certs = []
 
-	version = 3           # 1, 2, 3
-	if version == 1:
-		print("-- Version 1")
-		# Then, create ObjectIdentifiers for the algorithms you have used.
-		# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
-		digest_algorithm_oid = ObjectIdentifier.FromDigestAlgorithm(digest_algorithm_type)
-		signature_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1)
+	# Then, create ObjectIdentifiers for the algorithms you have used.
+	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
+	digest_algorithm_oid = ObjectIdentifier.FromDigestAlgorithm(digest_algorithm_type)
+	signature_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1)
 
-		# Then, put the CMS signature components together.
-		cms_signature = DigitalSignatureField.GenerateCMSSignature(
-			signer_cert, chain_certs, digest_algorithm_oid, signature_algorithm_oid,
-			signature_value, signedAttrs)
+	# Then, put the CMS signature components together.
+	cms_signature = DigitalSignatureField.GenerateCMSSignature(
+		signer_cert, chain_certs, digest_algorithm_oid, signature_algorithm_oid,
+		signature_value, signedAttrs)
 
-	elif version == 2:
-		print("-- Version 2")
-		# Then, create ObjectIdentifiers for the algorithms you have used.
-		# Here we use digest_algorithm_type (usually SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
-
-		# C++:
-		# Crypto::AlgorithmIdentifier digest_algorithm(digest_algorithm_type);
-		digest_algorithm_oid = AlgorithmIdentifierFromDigestAlgorithm(digest_algorithm_type)
-
-		signature_algorithm_oid = ObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1)
-		options = CMSSignatureOptions()
-
-		# Then, put the CMS signature components together.
-
-		# C++:
-		# std::vector<UChar> cms_signature = DigitalSignatureField::GenerateCMSSignature(
-		# 	signer_cert, chain_certs.data(), chain_certs.size(), digest_algorithm, signature_algorithm,
-		# 	signature_value.data(), signature_value.size(), signedAttrs.data(), signedAttrs.size(), options);
-		cms_signature = DigitalSignatureField.GenerateCMSSignature(
-			signer_cert, chain_certs, digest_algorithm_oid, signature_algorithm_oid,
-			signature_value, signedAttrs, options)
-
-	elif version == 3:
-		print("-- Version 3")
-		params = AlgorithmParams()
-		print("-- 506")
-		# C++:
-		# Crypto::AlgorithmIdentifier digest_algorithm(digest_algorithm_type, params);
-		digest_algorithm_oid = AlgorithmIdentifier(digest_algorithm_type, params)
-		print("-- 510")
-		# C++:
-		# Crypto::AlgorithmIdentifier signature_algorithm (Crypto::ObjectIdentifier::e_RSA_encryption_PKCS1, params);
-		signature_algorithm_oid = AlgorithmIdentifierFromObjectIdentifier(ObjectIdentifier.e_RSA_encryption_PKCS1, params)
-		print("-- 514")
-		options = CMSSignatureOptions()
-		print("-- 516")
-		# Then, put the CMS signature components together.
-
-		# C++:
-		# std::vector<UChar> cms_signature = DigitalSignatureField::GenerateCMSSignature(
-		#	signer_cert, chain_certs.data(), chain_certs.size(), digest_algorithm, signature_algorithm,
-		#	signature_value.data(), signature_value.size(), signedAttrs.data(), signedAttrs.size(), options);
-		cms_signature = DigitalSignatureField.GenerateCMSSignature(
-			signer_cert, chain_certs, digest_algorithm_oid, signature_algorithm_oid,
-			signature_value, signedAttrs, options)
-		print("-- 526")
 	# Write the signature to the document.
 	doc.SaveCustomSignature(cms_signature, digsig_field, output_path)
-	print("-- 529")
+
 	print('================================================================================')
 
 def TimestampAndEnableLTV(in_docpath, 
