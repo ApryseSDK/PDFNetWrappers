@@ -1009,21 +1009,11 @@ namespace pdftron {
 %include "PDF/Redactor.h"
 //#undef Redaction
 
-// Create a instances by using ignored overloaded constructors
-%inline %{
-namespace pdftron {
-	namespace Crypto {
-		ObjectIdentifier* ObjectIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
+// Create a static method for ambiguous overloaded constructor
+%extend pdftron::Crypto::ObjectIdentifier {
+        public:
+		static ObjectIdentifier* FromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
 			return new ObjectIdentifier(in_digest_algorithm);
 		}
-
-		AlgorithmIdentifier* AlgorithmIdentifierFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
-			return new AlgorithmIdentifier(in_digest_algorithm);
-		}
-		
-		AlgorithmIdentifier* AlgorithmIdentifierFromObjectIdentifier(const ObjectIdentifier::Predefined in_object_identifier, const AlgorithmParams& in_algo_params) {
-			return new AlgorithmIdentifier(in_object_identifier, in_algo_params);
-		}
-	}
 }
 %}
