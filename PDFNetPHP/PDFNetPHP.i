@@ -1173,7 +1173,7 @@ namespace pdftron {
 // Create a static methods for ambiguous overloaded constructors
 %extend pdftron::Crypto::ObjectIdentifier {
         public:
-        static pdftron::Crypto::ObjectIdentifier* FromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
+        static pdftron::Crypto::ObjectIdentifier* CreateFromDigestAlgorithm(const DigestAlgorithm::Type in_digest_algorithm) {
             return new pdftron::Crypto::ObjectIdentifier(in_digest_algorithm);
         }
 }

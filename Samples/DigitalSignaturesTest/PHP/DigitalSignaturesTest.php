@@ -564,7 +564,7 @@ function CustomSigningAPI($doc_path,
 
 	// Then, create ObjectIdentifiers for the algorithms you have used.
 	// Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
-	$digest_algorithm_oid = ObjectIdentifier::FromDigestAlgorithm($digest_algorithm_type);
+	$digest_algorithm_oid = ObjectIdentifier::CreateFromDigestAlgorithm($digest_algorithm_type);
 	$signature_algorithm_oid = new ObjectIdentifier(ObjectIdentifier::e_RSA_encryption_PKCS1);
 
 	// Then, put the CMS signature components together.
