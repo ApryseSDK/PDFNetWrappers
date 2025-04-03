@@ -7,7 +7,6 @@ package main
 import (
 	"fmt"
 	"testing"
-	"os"
 	"flag"
 	. "github.com/pdftron/pdftron-go/v2"
 )
@@ -40,7 +39,7 @@ func TestTransPDF(t *testing.T) {
 
     // Open a PDF document to translate
     doc := NewPDFDoc(inputPath + "tagged.pdf")
-    options := TransPDFOptions()
+    options := NewTransPDFOptions()
 
     // Set the source language in the options
     options.SetSourceLanguage("en")
@@ -53,19 +52,19 @@ func TestTransPDF(t *testing.T) {
     // options.SetPages("-2,5-6,9,11-")
 
     // Extract the xlf to file and field the PDF for translation
-    TransPDFExtractXLIFF(doc, output_path + "tagged.xlf", options)
+    TransPDFExtractXLIFF(doc, outputPath + "tagged.xlf", options)
 
     // Save the fielded PDF
-    doc.Save(output_path + "tagged-fielded.pdf", uint(SDFDocE_linearized))
+    doc.Save(outputPath + "tagged-fielded.pdf", uint(SDFDocE_linearized))
 
     // The extracted xlf can be translated in a system of your choice.
     // In this sample a pre-prepared translated file is used - tagged_(en_to_fr).xlf
 
     // Perform the translation using the pre-prepared translated xliff
-    TransPDFAapplyXLIFF(doc, input_path + "tagged_(en_to_fr).xlf", options)
+    TransPDFApplyXLIFF(doc, inputPath + "tagged_(en_to_fr).xlf", options)
 
     // Save the translated PDF
-    doc.Save(output_path + "tagged-fr.pdf", uint(SDFDocE_linearized))
+    doc.Save(outputPath + "tagged-fr.pdf", uint(SDFDocE_linearized))
     doc.Close()
 
     PDFNetTerminate()
