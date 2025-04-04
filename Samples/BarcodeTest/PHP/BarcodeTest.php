@@ -113,7 +113,7 @@ function main()
 
 		}
 		catch (Exception $e) {
-			echo(nl2br("Unable to extract form fields data, error: " . $e->getMessage() . "\n"));
+			echo(nl2br("Unable to extract barcodes, error: " . $e->getMessage() . "\n"));
 		}
 	}
 	PDFNet::Terminate();
