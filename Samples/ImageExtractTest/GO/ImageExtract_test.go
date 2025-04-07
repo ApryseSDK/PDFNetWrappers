@@ -122,12 +122,12 @@ func TestImageExtract(t *testing.T){
             // Process only images
             itr := obj.Find("Type")
             
-            if (!itr.HasNext()) || (itr.Value().GetName() != "XObject"){
+            if (!itr.HasCurrent()) || (itr.Value().GetName() != "XObject"){
                 i = i + 1
                 continue
             }
             itr = obj.Find("Subtype")
-            if (!itr.HasNext()) || (itr.Value().GetName() != "Image"){
+            if (!itr.HasCurrent()) || (itr.Value().GetName() != "Image"){
                 i = i + 1
                 continue
             }

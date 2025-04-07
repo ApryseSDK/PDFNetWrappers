@@ -33,14 +33,14 @@ $stdout.sync = true
 	# Get the Info dictionary
 	itr = trailer.Find("Info")
 	info = Obj.new
-	if itr.HasNext
+	if itr.HasCurrent
 		info = itr.Value
 		# Modify 'Producer' entry
 		info.PutString("Producer", "PDFTron PDFNet")
 		
 		# Read title entry (if it is present)
 		itr = info.Find("Author")
-		if itr.HasNext
+		if itr.HasCurrent
 			oldstr = itr.Value.GetAsPDFTest
 			info.PutText("Author", oldstr + "- Modified")
 		else

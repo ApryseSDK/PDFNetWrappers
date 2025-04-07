@@ -111,13 +111,13 @@ end
 			# Process only images
 			itr = obj.Find("Type")
 
-			if !(itr.HasNext()) or !(itr.Value().GetName() == "XObject")
+			if !(itr.HasCurrent()) or !(itr.Value().GetName() == "XObject")
 				i = i + 1
 				next
 			end
 			
 			itr = obj.Find("Subtype")
-			if !(itr.HasNext()) or !(itr.Value().GetName() == "Image")
+			if !(itr.HasCurrent()) or !(itr.Value().GetName() == "Image")
 				i = i + 1
 				next
 			end

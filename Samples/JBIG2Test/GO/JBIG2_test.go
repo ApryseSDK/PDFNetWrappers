@@ -44,7 +44,7 @@ func TestJBIG2(t *testing.T){
             // Process only images
             itr := obj.Find("Subtype")
             //if not itr.HasNext() or not itr.Value().GetName() == "Image":
-            if !itr.HasNext() || !(itr.Value().GetName() == "Image"){
+            if !itr.HasCurrent() || !(itr.Value().GetName() == "Image"){
                 i = i + 1
                 continue
             }
@@ -56,7 +56,7 @@ func TestJBIG2(t *testing.T){
             }
             // Skip images that are already compressed using JBIG2
             itr = obj.Find("Filter")
-            if (itr.HasNext() && itr.Value().IsName() && itr.Value().GetName() == "JBIG2Decode"){
+            if (itr.HasCurrent() && itr.Value().IsName() && itr.Value().GetName() == "JBIG2Decode"){
                 i = i + 1
                 continue
             }
@@ -80,15 +80,15 @@ func TestJBIG2(t *testing.T){
             newImgObj := newImage.GetSDFObj()
             itr = obj.Find("Decode")
             
-            if itr.HasNext(){
+            if itr.HasCurrent(){
                 newImgObj.Put("Decode", itr.Value())
             }
             itr = obj.Find("ImageMask")
-            if itr.HasNext(){
+            if itr.HasCurrent(){
                 newImgObj.Put("ImageMask", itr.Value())
             }
             itr = obj.Find("Mask")
-            if itr.HasNext(){
+            if itr.HasCurrent(){
                 newImgObj.Put("Mask", itr.Value())
             }
 
