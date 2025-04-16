@@ -109,12 +109,12 @@ def main():
             # Process only images
             itr = obj.Find("Type")
             
-            if not itr.HasNext() or not itr.Value().GetName() == "XObject":
+            if not itr.HasCurrent() or not itr.Value().GetName() == "XObject":
                 i = i + 1
                 continue
             
             itr = obj.Find("Subtype")
-            if not itr.HasNext() or not itr.Value().GetName() == "Image":
+            if not itr.HasCurrent() or not itr.Value().GetName() == "Image":
                 i = i + 1
                 continue
             

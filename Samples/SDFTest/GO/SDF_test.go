@@ -44,14 +44,14 @@ func TestSDF(t *testing.T){
     // Get the Info dictionary
     itr := trailer.Find("Info")
     info := NewObj()
-    if itr.HasNext(){
+    if itr.HasCurrent(){
         info = itr.Value()
         // Modify 'Producer' entry
         info.PutString("Producer", "PDFTron PDFNet")
         
         // Read title entry (if it is present)
         itr = info.Find("Author")
-        if itr.HasNext(){
+        if itr.HasCurrent(){
 		fmt.Println("Author inside")
             oldstr := itr.Value().GetAsPDFText()
             info.PutText("Author", oldstr + "- Modified")

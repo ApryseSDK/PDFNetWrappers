@@ -34,7 +34,7 @@ def main():
         if obj is not None and not obj.IsFree() and obj.IsStream():
             # Process only images
             itr = obj.Find("Subtype")
-            if not itr.HasNext() or not itr.Value().GetName() == "Image":
+            if not itr.HasCurrent() or not itr.Value().GetName() == "Image":
                 i = i + 1
                 continue
             
@@ -46,7 +46,7 @@ def main():
             
             # Skip images that are already compressed using JBIG2
             itr = obj.Find("Filter")
-            if (itr.HasNext() and itr.Value().IsName() and itr.Value().GetName() == "JBIG2Decode"):
+            if (itr.HasCurrent() and itr.Value().IsName() and itr.Value().GetName() == "JBIG2Decode"):
                 i = i + 1
                 continue
             
@@ -69,13 +69,13 @@ def main():
             new_img_obj = new_image.GetSDFObj()
             itr = obj.Find("Decode")
             
-            if itr.HasNext():
+            if itr.HasCurrent():
                 new_img_obj.Put("Decode", itr.Value())
             itr = obj.Find("ImageMask")
-            if itr.HasNext():
+            if itr.HasCurrent():
                 new_img_obj.Put("ImageMask", itr.Value())
             itr = obj.Find("Mask")
-            if itr.HasNext():
+            if itr.HasCurrent():
                 new_img_obj.Put("Mask", itr.Value())
                 
             cos_doc.Swap(i, new_img_obj.GetObjNum())

@@ -110,13 +110,13 @@ function ImageExtract($reader)
 		{
 			// Process only images
 			$itr = $obj->Find("Type");
-			if(!$itr->HasNext() || !($itr->Value()->GetName() == "XObject"))
+			if(!$itr->HasCurrent() || !($itr->Value()->GetName() == "XObject"))
 			{
 				continue;
 			}
 
 			$itr = $obj->Find("Subtype");
-			if(!$itr->HasNext() || !($itr->Value()->GetName() == "Image"))
+			if(!$itr->HasCurrent() || !($itr->Value()->GetName() == "Image"))
 			{
 				continue;
 			}

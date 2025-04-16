@@ -33,7 +33,7 @@ $output_path = $input_path."Output/";
 		{
 			// Process only images
 			$itr = $obj->Find("Subtype");
-			if(!$itr->HasNext() || $itr->Value()->GetName() != "Image")
+			if(!$itr->HasCurrent() || $itr->Value()->GetName() != "Image")
 				continue;
 			
 			$input_image = new Image($obj);
@@ -46,7 +46,7 @@ $output_path = $input_path."Output/";
 
 			// Skip images that are already compressed using JBIG2
 			$itr = $obj->Find("Filter");
-			if ($itr->HasNext() && $itr->Value()->IsName() && 
+			if ($itr->HasCurrent() && $itr->Value()->IsName() && 
 				$itr->Value()->GetName() == "JBIG2Decode") continue; 
 
 			$filter=$obj->GetDecodedStream();
@@ -65,13 +65,13 @@ $output_path = $input_path."Output/";
 
 			$new_img_obj = $new_image->GetSDFObj();
 			$itr = $obj->Find("Decode");
-			if($itr->HasNext())
+			if($itr->HasCurrent())
 				$new_img_obj->Put("Decode", $itr->Value());
 			$itr = $obj->Find("ImageMask");
-			if ($itr->HasNext())
+			if ($itr->HasCurrent())
 				$new_img_obj->Put("ImageMask", $itr->Value());
 			$itr = $obj->Find("Mask");
-			if ($itr->HasNext())
+			if ($itr->HasCurrent())
 				$new_img_obj->Put("Mask", $itr->Value());
 
 			$cos_doc->Swap($i, $new_img_obj->GetObjNum());

@@ -31,7 +31,7 @@ $output_path = $input_path."Output/";
 
 	// Get the Info dictionary. 
 	$itr = $trailer->Find("Info");
-	if ($itr->HasNext()) 
+	if ($itr->HasCurrent()) 
 	{
 		$info = $itr->Value();
 		// Modify 'Producer' entry.
@@ -39,14 +39,14 @@ $output_path = $input_path."Output/";
 
 		// Read title entry (if it is present)
 		$itr = $info->Find("Author"); 
-		if ($itr->HasNext()) 
+		if ($itr->HasCurrent()) 
 		{
 			// Modify 'Producer' entry
 			$itr->Value()->PutString("Producer", "PDFTron PDFNet");
 
 			// Read title entry (if it is present)
 			$itr = $info->Find("Author");
-			if ($itr->HasNext()) {
+			if ($itr->HasCurrent()) {
 				$oldstr = $itr->Value()->GetAsPDFTest();
 				$info->PutText("Author",$oldstr."- Modified");
 			}
