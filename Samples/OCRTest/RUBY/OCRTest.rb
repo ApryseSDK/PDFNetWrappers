@@ -17,239 +17,272 @@ output_path = "../../TestFiles/Output/"
 # The following sample illustrates how to use OCR module
 #---------------------------------------------------------------------------------------
 
-	# The first step in every application using PDFNet is to initialize the 
-	# library and set the path to common PDF resources. The library is usually 
-	# initialized only once, but calling Initialize multiple times is also fine.
-	PDFNet.Initialize(PDFTronLicense.Key)
-	
-	# The location of the OCR Module
-        PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
-	
-	#Example 1) Convert the first page to PNG and TIFF at 92 DPI.
-	
-	begin  
-		if !OCRModule.IsModuleAvailable
+# The first step in every application using PDFNet is to initialize the 
+# library and set the path to common PDF resources. The library is usually 
+# initialized only once, but calling Initialize multiple times is also fine.
+PDFNet.Initialize(PDFTronLicense.Key)
 
-			puts 'Unable to run OCRTest: PDFTron SDK OCR module not available.'
-			puts '---------------------------------------------------------------'
-			puts 'The OCR module is an optional add-on, available for download'
-			puts 'at https://dev.apryse.com/. If you have already downloaded this'
-			puts 'module, ensure that the SDK is able to find the required files'
-			puts 'using the PDFNet::AddResourceSearchPath() function.'
+# The location of the OCR Module
+PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
 
-		else
+#Example 1) Convert the first page to PNG and TIFF at 92 DPI.
 
-			# Example 1) Process image without specifying options, default language - English - is used
-			# --------------------------------------------------------------------------------
+begin
 
-			# A) Setup empty destination doc
-			doc = PDFDoc.new
-	
-			# B) Run OCR on the .png with options
+   # if the IRIS OCR module is available, will use that instead of the default
+   use_iris = OCRModule.IsIRISModuleAvailable
+   if !OCRModule.IsModuleAvailable
+      puts 'Unable to run OCRTest: PDFTron SDK OCR module not available.'
+      puts '---------------------------------------------------------------'
+      puts 'The OCR module is an optional add-on, available for download'
+      puts 'at https://dev.apryse.com/. If you have already downloaded this'
+      puts 'module, ensure that the SDK is able to find the required files'
+      puts 'using the PDFNet::AddResourceSearchPath() function.'
 
-			OCRModule.ImageToPDF(doc, input_path + "psychomachia_excerpt.png", nil)
+   else
 
-			# C) Check the result
+      # Example 1) Process image with specifying options, IRIS OCR module and English as the language of choice
+      # --------------------------------------------------------------------------------
 
-			doc.Save(output_path + "psychomachia_excerpt.pdf", 0)
-			puts "Example 1: psychomachia_excerpt.png"
+      # A) Setup empty destination doc
+      doc = PDFDoc.new
 
-			doc.Close
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			# Example 2) Process document using multiple languages
-			# --------------------------------------------------------------------------------
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			# A) Setup empty destination doc
+      # B.2. English as the language of choice
+      opts.AddLang("eng")
 
-			doc = PDFDoc.new
+      # C) Run OCR on the .png with options
+      OCRModule.ImageToPDF(doc, input_path + "psychomachia_excerpt.png", opts)
 
-			# B) Setup options with multiple target languages, English will always be considered as secondary language
+      # D) Check the result
+      doc.Save(output_path + "psychomachia_excerpt.pdf", 0)
+      puts "Example 1: psychomachia_excerpt.png"
 
-			opts = OCROptions.new
-			opts.AddLang("deu")
-			opts.AddLang("fra")
-			opts.AddLang("eng")
+      doc.Close
 
-			# C) Run OCR on the .jpg with options
+      # Example 2) Process document using multiple languages
+      # --------------------------------------------------------------------------------
 
-			OCRModule.ImageToPDF(doc, input_path + "multi_lang.jpg", opts)
+      # A) Setup empty destination doc
+      doc = PDFDoc.new
 
-			# D) Check the result
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			doc.Save(output_path + "multi_lang.pdf", 0)
-			puts "Example 2: multi_lang.jpg"
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			doc.Close
+      # B.2. multiple target languages, English will always be considered as secondary language
+      opts.AddLang("deu")
+      opts.AddLang("fra")
+      opts.AddLang("eng")
 
-			# Example 3) Process a .pdf specifying a language - German - and ignore zone comprising a sidebar image
-			# --------------------------------------------------------------------------------
+      # C) Run OCR on the .jpg with options
+      OCRModule.ImageToPDF(doc, input_path + "multi_lang.jpg", opts)
 
-			# A) Open the .pdf document
+      # D) Check the result
+      doc.Save(output_path + "multi_lang.pdf", 0)
+      puts "Example 2: multi_lang.jpg"
 
+      doc.Close
 
-			doc = PDFDoc.new(input_path + "german_kids_song.pdf")
+      # Example 3) Process a .pdf specifying a language - German - and ignore zone comprising a sidebar image
+      # --------------------------------------------------------------------------------
 
-			# B) Setup options with a single language and an ignore zone
+      # A) Open the .pdf document
+      doc = PDFDoc.new(input_path + "german_kids_song.pdf")
 
-			opts = OCROptions.new
-			opts.AddLang("deu")
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			ignore_zones = RectCollection.new
-			ignore_zones.AddRect(Rect.new(424, 163, 493, 730))
-			opts.AddIgnoreZonesForPage(ignore_zones, 1)
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			# C) Run OCR on the .pdf with options
+      # B.2. German as the language of choice
+      opts.AddLang("deu")
 
-			OCRModule.ProcessPDF(doc, nil)
+      # B.3. ignore zone comprising a sidebar image
+      ignore_zones = RectCollection.new
+      ignore_zones.AddRect(Rect.new(424, 163, 493, 730))
+      opts.AddIgnoreZonesForPage(ignore_zones, 1)
 
-			# D) check the result
+      # C) Run OCR on the .pdf with options
+      OCRModule.ProcessPDF(doc, opts)
 
-			doc.Save(output_path + "german_kids_song.pdf", 0)
-			puts "Example 3: german_kids_song.pdf"
+      # D) check the result
+      doc.Save(output_path + "german_kids_song.pdf", 0)
+      puts "Example 3: german_kids_song.pdf"
 
-			doc.Close
+      doc.Close
 
-			# Example 4) Process multi-page tiff with text/ignore zones specified for each page,
-			# optionally provide English as the target language
-			# --------------------------------------------------------------------------------
+      # Example 4) Process multi-page tiff with text/ignore zones specified for each page,
+      # optionally provide English as the target language
+      # --------------------------------------------------------------------------------
 
-			# A) Setup empty destination doc
+      # A) Setup empty destination doc
+      doc = PDFDoc.new
 
-			doc = PDFDoc.new
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			# B) Setup options with a single language plus text/ignore zones
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			opts = OCROptions.new
-			opts.AddLang("eng")
+      # B.2. English as the language of choice
+      opts.AddLang("eng")
 
-			ignore_zones = RectCollection.new
+      # B.3 text/ignore zones
+      ignore_zones = RectCollection.new
 
-			# ignore signature box in the first 2 pages
-			ignore_zones.AddRect(Rect.new(1492, 56, 2236, 432))
-			opts.AddIgnoreZonesForPage(ignore_zones, 1)
+      # ignore signature box in the first 2 pages
+      ignore_zones.AddRect(Rect.new(1492, 56, 2236, 432))
+      opts.AddIgnoreZonesForPage(ignore_zones, 1)
 
-			opts.AddIgnoreZonesForPage(ignore_zones, 2)
+      opts.AddIgnoreZonesForPage(ignore_zones, 2)
 
-			# can use a combination of ignore and text boxes to focus on the page area of interest,
-			# as ignore boxes are applied first, we remove the arrows before selecting part of the diagram
-			ignore_zones.Clear
-			ignore_zones.AddRect(Rect.new(992, 1276, 1368, 1372))
-			opts.AddIgnoreZonesForPage(ignore_zones, 3)
+      # can use a combination of ignore and text boxes to focus on the page area of interest,
+      # as ignore boxes are applied first, we remove the arrows before selecting part of the diagram
+      ignore_zones.Clear
+      ignore_zones.AddRect(Rect.new(992, 1276, 1368, 1372))
+      opts.AddIgnoreZonesForPage(ignore_zones, 3)
 
-			text_zones = RectCollection.new
-			# we only have text zones selected in page 3
+      text_zones = RectCollection.new
+      # we only have text zones selected in page 3
 
-			# select horizontal BUFFER ZONE sign
-			text_zones.AddRect(Rect.new(900, 2384, 1236, 2480))
+      # select horizontal BUFFER ZONE sign
+      text_zones.AddRect(Rect.new(900, 2384, 1236, 2480))
 
-			# select right vertical BUFFER ZONE sign
-			text_zones.AddRect(Rect.new(1960, 1976, 2016, 2296))
-			# select Lot No.
-			text_zones.AddRect(Rect.new(696, 1028, 1196, 1128))
+      # select right vertical BUFFER ZONE sign
+      text_zones.AddRect(Rect.new(1960, 1976, 2016, 2296))
+      # select Lot No.
+      text_zones.AddRect(Rect.new(696, 1028, 1196, 1128))
 
-			# select part of the plan inside the BUFFER ZONE
-			text_zones.AddRect(Rect.new(428, 1484, 1784, 2344))
-			text_zones.AddRect(Rect.new(948, 1288, 1672, 1476))
-			opts.AddTextZonesForPage(text_zones, 3)
+      # select part of the plan inside the BUFFER ZONE
+      text_zones.AddRect(Rect.new(428, 1484, 1784, 2344))
+      text_zones.AddRect(Rect.new(948, 1288, 1672, 1476))
+      opts.AddTextZonesForPage(text_zones, 3)
 
-			# C) Run OCR on the .pdf with options
+      # C) Run OCR on the .pdf with options
+      OCRModule.ImageToPDF(doc, input_path + "bc_environment_protection.tif", opts)
 
-			OCRModule.ImageToPDF(doc, input_path + "bc_environment_protection.tif", opts)
+      # D) check the result
+      doc.Save(output_path + "bc_environment_protection.pdf", 0)
+      puts "Example 4: bc_environment_protection.tif"
 
-			# D) check the result
+      doc.Close
 
-			doc.Save(output_path + "bc_environment_protection.pdf", 0)
-			puts "Example 4: bc_environment_protection.tif"
+      # Example 5) Alternative workflow for extracting OCR result JSON, postprocessing
+      # (e.g., removing words not in the dictionary or filtering special
+      # out special characters), and finally applying modified OCR JSON to the source PDF document
+      # --------------------------------------------------------------------------------
 
-			doc.Close
+      # A) Open the .pdf document
+      doc = PDFDoc.new(input_path + "zero_value_test_no_text.pdf")
 
-			# Example 5) Alternative workflow for extracting OCR result JSON, postprocessing
-			# (e.g., removing words not in the dictionary or filtering special
-			# out special characters), and finally applying modified OCR JSON to the source PDF document
-			# --------------------------------------------------------------------------------
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			# A) Open the .pdf document
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			doc = PDFDoc.new(input_path + "zero_value_test_no_text.pdf")
+      # B.2. English as the language of choice
+      opts.AddLang("eng")
 
-			# B) Run OCR on the .pdf with default English language
+      # C) Run OCR on the .pdf with options
+      json = OCRModule.GetOCRJsonFromPDF(doc, opts)
 
-			json = OCRModule.GetOCRJsonFromPDF(doc, nil)
+      # D) Post-processing step (whatever it might be)
+      puts "Have OCR result JSON, re-applying to PDF"
+      OCRModule.ApplyOCRJsonToPDF(doc, json)
 
-			# C) Post-processing step (whatever it might be)
+      # E) Check the result
+      doc.Save(output_path + "zero_value_test_no_text.pdf", 0)
+      puts "Example 5: extracting and applying OCR JSON from zero_value_test_no_text.pdf"
 
-			puts "Have OCR result JSON, re-applying to PDF"
+      doc.Close
 
-			OCRModule.ApplyOCRJsonToPDF(doc, json)
+      # Example 6) The postprocessing workflow has also an option of extracting OCR results in XML format,
+      # similar to the one used by TextExtractor
+      # --------------------------------------------------------------------------------
 
-			# D) Check the result
+      # A) Setup empty destination doc
+      doc = PDFDoc.new
 
-			doc.Save(output_path + "zero_value_test_no_text.pdf", 0)
-			puts "Example 5: extracting and applying OCR JSON from zero_value_test_no_text.pdf"
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			doc.Close
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			# Example 6) The postprocessing workflow has also an option of extracting OCR results in XML format,
-			# similar to the one used by TextExtractor
-			# --------------------------------------------------------------------------------
+      # B.2. English as the language of choice
+      opts.AddLang("eng")
 
-			# A) Setup empty destination doc
+      # C) Run OCR on the .tif with options, extracting OCR results in XML format. Note that
+      # in the process we convert the source image into PDF.
+      # We reuse this PDF document later to add hidden text layer to it.
+      xml = OCRModule.GetOCRXmlFromImage(doc, input_path + "physics.tif", opts)
 
-			doc = PDFDoc.new
+      # D) Post-processing step (whatever it might be)
+      puts "Have OCR result XML, re-applying to PDF"
+      OCRModule.ApplyOCRXmlToPDF(doc, xml)
 
-			# B) Run OCR on the .tif with default English language, extracting OCR results in XML format. Note that
-			# in the process we convert the source image into PDF.
-			# We reuse this PDF document later to add hidden text layer to it.
+      # E) Check the result
+      doc.Save(output_path + "physics.pdf", 0)
+      puts "Example 6: extracting and applying OCR XML from physics.tif"
 
-			xml = OCRModule.GetOCRXmlFromImage(doc, input_path + "physics.tif", nil)
+      doc.Close
 
-			# C) Post-processing step (whatever it might be)
+      # Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
+      # --------------------------------------------------------------------------------
 
-			puts "Have OCR result XML, re-applying to PDF"
+      # A) Setup empty destination doc
+      doc = PDFDoc.new
 
-			OCRModule.ApplyOCRXmlToPDF(doc, xml)
+      # B) Setup options with:
+      opts = OCROptions.new
 
-			# D) Check the result
+      # B.1. IRIS OCR module, if available
+      if use_iris
+         opts.SetOCREngine("iris")
+      end
 
-			doc.Save(output_path + "physics.pdf", 0)
-			puts "Example 6: extracting and applying OCR XML from physics.tif"
+      # B.2. text zone
+      text_zones = RectCollection.new
+      text_zones.AddRect(Rect.new(140, 870, 310, 920))
+      opts.AddIgnoreZonesForPage(text_zones, 1)
 
-			doc.Close
+      # B.3 Manually override DPI
+      opts.AddDPI(100)
 
+      # C) Run OCR on the .jpg with options
+      OCRModule.ImageToPDF(doc, input_path + "corrupted_dpi.jpg", opts)
 
-			# Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
-			# --------------------------------------------------------------------------------
+      # D) Check the result
+      doc.Save(output_path + "corrupted_dpi.pdf", 0)
+      puts "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text"
 
-			# A) Setup empty destination doc
+      doc.Close
 
-			doc = PDFDoc.new
+   end
+   rescue Exception=>e
+      puts e
 
-			# B) Setup options with a text zone
-
-			opts = OCROptions.new
-			text_zones = RectCollection.new
-			text_zones.AddRect(Rect.new(140, 870, 310, 920))
-			opts.AddIgnoreZonesForPage(text_zones, 1)
-
-			# C) Manually override DPI
-
-			opts.AddDPI(100)
-
-			# D) Run OCR on the .jpg with options
-
-			OCRModule.ImageToPDF(doc, input_path + "corrupted_dpi.jpg", opts)
-
-                        # E) Check the result
-
-			doc.Save(output_path + "corrupted_dpi.pdf", 0)
-			puts "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text"
-
-			doc.Close
-
-			end
-	rescue Exception=>e
-		puts e
-
-	end
-	PDFNet.Terminate
-
+end
+PDFNet.Terminate
