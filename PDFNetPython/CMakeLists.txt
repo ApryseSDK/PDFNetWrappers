@@ -37,10 +37,12 @@ if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
 endif ()
 
 set(DOXYGEN "")
+set(SWIG_DEFINE "-DPy_LIMITED_API=0x0304000")
 if (PYTHON_2)
     set(SWIG_DEFINE "-DPYTHON2")
 elseif (PYTHON_3)
     set(SWIG_DEFINE "-DPYTHON3")
+
     set(DOXYGEN "-doxygen")
 endif ()
 
