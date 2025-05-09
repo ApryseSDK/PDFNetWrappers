@@ -37,7 +37,6 @@ if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
 endif ()
 
 set(DOXYGEN "")
-set(SWIG_DEFINE "-DPy_LIMITED_API=0x0304000")
 if (PYTHON_2)
     set(SWIG_DEFINE "-DPYTHON2")
 elseif (PYTHON_3)
@@ -46,6 +45,7 @@ elseif (PYTHON_3)
     set(DOXYGEN "-doxygen")
 endif ()
 
+set(SWIG_DEFINE "-DPYTHONN3 -DPy_LIMITED_API=0x0304000")
 message(STATUS "-- ${DOXYGEN}")
 message(STATUS "SWIG -- ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i")
 
