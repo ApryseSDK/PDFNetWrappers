@@ -5,8 +5,6 @@
 
 project(PDFNetPython CXX)
 
-find_package(PythonLibs)
-
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
 
