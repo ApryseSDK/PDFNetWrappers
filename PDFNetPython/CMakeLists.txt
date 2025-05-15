@@ -7,26 +7,6 @@ project(PDFNetPython CXX)
 
 find_package(PythonLibs)
 
-if (PYTHONLIBS_FOUND)
-    if ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$")
-        set(PYTHON_2 ON)
-    elseif ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^3[\\.0-9]*[a-zA-Z0-9\\+]*$")
-        set(PYTHON_3 ON)
-    else ()
-        message(FATAL_ERROR "Unsupported Python version (Detected: ${PYTHONLIBS_VERSION_STRING}). Please install either Python 2 or Python 3.")
-        return ()
-    endif ()
-
-    message(STATUS "Using Python: ${PYTHONLIBS_VERSION_STRING}")
-    message(STATUS "Python include directory: ${PYTHON_INCLUDE_DIRS}")
-    message(STATUS "Python library: ${PYTHON_LIBRARY}")
-    set(PylibInfoOutput ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo )
-    file(WRITE ${PylibInfoOutput} "Python ${PYTHONLIBS_VERSION_STRING}") 
-else ()
-    message(FATAL_ERROR "Cannot find Python libraries, please set the variables specified by the error message then try again.")
-    return ()
-endif ()
-
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
 
