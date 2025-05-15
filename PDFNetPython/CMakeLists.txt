@@ -10,6 +10,8 @@ set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
+add_definitions(-DPy_LIMITED_API=0x03040000)
+
 if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
     message(FATAL_ERROR "Cannot build PYTHON3 wrapper with SWIG2. Please install SWIG 3.0.12 or above and rebuild the wrapper.")
     return ()
@@ -50,7 +52,7 @@ add_definitions(
 
 include_directories(
     ${PDFNetC_Include_Dir}
-    ${PYTHON_INCLUDE_DIRS}
+    ${Python3_INCLUDE_DIRS}
 )
 
 # The PDFNetPython project.
@@ -78,7 +80,7 @@ elseif (UNIX)
 endif ()
 
 add_library(PDFNetPython MODULE ${PDFNetPython_Sources})
-target_link_libraries(PDFNetPython ${PDFNetC_Library} ${PYTHON_LINK_LIB})
+target_link_libraries(PDFNetPython ${PDFNetC_Library} ${Python3_LIBRARIES})
 
 # Python extension naming conventions are:
 # - _PDFNetPython.so
