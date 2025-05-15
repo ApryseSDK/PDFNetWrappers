@@ -12,11 +12,6 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 add_definitions(-DPy_LIMITED_API=0x03040000)
 
-if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
-    message(FATAL_ERROR "Cannot build PYTHON3 wrapper with SWIG2. Please install SWIG 3.0.12 or above and rebuild the wrapper.")
-    return ()
-endif ()
-
 set(DOXYGEN "")
 if (PYTHON_2)
     set(SWIG_DEFINE "-DPYTHON2")
@@ -59,9 +54,9 @@ include_directories(
 
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
-    set(PYTHON_LINK_LIB ${PYTHON_LIBRARY})
+    set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (MINGW OR MSYS)
-    set(PYTHON_LINK_LIB ${PYTHON_LIBRARY})
+    set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
@@ -80,7 +75,7 @@ elseif (UNIX)
 endif ()
 
 add_library(PDFNetPython MODULE ${PDFNetPython_Sources})
-target_link_libraries(PDFNetPython ${PDFNetC_Library} ${Python3_LIBRARIES})
+target_link_libraries(PDFNetPython ${PDFNetC_Library} ${Python3_SABI_LIBRARIES})
 
 # Python extension naming conventions are:
 # - _PDFNetPython.so
@@ -99,10 +94,6 @@ configure_file(${PDFNetPython_SourcesDir}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT
 
 # Installation rules
 
-install(
-    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo 
-    DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
-)
 install(
     TARGETS PDFNetPython
     LIBRARY DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
