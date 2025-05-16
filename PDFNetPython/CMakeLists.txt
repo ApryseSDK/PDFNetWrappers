@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
 
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development SABIModule)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development Development.SABIModule)
 
 add_definitions(-DPy_LIMITED_API=0x03040000)
 
