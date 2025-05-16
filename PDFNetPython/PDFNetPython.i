@@ -19,10 +19,6 @@
 
 %include "PDFNetUStringPython3.i"
 
-#if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 3
-    #define PyUnicode_GET_LENGTH PyUnicode_GET_SIZE
-#endif
-
 /**
  * Catches all exceptions thrown by the C++ wrapper.
  * "$action" represents the C++ method to be called.
@@ -358,16 +354,7 @@ namespace pdftron {
     #endif
     #ifdef PYTHON3 
         if (PyUnicode_Check(PyList_GetItem($input, i))) {
-            int kind = PyUnicode_KIND(PyList_GetItem($input, i));
-            if (kind == (int)PyUnicode_1BYTE_KIND) {
-                arr[i] = (char*)PyUnicode_1BYTE_DATA(PyList_GetItem($input, i));
-            }
-            else if (kind == (int)PyUnicode_2BYTE_KIND) {
-                arr[i] = (char*)PyUnicode_2BYTE_DATA(PyList_GetItem($input, i));
-            }
-            else if (kind == (int)PyUnicode_4BYTE_KIND) {
-                arr[i] = (char*)PyUnicode_4BYTE_DATA(PyList_GetItem($input, i));
-            }
+            arr[i] = PyUnicode_AsUTF8(PyList_GetItem($input, i))
         }
     #endif
         else {
@@ -485,23 +472,11 @@ namespace pdftron {
         }
         if (PyUnicode_Check($str)) {
             // Ensure String only contains 1 character
-            if (PyUnicode_GET_LENGTH($str) != 1) {
+            if (PyUnicode_GetLength($str) != 1) {
                 PyErr_SetString(PyExc_ValueError,"Only one character allowed per list item");
                 return NULL;
             }
-            int kind = PyUnicode_KIND($str);
-            if (kind == (int)PyUnicode_1BYTE_KIND) {
-                char* $temp1 = (char*)PyUnicode_1BYTE_DATA($str);
-                $temp[i] = (pdftron::Unicode)*$temp1;
-            }
-            else if (kind == (int)PyUnicode_2BYTE_KIND) {
-                char* $temp1 = (char*)PyUnicode_2BYTE_DATA($str);
-                $temp[i] = (pdftron::Unicode)*$temp1;
-            }
-            else if (kind == (int)PyUnicode_4BYTE_KIND) {
-                char* $temp1 = (char*)PyUnicode_4BYTE_DATA($str);
-                $temp[i] = (pdftron::Unicode)*$temp1;
-            }
+            $temp[i] = PyUnicode_AsUTF8($str)
         }
         else {
             $temp[i] = (pdftron::Unicode)PyInt_AsLong($str);
