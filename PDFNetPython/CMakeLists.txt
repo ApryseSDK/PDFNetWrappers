@@ -3,8 +3,13 @@
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
-project(PDFNetPython CXX)
 cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+endif()
+
+project(PDFNetPython CXX)
 
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
@@ -57,7 +62,6 @@ elseif (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
     if (APPLE)
-        set(CMAKE_OSX_ARCHITECTURES="arm64;x86_64")
         set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/_PDFNetPython.so -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/local/lib -Wl,-rpath,.")
         set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
     else ()
