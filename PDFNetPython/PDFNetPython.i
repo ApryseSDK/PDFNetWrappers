@@ -16,9 +16,8 @@
 #ifdef PYTHON2
 %include "PDFNetUStringPython2.i"
 #endif
-#ifdef PYTHON3
+
 %include "PDFNetUStringPython3.i"
-#endif
 
 /**
  * Catches all exceptions thrown by the C++ wrapper.
