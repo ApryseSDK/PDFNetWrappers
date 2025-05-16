@@ -354,7 +354,7 @@ namespace pdftron {
     #endif
     #ifdef PYTHON3 
         if (PyUnicode_Check(PyList_GetItem($input, i))) {
-            arr[i] = PyUnicode_AsUTF8String(PyList_GetItem($input, i));
+            arr[i] = PyUnicode_AsUTF8(PyList_GetItem($input, i));
         }
     #endif
         else {
@@ -476,7 +476,7 @@ namespace pdftron {
                 PyErr_SetString(PyExc_ValueError,"Only one character allowed per list item");
                 return NULL;
             }
-            $temp[i] = PyUnicode_AsUTF8String($str);
+            $temp[i] = (pdftron::Unicode)PyUnicode_AsUTF8($str);
         }
         else {
             $temp[i] = (pdftron::Unicode)PyInt_AsLong($str);
