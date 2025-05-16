@@ -9,7 +9,7 @@ cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
 
-find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development SABIModule)
 
 add_definitions(-DPy_LIMITED_API=0x03040000)
 
@@ -50,9 +50,9 @@ include_directories(
 
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
-    set(PYTHON_LINK_LIB ${Python3_LIBRARY_DIRS}/python3.lib)
+    set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (MINGW OR MSYS)
-    set(PYTHON_LINK_LIB ${Python3_LIBRARY_DIRS}/python3.lib)
+    set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
@@ -71,7 +71,7 @@ elseif (UNIX)
 endif ()
 
 add_library(PDFNetPython MODULE ${PDFNetPython_Sources})
-target_link_libraries(PDFNetPython ${PDFNetC_Library} ${Python3_LIBRARY_DIRS}/python3.lib)
+target_link_libraries(PDFNetPython ${PDFNetC_Library} ${Python3_SABI_LIBRARIES})
 
 # Python extension naming conventions are:
 # - _PDFNetPython.so
