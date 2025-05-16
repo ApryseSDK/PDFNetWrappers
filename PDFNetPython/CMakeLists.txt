@@ -13,13 +13,8 @@ find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
 
 add_definitions(-DPy_LIMITED_API=0x03040000)
 
-set(DOXYGEN "")
-if (PYTHON_2)
-    set(SWIG_DEFINE "-DPYTHON2")
-elseif (PYTHON_3)
-    set(SWIG_DEFINE "-DPYTHON3")
-    set(DOXYGEN "-doxygen")
-endif ()
+set(SWIG_DEFINE "-DPYTHON3")
+set(DOXYGEN "-doxygen")
 
 message(STATUS "-- ${DOXYGEN}")
 
