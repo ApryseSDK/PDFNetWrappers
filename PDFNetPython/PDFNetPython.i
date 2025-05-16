@@ -20,7 +20,7 @@
 %include "PDFNetUStringPython3.i"
 
 #if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 3
-#  define PyUnicode_GET_LENGTH PyUnicode_GET_SIZE
+    #define PyUnicode_GET_LENGTH PyUnicode_GET_SIZE
 #endif
 
 /**
