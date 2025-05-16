@@ -19,6 +19,10 @@
 
 %include "PDFNetUStringPython3.i"
 
+#if PY_MAJOR_VERSION >= 3 && PY_MINOR_VERSION >= 3
+#  define PyUnicode_GET_LENGTH PyUnicode_GET_SIZE
+#endif
+
 /**
  * Catches all exceptions thrown by the C++ wrapper.
  * "$action" represents the C++ method to be called.
