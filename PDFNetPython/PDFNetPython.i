@@ -477,7 +477,7 @@ namespace pdftron {
                 return NULL;
             }
             char* $temp1 = (char *)PyUnicode_AsUTF8String($str);
-            $temp[i] = (pdftron::Unicode)*$temp1
+            $temp[i] = (pdftron::Unicode)*$temp1;
         }
         else {
             $temp[i] = (pdftron::Unicode)PyInt_AsLong($str);
