@@ -568,7 +568,7 @@ def main():
 	try:
 		CertifyPDF(input_path + 'waiver_withApprovalField.pdf',
 			'PDFTronCertificationSig',
-			input_path + 'pdftron.pfx',
+			input_path + 'apryse.pfx',
 			'password',
 			input_path + 'pdftron.bmp',
 			output_path + 'waiver_withApprovalField_certified_output.pdf')
@@ -580,7 +580,7 @@ def main():
 	try:
 		SignPDF(input_path + 'waiver_withApprovalField_certified.pdf',
 			'PDFTronApprovalSig',
-			input_path + 'pdftron.pfx',
+			input_path + 'apryse.pfx',
 			'password',
 			input_path + 'signature.jpg',
 			output_path + 'waiver_withApprovalField_certified_approved_output.pdf')
@@ -600,7 +600,7 @@ def main():
 
 	#################### TEST 4: Verify a document's digital signatures.
 	try:
-		if not VerifyAllAndPrint(input_path + "waiver_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer"):
+		if not VerifyAllAndPrint(input_path + "waiver_withApprovalField_certified_approved.pdf", input_path + "apryse.cer"):
 			result = False
 	except Exception as e:
 		print(e.args)
@@ -608,7 +608,7 @@ def main():
 
 	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	try:
-		if not VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer'):
+		if not VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'apryse.cer'):
 			result = False
 	except Exception as e:
 		print(e.args)
@@ -623,9 +623,9 @@ def main():
 	try:
 		CustomSigningAPI(input_path + "waiver.pdf",
 			"PDFTronApprovalSig",
-			input_path + "pdftron.pfx",
+			input_path + "apryse.pfx",
 			"password",
-			input_path + "pdftron.cer",
+			input_path + "apryse.cer",
 			input_path + "signature.jpg",
 			DigestAlgorithm.e_SHA256,
 			True,
