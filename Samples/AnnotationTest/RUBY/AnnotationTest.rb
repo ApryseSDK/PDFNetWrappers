@@ -75,12 +75,19 @@ def AnnotationHighLevelAPI(doc)
 		itr.Next()
 	end
 
+    stree = STree.Create(doc)
+    root_elem = SElement.Create(doc, "Document")
+    stree.Insert(root_elem, 0)
+    root_node = root_elem.GetSDFObj()
+    default_opts = TaggingOptions.new()
+
 	# Use the high-level API to create new annotations.		
 	first_page = doc.GetPage(1)
 	
 	# Create a hyperlink...
 	hyperlink = Link.Create(doc.GetSDFDoc(), Rect.new(85, 570, 503, 524), Action.CreateURI(doc.GetSDFDoc(), "http://www.pdftron.com"))
-	first_page.AnnotPushBack(hyperlink)
+	#first_page.AnnotPushBack(hyperlink)
+    first_page.AnnotInsertWithTagging(first_page.GetNumAnnots(), hyperlink, root_node, default_opts)
 	
 	# Create an intra-document link...
 	goto_page_3 = Action.CreateGoto(Destination.CreateFitH(doc.GetPage(3), 0))

@@ -67,13 +67,20 @@ function AnnotationHighLevelAPI($doc) {
 			}
 		}
 	}
-	
+
+	$stree = STree::Create($doc);
+	$root_elem = SElement::Create($doc, "Document");
+	$stree->Insert($root_elem, 0);
+	$root_node = $root_elem->GetSDFObj();
+	$default_opts = new TaggingOptions();
+
 	// Use the high-level API to create new annotations.
 	$first_page = $doc->GetPage(1);
 
 	// Create a hyperlink...
 	$hyperlink = Link::CreateAnnot($doc->GetSDFDoc(), new Rect(85.0, 570.0, 503.0, 524.0), Action::CreateURI($doc->GetSDFDoc(), "http://www.pdftron.com"));
-	$first_page->AnnotPushBack($hyperlink);
+	//$first_page->AnnotPushBack($hyperlink);
+	$first_page->AnnotInsertWithTagging($first_page->GetNumAnnots(), $hyperlink, $root_node, $default_opts);
 
 	// Create an intra-document link...
 	$goto_page_3 = Action::CreateGoto(Destination::CreateFitH($doc->GetPage(3), 0));
