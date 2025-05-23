@@ -231,6 +231,7 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
+    #include "PDF/TaggingOptions.h"
     #include "PDF/WebFontDownloader.h"
     #include "PDF/PrintToPdfOptions.h"
     #include "PDF/PrintToPdfModule.h"
@@ -922,6 +923,7 @@ namespace pdftron {
 %include "PDF/PDFDoc.h"
 %include "PDF/PrintToPdfOptions.h"
 %include "PDF/PrintToPdfModule.h"
+%include "PDF/TaggingOptions.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
