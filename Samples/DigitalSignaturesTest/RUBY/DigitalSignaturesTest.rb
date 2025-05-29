@@ -503,7 +503,7 @@ def CustomSigningAPI(doc_path,
 
 	# Then, create ObjectIdentifiers for the algorithms you have used.
 	# Here we use digest_algorithm_type (SHA256) for hashing, and RSAES-PKCS1-v1_5 (specified in the private key) for signing.
-	digest_algorithm_oid = ObjectIdentifier.new(ObjectIdentifier::E_SHA256);
+	digest_algorithm_oid = ObjectIdentifier.CreateFromDigestAlgorithm(digest_algorithm_type);
 	signature_algorithm_oid = ObjectIdentifier.new(ObjectIdentifier::E_RSA_encryption_PKCS1);
 
 	# Then, put the CMS signature components together.
@@ -611,7 +611,7 @@ def main()
 	begin
 		CertifyPDF(input_path + 'waiver_withApprovalField.pdf',
 			'PDFTronCertificationSig',
-			input_path + 'pdftron.pfx',
+			input_path + 'apryse.pfx',
 			'password',
 			input_path + 'pdftron.bmp',
 			output_path + 'waiver_withApprovalField_certified_output.pdf');
@@ -625,7 +625,7 @@ def main()
 	begin
 		SignPDF(input_path + 'waiver_withApprovalField_certified.pdf',
 			'PDFTronApprovalSig',
-			input_path + 'pdftron.pfx',
+			input_path + 'apryse.pfx',
 			'password',
 			input_path + 'signature.jpg',
 			output_path + 'waiver_withApprovalField_certified_approved_output.pdf');
@@ -650,7 +650,7 @@ def main()
 
 	#################### TEST 4: Verify a document's digital signatures.
 	begin
-		if !VerifyAllAndPrint(input_path + "waiver_withApprovalField_certified_approved.pdf", input_path + "pdftron.cer")
+		if !VerifyAllAndPrint(input_path + "waiver_withApprovalField_certified_approved.pdf", input_path + "apryse.cer")
 			return false;
 		end
 	rescue Exception => e
@@ -660,7 +660,7 @@ def main()
 
 	#################### TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
 	begin
-		if !VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'pdftron.cer')
+		if !VerifySimple(input_path + 'waiver_withApprovalField_certified_approved.pdf', input_path + 'apryse.cer')
 			result = false;
 		end
 	rescue Exception => e
@@ -677,9 +677,9 @@ def main()
 	begin
 		CustomSigningAPI(input_path + "waiver.pdf",
 			"PDFTronApprovalSig",
-			input_path + "pdftron.pfx",
+			input_path + "apryse.pfx",
 			"password",
-			input_path + "pdftron.cer",
+			input_path + "apryse.cer",
 			input_path + "signature.jpg",
 			DigestAlgorithm::E_SHA256,
 			true,

@@ -604,7 +604,7 @@ func TestDigitalSignatures(t *testing.T){
     //////////////////////////////////////// TEST 1: certify a PDF.
     CertifyPDF(inputPath + "waiver_withApprovalField.pdf",
             "PDFTronCertificationSig",
-            inputPath + "pdftron.pfx",
+            inputPath + "apryse.pfx",
             "password",
             inputPath + "pdftron.bmp",
             outputPath + "waiver_withApprovalField_certified_output.pdf")
@@ -613,7 +613,7 @@ func TestDigitalSignatures(t *testing.T){
     //////////////////////////////////////// TEST 2: approval-sign an existing, unsigned signature field in a PDF that already has a certified signature field.
     SignPDF(inputPath + "waiver_withApprovalField_certified.pdf",
             "PDFTronApprovalSig",
-            inputPath + "pdftron.pfx",
+            inputPath + "apryse.pfx",
             "password",
             inputPath + "signature.jpg",
             outputPath + "waiver_withApprovalField_certified_approved_output.pdf")
@@ -626,12 +626,12 @@ func TestDigitalSignatures(t *testing.T){
     PrintSignaturesInfo(outputPath + "waiver_withApprovalField_certified_approved_certcleared_output.pdf")
 
     //////////////////////////////////////// TEST 4: Verify a document's digital signatures.
-    if !VerifyAllAndPrint(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
+    if !VerifyAllAndPrint(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "apryse.cer"){
         result = false
     }
 
     //////////////////////////////////////// TEST 5: Verify a document's digital signatures in a simple fashion using the document API.
-    if !VerifySimple(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "pdftron.cer"){
+    if !VerifySimple(inputPath + "waiver_withApprovalField_certified_approved.pdf", inputPath + "apryse.cer"){
        result = false
     }
 
@@ -643,9 +643,9 @@ func TestDigitalSignatures(t *testing.T){
     // to system keystores, etc.
     CustomSigningAPI(inputPath + "waiver.pdf",
             "PDFTronApprovalSig",
-            inputPath + "pdftron.pfx",
+            inputPath + "apryse.pfx",
             "password",
-            inputPath + "pdftron.cer",
+            inputPath + "apryse.cer",
             inputPath + "signature.jpg",
             DigestAlgorithmE_SHA256,
             true,
