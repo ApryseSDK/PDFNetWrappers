@@ -692,7 +692,7 @@ def main()
 	#################### TEST 7: Timestamp a document, then add Long Term Validation (LTV) information for the DocTimeStamp.
 	# begin
 	# 	# Replace YOUR_URL_OF_TSA with the timestamp authority (TSA) URL to use during timestamping.
-	# 	# For example, as of July 2024, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
+	# 	# For example, as of June 2025, http://timestamp.globalsign.com/tsa/r6advanced1 was usable.
 	# 	# Note that this url may not work in the future. A reliable solution requires using your own TSA.
 	# 	tsa_url = 'YOUR_URL_OF_TSA';
 	# 	if tsa_url == 'YOUR_URL_OF_TSA'
@@ -700,7 +700,7 @@ def main()
 	# 	end
 	#
 	# 	# Replace YOUR_CERTIFICATE with the trusted root certificate corresponding to the chain used by the timestamp authority.
-	# 	# For example, as of July 2024, https://secure.globalsign.com/cacert/gstsacasha384g4.crt was usable.
+	# 	# For example, as of June 2025, https://secure.globalsign.net/cacert/root-r6.crt was usable.
 	# 	# Note that this certificate may not work in the future. A reliable solution requires using your own TSA certificate.
 	# 	trusted_cert_path = 'YOUR_CERTIFICATE';
 	# 	if trusted_cert_path == 'YOUR_CERTIFICATE'
