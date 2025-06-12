@@ -9,6 +9,10 @@ if (APPLE)
     set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
 endif()
 
+if(MSVC AND BUILD_PDFNET_32BIT)
+  set(CMAKE_GENERATOR_PLATFORM Win32)
+endif()
+
 project(PDFNetPython CXX)
 
 message(STATUS "Generating sources for Python bindings using swig...")
@@ -24,7 +28,7 @@ set(DOXYGEN "-doxygen")
 message(STATUS "-- ${DOXYGEN}")
 
 execute_process(
-    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DPy_LIMITED_API=0x03040000 -DSWIGHIDDEN_SIG -I"C:/Python38_32/include" -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DPy_LIMITED_API=0x03040000 -DSWIGHIDDEN_SIG -I${Python3_INCLUDE_DIRS} -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
