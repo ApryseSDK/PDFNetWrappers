@@ -3,51 +3,28 @@
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
+cmake_minimum_required(VERSION 3.18 FATAL_ERROR)
+
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+endif()
+
 project(PDFNetPython CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
-
-find_package(PythonLibs)
-
-if (PYTHONLIBS_FOUND)
-    if ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$")
-        set(PYTHON_2 ON)
-    elseif ("${PYTHONLIBS_VERSION_STRING}" MATCHES "^3[\\.0-9]*[a-zA-Z0-9\\+]*$")
-        set(PYTHON_3 ON)
-    else ()
-        message(FATAL_ERROR "Unsupported Python version (Detected: ${PYTHONLIBS_VERSION_STRING}). Please install either Python 2 or Python 3.")
-        return ()
-    endif ()
-
-    message(STATUS "Using Python: ${PYTHONLIBS_VERSION_STRING}")
-    message(STATUS "Python include directory: ${PYTHON_INCLUDE_DIRS}")
-    message(STATUS "Python library: ${PYTHON_LIBRARY}")
-    set(PylibInfoOutput ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo )
-    file(WRITE ${PylibInfoOutput} "Python ${PYTHONLIBS_VERSION_STRING}") 
-else ()
-    message(FATAL_ERROR "Cannot find Python libraries, please set the variables specified by the error message then try again.")
-    return ()
-endif ()
 
 message(STATUS "Generating sources for Python bindings using swig...")
 set(PDFNetPython_SourcesDir ${PROJECT_BINARY_DIR})
 
-if (PYTHON_3 AND ("${SWIG_VERSION}" MATCHES "^2[\\.0-9]*[a-zA-Z0-9\\+]*$"))
-    message(FATAL_ERROR "Cannot build PYTHON3 wrapper with SWIG2. Please install SWIG 3.0.12 or above and rebuild the wrapper.")
-    return ()
-endif ()
+find_package(Python3 REQUIRED COMPONENTS Interpreter Development Development.SABIModule)
 
-set(DOXYGEN "")
-if (PYTHON_2)
-    set(SWIG_DEFINE "-DPYTHON2")
-elseif (PYTHON_3)
-    set(SWIG_DEFINE "-DPYTHON3")
-    set(DOXYGEN "-doxygen")
-endif ()
+add_definitions(-DPy_LIMITED_API=0x03040000)
+
+set(SWIG_DEFINE "-DPYTHON3")
+set(DOXYGEN "-doxygen")
 
 message(STATUS "-- ${DOXYGEN}")
 
 execute_process(
-    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DPy_LIMITED_API=0x03040000 -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DPy_LIMITED_API=0x03040000 -DSWIGHIDDEN_SIG -I${Python3_INCLUDE_DIRS} -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
@@ -71,35 +48,29 @@ add_definitions(
 
 include_directories(
     ${PDFNetC_Include_Dir}
-    ${PYTHON_INCLUDE_DIRS}
+    ${Python3_INCLUDE_DIRS}
 )
 
 # The PDFNetPython project.
 
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
-    set(PYTHON_LINK_LIB ${PYTHON_LIBRARY})
+    set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (MINGW OR MSYS)
-    set(PYTHON_LINK_LIB ${PYTHON_LIBRARY})
+    set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (UNIX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
     if (APPLE)
         set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/_PDFNetPython.so -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/local/lib -Wl,-rpath,.")
-        if(BUILD_MACOS_ARM64)
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -target arm64-apple-macos11")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -target arm64-apple-macos11")
-            set(CMAKE_OSX_SYSROOT "/Applications/Xcode_12.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
-        else(BUILD_MACOS_ARM64)
-            set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
-        endif(BUILD_MACOS_ARM64)
+        set(CMAKE_OSX_SYSROOT "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
     else ()
         set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
     endif ()
 endif ()
 
 add_library(PDFNetPython MODULE ${PDFNetPython_Sources})
-target_link_libraries(PDFNetPython ${PDFNetC_Library} ${PYTHON_LINK_LIB})
+target_link_libraries(PDFNetPython ${PDFNetC_Library} ${Python3_SABI_LIBRARIES})
 
 # Python extension naming conventions are:
 # - _PDFNetPython.so
@@ -118,10 +89,6 @@ configure_file(${PDFNetPython_SourcesDir}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT
 
 # Installation rules
 
-install(
-    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPyLibInfo 
-    DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
-)
 install(
     TARGETS PDFNetPython
     LIBRARY DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
