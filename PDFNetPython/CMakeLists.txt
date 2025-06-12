@@ -24,7 +24,7 @@ set(DOXYGEN "-doxygen")
 message(STATUS "-- ${DOXYGEN}")
 
 execute_process(
-    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DPy_LIMITED_API=0x03040000 -DSWIGHIDDEN_SIG -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
+    COMMAND ${SWIG_EXECUTABLE} -c++ -python ${DOXYGEN} ${SWIG_DEFINE} -DPy_LIMITED_API=0x03040000 -DSWIGHIDDEN_SIG -I"C:/Python38_32/include" -I${PDFNetC_Include_Dir} -outdir ${PDFNetPython_SourcesDir} -o ${PDFNetPython_SourcesDir}/PDFNetPython.cpp -oh ${PDFNetPython_SourcesDir}/PDFNetPython.hpp PDFNetPython.i
     RESULT_VARIABLE SOURCE_GEN_RESULT
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
@@ -56,11 +56,6 @@ include_directories(
 if (MSVC)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
     set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
-    if (BUILD_PDFNET_32BIT)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
-        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -m32")
-        message(STATUS "SETTING 32BIT Flags")
-    endif()
 elseif (MINGW OR MSYS)
     set(PYTHON_LINK_LIB ${Python3_SABI_LIBRARIES})
 elseif (UNIX)
