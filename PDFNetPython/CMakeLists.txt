@@ -9,10 +9,6 @@ if (APPLE)
     set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
 endif()
 
-if(MSVC AND BUILD_PDFNET_32BIT)
-  set(CMAKE_GENERATOR_PLATFORM Win32)
-endif()
-
 project(PDFNetPython CXX)
 
 message(STATUS "Generating sources for Python bindings using swig...")
