@@ -3,8 +3,14 @@
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
+if(CMAKE_MAJOR_VERSION VERSION_EQUAL "4")
+    cmake_minimum_required(VERSION 3.10)
+else()
+    # for android builds
+    cmake_minimum_required(VERSION 3.4)
+endif()
+
 project(PDFNetLanguageBindings CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 set(CUSTOM_SWIG CACHE STRING "")
 set(BUILD_PDFNetPython OFF CACHE BOOL "Build PDFNet language bindings for Python.")
