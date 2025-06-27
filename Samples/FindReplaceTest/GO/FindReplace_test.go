@@ -29,7 +29,7 @@ var outputPath = "../TestFiles/Output/"
 
 //---------------------------------------------------------------------------------------
 
-func TestTransPDF(t *testing.T) {
+func TestFindReplace(t *testing.T) {
 
     // The first step in every application using PDFNet is to initialize the
     // library and set the path to common PDF resources. The library is usually
@@ -38,6 +38,7 @@ func TestTransPDF(t *testing.T) {
 
     // Open a PDF document to edit
     doc := NewPDFDoc(inputPath + "find-replace-test.pdf")
+    options := NewFindReplaceOptions()
 
     // Set some find/replace options
     options.SetWholeWords(true)
@@ -47,7 +48,7 @@ func TestTransPDF(t *testing.T) {
     options.SetAlignment(FindReplaceOptionsE_left)
 
     // Perform a Find/Replace finding "the" with "THE INCREDIBLE"
-    FindReplaceText(doc, "the", "THE INCREDIBLE", options)
+    FindReplaceFindReplaceText(doc, "the", "THE INCREDIBLE", options)
 
     // Save the edited PDF
     doc.Save(outputPath + "find-replace-test-replaced.pdf", uint(SDFDocE_linearized))
