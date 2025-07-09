@@ -193,6 +193,8 @@
     #include "PDF/BarcodeModule.h"
     #include "PDF/TransPDFOptions.h"
     #include "PDF/TransPDF.h"
+    #include "PDF/FindReplaceOptions.h"
+    #include "PDF/FindReplace.h"
     #include "PDF/Optimizer.h"
     #include "PDF/Page.h"
     #include "PDF/PageLabel.h"
@@ -237,6 +239,7 @@
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
     #include "PDF/TextSearch.h"
+    #include "PDF/TaggingOptions.h"
     #include "PDF/WebFontDownloader.h"
     
     // header files in /PDFNetC/Headers/SDF
@@ -1071,6 +1074,7 @@ namespace pdftron {
 %include "PDF/PDFDocViewPrefs.h"
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
+%include "PDF/TaggingOptions.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
@@ -1116,6 +1120,8 @@ namespace pdftron {
 %include "PDF/BarcodeModule.h"
 %include "PDF/TransPDFOptions.h"
 %include "PDF/TransPDF.h"
+%include "PDF/FindReplaceOptions.h"
+%include "PDF/FindReplace.h"
 %include "PDF/CADModule.h"
 %include "PDF/AdvancedImagingModule.h"
 %include "PDF/PDF2HtmlReflowParagraphsModule.h"
