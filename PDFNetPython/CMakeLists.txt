@@ -90,6 +90,11 @@ configure_file(${PDFNetPython_SourcesDir}/PDFNetPython.py ${CMAKE_LIBRARY_OUTPUT
 # Installation rules
 
 install(
+    FILES ${CMAKE_LIBRARY_OUTPUT_DIRECTORY}/PDFNetPython.py
+    DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
+)
+
+install(
     TARGETS PDFNetPython
     LIBRARY DESTINATION ${INSTALL_DESTINATION_LIB_DIR}
 )
