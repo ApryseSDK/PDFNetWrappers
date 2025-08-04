@@ -3,8 +3,9 @@
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
+cmake_minimum_required(VERSION 3.10)
+
 project(PDFNetRuby CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 # Checks the header and library directory of the current active ruby install
 # This will respond to virtual enviroments
@@ -72,15 +73,7 @@ elseif (UNIX)
     set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -fPIC")
     if (APPLE)
         set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/PDFNetRuby.bundle -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/local/lib -Wl,-rpath,.")
-        if(BUILD_MACOS_ARM64)
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -target arm64-apple-macos11")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -target arm64-apple-macos11")
-            set(CMAKE_OSX_SYSROOT "/Applications/Xcode_12.3.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk")
-        else(BUILD_MACOS_ARM64)
-            set(CMAKE_OSX_SYSROOT "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk")
-        endif(BUILD_MACOS_ARM64)
-    else ()
-        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
+        set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
     endif ()
 endif ()
 

@@ -4,7 +4,8 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 project(PDFNetPHP CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10)
+
 
 find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
 if (NOT PHP_CONFIG_EXECUTABLE)
