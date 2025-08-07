@@ -74,6 +74,8 @@ elseif (UNIX)
     if (APPLE)
         set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-headerpad_max_install_names -lSystem -undefined dynamic_lookup -Wl,-install_name,@rpath/PDFNetRuby.bundle -Wl,-rpath,/usr/lib -Wl,-rpath,/usr/local/lib -Wl,-rpath,.")
         set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64")
+    else ()
+        set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN'")
     endif ()
 endif ()
 
