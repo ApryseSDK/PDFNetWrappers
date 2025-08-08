@@ -4,7 +4,7 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 project(PDFTronGo CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.10)
 
 find_program(GO_EXECUTABLE go PATHS $ENV{HOME}/go ENV GOROOT GOPATH PATH_SUFFIXES bin)
 if(GO_EXECUTABLE)
