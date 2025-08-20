@@ -6,7 +6,6 @@
 if(CMAKE_MAJOR_VERSION VERSION_EQUAL "4")
     cmake_minimum_required(VERSION 3.10)
 else()
-    # for android builds
     cmake_minimum_required(VERSION 3.4)
 endif()
 
