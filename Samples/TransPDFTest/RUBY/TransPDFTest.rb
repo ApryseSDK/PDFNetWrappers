@@ -27,7 +27,7 @@ def main()
 	begin  
 
 		# Open a PDF document to translate
-		doc = PDFDoc.new($input_path + "tagged.pdf")
+		doc = PDFDoc.new($input_path + "find-replace-test.pdf")
 		options = TransPDFOptions.new
 
 		# Set the source language in the options
@@ -41,19 +41,19 @@ def main()
 		# options.SetPages("-2,5-6,9,11-")
 
 		# Extract the xlf to file and field the PDF for translation
-		TransPDF.ExtractXLIFF(doc, $output_path + "tagged.xlf", options)
+		TransPDF.ExtractXLIFF(doc, $output_path + "find-replace-test.xlf", options)
 
 		# Save the fielded PDF
-		doc.Save($output_path + "tagged-fielded.pdf", SDFDoc::E_linearized)
+		doc.Save($output_path + "find-replace-test-fielded.pdf", SDFDoc::E_linearized)
 
 		# The extracted xlf can be translated in a system of your choice.
-		# In this sample a pre-prepared translated file is used - tagged_(en_to_fr).xlf
+		# In this sample a pre-prepared translated file is used - find-replace-test_(en_to_fr).xlf
 
 		# Perform the translation using the pre-prepared translated xliff
-		TransPDF.ApplyXLIFF(doc, $input_path + "tagged_(en_to_fr).xlf", options)
+		TransPDF.ApplyXLIFF(doc, $input_path + "find-replace-test_(en_to_fr).xlf", options)
 
 		# Save the translated PDF
-		doc.Save($output_path + "tagged-fr.pdf", SDFDoc::E_linearized)
+		doc.Save($output_path + "find-replace-test-fr.pdf", SDFDoc::E_linearized)
 		doc.Close
 
 	rescue => error

@@ -38,7 +38,7 @@ func TestTransPDF(t *testing.T) {
     PDFNetInitialize(licenseKey)
 
     // Open a PDF document to translate
-    doc := NewPDFDoc(inputPath + "tagged.pdf")
+    doc := NewPDFDoc(inputPath + "find-replace-test.pdf")
     options := NewTransPDFOptions()
 
     // Set the source language in the options
@@ -52,19 +52,19 @@ func TestTransPDF(t *testing.T) {
     // options.SetPages("-2,5-6,9,11-")
 
     // Extract the xlf to file and field the PDF for translation
-    TransPDFExtractXLIFF(doc, outputPath + "tagged.xlf", options)
+    TransPDFExtractXLIFF(doc, outputPath + "find-replace-test.xlf", options)
 
     // Save the fielded PDF
-    doc.Save(outputPath + "tagged-fielded.pdf", uint(SDFDocE_linearized))
+    doc.Save(outputPath + "find-replace-test-fielded.pdf", uint(SDFDocE_linearized))
 
     // The extracted xlf can be translated in a system of your choice.
-    // In this sample a pre-prepared translated file is used - tagged_(en_to_fr).xlf
+    // In this sample a pre-prepared translated file is used - find-replace-test_(en_to_fr).xlf
 
     // Perform the translation using the pre-prepared translated xliff
-    TransPDFApplyXLIFF(doc, inputPath + "tagged_(en_to_fr).xlf", options)
+    TransPDFApplyXLIFF(doc, inputPath + "find-replace-test_(en_to_fr).xlf", options)
 
     // Save the translated PDF
-    doc.Save(outputPath + "tagged-fr.pdf", uint(SDFDocE_linearized))
+    doc.Save(outputPath + "find-replace-test-fr.pdf", uint(SDFDocE_linearized))
     doc.Close()
 
     PDFNetTerminate()
