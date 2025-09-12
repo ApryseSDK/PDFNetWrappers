@@ -214,25 +214,102 @@
     #undef SetPort
 %}
 
-%include "exception.i"
+// ==============
+// ERROR HANDLING
+// ==============
+// Converts C++ exceptions to Go errors using panic/recovery mechanism.
+// All functions now return an error in addition to their return type instead of panicking on exceptions.
+
+// Ensure necessary imports for error handling code
+%insert(go_imports) %{
+import "errors"
+import "fmt"
+%}
+
+// Handle exceptions by triggering recoverable panic containing the exception message
 %exception {
     try {
-        $action;
-    } catch (std::exception &e) {
+        $action
+    } catch (const std::exception &e) {
         _swig_gopanic(e.what());
+    } catch (...) {
+        _swig_gopanic("unknown exception occurred");
     }
 }
 
+// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
+%define ERROR_HANDLING_TYPEMAPS(TYPE)
+%typemap(gotype) TYPE "$gotype, error"
+%typemap(cgoout) TYPE %{
+    var swig_r $gotypes
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        swig_r = $cgocall
+    }()
+
+    return swig_r, swig_err
+%}
+%enddef
+
+// Exclude director classes from typemaps
+%typemap(gotype) SwigDirector_Callback ""
+%typemap(cgoout) SwigDirector_Callback ""
+%typemap(gotype) SwigDirector_SignatureHandler ""
+%typemap(cgoout) SwigDirector_SignatureHandler ""
+
+// Apply gotype and cgoout typemaps to functions that return:
+
+// Value types
+ERROR_HANDLING_TYPEMAPS(SWIGTYPE)
+// Pointers
+ERROR_HANDLING_TYPEMAPS(SWIGTYPE *)
+// References
+ERROR_HANDLING_TYPEMAPS(SWIGTYPE &)
+// Primitives
+ERROR_HANDLING_TYPEMAPS(bool)
+ERROR_HANDLING_TYPEMAPS(char)
+ERROR_HANDLING_TYPEMAPS(double)
+ERROR_HANDLING_TYPEMAPS(int)
+ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
+ERROR_HANDLING_TYPEMAPS(size_t)
+
+// Generate gotype and cgoout typemaps for void separately
+%typemap(gotype) void "error"
+%typemap(cgoout) void %{
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        $cgocall
+    }()
+
+    return swig_err
+%}
+
+// Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
 %{
     // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
     if ($1).GetMp_obj().Swigcptr() != 0 {
-        $result = $1
-        return $result
+        return $1, swig_err
     }
 
-    $result = nil
+    return nil, swig_err
 %}
+
+// ==================
+// END ERROR HANDLING
+// ==================
 
 /**
  * Provides mapping for C++ vectors.
