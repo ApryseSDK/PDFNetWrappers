@@ -226,6 +226,13 @@ import "errors"
 import "fmt"
 %}
 
+// Exclude exception handling for director classes
+%feature("except", "") pdftron::PDF::Callback;
+%feature("except", "") pdftron::SDF::SignatureHandler;
+%feature("except", "") pdftron::PDF::Separation;
+%feature("except", "") pdftron::PDF::Rect;
+%feature("except", "") pdftron::PDF::Date;
+
 // Handle exceptions by triggering recoverable panic containing the exception message
 %exception {
     try {
@@ -348,26 +355,6 @@ namespace pdftron {
 // ERROR HANDLING PT 2
 // ===================
 
-// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
-%define ERROR_HANDLING_TYPEMAPS(TYPE)
-%typemap(gotype, out) TYPE "$gotype, error"
-%typemap(cgoout, out) TYPE %{
-    var swig_r $gotypes
-    var swig_err error
-
-    func() {
-        defer func() {
-            if r := recover(); r != nil {
-                swig_err = errors.New(fmt.Sprintf("%v", r))
-            }
-        }()
-        swig_r = $cgocall
-    }()
-
-    return swig_r, swig_err
-%}
-%enddef
-
 // Exclude director classes from error handling typemaps
 %typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
 %typemap(cgoout, out) pdftron::PDF::Callback* %{
@@ -393,6 +380,26 @@ namespace pdftron {
 %typemap(cgoout, out) pdftron::PDF::Date* %{
     return $cgocall
 %}
+
+// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
+%define ERROR_HANDLING_TYPEMAPS(TYPE)
+%typemap(gotype, out) TYPE "$gotype, error"
+%typemap(cgoout, out) TYPE %{
+    var swig_r $gotypes
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        swig_r = $cgocall
+    }()
+
+    return swig_r, swig_err
+%}
+%enddef
 
 // Apply gotype and cgoout typemaps to functions that return:
 
