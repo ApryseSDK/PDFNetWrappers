@@ -226,7 +226,7 @@ import "errors"
 import "fmt"
 %}
 
-// Disable exception handling for directors
+// Disable exception handling for SwigDirector_ classes
 %feature("except", "0") SwigDirector_Callback;
 %feature("except", "0") SwigDirector_SignatureHandler;
 
@@ -247,28 +247,8 @@ import "fmt"
     return $cgocall
 %}
 
-%typemap(gotype, out) SwigDirector_Callback "$gotype"
-%typemap(cgoout, out) SwigDirector_Callback %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) SwigDirector_Callback* "$gotype"
-%typemap(cgoout, out) SwigDirector_Callback* %{
-    return $cgocall
-%}
-
 %typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
 %typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) SwigDirector_SignatureHandler "$gotype"
-%typemap(cgoout, out) SwigDirector_SignatureHandler %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) SwigDirector_SignatureHandler* "$gotype"
-%typemap(cgoout, out) SwigDirector_SignatureHandler* %{
     return $cgocall
 %}
 
@@ -322,6 +302,12 @@ ERROR_HANDLING_TYPEMAPS(double)
 ERROR_HANDLING_TYPEMAPS(int)
 ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
 ERROR_HANDLING_TYPEMAPS(size_t)
+
+// Reset SwigDirector_ classes back to default typemaps
+%typemap(gotype, out) SwigDirector_Callback "";
+%typemap(cgoout, out) SwigDirector_Callback "";
+%typemap(gotype, out) SwigDirector_SignatureHandler "";
+%typemap(cgoout, out) SwigDirector_SignatureHandler "";
 
 // Generate gotype and cgoout typemaps for void separately
 %typemap(gotype, out) void "error"
