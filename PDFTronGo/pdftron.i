@@ -350,8 +350,8 @@ namespace pdftron {
 
 // Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
 %define ERROR_HANDLING_TYPEMAPS(TYPE)
-%typemap(gotype) TYPE "$gotype, error"
-%typemap(cgoout) TYPE %{
+%typemap(gotype, out) TYPE "$gotype, error"
+%typemap(cgoout, out) TYPE %{
     var swig_r $gotypes
     var swig_err error
 
@@ -385,8 +385,8 @@ ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
 ERROR_HANDLING_TYPEMAPS(size_t)
 
 // Generate gotype and cgoout typemaps for void separately
-%typemap(gotype) void "error"
-%typemap(cgoout) void %{
+%typemap(gotype, out) void "error"
+%typemap(cgoout, out) void %{
     var swig_err error
 
     func() {
