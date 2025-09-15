@@ -226,10 +226,6 @@ import "errors"
 import "fmt"
 %}
 
-// Disable exception handling for SwigDirector_ classes
-%feature("except", "0") SwigDirector_Callback;
-%feature("except", "0") SwigDirector_SignatureHandler;
-
 // Handle exceptions by triggering recoverable panic containing the exception message
 %exception {
     try {
@@ -267,6 +263,11 @@ import "fmt"
     return $cgocall
 %}
 
+%typemap(gotype, out, match="funcname", pattern="*NewDirectorCallback*") SWIGTYPE * "$gotype"
+%typemap(cgoout, out, match="funcname", pattern="*NewDirectorCallback*") SWIGTYPE * "$cgocall"
+%typemap(gotype, out, match="funcname", pattern="*NewDirectorSignatureHandler*") SWIGTYPE * "$gotype"
+%typemap(cgoout, out, match="funcname", pattern="*NewDirectorSignatureHandler*") SWIGTYPE * "$cgocall"
+
 // Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
 %define ERROR_HANDLING_TYPEMAPS(TYPE)
 %typemap(gotype, out) TYPE "$gotype, error"
@@ -302,12 +303,6 @@ ERROR_HANDLING_TYPEMAPS(double)
 ERROR_HANDLING_TYPEMAPS(int)
 ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
 ERROR_HANDLING_TYPEMAPS(size_t)
-
-// Reset SwigDirector_ classes back to default typemaps
-%typemap(gotype, out) SwigDirector_Callback "";
-%typemap(cgoout, out) SwigDirector_Callback "";
-%typemap(gotype, out) SwigDirector_SignatureHandler "";
-%typemap(cgoout, out) SwigDirector_SignatureHandler "";
 
 // Generate gotype and cgoout typemaps for void separately
 %typemap(gotype, out) void "error"
