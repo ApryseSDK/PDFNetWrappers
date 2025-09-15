@@ -228,7 +228,9 @@ import "fmt"
 
 // Disable exception handling for directors
 %feature("except", "0") SwigDirector_Callback;
+%feature("except", "0") SwigDirector_Callback*;
 %feature("except", "0") SwigDirector_SignatureHandler;
+%feature("except", "0") SwigDirector_SignatureHandler*;
 
 // Handle exceptions by triggering recoverable panic containing the exception message
 %exception {
@@ -247,8 +249,28 @@ import "fmt"
     return $cgocall
 %}
 
+%typemap(gotype, out) SwigDirector_Callback "$gotype"
+%typemap(cgoout, out) SwigDirector_Callback %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) SwigDirector_Callback* "$gotype"
+%typemap(cgoout, out) SwigDirector_Callback* %{
+    return $cgocall
+%}
+
 %typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
 %typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) SwigDirector_SignatureHandler "$gotype"
+%typemap(cgoout, out) SwigDirector_SignatureHandler %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) SwigDirector_SignatureHandler* "$gotype"
+%typemap(cgoout, out) SwigDirector_SignatureHandler* %{
     return $cgocall
 %}
 
@@ -264,16 +286,6 @@ import "fmt"
 
 %typemap(gotype, out) pdftron::PDF::Date* "$gotype"
 %typemap(cgoout, out) pdftron::PDF::Date* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) SwigDirector_Callback* "$gotype"
-%typemap(cgoout, out) SwigDirector_Callback* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) SwigDirector_SignatureHandler* "$gotype"
-%typemap(cgoout, out) SwigDirector_SignatureHandler* %{
     return $cgocall
 %}
 
