@@ -214,9 +214,9 @@
     #undef SetPort
 %}
 
-// ===================
-// ERROR HANDLING PT 1
-// ===================
+// ==============
+// ERROR HANDLING
+// ==============
 // Converts C++ exceptions to Go errors using panic/recovery mechanism.
 // All functions now return an error in addition to their return type instead of panicking on exceptions.
 
@@ -225,13 +225,6 @@
 import "errors"
 import "fmt"
 %}
-
-// Exclude exception handling for director classes
-%feature("except", "") pdftron::PDF::Callback;
-%feature("except", "") pdftron::SDF::SignatureHandler;
-%feature("except", "") pdftron::PDF::Separation;
-%feature("except", "") pdftron::PDF::Rect;
-%feature("except", "") pdftron::PDF::Date;
 
 // Handle exceptions by triggering recoverable panic containing the exception message
 %exception {
@@ -244,9 +237,99 @@ import "fmt"
     }
 }
 
-// =======================
-// END ERROR HANDLING PT 1
-// =======================
+// Exclude director classes from error handling typemaps
+%typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Callback* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
+%typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Separation* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Separation* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Rect* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Rect* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Date* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Date* %{
+    return $cgocall
+%}
+
+// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
+%define ERROR_HANDLING_TYPEMAPS(TYPE)
+%typemap(gotype, out) TYPE "$gotype, error"
+%typemap(cgoout, out) TYPE %{
+    var swig_r $gotypes
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        swig_r = $cgocall
+    }()
+
+    return swig_r, swig_err
+%}
+%enddef
+
+// Apply gotype and cgoout typemaps to functions that return:
+
+// Value types
+ERROR_HANDLING_TYPEMAPS(SWIGTYPE)
+// Pointers
+ERROR_HANDLING_TYPEMAPS(SWIGTYPE *)
+// References
+ERROR_HANDLING_TYPEMAPS(SWIGTYPE &)
+// Primitives
+ERROR_HANDLING_TYPEMAPS(bool)
+ERROR_HANDLING_TYPEMAPS(char)
+ERROR_HANDLING_TYPEMAPS(double)
+ERROR_HANDLING_TYPEMAPS(int)
+ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
+ERROR_HANDLING_TYPEMAPS(size_t)
+
+// Generate gotype and cgoout typemaps for void separately
+%typemap(gotype, out) void "error"
+%typemap(cgoout, out) void %{
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        $cgocall
+    }()
+
+    return swig_err
+%}
+
+// Handle edge case: SDF::Obj returns nil when internal pointer is invalid
+%typemap(goout) pdftron::SDF::Obj
+%{
+    // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
+    if ($1).GetMp_obj().Swigcptr() != 0 {
+        return $1, swig_err
+    }
+
+    return nil, swig_err
+%}
+
+// ==================
+// END ERROR HANDLING
+// ==================
 
 /**
  * Provides mapping for C++ vectors.
@@ -350,104 +433,6 @@ namespace pdftron {
 #include "PDF/Date.h"
 %}
 %include "PDF/Date.h"
-
-// ===================
-// ERROR HANDLING PT 2
-// ===================
-
-// Exclude director classes from error handling typemaps
-%typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Callback* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
-%typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::PDF::Separation* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Separation* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::PDF::Rect* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Rect* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::PDF::Date* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Date* %{
-    return $cgocall
-%}
-
-// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
-%define ERROR_HANDLING_TYPEMAPS(TYPE)
-%typemap(gotype, out) TYPE "$gotype, error"
-%typemap(cgoout, out) TYPE %{
-    var swig_r $gotypes
-    var swig_err error
-
-    func() {
-        defer func() {
-            if r := recover(); r != nil {
-                swig_err = errors.New(fmt.Sprintf("%v", r))
-            }
-        }()
-        swig_r = $cgocall
-    }()
-
-    return swig_r, swig_err
-%}
-%enddef
-
-// Apply gotype and cgoout typemaps to functions that return:
-
-// Value types
-ERROR_HANDLING_TYPEMAPS(SWIGTYPE)
-// Pointers
-ERROR_HANDLING_TYPEMAPS(SWIGTYPE *)
-// References
-ERROR_HANDLING_TYPEMAPS(SWIGTYPE &)
-// Primitives
-ERROR_HANDLING_TYPEMAPS(bool)
-ERROR_HANDLING_TYPEMAPS(char)
-ERROR_HANDLING_TYPEMAPS(double)
-ERROR_HANDLING_TYPEMAPS(int)
-ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
-ERROR_HANDLING_TYPEMAPS(size_t)
-
-// Generate gotype and cgoout typemaps for void separately
-%typemap(gotype, out) void "error"
-%typemap(cgoout, out) void %{
-    var swig_err error
-
-    func() {
-        defer func() {
-            if r := recover(); r != nil {
-                swig_err = errors.New(fmt.Sprintf("%v", r))
-            }
-        }()
-        $cgocall
-    }()
-
-    return swig_err
-%}
-
-// Handle edge case: SDF::Obj returns nil when internal pointer is invalid
-%typemap(goout) pdftron::SDF::Obj
-%{
-    // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
-    if ($1).GetMp_obj().Swigcptr() != 0 {
-        return $1, swig_err
-    }
-
-    return nil, swig_err
-%}
-
-// =======================
-// END ERROR HANDLING PT 2
-// =======================
 
 //----------------------------------------------------------------------------------------------
 // Fixes overloaded methods
