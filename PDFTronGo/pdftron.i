@@ -263,6 +263,16 @@ import "fmt"
     return $cgocall
 %}
 
+%typemap(gotype, out) SwigDirector_Callback* "$gotype"
+%typemap(cgoout, out) SwigDirector_Callback* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) SwigDirector_SignatureHandler* "$gotype"
+%typemap(cgoout, out) SwigDirector_SignatureHandler* %{
+    return $cgocall
+%}
+
 // Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
 %define ERROR_HANDLING_TYPEMAPS(TYPE)
 %typemap(gotype, out) TYPE "$gotype, error"
