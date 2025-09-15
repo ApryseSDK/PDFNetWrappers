@@ -226,6 +226,10 @@ import "errors"
 import "fmt"
 %}
 
+// Disable exception handling for directors
+%feature("except", "0") SwigDirector_Callback;
+%feature("except", "0") SwigDirector_SignatureHandler;
+
 // Handle exceptions by triggering recoverable panic containing the exception message
 %exception {
     try {
