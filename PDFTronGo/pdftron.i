@@ -401,6 +401,32 @@ ERROR_HANDLING_TYPEMAPS(size_t)
     return swig_err
 %}
 
+// Exclude director classes from error handling typemaps
+%typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Callback* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
+%typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Separation* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Separation* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Rect* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Rect* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Date* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Date* %{
+    return $cgocall
+%}
+
 // Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
 %{
