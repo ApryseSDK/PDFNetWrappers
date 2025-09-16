@@ -214,90 +214,25 @@
     #undef SetPort
 %}
 
-// ==============
-// ERROR HANDLING
-// ==============
-// Converts C++ exceptions to Go errors using panic/recovery mechanism.
-// All functions now return an error in addition to their return type instead of panicking on exceptions.
-
-// Ensure necessary imports for error handling code
-%insert(go_imports) %{
-import "errors"
-import "fmt"
-%}
-
-// Handle exceptions by triggering recoverable panic containing the exception message
+%include "exception.i"
 %exception {
     try {
-        $action
-    } catch (const std::exception &e) {
+        $action;
+    } catch (std::exception &e) {
         _swig_gopanic(e.what());
-    } catch (...) {
-        _swig_gopanic("unknown exception occurred");
     }
 }
 
-// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
-%define ERROR_HANDLING_TYPEMAP(TYPE)
-%typemap(gotype, out) TYPE "$gotype, error"
-%typemap(cgoout, out) TYPE %{
-    var swig_r $gotypes
-    var swig_err error
-
-    func() {
-        defer func() {
-            if r := recover(); r != nil {
-                swig_err = errors.New(fmt.Sprintf("%v", r))
-            }
-        }()
-        swig_r = $cgocall
-    }()
-
-    return swig_r, swig_err
-%}
-%enddef
-
-// Apply gotype and cgoout typemaps to functions that return:
-
-/*// Primitives
-ERROR_HANDLING_TYPEMAP(bool)
-ERROR_HANDLING_TYPEMAP(char)
-ERROR_HANDLING_TYPEMAP(double)
-ERROR_HANDLING_TYPEMAP(int)
-ERROR_HANDLING_TYPEMAP(ptrdiff_t)
-ERROR_HANDLING_TYPEMAP(size_t)*/
-
-/*// Generate gotype and cgoout typemaps for void separately
-%typemap(gotype, out) void "error"
-%typemap(cgoout, out) void %{
-    var swig_err error
-
-    func() {
-        defer func() {
-            if r := recover(); r != nil {
-                swig_err = errors.New(fmt.Sprintf("%v", r))
-            }
-        }()
-        $cgocall
-    }()
-
-    return swig_err
-%}*/
-
-// Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
 %{
     // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
     if ($1).GetMp_obj().Swigcptr() != 0 {
-        return $1, swig_err
+        $result = $1
+        return $result
     }
 
-    return nil, swig_err
+    $result = nil
 %}
-
-// ==================
-// END ERROR HANDLING
-// ==================
 
 /**
  * Provides mapping for C++ vectors.
