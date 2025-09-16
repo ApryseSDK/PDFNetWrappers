@@ -221,10 +221,7 @@
 // All functions now return an error in addition to their return type instead of panicking on exceptions.
 
 // Ensure necessary imports for error handling code
-%insert(go_imports)
-%{import "errors"
-import "fmt"
-%}
+%go_import("error", "fmt")
 
 // Handle exceptions by triggering recoverable panic containing the exception message
 %include "exception.i"
