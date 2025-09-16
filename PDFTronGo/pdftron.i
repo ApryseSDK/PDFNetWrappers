@@ -263,8 +263,8 @@ import "fmt"
 
 // Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
 %define EXCEPTION_HANDLING_TYPEMAP(TYPE)
-%typemap(gotype) TYPE "$gotype, error"
-%typemap(cgoout) TYPE %{
+%typemap(gotype, out) TYPE "$gotype, error"
+%typemap(cgoout, out) TYPE %{
     var swig_r $gotypes
     var swig_err error
 
@@ -296,6 +296,23 @@ EXCEPTION_HANDLING_TYPEMAP(double)
 EXCEPTION_HANDLING_TYPEMAP(int)
 EXCEPTION_HANDLING_TYPEMAP(ptrdiff_t)
 EXCEPTION_HANDLING_TYPEMAP(size_t)
+
+// Generate gotype and cgoout typemaps for void separately
+%typemap(gotype, out) void "error"
+%typemap(cgoout, out) void %{
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        $cgocall
+    }()
+
+    return swig_err
+%}
 
 // Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
