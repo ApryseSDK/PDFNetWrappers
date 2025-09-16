@@ -281,12 +281,8 @@
 
 // Apply gotype and goout typemaps to functions that return:
 
-// Value types
+// Non-primitives
 EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE)
-// Pointers
-EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE *)
-// References
-EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE &)
 // Primitives
 EXCEPTION_HANDLING_TYPEMAP(bool)
 EXCEPTION_HANDLING_TYPEMAP(char)
