@@ -237,39 +237,8 @@ import "fmt"
     }
 }
 
-// Exclude director classes from error handling typemaps
-%typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Callback* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
-%typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::PDF::Separation* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Separation* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::PDF::Rect* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Rect* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out) pdftron::PDF::Date* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Date* %{
-    return $cgocall
-%}
-
-%typemap(gotype, out, match="funcname", pattern="*NewDirectorCallback*") SWIGTYPE * "$gotype"
-%typemap(cgoout, out, match="funcname", pattern="*NewDirectorCallback*") SWIGTYPE * "$cgocall"
-%typemap(gotype, out, match="funcname", pattern="*NewDirectorSignatureHandler*") SWIGTYPE * "$gotype"
-%typemap(cgoout, out, match="funcname", pattern="*NewDirectorSignatureHandler*") SWIGTYPE * "$cgocall"
-
 // Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
-%define ERROR_HANDLING_TYPEMAPS(TYPE)
+%define ERROR_HANDLING_TYPEMAP(TYPE)
 %typemap(gotype, out) TYPE "$gotype, error"
 %typemap(cgoout, out) TYPE %{
     var swig_r $gotypes
@@ -290,21 +259,15 @@ import "fmt"
 
 // Apply gotype and cgoout typemaps to functions that return:
 
-// Value types
-ERROR_HANDLING_TYPEMAPS(SWIGTYPE)
-// Pointers
-ERROR_HANDLING_TYPEMAPS(SWIGTYPE *)
-// References
-ERROR_HANDLING_TYPEMAPS(SWIGTYPE &)
 // Primitives
-ERROR_HANDLING_TYPEMAPS(bool)
-ERROR_HANDLING_TYPEMAPS(char)
-ERROR_HANDLING_TYPEMAPS(double)
-ERROR_HANDLING_TYPEMAPS(int)
-ERROR_HANDLING_TYPEMAPS(ptrdiff_t)
-ERROR_HANDLING_TYPEMAPS(size_t)
+ERROR_HANDLING_TYPEMAP(bool)
+ERROR_HANDLING_TYPEMAP(char)
+ERROR_HANDLING_TYPEMAP(double)
+ERROR_HANDLING_TYPEMAP(int)
+ERROR_HANDLING_TYPEMAP(ptrdiff_t)
+ERROR_HANDLING_TYPEMAP(size_t)
 
-// Generate gotype and cgoout typemaps for void separately
+/*// Generate gotype and cgoout typemaps for void separately
 %typemap(gotype, out) void "error"
 %typemap(cgoout, out) void %{
     var swig_err error
@@ -319,7 +282,7 @@ ERROR_HANDLING_TYPEMAPS(size_t)
     }()
 
     return swig_err
-%}
+%}*/
 
 // Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
