@@ -234,35 +234,35 @@
 }
 
 // Exclude director classes from exception handling typemaps
-%typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Callback* %{
+%typemap(gotype) pdftron::PDF::Callback* "$gotype"
+%typemap(goout) pdftron::PDF::Callback* %{
     return $cgocall
 %}
 
-%typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
-%typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
+%typemap(gotype) pdftron::SDF::SignatureHandler* "$gotype"
+%typemap(goout) pdftron::SDF::SignatureHandler* %{
     return $cgocall
 %}
 
-%typemap(gotype, out) pdftron::PDF::Separation* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Separation* %{
+%typemap(gotype) pdftron::PDF::Separation* "$gotype"
+%typemap(goout) pdftron::PDF::Separation* %{
     return $cgocall
 %}
 
-%typemap(gotype, out) pdftron::PDF::Rect* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Rect* %{
+%typemap(gotype) pdftron::PDF::Rect* "$gotype"
+%typemap(goout) pdftron::PDF::Rect* %{
     return $cgocall
 %}
 
-%typemap(gotype, out) pdftron::PDF::Date* "$gotype"
-%typemap(cgoout, out) pdftron::PDF::Date* %{
+%typemap(gotype) pdftron::PDF::Date* "$gotype"
+%typemap(goout) pdftron::PDF::Date* %{
     return $cgocall
 %}
 
-// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
+// Macro for generating gotype (adding error to return) and goout (adding panic recovery to return errors) typemaps
 %define EXCEPTION_HANDLING_TYPEMAP(TYPE)
-%typemap(gotype, out) TYPE "$gotype, error"
-%typemap(cgoout, out) TYPE %{
+%typemap(gotype) TYPE "$gotype, error"
+%typemap(goout) TYPE %{
     var swig_r $gotypes
     var swig_err error
 
@@ -279,7 +279,7 @@
 %}
 %enddef
 
-// Apply gotype and cgoout typemaps to functions that return:
+// Apply gotype and goout typemaps to functions that return:
 
 // Value types
 EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE)
@@ -295,9 +295,9 @@ EXCEPTION_HANDLING_TYPEMAP(int)
 EXCEPTION_HANDLING_TYPEMAP(ptrdiff_t)
 EXCEPTION_HANDLING_TYPEMAP(size_t)
 
-// Generate gotype and cgoout typemaps for void separately
-%typemap(gotype, out) void "error"
-%typemap(cgoout, out) void %{
+// Generate gotype and goout typemaps for void separately
+%typemap(gotype) void "error"
+%typemap(goout) void %{
     var swig_err error
 
     func() {
