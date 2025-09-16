@@ -281,8 +281,6 @@
 
 // Apply gotype and goout typemaps to functions that return:
 
-// Non-primitives
-EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE)
 // Primitives
 EXCEPTION_HANDLING_TYPEMAP(bool)
 EXCEPTION_HANDLING_TYPEMAP(char)
