@@ -235,8 +235,34 @@ import "fmt"
     }
 }
 
+// Exclude director classes from exception handling typemaps
+%typemap(gotype, out) pdftron::PDF::Callback* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Callback* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::SDF::SignatureHandler* "$gotype"
+%typemap(cgoout, out) pdftron::SDF::SignatureHandler* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Separation* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Separation* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Rect* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Rect* %{
+    return $cgocall
+%}
+
+%typemap(gotype, out) pdftron::PDF::Date* "$gotype"
+%typemap(cgoout, out) pdftron::PDF::Date* %{
+    return $cgocall
+%}
+
 // Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
-%define ERROR_HANDLING_TYPEMAPS(TYPE)
+%define EXCEPTION_HANDLING_TYPEMAP(TYPE)
 %typemap(gotype) TYPE "$gotype, error"
 %typemap(cgoout) TYPE %{
     var swig_r $gotypes
@@ -255,6 +281,23 @@ import "fmt"
 %}
 %enddef
 
+// Apply gotype and cgoout typemaps to functions that return:
+
+// Value types
+EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE)
+// Pointers
+EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE *)
+// References
+EXCEPTION_HANDLING_TYPEMAP(SWIGTYPE &)
+// Primitives
+EXCEPTION_HANDLING_TYPEMAP(bool)
+EXCEPTION_HANDLING_TYPEMAP(char)
+EXCEPTION_HANDLING_TYPEMAP(double)
+EXCEPTION_HANDLING_TYPEMAP(int)
+EXCEPTION_HANDLING_TYPEMAP(ptrdiff_t)
+EXCEPTION_HANDLING_TYPEMAP(size_t)
+
+// Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
 %{
     // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
