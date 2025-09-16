@@ -235,6 +235,26 @@ import "fmt"
     }
 }
 
+// Macro for generating gotype (adding error to return) and cgoout (adding panic recovery to return errors) typemaps
+%define ERROR_HANDLING_TYPEMAPS(TYPE)
+%typemap(gotype) TYPE "$gotype, error"
+%typemap(cgoout) TYPE %{
+    var swig_r $gotypes
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        swig_r = $cgocall
+    }()
+
+    return swig_r, swig_err
+%}
+%enddef
+
 %typemap(goout) pdftron::SDF::Obj
 %{
     // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
