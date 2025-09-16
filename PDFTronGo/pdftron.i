@@ -259,13 +259,13 @@ import "fmt"
 
 // Apply gotype and cgoout typemaps to functions that return:
 
-// Primitives
+/*// Primitives
 ERROR_HANDLING_TYPEMAP(bool)
 ERROR_HANDLING_TYPEMAP(char)
 ERROR_HANDLING_TYPEMAP(double)
 ERROR_HANDLING_TYPEMAP(int)
 ERROR_HANDLING_TYPEMAP(ptrdiff_t)
-ERROR_HANDLING_TYPEMAP(size_t)
+ERROR_HANDLING_TYPEMAP(size_t)*/
 
 /*// Generate gotype and cgoout typemaps for void separately
 %typemap(gotype, out) void "error"
