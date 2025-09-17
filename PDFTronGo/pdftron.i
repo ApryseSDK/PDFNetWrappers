@@ -233,32 +233,6 @@
     }
 }
 
-// Exclude director classes from exception handling typemaps
-%typemap(gotype) pdftron::PDF::Callback* "$gotype"
-%typemap(goout) pdftron::PDF::Callback* %{
-    return $cgocall
-%}
-
-%typemap(gotype) pdftron::SDF::SignatureHandler* "$gotype"
-%typemap(goout) pdftron::SDF::SignatureHandler* %{
-    return $cgocall
-%}
-
-%typemap(gotype) pdftron::PDF::Separation* "$gotype"
-%typemap(goout) pdftron::PDF::Separation* %{
-    return $cgocall
-%}
-
-%typemap(gotype) pdftron::PDF::Rect* "$gotype"
-%typemap(goout) pdftron::PDF::Rect* %{
-    return $cgocall
-%}
-
-%typemap(gotype) pdftron::PDF::Date* "$gotype"
-%typemap(goout) pdftron::PDF::Date* %{
-    return $cgocall
-%}
-
 // Macro for generating gotype (adding error to return) and goout (adding panic recovery to return errors) typemaps
 %define EXCEPTION_HANDLING_TYPEMAP(TYPE)
 %typemap(gotype) TYPE "$gotype, error"
