@@ -252,6 +252,55 @@ def main():
                 print("Unable to extract key-value data, error: " + str(e))
 
 
+    #-----------------------------------------------------------------------------------
+    # The following sample illustrates how to extract document classes from PDF documents.
+    #-----------------------------------------------------------------------------------
+
+    # Test if the add-on is installed
+    if not DataExtractionModule.IsModuleAvailable(DataExtractionModule.e_DocClassification):
+        print("")
+        print("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.")
+        print("-----------------------------------------------------------------------------")
+        print("The Data Extraction suite is an optional add-on, available for download")
+        print("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
+        print("downloaded this module, ensure that the SDK is able to find the required files")
+        print("using the PDFNet.AddResourceSearchPath() function.")
+        print("")
+    else:
+        try:
+            # Simple example: classify pages as a JSON file
+            print("Classify pages as a JSON file")
+
+            outputFile = outputPath + "Invoice_Classified.json"
+            DataExtractionModule.ExtractData(inputPath + "Invoice.pdf", outputFile, DataExtractionModule.e_DocClassification)
+
+            print("Result saved in " + outputFile)
+
+            #------------------------------------------------------
+            # Classify pages as a JSON string
+            print("Classify pages as a JSON string")
+
+            outputFile = outputPath + "Scientific_Publication_Classified.json"
+            json = DataExtractionModule.ExtractData(inputPath + "Scientific_Publication.pdf", DataExtractionModule.e_DocClassification)
+            WriteTextToFile(outputFile, json)
+
+            print("Result saved in " + outputFile)
+
+            #------------------------------------------------------
+            # Example with customized options:
+            print("Classify pages with customized options")
+
+            options = DataExtractionOptions()
+            # Classes that don't meet the minimum confidence threshold of 70% will not be listed in the output JSON
+            options.SetMinimumConfidenceThreshold(0.7)
+            outputFile = outputPath + "Email_Classified.json"
+            DataExtractionModule.ExtractData(inputPath + "Email.pdf", outputFile, DataExtractionModule.e_DocClassification, options)
+
+            print("Result saved in " + outputFile)
+
+        except Exception as e:
+            print("Unable to extract document structure data, error: " + str(e))
+
     PDFNet.Terminate()
     print("Done.")
     
