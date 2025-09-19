@@ -239,7 +239,7 @@ function main()
 			// Example with customized options:
 			// Extract Keys & Values from pages 2-4, excluding ads
 			$options = new DataExtractionOptions();
-			$options->setPages("2-4");
+			$options->SetPages("2-4");
 
 			$p2ExclusionZones = new RectCollection();
 			// Exclude the ad on page 2
@@ -259,6 +259,58 @@ function main()
 			echo(nl2br("Extract Key-Value pairs from specific pages and zones as a JSON file\n"));
 			$outputFile = $outputPath."newsletter_key_val_with_zones.json";
 			DataExtractionModule::ExtractData($inputPath."newsletter.pdf", $outputFile, DataExtractionModule::e_GenericKeyValue, $options);
+
+			echo(nl2br("Result saved in " . $outputFile . "\n"));
+		}
+		catch(Exception $e) {
+			echo(nl2br("Unable to extract document structure data, error: " . $e->getMessage() . "\n"));
+		}
+	}
+
+	//////////////////////////////////////////////////////////////////////////
+	// The following sample illustrates how to extract document classes from PDF documents.
+	//////////////////////////////////////////////////////////////////////////
+
+	// Test if the add-on is installed
+	if (!DataExtractionModule::IsModuleAvailable(DataExtractionModule::e_DocClassification)) {
+		echo(nl2br("\n"));
+		echo(nl2br("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.\n"));
+		echo(nl2br("-----------------------------------------------------------------------------\n"));
+		echo(nl2br("The Data Extraction suite is an optional add-on, available for download\n"));
+		echo(nl2br("at https://docs.apryse.com/documentation/core/info/modules/. If you have already\n"));
+		echo(nl2br("downloaded this module, ensure that the SDK is able to find the required files\n"));
+		echo(nl2br("using the PDFNet::AddResourceSearchPath() function.\n"));
+		echo(nl2br("\n"));
+	}
+	else {
+		try {
+			// Simple example: classify pages as a JSON file
+			echo(nl2br("Classify pages as a JSON file\n"));
+
+			$outputFile = $outputPath."Invoice_Classified.json";
+			DataExtractionModule::ExtractData($inputPath."Invoice.pdf", $outputFile, DataExtractionModule::e_DocClassification);
+
+			echo(nl2br("Result saved in " . $outputFile . "\n"));
+
+			///////////////////////////////////////////////////////
+			// Classify pages as a JSON string
+			echo(nl2br("Classify pages as a JSON string\n"));
+
+			$outputFile = $outputPath."Scientific_Publication_Classified.json";
+			$json = DataExtractionModule::ExtractData($inputPath."Scientific_Publication.pdf", DataExtractionModule::e_DocClassification);
+			WriteTextToFile($outputFile, $json);
+
+			echo(nl2br("Result saved in " . $outputFile . "\n"));
+
+			///////////////////////////////////////////////////////
+			// Example with customized options:
+			echo(nl2br("Classify pages with customized options\n"));
+
+			$options = new DataExtractionOptions();
+			// Classes that don't meet the minimum confidence threshold of 70% will not be listed in the output JSON
+			$options->SetMinimumConfidenceThreshold(0.7);
+			$outputFile = $outputPath."Email_Classified.json";
+			DataExtractionModule::ExtractData($inputPath."Email.pdf", $outputFile, DataExtractionModule::e_DocClassification, $options);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}
