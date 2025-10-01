@@ -49,7 +49,6 @@ function main()
 	}
 
 	PDFNet::Terminate();
-	echo(nl2br("Done.\n"));
 }
 
 main();

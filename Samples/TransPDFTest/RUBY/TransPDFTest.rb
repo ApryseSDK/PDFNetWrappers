@@ -62,7 +62,6 @@ def main()
 	end
 
 	PDFNet.Terminate
-	puts "Done."
 end
 
 main()

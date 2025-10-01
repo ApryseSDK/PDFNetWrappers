@@ -68,5 +68,4 @@ func TestTransPDF(t *testing.T) {
     doc.Close()
 
     PDFNetTerminate()
-    fmt.Println("Done.")
 }
