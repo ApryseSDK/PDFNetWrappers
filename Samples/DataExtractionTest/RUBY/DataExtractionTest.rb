@@ -200,6 +200,11 @@ def main()
 		end
 	end
 
+	#-----------------------------------------------------------------------------------
+	# The following sample illustrates how to extract key-value pairs from PDF documents.
+	#-----------------------------------------------------------------------------------
+
+	# Test if the add-on is installed
 	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::E_GenericKeyValue) then
 		puts ""
 		puts "Unable to run Data Extraction: PDFTron SDK AIFormFieldExtractor module not available."
@@ -241,6 +246,57 @@ def main()
 
 		rescue => error
 			puts "Unable to extract form fields data, error: " + error.message
+		end
+	end
+
+	#-----------------------------------------------------------------------------------
+	# The following sample illustrates how to extract document classes from PDF documents.
+	#-----------------------------------------------------------------------------------
+
+	# Test if the add-on is installed
+	if !DataExtractionModule.IsModuleAvailable(DataExtractionModule::E_DocClassification) then
+		puts ""
+		puts "Unable to run Data Extraction: PDFTron SDK Structured Output module not available."
+		puts "-----------------------------------------------------------------------------"
+		puts "The Data Extraction suite is an optional add-on, available for download"
+		puts "at https://docs.apryse.com/documentation/core/info/modules/. If you have already"
+		puts "downloaded this module, ensure that the SDK is able to find the required files"
+		puts "using the PDFNet.AddResourceSearchPath() function."
+		puts ""
+	else
+		begin
+			# Simple example: classify pages as a JSON file
+			puts "Classify pages as a JSON file"
+	
+			outputFile = $outputPath + "Invoice_Classified.json"
+			DataExtractionModule.ExtractData($inputPath + "Invoice.pdf", outputFile, DataExtractionModule::E_DocClassification)
+
+			puts "Result saved in " + outputFile
+
+			#------------------------------------------------------
+			# Classify pages as a JSON string
+			puts "Classify pages as a JSON string"
+	
+			outputFile = $outputPath + "Scientific_Publication_Classified.json"
+			json = DataExtractionModule.ExtractData($inputPath + "Scientific_Publication.pdf", DataExtractionModule::E_DocClassification)
+			File.open(outputFile, 'w') { |file| file.write(json) }
+	
+			puts "Result saved in " + outputFile
+
+			#------------------------------------------------------
+			# Example with customized options:
+			puts "Classify pages with customized options"
+	
+			options = DataExtractionOptions.new()
+			# Classes that don't meet the minimum confidence threshold of 70% will not be listed in the output JSON
+			options.SetMinimumConfidenceThreshold(0.7)
+			outputFile = $outputPath + "Email_Classified.json"
+			DataExtractionModule.ExtractData($inputPath + "Email.pdf", outputFile, DataExtractionModule::E_DocClassification, options)
+
+			puts "Result saved in " + outputFile
+			
+		rescue => error
+			puts "Unable to extract document structure data, error: " + error.message
 		end
 	end
 
