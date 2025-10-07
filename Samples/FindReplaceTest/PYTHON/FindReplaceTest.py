@@ -50,7 +50,6 @@ def main():
         print("Unable to perform Find and Replace, error: " + str(e))
 
     PDFNet.Terminate()
-    print("Done.")
 
 
 if __name__ == '__main__':

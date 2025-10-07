@@ -63,7 +63,6 @@ def main():
         print("Unable to translate PDF document, error: " + str(e))
 
     PDFNet.Terminate()
-    print("Done.")
 
 
 if __name__ == '__main__':

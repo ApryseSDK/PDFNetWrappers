@@ -56,5 +56,4 @@ func TestFindReplace(t *testing.T) {
     doc.Close()
 
     PDFNetTerminate()
-    fmt.Println("Done.")
 }
