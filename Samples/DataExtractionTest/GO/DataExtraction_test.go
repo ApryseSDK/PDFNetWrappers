@@ -303,6 +303,60 @@ func GenericKeyValueTest() (err error) {
 }
 
 //---------------------------------------------------------------------------------------
+// The following sample illustrates how to extract document classes from PDF documents.
+//---------------------------------------------------------------------------------------
+
+func DocClassifierTest() (err error) {
+	defer catch(&err)
+
+	// Test if the add-on is installed
+	if !DataExtractionModuleIsModuleAvailable(DataExtractionModuleE_DocClassification) {
+		fmt.Println("")
+		fmt.Println("Unable to run Data Extraction: PDFTron SDK Structured Output module not available.")
+		fmt.Println("-----------------------------------------------------------------------------")
+		fmt.Println("The Data Extraction suite is an optional add-on, available for download")
+		fmt.Println("at https://docs.apryse.com/documentation/core/info/modules/. If you have already")
+		fmt.Println("downloaded this module, ensure that the SDK is able to find the required files")
+		fmt.Println("using the PDFNetAddResourceSearchPath() function.")
+		fmt.Println("")
+		return nil
+	}
+
+	// Simple example: classify pages as a JSON file
+	fmt.Println("Classify pages as a JSON file")
+
+	inputFile := inputPath + "Invoice.pdf"
+	outputFile := outputPath + "Invoice_Classified.json"
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_DocClassification)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	// Classify pages as a JSON string
+	fmt.Println("Classify pages as a JSON string")
+
+	inputFile = inputPath + "Scientific_Publication.pdf"
+	outputFile = outputPath + "Scientific_Publication_Classified.json"
+	json := DataExtractionModuleExtractData(inputFile, DataExtractionModuleE_DocClassification).(string)
+	WriteTextToFile(outputFile, json)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	// Example with customized options:
+	fmt.Println("Classify pages with customized options")
+
+	inputFile = inputPath + "Email.pdf"
+	outputFile = outputPath + "Email_Classified.json"
+	options := NewDataExtractionOptions()
+	// Classes that don't meet the minimum confidence threshold of 70% will not be listed in the output JSON
+	options.SetMinimumConfidenceThreshold(0.7)
+	DataExtractionModuleExtractData(inputFile, outputFile, DataExtractionModuleE_DocClassification, options)
+
+	fmt.Println("Result saved in " + outputFile)
+
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
 
 func TestDataExtraction(t *testing.T) {
 	// The first step in every application using PDFNet is to initialize the 
@@ -335,9 +389,18 @@ func TestDataExtraction(t *testing.T) {
 		fmt.Println(fmt.Errorf("Unable to extract form fields data, error: %s", err))
 	}
 
+	//-----------------------------------------------------------------------------------
+
 	err = GenericKeyValueTest()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to extract key-value pairs, error: %s", err))
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	err = DocClassifierTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to extract document classifications, error: %s", err))
 	}
 
 	//-----------------------------------------------------------------------------------

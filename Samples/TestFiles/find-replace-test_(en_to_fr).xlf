@@ -1,0 +1,88 @@
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file original="../../TestFiles/find-replace-test.pdf" source-language="en" datatype="x-pdf" product-name="InfixXLIFF">
+<header>
+<tool tool-id="InfixXLIFF" tool-name="InfixXLIFF" tool-company="Apryse"/>
+</header>
+<body>
+<!-- 
+    <cstyle id="1-0" name="0" size="14.0" rise="0.0" scale="100"
+     colour="ffffff" colid="0" israwchars="1" fname="LatoBlack" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+     -->
+<trans-unit id="p1-1" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>2 </source>
+<target>2 </target></trans-unit>
+
+<!-- 
+    <cstyle id="2-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+    
+    <cstyle id="2-1" name="1" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+     -->
+<trans-unit id="p1-2" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>You plan to embed PDF functionality into an application. But before you div<g id="2-1" ctype="x-cstyle">e </g>into the project, you must decide: do you go with a more expensive commercial PDF SDK &#8212; or a lower-cost alternative such as an open-source library or an open-source wrapper?</source>
+<target>Vous envisagez d&#8217;int&#233;grer des fonctionnalit&#233;s PDF dans une application. Mais avant de<g id="2-1" ctype="x-cstyle">vous lancer dans </g>le projet, vous devez d&#233;cider : optez-vous pour un SDK PDF commercial plus co&#251;teux - ou une alternative moins co&#251;teuse telle qu&#8217;une biblioth&#232;que open source ou un wrapper open source ?</target></trans-unit>
+
+<!-- 
+    <cstyle id="3-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+     -->
+<trans-unit id="p1-3" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>There are non-trivial costs to switching later. Developers have to re-learn the new library, re-adjust the backend, customize the UI to match what users are accustomed to, as well as migrate documents, form data, annotations, and more. </source>
+<target>Il y a des co&#251;ts non n&#233;gligeables &#224; changer plus tard. Les d&#233;veloppeurs doivent r&#233;apprendre la nouvelle biblioth&#232;que, r&#233;ajuster le backend, personnaliser l&#8217;interface utilisateur pour qu&#8217;elle corresponde &#224; ce &#224; quoi les utilisateurs sont habitu&#233;s, ainsi que migrer des documents, des donn&#233;es de formulaire, des annotations, etc. </target></trans-unit>
+
+<!-- 
+    <cstyle id="4-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+    
+    <cstyle id="4-1" name="1" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1" israwchars="1" fname="LatoHeavy" fweight="normal" fstyle="normal"
+     underline="1" strike="0" link=""/>
+     -->
+<trans-unit id="p1-4" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>According to <g id="4-1" ctype="x-cstyle">market research</g> conducted by Stax Inc., the average Net Promoter Score (NPS) for the top five PDF SDK vendors is 35%. And 70% of customers express interest in switching despite the high costs.</source>
+<target>D&#8217;apr&#232;s une <g id="4-1" ctype="x-cstyle">&#233;tude de march&#233;</g> men&#233;e par Stax Inc., le Net Promoter Score (NPS) moyen des cinq principaux fournisseurs de SDK PDF est de 35 %. Et 70 % des clients expriment leur int&#233;r&#234;t &#224; changer de client malgr&#233; les co&#251;ts &#233;lev&#233;s.</target></trans-unit>
+
+<!-- 
+    <cstyle id="5-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+    
+    <cstyle id="5-1" name="1" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+     -->
+<trans-unit id="p1-5" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>This dissatisfaction implies that picking the right PDF SDK is a lot harder tha<g id="5-1" ctype="x-cstyle">n </g>it seems. And to help you avoid the same mistakes as past implementations, we&#8217;ve written this articl<g id="5-1" ctype="x-cstyle">e.</g></source>
+<target>Cette insatisfaction implique que choisir le bon SDK PDF est beaucoup plus difficile<g id="5-1" ctype="x-cstyle">qu&#8217;il </g>n&#8217;y para&#238;t. Et pour vous aider &#224; &#233;viter les m&#234;mes erreurs que les impl&#233;mentations pr&#233;c&#233;dentes, nous avons r&#233;dig&#233; cet article<g id="5-1" ctype="x-cstyle">e.</g></target></trans-unit>
+
+<!-- 
+    <cstyle id="6-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+    
+    <cstyle id="6-1" name="1" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="1" israwchars="1" fname="LatoHeavy" fweight="normal" fstyle="normal"
+     underline="1" strike="0" link=""/>
+     -->
+<trans-unit id="p1-6" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>(We also<g id="6-1" ctype="x-cstyle"> </g><g id="6-1" ctype="x-cstyle">recently surveyed 57</g> unique organizations that switched from PDF.js to a commercial SDK. Read our<g id="6-1" ctype="x-cstyle"> </g><g id="6-1" ctype="x-cstyle">comprehensive guide to PDF.js</g> to learn more.) </source>
+<target>(Nous avons &#233;galement<g id="6-1" ctype="x-cstyle"> </g><g id="6-1" ctype="x-cstyle">r&#233;cemment interrog&#233; 57</g> organisations uniques qui sont pass&#233;es d&#8217;un PDF.js &#224; un SDK commercial. Lisez notre<g id="6-1" ctype="x-cstyle"> </g><g id="6-1" ctype="x-cstyle">guide complet sur les PDF.js</g> pour en savoir plus.) </target></trans-unit>
+
+<!-- 
+    <cstyle id="7-0" name="0" size="30.0" rise="0.0" scale="100"
+     colour="0206a8" colid="2" israwchars="1" fname="LatoBlack" fweight="normal" fstyle="normal"
+     underline="0" strike="0" link=""/>
+     -->
+<trans-unit id="p1-7" approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>Overview </source>
+<target>Aper&#231;u </target></trans-unit>
+
+</body>
+</file>
+</xliff>
