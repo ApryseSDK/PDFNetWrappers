@@ -273,9 +273,6 @@ def buildDarwin(custom_swig):
 
     extractArchive("PDFNetCMac.zip", "%s/build/PDFNetC" % rootDir)
 
-
-    # splits binary into arm/x64 so the size isnt so large
-    splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "arm64")
     splitBinaries(os.path.join(rootDir, "build", "PDFNetC", "Lib"), "libPDFNetC.dylib", "x86_64")
     os.remove("%s/build/PDFNetC/Lib/libPDFNetC.dylib" % rootDir)
 
@@ -291,7 +288,6 @@ def buildDarwin(custom_swig):
 
     # We have to create slightly different binaries for each arch
     createMacBinaries("x86_64")
-    createMacBinaries("arm64")
 
     cleanupDirectories("mac")
 
