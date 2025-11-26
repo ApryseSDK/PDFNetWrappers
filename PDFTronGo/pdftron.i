@@ -214,6 +214,16 @@
     #undef SetPort
 %}
 
+// ==============
+// ERROR HANDLING
+// ==============
+// Converts C++ exceptions to Go errors using panic/recovery mechanism.
+// All functions now return an error in addition to their return type instead of panicking on exceptions.
+
+// Ensure necessary imports for error handling code
+%go_import("errors", "fmt")
+
+// Handle exceptions by triggering recoverable panic containing the exception message
 %include "exception.i"
 %exception {
     try {
@@ -223,6 +233,54 @@
     }
 }
 
+// Macro for generating gotype (adding error to return) and goout (adding panic recovery to return errors) typemaps
+%define EXCEPTION_HANDLING_TYPEMAP(TYPE)
+%typemap(gotype) TYPE "$gotype, error"
+%typemap(goout) TYPE %{
+    var swig_r $gotypes
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        swig_r = $cgocall
+    }()
+
+    return swig_r, swig_err
+%}
+%enddef
+
+// Apply gotype and goout typemaps to functions that return:
+
+// Primitives
+EXCEPTION_HANDLING_TYPEMAP(bool)
+EXCEPTION_HANDLING_TYPEMAP(char)
+EXCEPTION_HANDLING_TYPEMAP(double)
+EXCEPTION_HANDLING_TYPEMAP(int)
+EXCEPTION_HANDLING_TYPEMAP(ptrdiff_t)
+EXCEPTION_HANDLING_TYPEMAP(size_t)
+
+// Generate gotype and goout typemaps for void separately
+%typemap(gotype) void "error"
+%typemap(goout) void %{
+    var swig_err error
+
+    func() {
+        defer func() {
+            if r := recover(); r != nil {
+                swig_err = errors.New(fmt.Sprintf("%v", r))
+            }
+        }()
+        $cgocall
+    }()
+
+    return swig_err
+%}
+
+// Handle edge case: SDF::Obj returns nil when internal pointer is invalid
 %typemap(goout) pdftron::SDF::Obj
 %{
     // Without the brackets, swig attempts to turn $1 into a c++ dereference.. seems like a bug
@@ -233,6 +291,10 @@
 
     $result = nil
 %}
+
+// ==================
+// END ERROR HANDLING
+// ==================
 
 /**
  * Provides mapping for C++ vectors.
