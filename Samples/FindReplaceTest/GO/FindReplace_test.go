@@ -5,7 +5,6 @@
 
 package main
 import (
-	"fmt"
 	"testing"
 	"flag"
 	. "github.com/pdftron/pdftron-go/v2"
@@ -56,5 +55,4 @@ func TestFindReplace(t *testing.T) {
     doc.Close()
 
     PDFNetTerminate()
-    fmt.Println("Done.")
 }

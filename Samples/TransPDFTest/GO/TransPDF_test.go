@@ -5,7 +5,6 @@
 
 package main
 import (
-	"fmt"
 	"testing"
 	"flag"
 	. "github.com/pdftron/pdftron-go/v2"
@@ -68,5 +67,4 @@ func TestTransPDF(t *testing.T) {
     doc.Close()
 
     PDFNetTerminate()
-    fmt.Println("Done.")
 }
