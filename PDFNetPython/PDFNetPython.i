@@ -713,9 +713,6 @@ namespace pdftron {
     }
 }
 
-// Value Wrappers prevent excessive item creation by wrapping the item in SwigValueWrapper
-%feature("valuewrapper") pdftron::PDF::PDFDoc;
-
 //----------------------------------------------------------------------------------------------
 /**
  * Typemap for function pointers

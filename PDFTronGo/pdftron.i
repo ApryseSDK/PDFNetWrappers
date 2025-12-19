@@ -296,9 +296,6 @@ namespace pdftron {
     }
 }
 
-// Value Wrappers prevent excessive item creation by wrapping the item in SwigValueWrapper
-%feature("valuewrapper") pdftron::PDF::PDFDoc;
-
 /**
  * Turns on the director feature for the following classes.
  * C++ equivalent of a proxy class. User extends this class in GOLang
