@@ -254,7 +254,7 @@ output_path = "../../TestFiles/Output/"
 	while text_run < para_end do
 		text_run_end = para.index(' ', text_run)
 
-		if text_run_end == nil
+		if text_run_end.nil?
 			text_run_end = para_end - 1
 		end
 		
