@@ -30,7 +30,7 @@ $stdout.sync = true
 		if !obj.nil? and !obj.IsFree and obj.IsStream
 			# Process only images
 			itr = obj.Find("Subtype")
-			if !itr.HasCurrent or !itr.Value.GetName == "Image"
+			if !(itr.HasCurrent and itr.Value.GetName == "Image")
 				i = i + 1
 				next
 			end

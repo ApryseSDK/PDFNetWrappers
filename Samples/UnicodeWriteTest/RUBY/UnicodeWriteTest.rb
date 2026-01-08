@@ -42,7 +42,7 @@ def main()
 	# Embed and subset the font
 	font_program = $input_path + "ARIALUNI.TTF"
 	if not File.file?(font_program)
-		if ENV['OS'] == "Windows_NT"
+		if ENV['OS']&.casecmp?("Windows_NT")
 			font_program = "C:/Windows/Fonts/ARIALUNI.TTF"
 			puts "Note: Using ARIALUNI.TTF from C:/Windows/Fonts directory."
 		end
