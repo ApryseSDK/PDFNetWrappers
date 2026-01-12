@@ -22,7 +22,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 	PDFNet::GetSystemFontList();    // Wait for fonts to be loaded if they haven't already. This is done because PHP can run into errors when shutting down if font loading is still in progress.
 
 	// The location of the CAD Module
-	PDFNet::AddResourceSearchPath("../../../Lib/");
+	PDFNet::AddResourceSearchPath("../../../PDFNetC/Lib/");
 	if(!CADModule::IsModuleAvailable()) {
 		echo "Unable to run CAD2PDFTest: PDFTron SDK CAD module not available.\n
 			---------------------------------------------------------------\n
