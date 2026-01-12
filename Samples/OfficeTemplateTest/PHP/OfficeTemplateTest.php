@@ -62,6 +62,8 @@ function main()
 
 	// And we're done!
 	echo nl2br("Saved ".$output_filename . "\n");
+
+	PDFNet::Terminate();
 	echo nl2br("Done.\n");
 }
 
