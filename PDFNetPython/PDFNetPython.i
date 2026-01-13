@@ -236,6 +236,7 @@
     #include "PDF/WebFontDownloader.h"
     #include "PDF/PrintToPdfOptions.h"
     #include "PDF/PrintToPdfModule.h"
+    #include "PDF/PDFNetInternalTools.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -963,6 +964,7 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+%include "PDF/PDFNetInternalTools.h"
 
 %include "Layout/ContentTree.h"
 %include "Layout/FlowDocument.h"
