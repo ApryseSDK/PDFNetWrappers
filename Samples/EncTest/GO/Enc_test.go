@@ -91,7 +91,8 @@ func TestEnc(t *testing.T){
             fmt.Println("A password required to open the document.")
             var password string
             fmt.Print("Please enter the password: \n")
-            fmt.Scanf("%s", &password)
+            // fmt.Scanf("%s", &password)
+            password = userPassword
             fmt.Println(password)
                 
             if doc.InitStdSecurityHandler(password, len(password)){

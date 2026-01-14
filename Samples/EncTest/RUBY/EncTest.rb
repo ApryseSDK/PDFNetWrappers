@@ -82,7 +82,8 @@ $stdout.sync = true
 		while count < 3 do
 			puts "A password required to open the document."
 			puts "Please enter the password:"
-			password = gets.chomp
+			# password = gets.chomp
+			password = "test"
 			if doc.InitStdSecurityHandler(password, password.length)
 				success = true
 				puts "The password is correct."
