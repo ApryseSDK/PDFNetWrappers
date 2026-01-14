@@ -177,7 +177,7 @@ func TestPDF2Office(t *testing.T) {
 
 	//-----------------------------------------------------------------------------------
 
-	PDFNetAddResourceSearchPath("../../../PDFNetC/Lib/")
+	PDFNetAddResourceSearchPath(modulePath)
 
 	if !StructuredOutputModuleIsModuleAvailable() {
 		fmt.Println("")
