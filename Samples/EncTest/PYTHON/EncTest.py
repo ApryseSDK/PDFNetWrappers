@@ -84,10 +84,8 @@ def main():
         while count < 3:
             print("A password required to open the document.")
             if sys.version_info.major >= 3:
-                # password = input("Please enter the password: \n")
                 password = "test"
             else:
-                # password = raw_input("Please enter the password: \n")
                 password = "test"
                 
             if doc.InitStdSecurityHandler(password, len(password)):
