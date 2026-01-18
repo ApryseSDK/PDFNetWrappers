@@ -64,6 +64,8 @@ def main():
 
     # And we're done!
     print("Saved " + output_filename )
+
+    PDFNet.Terminate()
     print("Done.")
 
 if __name__ == '__main__':
