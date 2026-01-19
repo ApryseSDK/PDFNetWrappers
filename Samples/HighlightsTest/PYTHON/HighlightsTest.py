@@ -27,25 +27,15 @@ from LicenseKey import *
 input_path = "../../TestFiles/paragraphs_and_tables.pdf"
 output_path = "../../TestFiles/Output/"
 
-def WriteTextToFile(output_file, text):
-    # Write the contents of text to the disk
-    f = open(output_file, "w")
-    try:
-        f.write(text)
-    finally:
-        f.close()
-
 def main():
 
     # The first step in every application using PDFNet is to initialize the
     # library and set the path to common PDF resources. The library is usually
     # initialized only once, but calling Initialize() multiple times is also fine.
     PDFNet.Initialize(LicenseKey)
-
-    filein = sys.argv[1] if len(sys.argv) > 1 else input_path
-    
+  
     # Sample code showing how to use high-level text highlight APIs.
-    doc = PDFDoc(filein)
+    doc = PDFDoc(input_path)
     doc.InitSecurityHandler()
 
     page = doc.GetPage(1)
