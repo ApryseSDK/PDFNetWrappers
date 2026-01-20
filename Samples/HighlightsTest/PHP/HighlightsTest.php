@@ -21,10 +21,6 @@ $output_path = getcwd()."../../TestFiles/Output/";
 // of documents are indexed using a 3rd party search engine.
 // --------------------------------------------------------------------------------------
 
-	PDFNet::SetPersistentCachePath("/home/roger/CorePWSTester/test_output/php/TextExtractTest");
-
-	PDFNet::SetWriteAPIUsageLocally(true);
-
 	// The first step in every application using PDFNet is to initialize the
     // library and set the path to common PDF resources. The library is usually
     // initialized only once, but calling Initialize() multiple times is also fine.
