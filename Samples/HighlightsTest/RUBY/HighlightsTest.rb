@@ -68,7 +68,7 @@ $stdout.sync = true
 
 	while hlts.HasNext()
 		# In Ruby bindings, quads are typically returned as an array
-		quads = hlts.get_current_quads
+		quads = hlts.GetCurrentQuads()
 		quad_count = quads.length
 
 		(0...quad_count).each do |i|
@@ -79,14 +79,14 @@ $stdout.sync = true
 			y1 = [q.p1.y, q.p2.y, q.p3.y, q.p4.y].min
 			y2 = [q.p1.y, q.p2.y, q.p3.y, q.p4.y].max
 
-			highlight = HighlightAnnot.create(doc.get_sdf_doc, Rect.new(x1, y1, x2, y2))
-			highlight.refresh_appearance
-			page.annot_push_back(highlight)
+			highlight = HighlightAnnot.Create(doc.GetSDFDoc(), Rect.new(x1, y1, x2, y2))
+			highlight.RefreshAppearance()
+			page.AnnotPushBack(highlight)
 
 			puts "[#{'%.2f' % x1}, #{'%.2f' % y1}, #{'%.2f' % x2}, #{'%.2f' % y2}]"
 		end
 
-		hlts.next
+		hlts.Next()
 	end
 
 	doc.Save(output_path + "search_highlights.pdf", SDFDoc::E_linearized)
