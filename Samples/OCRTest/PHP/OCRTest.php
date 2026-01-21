@@ -26,6 +26,7 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 	// if the IRIS OCR module is available, will use that instead of the default
 	$use_iris = OCRModule::IsIRISModuleAvailable();
+	PDFNet::AddResourceSearchPath("../../../PDFNetC/Lib/");
 	if(!OCRModule::IsModuleAvailable()) {
 		echo "Unable to run OCRTest: PDFTron SDK OCR module not available.\n
 			---------------------------------------------------------------\n

@@ -71,6 +71,6 @@ func TestOfficeTemplate(t *testing.T){
     // And we're done!
     fmt.Println("Saved " + outputFileName )
 
-	PDFNet.Terminate()
+	PDFNetTerminate()
 	fmt.Println("Done.")
 }

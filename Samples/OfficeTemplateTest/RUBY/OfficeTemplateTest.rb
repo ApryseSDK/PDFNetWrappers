@@ -65,7 +65,7 @@ def main()
     # And we're done!
     puts "Saved " + outputFilename
 
-	PDFNet.Terminate()
+    PDFNet.Terminate
     puts "Done."
 end
 
