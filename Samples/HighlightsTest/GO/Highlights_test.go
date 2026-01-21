@@ -96,9 +96,9 @@ func TestHighlights(t *testing.T) {
 			y1 := math.Min(math.Min(q.GetP1().GetY(), q.GetP2().GetY()), math.Min(q.GetP3().GetY(), q.GetP4().GetY()))
 			y2 := math.Max(math.Max(q.GetP1().GetY(), q.GetP2().GetY()), math.Max(q.GetP3().GetY(), q.GetP4().GetY()))
 
-			highlight := pdftron.HighlightAnnotCreate(
+			highlight := HighlightAnnotCreate(
 				doc.GetSDFDoc(),
-				pdftron.NewRect(x1, y1, x2, y2),
+				NewRect(x1, y1, x2, y2),
 			)
 			highlight.RefreshAppearance()
 			page.AnnotPushBack(highlight)
