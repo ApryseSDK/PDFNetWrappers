@@ -27,8 +27,10 @@ def main():
     PDFNet.Initialize(LicenseKey)
 
     # The location of the OCR Module
-    PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/");
+    PDFNet.AddResourceSearchPath("../../../PDFNetC/Lib/")
 
+    # if the IRIS OCR module is available, will use that instead of the default
+    use_iris = OCRModule.IsIRISModuleAvailable()
     if not OCRModule.IsModuleAvailable():
 
         print("""
@@ -49,8 +51,10 @@ def main():
         doc = PDFDoc()
 
         # B) Run OCR on the .png with options
-
-        OCRModule.ImageToPDF(doc, input_path + "psychomachia_excerpt.png", None)
+        opts = OCROptions()
+        if use_iris:
+            opts.SetOCREngine("iris")
+        OCRModule.ImageToPDF(doc, input_path + "psychomachia_excerpt.png", opts)
 
         # C) Check the result
 
@@ -67,6 +71,8 @@ def main():
         # B) Setup options with multiple target languages, English will always be considered as secondary language
 
         opts = OCROptions()
+        if use_iris:
+            opts.SetOCREngine("iris")
         opts.AddLang("deu")
         opts.AddLang("fra")
         opts.AddLang("eng")
@@ -90,6 +96,8 @@ def main():
         # B) Setup options with a single language and an ignore zone
 
         opts = OCROptions()
+        if use_iris:
+            opts.SetOCREngine("iris")
         opts.AddLang("deu")
 
         ignore_zones = RectCollection()
@@ -116,6 +124,8 @@ def main():
         # B) Setup options with a single language plus text/ignore zones
 
         opts = OCROptions()
+        if use_iris:
+            opts.SetOCREngine("iris")
         opts.AddLang("eng")
 
         ignore_zones = RectCollection()
@@ -168,7 +178,10 @@ def main():
 
         # B) Run OCR on the .pdf with default English language
 
-        json = OCRModule.GetOCRJsonFromPDF(doc, None)
+        opts = OCROptions()
+        if use_iris:
+            opts.SetOCREngine("iris")
+        json = OCRModule.GetOCRJsonFromPDF(doc, opts)
 
         # C) Post-processing step (whatever it might be)
 
@@ -193,7 +206,10 @@ def main():
         # in the process we convert the source image into PDF.
         # We reuse this PDF document later to add hidden text layer to it.
 
-        xml = OCRModule.GetOCRXmlFromImage(doc, input_path + "physics.tif", None)
+        opts = OCROptions()
+        if use_iris:
+            opts.SetOCREngine("iris")
+        xml = OCRModule.GetOCRXmlFromImage(doc, input_path + "physics.tif", opts)
 
         # C) Post-processing step (whatever it might be)
 
@@ -206,30 +222,7 @@ def main():
         doc.Save(output_path + "physics.pdf", 0)
         print("Example 6: extracting and applying OCR XML from physics.tif")
 
-        # Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
-        # --------------------------------------------------------------------------------
-
-        # A) Setup empty destination doc
-
-        doc = PDFDoc()
-
-        # B) Setup options with a text zone
-
-        opts = OCROptions()
-        text_zones = RectCollection()
-        text_zones.AddRect(Rect(140, 870, 310, 920))
-        opts.AddTextZonesForPage(text_zones, 1)
-
-        # C) Manually override DPI
-        opts.AddDPI(100)
-
-        # D) Run OCR on the .jpg with options
-        OCRModule.ImageToPDF(doc, input_path + "corrupted_dpi.jpg", opts)
-
-        # E) Check the result
-        doc.Save(output_path + "corrupted_dpi.pdf", 0)
         PDFNet.Terminate()
-        print("Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text")
 
 
 if __name__ == '__main__':

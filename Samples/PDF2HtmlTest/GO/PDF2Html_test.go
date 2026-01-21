@@ -78,7 +78,7 @@ func ConvertToHtmlReflowParagraphTest1() (err error) {
 	htmlOutputOptions := NewHTMLOutputOptions()
 
 	// Set e_reflow_full content reflow setting
-	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_full);
+	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_full)
 
 	// Convert to HTML
 	ConvertToHtml(inputFile, outputFile, htmlOutputOptions)
@@ -101,10 +101,10 @@ func ConvertToHtmlReflowParagraphTest2() (err error) {
 	htmlOutputOptions := NewHTMLOutputOptions()
 
 	// Set e_reflow_full content reflow setting
-	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_full);
+	htmlOutputOptions.SetContentReflowSetting(HTMLOutputOptionsE_reflow_full)
 
 	// Convert only the first page
-	htmlOutputOptions.SetPages(1, 1);
+	htmlOutputOptions.SetPages(1, 1)
 
 	// Convert to HTML
 	ConvertToHtml(inputFile, outputFile, htmlOutputOptions)
@@ -131,7 +131,7 @@ func TestPDF2HTML(t *testing.T) {
 
 	//-----------------------------------------------------------------------------------
 
-	PDFNetAddResourceSearchPath("../../../PDFNetC/Lib/")
+	PDFNetAddResourceSearchPath(modulePath)
 
 	if !StructuredOutputModuleIsModuleAvailable() {
 		fmt.Println("")
