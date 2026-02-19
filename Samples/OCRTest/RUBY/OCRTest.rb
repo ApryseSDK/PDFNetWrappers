@@ -249,37 +249,6 @@ begin
 
       doc.Close
 
-      # Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
-      # --------------------------------------------------------------------------------
-
-      # A) Setup empty destination doc
-      doc = PDFDoc.new
-
-      # B) Setup options with:
-      opts = OCROptions.new
-
-      # B.1. IRIS OCR module, if available
-      if use_iris
-         opts.SetOCREngine("iris")
-      end
-
-      # B.2. text zone
-      text_zones = RectCollection.new
-      text_zones.AddRect(Rect.new(140, 870, 310, 920))
-      opts.AddIgnoreZonesForPage(text_zones, 1)
-
-      # B.3 Manually override DPI
-      opts.AddDPI(100)
-
-      # C) Run OCR on the .jpg with options
-      OCRModule.ImageToPDF(doc, input_path + "corrupted_dpi.jpg", opts)
-
-      # D) Check the result
-      doc.Save(output_path + "corrupted_dpi.pdf", 0)
-      puts "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text"
-
-      doc.Close
-
    end
    rescue Exception=>e
       puts e

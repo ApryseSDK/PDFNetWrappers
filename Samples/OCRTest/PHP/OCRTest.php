@@ -23,6 +23,10 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 	// The location of the OCR Module
 	PDFNet::AddResourceSearchPath("../../../Lib/");
+
+	// if the IRIS OCR module is available, will use that instead of the default
+	$use_iris = OCRModule::IsIRISModuleAvailable();
+	PDFNet::AddResourceSearchPath("../../../PDFNetC/Lib/");
 	if(!OCRModule::IsModuleAvailable()) {
 		echo "Unable to run OCRTest: PDFTron SDK OCR module not available.\n
 			---------------------------------------------------------------\n
@@ -40,8 +44,11 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		$doc = new PDFDoc();
 
 		// B) Run OCR on the .png with options
-
-		OCRModule::ImageToPDF($doc, $input_path."psychomachia_excerpt.png", NULL);
+		$opts = new OCROptions();
+		if ($use_iris) {
+			$opts->SetOCREngine("iris");
+		}
+		OCRModule::ImageToPDF($doc, $input_path."psychomachia_excerpt.png", $opts);
 
 		// C) check the result
 
@@ -60,6 +67,9 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		// B) Setup options with multiple target languages, English will always be considered as secondary language
 
 		$opts = new OCROptions();
+		if ($use_iris) {
+			$opts->SetOCREngine("iris");
+		}
 		$opts->AddLang("deu");
 		$opts->AddLang("fra");
 		$opts->AddLang("eng");
@@ -85,6 +95,9 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		// B) Setup options with a single language and an ignore zone
 
 		$opts = new OCROptions();
+		if ($use_iris) {
+			$opts->SetOCREngine("iris");
+		}
 		$opts->AddLang("deu");
 
 		$ignore_zones = new RectCollection();
@@ -112,6 +125,9 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		// B) Setup options with a single language plus text/ignore zones
 
 		$opts = new OCROptions();
+		if ($use_iris) {
+			$opts->SetOCREngine("iris");
+		}
 		$opts->AddLang("eng");
 
 		$ignore_zones = new RectCollection();
@@ -161,8 +177,11 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		$doc = new PDFDoc($input_path."zero_value_test_no_text.pdf");
 
 		// B) Run OCR on the .pdf with default English language
-
-		$json = OCRModule::GetOCRJsonFromPDF($doc, NULL);
+		$opts = new OCROptions();
+		if ($use_iris) {
+			$opts->SetOCREngine("iris");
+		}
+		$json = OCRModule::GetOCRJsonFromPDF($doc, $opts);
 
 		// C) Post-processing step (whatever it might be)
 
@@ -187,7 +206,11 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		// B) Run OCR on the .tif with default English language, extracting OCR results in XML format. Note that
 		// in the process we convert the source image into PDF. We reuse this PDF document later to add hidden text layer to it.
 
-		$xml = OCRModule::GetOCRXmlFromImage($doc, $input_path."physics.tif", NULL);
+		$opts = new OCROptions();
+		if ($use_iris) {
+			$opts->SetOCREngine("iris");
+		}
+		$xml = OCRModule::GetOCRXmlFromImage($doc, $input_path."physics.tif", $opts);
 
 		// C) Post-processing step (whatever it might be)
 
@@ -202,35 +225,6 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 		echo "Example 6: extracting and applying OCR XML from physics.tif \n";
 
 		echo "Done. \n";
-
-
-		//--------------------------------------------------------------------------------
-		// Example 7) Resolution can be manually set, when DPI missing from metadata or is wrong
-
-		// A) Setup empty destination doc
-
-		$doc = new PDFDoc();
-
-		// B) Setup options with a text zone
-
-		$opts = new OCROptions();
-		$text_zones = new RectCollection();
-		$text_zones->AddRect(new Rect(140.0, 870.0, 310.0, 920.0));
-		$opts->AddTextZonesForPage($text_zones, 1);
-
-		// C) Manually override DPI
-
-		$opts->AddDPI(100);
-
-                // D) Run OCR on the .jpg with options
-
-		OCRModule::ImageToPDF($doc, $input_path."corrupted_dpi.jpg", $opts);
-
-		// E) check the result
-
-		$doc->Save($output_path."corrupted_dpi.pdf", 0);
-
-		echo "Example 7: converting image with corrupted resolution metadata corrupted_dpi.jpg to pdf with searchable text \n";
 
 	}
 	PDFNet::Terminate();

@@ -282,14 +282,14 @@ func GenericKeyValueTest() (err error) {
 	// Exclude the ad on page 2
 	// These coordinates are in PDF user space, with the origin at the bottom left corner of the page
 	// Coordinates rotate with the page, if it has rotation applied.
-	p2ExclusionZones.AddRect(NewRect(166, 47, 562, 222))
+	p2ExclusionZones.AddRect(NewRect(166.0, 47.0, 562.0, 222.0))
 	options.AddExclusionZonesForPage(p2ExclusionZones, 2)
 
 	p4InclusionZones := NewRectCollection()
 	p4ExclusionZones := NewRectCollection()
 	// Only include the article text for page 4, exclude ads and headings
-	p4InclusionZones.AddRect(NewRect(30, 432, 562, 684))
-	p4ExclusionZones.AddRect(NewRect(30, 657, 295, 684))
+	p4InclusionZones.AddRect(NewRect(30.0, 432.0, 562.0, 684.0))
+	p4ExclusionZones.AddRect(NewRect(30.0, 657.0, 295.0, 684.0))
 	options.AddInclusionZonesForPage(p4InclusionZones, 4)
 	options.AddExclusionZonesForPage(p4ExclusionZones, 4)
 	
