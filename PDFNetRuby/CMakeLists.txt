@@ -3,8 +3,17 @@
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
+if(CMAKE_MAJOR_VERSION VERSION_EQUAL "4")
+    cmake_minimum_required(VERSION 3.10)
+else()
+    cmake_minimum_required(VERSION 3.4)
+endif()
+
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+endif()
+
 project(PDFNetRuby CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 # Checks the header and library directory of the current active ruby install
 # This will respond to virtual enviroments

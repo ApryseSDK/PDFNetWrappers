@@ -252,7 +252,7 @@ output_path = "../../TestFiles/Output/"
 	cur_width = 0
 
 	while text_run < para_end do
-		text_run_end = para.index(' ', text_run)
+		text_run_end = para.index(' ', text_run.to_i)
 
 		if text_run_end.nil?
 			text_run_end = para_end - 1

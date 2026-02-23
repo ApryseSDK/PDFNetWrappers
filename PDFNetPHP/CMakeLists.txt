@@ -3,8 +3,17 @@
 # Consult LICENSE.txt for licensing information.
 #-----------------------------------------------------------------------------------------------------------------------
 
+if(CMAKE_MAJOR_VERSION VERSION_EQUAL "4")
+    cmake_minimum_required(VERSION 3.10)
+else()
+    cmake_minimum_required(VERSION 3.4)
+endif()
+
+if (APPLE)
+    set(CMAKE_OSX_ARCHITECTURES arm64 x86_64)
+endif()
+
 project(PDFNetPHP CXX)
-cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 
 
 find_program(PHP_CONFIG_EXECUTABLE NAMES php-config7 php-config5 php-config4 php-config)
