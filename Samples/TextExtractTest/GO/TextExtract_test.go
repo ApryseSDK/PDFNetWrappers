@@ -257,7 +257,8 @@ func TestTextExtract(t *testing.T){
         fmt.Println("Field 3: " + s1)
         
         doc.Close()
-        PDFNetTerminate()
-        fmt.Println("Done.")
 	}
+
+    PDFNetTerminate()
+    fmt.Println("Done.")
 }

@@ -9,7 +9,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 
 // Relative path to the folder containing the test files.
 $input_path = getcwd()."/../../TestFiles/paragraphs_and_tables.pdf";
-$output_path = getcwd()."../../TestFiles/Output/";
+$output_path = getcwd()."/../../TestFiles/Output/";
 
 //---------------------------------------------------------------------------------------
 // This sample illustrates the basic text highlight capabilities of PDFNet.
@@ -54,14 +54,14 @@ $output_path = getcwd()."../../TestFiles/Output/";
 	// Simulating a full-text search engine that finds all occurrences of the word 'Federal'.
     // In a real application, plug in your own search engine here.
     $search_text = "Federal";
-	$char_ranges = [];
+	$char_ranges = new VectorCharRange();
 
 	$ofs = strpos($page_text, $search_text);
 	while ($ofs !== false) {
 		$cr = new CharRange();
 		$cr->index = $ofs;
 		$cr->length = strlen($search_text);
-		$char_ranges[] = $cr;
+		$char_ranges->push($cr);
 		$ofs = strpos($page_text, $search_text, $ofs + 1);
 	}
 
@@ -73,19 +73,19 @@ $output_path = getcwd()."../../TestFiles/Output/";
 
 		// In PHP bindings, quads are typically returned as an array
 		$quads = $hlts->GetCurrentQuads();
-		$quad_count = count($quads);
+		$quad_count = $quads->size();
 
 		for ($i = 0; $i < $quad_count; $i++) {
 
 			// Each quad has 4 points: p1, p2, p3, p4
-			$q = $quads[$i];
+			$q = $quads->get($i);
 
 			$x1 = min($q->p1->x, $q->p2->x, $q->p3->x, $q->p4->x);
 			$x2 = max($q->p1->x, $q->p2->x, $q->p3->x, $q->p4->x);
 			$y1 = min($q->p1->y, $q->p2->y, $q->p3->y, $q->p4->y);
 			$y2 = max($q->p1->y, $q->p2->y, $q->p3->y, $q->p4->y);
 
-			$highlight = HighlightAnnot::Create(
+			$highlight = HighlightAnnot::CreateAnnot(
 				$doc->GetSDFDoc(),
 				new Rect($x1, $y1, $x2, $y2)
 			);
