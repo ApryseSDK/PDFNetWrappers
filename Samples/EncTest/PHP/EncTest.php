@@ -79,7 +79,7 @@ include("../../LicenseKey/PHP/LicenseKey.php");
 		echo "The password is: test\n";
 		for($count=0; $count<3;$count++)
 		{
-			echo "A password required to open the document.\n"
+			echo "A password required to open the document.\n";
 			
 			$password = "test";
 			if($doc->InitStdSecurityHandler($password, strlen($password)))
