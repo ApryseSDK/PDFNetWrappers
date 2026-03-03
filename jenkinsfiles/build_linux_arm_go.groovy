@@ -37,12 +37,12 @@ pipeline {
                 script {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC8_ARM64/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "apryse-sdk-linuxarm/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
                             "PDFNetCArm64.tar.gz"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC8_ARM64/" + getWrappersBranch(env.BRANCH_NAME),
+                            "apryse-sdk-linuxarm/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetCArm64.tar.gz"
                         )
                     }
