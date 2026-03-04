@@ -225,6 +225,7 @@
     #include "PDF/TextSearch.h"
     #include "PDF/TaggingOptions.h"
     #include "PDF/WebFontDownloader.h"
+    #include "PDF/PDFNetInternalTools.h"
     #include "Layout/ContentTree.h"
     #include "Layout/FlowDocument.h"
 
@@ -919,6 +920,7 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+%include "PDF/PDFNetInternalTools.h"
 %include "Layout/ContentTree.h"
 %include "Layout/FlowDocument.h"
 
