@@ -51,7 +51,7 @@ func TestTransPDF(t *testing.T) {
     // options.SetPages("-2,5-6,9,11-")
 
     // Optionally, set the XLIFF exported version, default is 1.2
-    options.SetXLIFFVersion(TransPDFOptionsE_xliff_version_1)
+    // options.SetXLIFFVersion(TransPDFOptionsE_xliff_version_2)
 
     // Extract the xlf to file and field the PDF for translation
     TransPDFExtractXLIFF(doc, outputPath + "find-replace-test.xlf", options)
