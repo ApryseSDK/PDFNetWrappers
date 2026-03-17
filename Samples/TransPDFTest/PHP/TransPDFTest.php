@@ -42,7 +42,7 @@ function main()
 		// $options->SetPages("-2,5-6,9,11-");
 
 		// Optionally, set the XLIFF exported version, default is 1.2
-		$options.SetXLIFFVersion(TransPDFOptions::e_xliff_version_1);
+		$options->SetXLIFFVersion(TransPDFOptions::e_xliff_version_1);
 
 		// Extract the xlf to file and field the PDF for translation
 		TransPDF::ExtractXLIFF($doc, $output_path."find-replace-test.xlf", $options);
