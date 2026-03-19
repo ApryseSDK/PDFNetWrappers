@@ -114,10 +114,10 @@ func TestHandwritingICR(t *testing.T) {
 		
 		// Process page 2 by ignoring the signature area on the bottom
 		options.SetPages("2")
-		ignoreZonesPage2 = NewRectCollection()
+		ignoreZonesPage2 := NewRectCollection()
 		// These coordinates are in PDF user space, with the origin at the bottom left corner of the page.
 		// Coordinates rotate with the page, if it has rotation applied.
-		ignoreZonesPage2.AddRect(NewRect(78, 850.1 - 770, 340, 850.1 - 676))
+		ignoreZonesPage2.AddRect(NewRect(78.0, 850.1 - 770.0, 340.0, 850.1 - 676.0))
 		options.AddIgnoreZonesForPage(ignoreZonesPage2, 2)
 
 		// Run ICR on the .pdf
