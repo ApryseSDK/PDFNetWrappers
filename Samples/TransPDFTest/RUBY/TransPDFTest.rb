@@ -40,6 +40,9 @@ def main()
 		# This PDF only has a single page, but you can specify a subset of pages like this
 		# options.SetPages("-2,5-6,9,11-")
 
+		# Optionally, set the XLIFF exported version, default is 1.2
+		# options.SetXLIFFVersion(TransPDFOptions::E_xliff_version_2)
+
 		# Extract the xlf to file and field the PDF for translation
 		TransPDF.ExtractXLIFF(doc, $output_path + "find-replace-test.xlf", options)
 
