@@ -94,7 +94,7 @@ function WriteTextToFile($outputFile, $text)
 		$ignore_zones_page2 = new RectCollection();
 		// These coordinates are in PDF user space, with the origin at the bottom left corner of the page.
 		// Coordinates rotate with the page, if it has rotation applied.
-		$rect = new Rect(78, 850.1 - 770, 340, 850.1 - 676);
+		$rect = new Rect(78.0, 850.1 - 770.0, 340.0, 850.1 - 676.0);
 		$ignore_zones_page2->AddRect($rect);
 		$options->AddIgnoreZonesForPage($ignore_zones_page2, 2);
 

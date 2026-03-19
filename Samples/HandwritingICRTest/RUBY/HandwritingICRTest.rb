@@ -92,7 +92,7 @@ begin
 		# These coordinates are in PDF user space, with the origin at the bottom left corner of the page.
 		# Coordinates rotate with the page, if it has rotation applied.
 		ignore_zones_page2.AddRect(Rect.new(78, 850.1 - 770, 340, 850.1 - 676))
-		opts.AddIgnoreZonesForPage(ignore_zones_page2, 2)
+		options.AddIgnoreZonesForPage(ignore_zones_page2, 2)
 
 		# Run ICR on the .pdf
 		HandwritingICRModule.ProcessPDF(doc, options)
@@ -111,7 +111,7 @@ begin
 
 		# Extract ICR results in JSON format
 		json = HandwritingICRModule.GetICRJsonFromPDF(doc)
-		File.open(outpoutput_path + "icr-get.json", 'w') { |file| file.write(json) }
+		File.open($output_path + "icr-get.json", 'w') { |file| file.write(json) }
 
 		# Insert your post-processing step (whatever it might be)
 		# ...
