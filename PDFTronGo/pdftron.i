@@ -135,6 +135,8 @@
     #include "PDF/Image.h"
     #include "PDF/OCROptions.h"
     #include "PDF/OCRModule.h"
+    #include "PDF/HandwritingICROptions.h"
+    #include "PDF/HandwritingICRModule.h"
     #include "PDF/BarcodeOptions.h"
     #include "PDF/BarcodeModule.h"
     #include "PDF/TransPDFOptions.h"
@@ -179,6 +181,8 @@
     #include "PDF/QuadPoint.h"
     #include "PDF/RectCollection.h"
     #include "PDF/Redactor.h"
+    #include "PDF/SanitizeOptions.h"
+    #include "PDF/Sanitizer.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
@@ -187,6 +191,7 @@
     #include "PDF/WebFontDownloader.h"
     #include "PDF/PrintToPdfOptions.h"
     #include "PDF/PrintToPdfModule.h"
+    #include "PDF/PDFNetInternalTools.h"
 
     // header files in /PDFNetC/Headers/SDF
     #include "SDF/DictIterator.h"
@@ -480,6 +485,8 @@ namespace pdftron {
 %include "PDF/PrintToPdfOptions.h"
 %include "PDF/PrintToPdfModule.h"
 %include "PDF/TaggingOptions.h"
+%include "PDF/SanitizeOptions.h"
+%include "PDF/Sanitizer.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
@@ -521,6 +528,8 @@ namespace pdftron {
 %include "PDF/TextRange.h"
 %include "PDF/OCROptions.h"
 %include "PDF/OCRModule.h"
+%include "PDF/HandwritingICROptions.h"
+%include "PDF/HandwritingICRModule.h"
 %include "PDF/BarcodeOptions.h"
 %include "PDF/BarcodeModule.h"
 %include "PDF/TransPDFOptions.h"
@@ -537,6 +546,7 @@ namespace pdftron {
 %include "PDF/PDFDCEX.h"
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
+%include "PDF/PDFNetInternalTools.h"
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{

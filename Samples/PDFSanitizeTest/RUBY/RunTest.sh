@@ -1,4 +1,4 @@
 #!/bin/sh
-TEST_NAME=CAD2PDFTest
+TEST_NAME=PDFSanitizeTest
 export LD_LIBRARY_PATH=../../../PDFNetC/Lib
-sudo ruby $TEST_NAME.rb
+ruby $TEST_NAME.rb
