@@ -206,6 +206,10 @@
     #include "SDF/ResultSnapshot.h"
     #include "SDF/DocSnapshot.h"
 
+    // header files in /PDFNetC/Headers/Layout
+    #include "Layout/FlowDocument.h"
+    #include "Layout/ContentTree.h"
+
     using namespace pdftron;
     using namespace FDF;
     using namespace Filters;
@@ -378,6 +382,7 @@ namespace pdftron {
 %template (FieldIterator) pdftron::Common::Iterator<pdftron::PDF::Field>;
 %template (CharIterator) pdftron::Common::Iterator<TRN_CharData>;
 %template (DigitalSignatureFieldIterator) pdftron::Common::Iterator<pdftron::PDF::DigitalSignatureField>;
+%template (ContentNodeIterator) pdftron::Common::Iterator<pdftron::Layout::ContentElement>;
 
 //----------------------------------------------------------------------------------------------
 
@@ -547,6 +552,53 @@ namespace pdftron {
 %include "PDF/PDFDraw.h"
 %include "PDF/WebFontDownloader.h"
 %include "PDF/PDFNetInternalTools.h"
+
+/*
+ * Attempting to handle ElementRef<T> via SWIG typemaps (gotype/ctype/imtype)
+ * causes the SWIG Go backend to generate invalid or unstable code:
+ *   - incorrect C wrapper signatures (value vs pointer returns)
+ *   - broken Go code (C++ typedefs leaked into .go files)
+ *   - ABI mismatches and undefined behavior
+ *
+ * This typemap exists only to perform the last-step conversion from
+ * ElementRef<T> semantics to idiomatic Go semantics:
+ *
+ *     ElementRef<T>   ->   T | nil
+ *
+ * The remaining cleanup (removing Ref suffixes, fixing return types, etc.)
+ * is handled by a controlled post-processing step on the generated Go code
+ * in CMakeLists.txt.
+ */
+%define ELEMENT_REF_GOOUT(T)
+%typemap(goout) pdftron::Layout::ElementRef<T> {
+    if (!($1).IsValid()) {
+        $result = nil
+    } else {
+        $result = ($1).GetElement()
+    }
+}
+%enddef
+
+ELEMENT_REF_GOOUT(pdftron::Layout::ContentNode)
+ELEMENT_REF_GOOUT(pdftron::Layout::Paragraph)
+ELEMENT_REF_GOOUT(pdftron::Layout::TextRun)
+ELEMENT_REF_GOOUT(pdftron::Layout::Table)
+ELEMENT_REF_GOOUT(pdftron::Layout::TableRow)
+ELEMENT_REF_GOOUT(pdftron::Layout::TableCell)
+ELEMENT_REF_GOOUT(pdftron::Layout::List)
+ELEMENT_REF_GOOUT(pdftron::Layout::ListItem)
+
+%include "Layout/ContentTree.h"
+%include "Layout/FlowDocument.h"
+
+%template(ContentNodeRef) pdftron::Layout::ElementRef<pdftron::Layout::ContentNode>;
+%template(ParagraphRef)    pdftron::Layout::ElementRef<pdftron::Layout::Paragraph>;
+%template(TextRunRef)      pdftron::Layout::ElementRef<pdftron::Layout::TextRun>;
+%template(TableRef)        pdftron::Layout::ElementRef<pdftron::Layout::Table>;
+%template(TableRowRef)     pdftron::Layout::ElementRef<pdftron::Layout::TableRow>;
+%template(TableCellRef)    pdftron::Layout::ElementRef<pdftron::Layout::TableCell>;
+%template(ListRef)         pdftron::Layout::ElementRef<pdftron::Layout::List>;
+%template(ListItemRef)     pdftron::Layout::ElementRef<pdftron::Layout::ListItem>;
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{
