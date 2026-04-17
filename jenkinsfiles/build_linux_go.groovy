@@ -35,18 +35,11 @@ pipeline {
         stage ('Build') {
             steps {
                 script {
-                    if (params.FORCE_BRANCH_VERSION?.trim()) {
-                        s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC48/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
-                            "PDFNetC64.tar.gz"
-                        )
-                    } else {
-                        s3ArtifactCopyInvoke(
-                            "PDFNetC64_GCC48/" + getWrappersBranch(env.BRANCH_NAME),
+                    s3ArtifactCopyInvoke(
+                            "PDFNetC64_GCC48/PR-6242",
                             "PDFNetC64.tar.gz"
                         )
                     }
-                }
 
                 sh '''
                     python3 PDFTronGo/build_go.py
