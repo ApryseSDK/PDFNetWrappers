@@ -7,7 +7,7 @@ pipeline {
             label 'remote_linux_arm'
             image 'linux_arm_gowrappers:latest'
             registryUrl 'https://448036597521.dkr.ecr.us-east-1.amazonaws.com'
-            registryCredentialsId 'ecr:us-east-1:Jenkins'
+            registryCredentialsId 'ecr:us-east-1:instance-ecr-pull-role'
             alwaysPull true
         }
     }
