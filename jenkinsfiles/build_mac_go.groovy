@@ -28,12 +28,12 @@ pipeline {
                 script {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
-                            "apryse-sdk-mac/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "apryse-sdk/apryse-sdk-mac/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
                             "PDFNetCMac.zip"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "apryse-sdk-mac/" + getWrappersBranch(env.BRANCH_NAME),
+                            "apryse-sdk/apryse-sdk-mac/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetCMac.zip"
                         )
                     }

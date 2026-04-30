@@ -37,12 +37,12 @@ pipeline {
                 script {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
-                            "apryse-sdk-alpine/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "apryse-sdk/apryse-sdk-alpine/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
                             "PDFNetCAlpine64.tar.gz"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "apryse-sdk-alpine/" + getWrappersBranch(env.BRANCH_NAME),
+                            "apryse-sdk/apryse-sdk-alpine/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetCAlpine64.tar.gz"
                         )
                     }
