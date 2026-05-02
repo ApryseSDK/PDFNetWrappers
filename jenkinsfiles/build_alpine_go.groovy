@@ -7,7 +7,7 @@ pipeline {
             label 'linux_fleet'
             image 'alpine_gowrappers:latest'
             registryUrl 'https://448036597521.dkr.ecr.us-east-1.amazonaws.com'
-            registryCredentialsId 'ecr:us-east-1:Jenkins'
+            registryCredentialsId 'ecr:us-east-1:instance-ecr-pull-role'
             alwaysPull true
         }
     }
@@ -37,12 +37,12 @@ pipeline {
                 script {
                     if (params.FORCE_BRANCH_VERSION?.trim()) {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64 Alpine/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
+                            "apryse-sdk/apryse-sdk-alpine/" + params.FORCE_BRANCH_VERSION.replace("/", "%2F"),
                             "PDFNetCAlpine64.tar.gz"
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "PDFNetC64 Alpine/" + getWrappersBranch(env.BRANCH_NAME),
+                            "apryse-sdk/apryse-sdk-alpine/" + getWrappersBranch(env.BRANCH_NAME),
                             "PDFNetCAlpine64.tar.gz"
                         )
                     }
