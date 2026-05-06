@@ -87,5 +87,6 @@ func TestPDFSanitize(t *testing.T){
 	}
 
     PDFNetTerminate()
+    fmt.Println("Done...")
 }
 

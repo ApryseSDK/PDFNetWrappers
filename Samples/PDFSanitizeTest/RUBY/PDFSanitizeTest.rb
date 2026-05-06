@@ -84,4 +84,5 @@ $stdout.sync = true
 	end
 
 	PDFNet.Terminate
+	puts "Done..."
 
