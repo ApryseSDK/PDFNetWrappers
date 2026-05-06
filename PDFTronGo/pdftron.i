@@ -564,3 +564,5 @@ namespace pdftron {
 %include "PDF/TextSearch.h"
 %include "PDF/Redactor.h"
 
+
+
