@@ -237,8 +237,6 @@
     #include "PDF/Rect.h"
     #include "PDF/RectCollection.h"
     #include "PDF/Redactor.h"
-    #include "PDF/SanitizeOptions.h"
-    #include "PDF/Sanitizer.h"
     #include "PDF/Shading.h"
     #include "PDF/Stamper.h"
     #include "PDF/TextExtractor.h"
@@ -1081,8 +1079,6 @@ namespace pdftron {
 %include "PDF/PDFDocInfo.h"
 %include "PDF/PDFDoc.h"
 %include "PDF/TaggingOptions.h"
-%include "PDF/SanitizeOptions.h"
-%include "PDF/Sanitizer.h"
 
 %include "PDF/Annots.h"
 %include "PDF/Annots/Caret.h"
