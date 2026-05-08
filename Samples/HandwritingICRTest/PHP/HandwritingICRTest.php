@@ -60,6 +60,7 @@ function WriteTextToFile($outputFile, $text)
 		$doc->Close();
 
 		//--------------------------------------------------------------------------------
+/*
 		// Example 2) Process a subset of PDF pages
 		echo "Example 2: processing pages from icr.pdf\n";
 	 
@@ -70,7 +71,7 @@ function WriteTextToFile($outputFile, $text)
 		$options = new HandwritingICROptions();
 		
 		// Optionally, process a subset of pages
-		$options->SetPages("2-3");
+		$options->SetPages("1-3");
 
 		// Run ICR on the .pdf
 		HandwritingICRModule::ProcessPDF($doc, $options);
@@ -78,6 +79,7 @@ function WriteTextToFile($outputFile, $text)
 		// Save the result with hidden text applied
 		$doc->Save($output_path."icr-pages.pdf", SDFDoc::e_linearized);
 		$doc->Close();
+*/
 
 		//--------------------------------------------------------------------------------
 		// Example 3) Ignore zones specified for each page
@@ -89,14 +91,13 @@ function WriteTextToFile($outputFile, $text)
 		// Process handwriting with custom options
 		$options = new HandwritingICROptions();
 		
-		// Process page 2 by ignoring the signature area on the bottom
-		$options->SetPages("2");
-		$ignore_zones_page2 = new RectCollection();
+		// Process page 1 by ignoring the signature area on the bottom
+		$ignore_zones_page1 = new RectCollection();
 		// These coordinates are in PDF user space, with the origin at the bottom left corner of the page.
 		// Coordinates rotate with the page, if it has rotation applied.
 		$rect = new Rect(78.0, 850.1 - 770.0, 340.0, 850.1 - 676.0);
-		$ignore_zones_page2->AddRect($rect);
-		$options->AddIgnoreZonesForPage($ignore_zones_page2, 2);
+		$ignore_zones_page1->AddRect($rect);
+		$options->AddIgnoreZonesForPage($ignore_zones_page1, 1);
 
 		// Run ICR on the .pdf
 		HandwritingICRModule::ProcessPDF($doc, $options);
