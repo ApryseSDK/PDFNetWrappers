@@ -68,25 +68,25 @@ def main():
         doc.Save(output_path + "icr-simple.pdf", SDFDoc.e_linearized)
         doc.Close()
 
-        # --------------------------------------------------------------------------------
-        # Example 2) Process a subset of PDF pages
-        print("Example 2: processing pages from icr.pdf")
-
-        # Open the .pdf document
-        doc = PDFDoc(input_path + "icr.pdf")
-
-        # Process handwriting with custom options
-        options = HandwritingICROptions()
-        
-        # Optionally, process a subset of pages
-        options.SetPages("2-3")
-
-        # Run ICR on the .pdf
-        HandwritingICRModule.ProcessPDF(doc, options)
-
-        # Save the result with hidden text applied
-        doc.Save(output_path + "icr-pages.pdf", SDFDoc.e_linearized)
-        doc.Close()
+#       # --------------------------------------------------------------------------------
+#       # Example 2) Process a subset of PDF pages
+#       print("Example 2: processing pages from icr.pdf")
+#
+#       # Open the .pdf document
+#       doc = PDFDoc(input_path + "icr.pdf")
+#
+#       # Process handwriting with custom options
+#       options = HandwritingICROptions()
+#
+#       # Optionally, process a subset of pages
+#       options.SetPages("1-3")
+#
+#       # Run ICR on the .pdf
+#       HandwritingICRModule.ProcessPDF(doc, options)
+#
+#       # Save the result with hidden text applied
+#       doc.Save(output_path + "icr-pages.pdf", SDFDoc.e_linearized)
+#       doc.Close()
 
         # --------------------------------------------------------------------------------
         # Example 3) Ignore zones specified for each page
@@ -98,13 +98,12 @@ def main():
         # Process handwriting with custom options
         options = HandwritingICROptions()
         
-        # Process page 2 by ignoring the signature area on the bottom
-        options.SetPages("2")
-        ignore_zones_page2 = RectCollection()
+        # Process page 1 by ignoring the signature area on the bottom
+        ignore_zones_page1 = RectCollection()
         # These coordinates are in PDF user space, with the origin at the bottom left corner of the page.
         # Coordinates rotate with the page, if it has rotation applied.
-        ignore_zones_page2.AddRect(Rect(78, 850.1 - 770, 340, 850.1 - 676))
-        options.AddIgnoreZonesForPage(ignore_zones_page2, 2)
+        ignore_zones_page1.AddRect(Rect(78, 850.1 - 770, 340, 850.1 - 676))
+        options.AddIgnoreZonesForPage(ignore_zones_page1, 1)
 
         # Run ICR on the .pdf
         HandwritingICRModule.ProcessPDF(doc, options)
