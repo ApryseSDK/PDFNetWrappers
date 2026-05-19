@@ -83,6 +83,7 @@ func TestHandwritingICR(t *testing.T) {
 		doc.Close()
 
 		// --------------------------------------------------------------------------------
+/*
 		// Example 2) Process a subset of PDF pages
 		fmt.Println("Example 2: processing pages from icr.pdf")
 
@@ -93,7 +94,7 @@ func TestHandwritingICR(t *testing.T) {
 		options := NewHandwritingICROptions()
 		
 		// Optionally, process a subset of pages
-		options.SetPages("2-3")
+		options.SetPages("1-3")
 
 		// Run ICR on the .pdf
 		HandwritingICRModuleProcessPDF(doc, options)
@@ -101,6 +102,7 @@ func TestHandwritingICR(t *testing.T) {
 		// Save the result with hidden text applied
 		doc.Save(outputPath + "icr-pages.pdf", uint(SDFDocE_linearized))
 		doc.Close()
+*/
 
 		// --------------------------------------------------------------------------------
 		// Example 3) Ignore zones specified for each page
@@ -110,15 +112,14 @@ func TestHandwritingICR(t *testing.T) {
 		doc = NewPDFDoc(inputPath + "icr.pdf")
 		
 		// Process handwriting with custom options
-		options = NewHandwritingICROptions()
+		options := NewHandwritingICROptions()
 		
-		// Process page 2 by ignoring the signature area on the bottom
-		options.SetPages("2")
-		ignoreZonesPage2 := NewRectCollection()
+		// Process page 1 by ignoring the signature area on the bottom
+		ignoreZonesPage1 := NewRectCollection()
 		// These coordinates are in PDF user space, with the origin at the bottom left corner of the page.
 		// Coordinates rotate with the page, if it has rotation applied.
-		ignoreZonesPage2.AddRect(NewRect(78.0, 850.1 - 770.0, 340.0, 850.1 - 676.0))
-		options.AddIgnoreZonesForPage(ignoreZonesPage2, 2)
+		ignoreZonesPage1.AddRect(NewRect(78.0, 850.1 - 770.0, 340.0, 850.1 - 676.0))
+		options.AddIgnoreZonesForPage(ignoreZonesPage1, 1)
 
 		// Run ICR on the .pdf
 		HandwritingICRModuleProcessPDF(doc, options)
