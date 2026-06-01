@@ -65,6 +65,9 @@ func TestTransPDF(t *testing.T) {
     // Perform the translation using the pre-prepared translated xliff
     TransPDFApplyXLIFF(doc, inputPath + "find-replace-test_(en_to_fr).xlf", options)
 
+    // Comment out the above line and uncomment the below line to perform the translation using XLIFF 2.
+    //TransPDF::ApplyXLIFF(doc, input_path + "find-replace-test_(en_to_fr)-2.xlf", options)
+
     // Save the translated PDF
     doc.Save(outputPath + "find-replace-test-fr.pdf", uint(SDFDocE_linearized))
     doc.Close()
