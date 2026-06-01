@@ -57,7 +57,7 @@ function main()
 		TransPDF::ApplyXLIFF($doc, $input_path."find-replace-test_(en_to_fr).xlf", $options);
 
 		// Comment out the above line and uncomment the below line to perform the translation using XLIFF 2.
-		//TransPDF::ApplyXLIFF($doc, $input_path."find-replace-test_(en_to_fr)-2.xlf", $options);
+		// TransPDF::ApplyXLIFF($doc, $input_path."find-replace-test_(en_to_fr)-2.xlf", $options);
 
 		// Save the translated PDF
 		$doc->Save($output_path."find-replace-test-fr.pdf", SDFDoc::e_linearized);
