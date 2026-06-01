@@ -45,7 +45,7 @@ def main():
         # options.SetPages("-2,5-6,9,11-")
 
         # Optionally, flip the text boxes, vector artwork and images on the to page top retain continuity.
-		# options.SetFlipPageContentsForBiDirectionalTranslations(true)
+        # options.SetFlipPageContentsForBiDirectionalTranslations(true)
 
         # Extract the xlf to file and field the PDF for translation
         TransPDF.ExtractXLIFF(doc, output_path + "translation-test-arabic.xlf", options)
