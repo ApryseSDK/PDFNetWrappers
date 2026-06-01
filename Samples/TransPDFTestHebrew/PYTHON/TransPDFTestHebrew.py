@@ -45,22 +45,22 @@ def main():
         # options.SetPages("-2,5-6,9,11-")
 
         # Optionally, flip the text boxes, vector artwork and images on the to page top retain continuity.
-		# options.SetFlipPageContentsForBiDirectionalTranslations(true)
+        # options.SetFlipPageContentsForBiDirectionalTranslations(true)
 
         # Extract the xlf to file and field the PDF for translation
-        TransPDF.ExtractXLIFF(doc, output_path + "translation-test-arabic.xlf", options)
+        TransPDF.ExtractXLIFF(doc, output_path + "translation-test-hebrew.xlf", options)
 
         # Save the fielded PDF
-        doc.Save(output_path + "translation-test-arabic-fielded.pdf", SDFDoc.e_linearized)
+        doc.Save(output_path + "translation-test-hebrew-fielded.pdf", SDFDoc.e_linearized)
 
         # The extracted xlf can be translated in a system of your choice.
-        # In this sample a pre-prepared translated file is used - translation-test-(en_to_ar).xlf
+        # In this sample a pre-prepared translated file is used - translation-test-(en_to_he).xlf
 
         # Perform the translation using the pre-prepared translated xliff
-        TransPDF.ApplyXLIFF(doc, input_path + "translation-test-(en_to_ar).xlf", options)
+        TransPDF.ApplyXLIFF(doc, input_path + "translation-test-(en_to_he).xlf", options)
 
         # Save the translated PDF
-        doc.Save(output_path + "translation-test-arabic.pdf", SDFDoc.e_linearized)
+        doc.Save(output_path + "translation-test-hebrew.pdf", SDFDoc.e_linearized)
         doc.Close()
     except Exception as e:
         print("Unable to translate PDF document, error: " + str(e))
