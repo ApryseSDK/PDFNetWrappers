@@ -51,7 +51,7 @@ func TestTransPDFArabic(t *testing.T) {
     // options.SetPages("-2,5-6,9,11-")
 
     // Optionally flip the text boxes, vector artwork and images on the page to retain continuity.
-    // options.SetFlipPageContentsForBiDirectionalTranslations(true);
+    // options.SetFlipPageContentsForBiDirectionalTranslations(true)
 
     // Extract the xlf to file and field the PDF for translation
     TransPDFExtractXLIFF(doc, outputPath + "translation-test-arabic.xlf", options)
