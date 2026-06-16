@@ -27,7 +27,7 @@ def main()
 	begin  
 
 		# Open a PDF document to translate
-		doc = PDFDoc.new($input_path + "find-replace-test.pdf")
+		doc = PDFDoc.new($input_path + "translation-test.pdf")
 		options = TransPDFOptions.new
 
 		# Set the source language in the options
@@ -40,26 +40,23 @@ def main()
 		# This PDF only has a single page, but you can specify a subset of pages like this
 		# options.SetPages("-2,5-6,9,11-")
 
-		# Optionally, set the XLIFF exported version, default is 1.2
-		# options.SetXLIFFVersion(TransPDFOptions::E_xliff_version_2)
+		# Optionally flip the text boxes, vector artwork and images on the page to retain continuity.
+		# options.SetFlipPageContentsForBiDirectionalTranslations(true)
 
 		# Extract the xlf to file and field the PDF for translation
-		TransPDF.ExtractXLIFF(doc, $output_path + "find-replace-test.xlf", options)
+		TransPDF.ExtractXLIFF(doc, $output_path + "translation-test-arabic.xlf", options)
 
 		# Save the fielded PDF
-		doc.Save($output_path + "find-replace-test-fielded.pdf", SDFDoc::E_linearized)
+		doc.Save($output_path + "translation-test-arabic-fielded.pdf", SDFDoc::E_linearized)
 
 		# The extracted xlf can be translated in a system of your choice.
-		# In this sample a pre-prepared translated file is used - find-replace-test_(en_to_fr).xlf
+		# In this sample a pre-prepared translated file is used - translation-test-(en_to_ar).xlf
 
 		# Perform the translation using the pre-prepared translated xliff
-		TransPDF.ApplyXLIFF(doc, $input_path + "find-replace-test_(en_to_fr).xlf", options)
-
-		# Comment out the above line and uncomment the below line to perform the translation using XLIFF 2.
-		# TransPDF.ApplyXLIFF(doc, $input_path + "find-replace-test_(en_to_fr)-2.xlf", options)
+		TransPDF.ApplyXLIFF(doc, $input_path + "translation-test-(en_to_ar).xlf", options)
 
 		# Save the translated PDF
-		doc.Save($output_path + "find-replace-test-fr.pdf", SDFDoc::E_linearized)
+		doc.Save($output_path + "translation-test-arabic.pdf", SDFDoc::E_linearized)
 		doc.Close
 
 	rescue => error
