@@ -36,7 +36,7 @@
      -->
 <trans-unit id='p1-3' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
 <source>According to <g id='3-1' ctype='x-cstyle'>market research</g> conducted by Stax Inc., the average Net Promoter Score (NPS) for the top five PDF SDK vendors is 35%. And 70% of customers express interest in switching despite the high costs.</source>
-<target>לפי מחקר שוק שערכה Stax Inc., ציון ה-Net Promoter Score (NPS) הממוצע עבור חמשת ספקי PDF SDK המובילים הוא 35%. ו-70% מהלקוחות מביעים עניין במעבר למרות העלויות הגבוהות.</target>
+<target>לפיעל פי מחקר שוק שערכה Stax Inc., ציון ה-Net Promoter Score (NPS) הממוצע עבור חמשת ספקי PDF SDK המובילים הוא 35%. ו-70% מהלקוחות מביעים עניין במעבר למרות העלויות הגבוהות.</target>
 </trans-unit>
 
 <!-- 
