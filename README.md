@@ -1,6 +1,8 @@
 ## NOTE FOR DEVELOPERS
 
-No commit to `master` unless applicable. All commits for current development should go to `next_release`. Notice that `master` synchronizes with the latest `stable` `PDFNet` and should not have changes unless applicable. `next_release` is merged into `master` following an offical release.
+Formerly next_release was used for development, this has now migrated to master to better work with our flow.
+
+If you are using an Apryse SDK you should build PDFNetWrappers with the branch that corresponds to your version of the SDK. `master` may only be used with experimental builds of Apryse SDK.
 
 # About
 
@@ -17,8 +19,8 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 ## Environments and versions
 
-* **SWIG** 2.0.4 - 2.0.12 or **SWIG** 3.0.12 or **SWIG** 4.0.2 and above
-* **CMake** version 2.8+
+* **SWIG** 3.10 and above, we reccommend 4.3.1
+* **CMake** version 4+
 * **Linux**: GCC 4.6 and above
 * **Windows**: Visual Studio 2012 and above or mingw-w64 (for Go only)
 * **macOS**: XCode 5.0 and above
@@ -27,9 +29,9 @@ This project uses SWIG (http://www.swig.org/) in order to generate the language 
 
 Lastly, you will need to obtain the most recent package for PDFNetC. Make sure you download the one for PDFNetC (not for .NET). You will also need to make sure that the architecture of PDFNetC you download matches the architecture of your interpreter. For example, if you have 64-bit Ruby interpreter, you will need to obtain the 64-bit version of PDFNetC. 
 
-- [**Download Linux C++ SDK**](https://dev.apryse.com/?platform=linux&product=cpp-64)
-- [**Download Windows C++ SDK**](https://dev.apryse.com/?platform=windows&product=cpp-64)
-- [**Download Mac C++ SDK**](https://dev.apryse.com/?platform=mac&product=cpp)
+- [**Download Linux C++ SDK**](https://dev.apryse.com/linux)
+- [**Download Windows C++ SDK**](https://dev.apryse.com/windows)
+- [**Download Mac C++ SDK**](https://dev.apryse.com/mac)
 
 ## Strict PHP and SWIG version compatibility for PHP wrapper
 
@@ -37,7 +39,7 @@ Having a **single version of SWIG and PHP installed** on the server is preferred
 
 * Targeting **PHP8**
 
-    * **PHP8** with developer extensions and **SWIG (4.1.0)** or above [See the example below for detailed instructions](#Linux-PHP8)
+    * **PHP8** with developer extensions and **SWIG (4.3.0)** or above [See the example below for detailed instructions](#Linux-PHP8)
 
 * Targeting **PHP7**
 
@@ -45,23 +47,15 @@ Having a **single version of SWIG and PHP installed** on the server is preferred
 
 * Targeting **PHP5**
 
-    * **PHP5** with developer extensions and **SWIG2 (2.0.4 - 2.0.12)**
-
-## Strict PYTHON3 and SWIG3 version compatibility for PYTHON wrapper
-
-Having a **single version of SWIG and PYTHON installed** on the server is preferred.  Any other combinations of SWIG and PYTHON versions not listed below is likely to encounter problems.  If your build is not working as expected then please double check the version numbers.  Installing multiple versions of SWIG and PYTHON may also produce issues.
+    * **PHP5** with developer extensions and **SWIG (2.0.4 - 2.0.12)**
 
 * Targeting **PYTHON3**
 
-    * **PYTHON3** with developer extensions and **SWIG3 (3.0.12)** or above
-
-## Strict GO and SWIG3 version compatibility for Go wrapper
-
-Having a **single version of SWIG and GO installed** on the server is preferred.  Any other combinations of SWIG and GO versions not listed below is likely to encounter problems.  If your build is not working as expected then please double check the version numbers.  Installing multiple versions of SWIG and Go may also produce issues.
+    * **PYTHON3** with developer extensions and **SWIG (4.3.0)** or above
 
 * Targeting **GO**
 
-    * **GO** verified with version 1.15, **MINGW-W64** verified with version 4.3 and **SWIG3 (3.0.12)** or above
+    * **GO** verified with version 1.15, **MINGW-W64** verified with version 4.3 and **SWIG (4.3.0)** or above
 
 # Building
 
@@ -106,9 +100,9 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
 
     md wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
-    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone https://github.com/ApryseSDK/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    download PDFNetC64.zip from https://www.pdftron.com/downloads/PDFNetC64.zip # Download PDFNet.
+    download PDFNetC64.zip from https://downloads.apryse.com/downloads/PDFNetC64.zip # Download PDFNet.
     unzip PDFNetC64.zip # Unzip PDFNet.
     move PDFNetC64/Headers . # Move PDFNet Headers/ into place.
     move PDFNetC64/Lib . # Move PDFNet Lib/ into place.
@@ -125,14 +119,13 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
     cd ../Samples # Move to the Samples directory.
     ./runall_go.bat # Run all Go code samples, using the new wrappers.
 
-More information at [PDFTron SDK for Go](https://www.pdftron.com/documentation/go)
+More information at [PDFTron SDK for Go](https://www.apryse.com/documentation/go)
 
 ## Linux
 
 ### Linux PHP8
 Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You could run the following set of commands:
 
-    # First, install swig 4.1.0 for PHP8 wrapper using swig/master branch
     git clone https://github.com/swig/swig.git
     cd swig
     mkdir Build
@@ -145,9 +138,9 @@ Suppose you wanted to build and run the 64-bit `PHP8` wrappers on `Linux`.  You 
     # Now, build PHP wrapper. Navigate to the location where you want to build the wrapper
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
-    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone https://github.com/ApryseSDK/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    wget https://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
+    wget https://downloads.apryse.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
     tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
     mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
@@ -170,9 +163,9 @@ Suppose you wanted to build and run the 64-bit `PHP7` wrappers on `Linux`.  You 
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
-    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone https://github.com/ApryseSDK/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    wget https://www.pdftron.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
+    wget https://downloads.apryse.com/downloads/PDFNetC64.tar.gz # Download PDFNet.
     tar xzvf PDFNetC64.tar.gz # Unpack PDFNet.
     mv PDFNetC64/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetC64/Lib/ . # Move PDFNet Lib/ into place.
@@ -195,9 +188,9 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
 
     mkdir wrappers_build # Make a directory to build the wrappers in.
     cd wrappers_build # Move to that directory.
-    git clone https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone https://github.com/ApryseSDK/PDFNetWrappers # Git the code.
     cd PDFNetWrappers/PDFNetC # Move to where we download PDFNet.
-    curl -L -O https://www.pdftron.com/downloads/PDFNetCMac.zip # Download PDFNet.
+    curl -L -O https://downloads.apryse.com/downloads/PDFNetCMac.zip # Download PDFNet.
     unzip PDFNetCMac.zip # Unpack PDFNet.
     mv PDFNetCMac/Headers/ . # Move PDFNet Headers/ into place.
     mv PDFNetCMac/Lib/ . # Move PDFNet Lib/ into place.
@@ -215,20 +208,22 @@ Suppose you wanted to build and run the `Ruby` wrappers on `macOS`.  You could r
 	
 # Pre-built Binaries
 
-You can download pre-built binaries from the following links:
+You can download pre-built binaries from various sources.
 
-## Windows: Python 2.7.x
-https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin32.zip
+Python via PIP
+https://docs.apryse.com/core/guides/get-started/python3
 
-https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersWin64.zip
+Go via gopkg
+https://docs.apryse.com/core/guides/get-started/go
+https://pkg.go.dev/github.com/pdftron/pdftron-go/v2
 
-## Linux: Python 2.7.x and Ruby 2.x
-https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux.tar.gz
+PHP
+Must be built from this repository.
+https://docs.apryse.com/core/guides/get-started/php?platform=mac
 
-https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersLinux64.tar.gz
-
-## Mac OS: Python 2.7.x and Ruby 2.x
-https://www.pdftron.com/downloads/PDFNetWrappers/PDFNetWrappersMac.zip
+Ruby
+Must be built from this repository, but we offer a Ruby 2.7 Mac build here:
+https://downloads.apryse.com/downloads/PDFNetWrappersMac.zip
 
 # Common Questions
 
@@ -238,7 +233,7 @@ Technically, any versions can be supported provided that some minor changes to t
 Within Apryse, we have successfully built language bindings for the following versions of the interpreter:
     
     - PHP 5.3.x to 5.5.x, >= 7.x
-    - Python 2.7.x, >= 3.x
+    - Python 3.x
     - Ruby >= 2.x
     - Go >= 1.15
 
@@ -248,7 +243,7 @@ Yes. It is important to keep in mind however, that you use the include directori
 
 ## I cannot build PHP bindings for macOS
 
-In order to build `PHP` bindings for `macOS`, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with macOS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file. We recommend using `PHP7/SWIG3` to build PHP bindings for macOS.
+In order to build `PHP` bindings for `macOS`, we suggest building PHP yourself. When you try to use the bundled PHP interpreter with macOS, the CMake code generation process may not be able to locate the PHP header files as well as the PHP library file. We recommend using `PHP7/SWIG` to build PHP bindings for macOS.
 
 ## Running the samples seems fine, but when I try to use it on my project, I am starting to get issues.
 
@@ -270,7 +265,7 @@ In order to change the install location, modify the top level CMakelists.txt. Re
 
 The master branch is used for the latest stable PDFNet. In order to build wrappers using PDFNet `9.3.x`, please use the following command to clone `9.3` branch instead (line 3 in `Example`): 
 
-    git clone -b 9.3 --single-branch https://github.com/PDFTron/PDFNetWrappers # Git the code.
+    git clone -b 9.3 --single-branch https://github.com/ApryseSDK/PDFNetWrappers
 
 ## I'm seeing a line-ending (control character) issue.
 
@@ -284,4 +279,3 @@ Using dos2unix to convert line endings can help with this issue
 brew install dos2unix
 dos2unix **/*.sh
 ```
-![](https://onepixel.pdftron.com/PDFNetWrappers)

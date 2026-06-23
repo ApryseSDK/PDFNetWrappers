@@ -8,6 +8,7 @@ pipeline {
         quietPeriod(60)
         disableConcurrentBuilds()
         timeout(time: 2, unit: 'HOURS')
+        skipDefaultCheckout()
     }
 
     environment {
@@ -22,6 +23,12 @@ pipeline {
     }
 
     stages {
+        stage ('Checkout') {
+            steps {
+                gitCheckout(repo: "https://github.com/ApryseSDK/PDFNetWrappers", branch: env.BRANCH_NAME, skipTriggerCheck: true)
+            }
+        }
+
         stage ('Build') {
             steps {
                 script {
@@ -32,7 +39,7 @@ pipeline {
                         )
                     } else {
                         s3ArtifactCopyInvoke(
-                            "apryse-sdk/apryse-sdk-mac/" + getWrappersBranch(env.BRANCH_NAME),
+                            "apryse-sdk/apryse-sdk-mac/" + env.BRANCH_NAME.replace("/", "%2F"),
                             "PDFNetCMac.zip"
                         )
                     }
