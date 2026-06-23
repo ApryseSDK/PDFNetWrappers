@@ -62,6 +62,8 @@ pipeline {
                     dir('build/PDFTronGo/pdftron/samples') {
                         sh '''
                             rm -rf TransPDFTest
+                            rm -rf TransPDFArabicTest
+                            rm -rf TransPDFHebrewTest
                             ./runall_go.sh
                         '''
                     }
