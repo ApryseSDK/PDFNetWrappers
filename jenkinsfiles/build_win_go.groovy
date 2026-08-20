@@ -8,6 +8,7 @@ pipeline {
         quietPeriod(60)
         disableConcurrentBuilds()
         timeout(time: 2, unit: 'HOURS')
+        skipDefaultCheckout()
     }
 
     environment {
@@ -22,6 +23,12 @@ pipeline {
     }
 
     stages {
+        stage ('Checkout') {
+            steps {
+                gitCheckout(repo: "https://github.com/ApryseSDK/PDFNetWrappers", branch: env.BRANCH_NAME, skipTriggerCheck: true)
+            }
+        }
+
         stage ('Build') {
             steps {
                 script {

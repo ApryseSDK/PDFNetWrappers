@@ -16,10 +16,8 @@ pipeline {
         quietPeriod(60)
         disableConcurrentBuilds()
         timeout(time: 2, unit: 'HOURS')
+        skipDefaultCheckout()
     }
-
-
-    triggers { cron(cron_string) }
 
     environment {
         GOCACHE      = "/tmp/.cache"
@@ -32,6 +30,12 @@ pipeline {
     }
 
     stages {
+        stage ('Checkout') {
+            steps {
+                gitCheckout(repo: "https://github.com/ApryseSDK/PDFNetWrappers", branch: env.BRANCH_NAME, skipTriggerCheck: true)
+            }
+        }
+
         stage ('Build') {
             steps {
                 script {
@@ -62,6 +66,8 @@ pipeline {
                     dir('build/PDFTronGo/pdftron/samples') {
                         sh '''
                             rm -rf TransPDFTest
+                            rm -rf TransPDFArabicTest
+                            rm -rf TransPDFHebrewTest
                             ./runall_go.sh
                         '''
                     }

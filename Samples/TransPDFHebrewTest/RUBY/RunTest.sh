@@ -1,4 +1,4 @@
 #!/bin/sh
-TEST_NAME=BarcodeTest
+TEST_NAME=TransPDFHebrewTest
 export LD_LIBRARY_PATH=../../../PDFNetC/Lib
 ruby $TEST_NAME.rb

@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+<file original="../../TestFiles/translation-test.pdf" source-language="en" datatype="x-pdf" product-name="InfixXLIFF">
+<header>
+<tool tool-id="InfixXLIFF" tool-name="InfixXLIFF" tool-company="Apryse"/>
+</header>
+<body>
+<!-- 
+    <cstyle id="1-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0"/>
+     -->
+<trans-unit id='p1-1' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>You plan to embed PDF functionality into an application. But before you dive into the project, you must decide: do you go with a more expensive commercial PDF SDK — or a lower-cost alternative such as an open-source library or an open-source wrapper?</source>
+<target>אתם מתכננים להטמיע פונקציונליות של PDF באפליקציה. אבל לפני שאתם צוללים לתוך הפרויקט, עליכם להחליט: האם אתם בוחרים ב-PDF SDK מסחרי יקר יותר - או בחלופה זולה יותר כמו ספריית קוד פתוח או עטיפת קוד פתוח?</target>
+</trans-unit>
+
+<!-- 
+    <cstyle id="2-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0"/>
+     -->
+<trans-unit id='p1-2' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>There are non-trivial costs to switching later. Developers have to re-learn the new library, re-adjust the backend, customize the UI to match what users are accustomed to, as well as migrate documents, form data, annotations, and more. </source>
+<target>ישנן עלויות לא טריוויאליות למעבר מאוחר יותר. מפתחים צריכים ללמוד מחדש את הספרייה החדשה, להתאים מחדש את ה-backend, להתאים אישית את ממשק המשתמש כך שיתאים למה שהמשתמשים רגילים אליו, וכן להעביר מסמכים, נתוני טפסים, הערות ועוד.</target>
+</trans-unit>
+
+<!-- 
+    <cstyle id="3-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0"/>
+    
+    <cstyle id="3-1" name="1" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0" israwchars="1" fname="Lato" fweight="bold" fstyle="normal"
+     underline="1" strike="0"/>
+     -->
+<trans-unit id='p1-3' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>According to <g id='3-1' ctype='x-cstyle'>market research</g> conducted by Stax Inc., the average Net Promoter Score (NPS) for the top five PDF SDK vendors is 35%. And 70% of customers express interest in switching despite the high costs.</source>
+<target>לפי מחקר שוק שערכה Stax Inc., ציון ה-Net Promoter Score (NPS) הממוצע עבור חמשת ספקי PDF SDK המובילים הוא 35%. ו-70% מהלקוחות מביעים עניין במעבר למרות העלויות הגבוהות.</target>
+</trans-unit>
+
+<!-- 
+    <cstyle id="4-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0"/>
+     -->
+<trans-unit id='p1-4' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>This dissatisfaction implies that picking the right PDF SDK is a lot harder than it seems. And to help you avoid the same mistakes as past implementations, we’ve written this article.</source>
+<target>חוסר שביעות רצון זה מרמז שבחירת ערכת פיתוח התוכנה (SDK) המתאימה ל-PDF קשה הרבה יותר ממה שנדמה. וכדי לעזור לכם להימנע מאותן טעויות כמו ביישומים קודמים, כתבנו מאמר זה.</target>
+</trans-unit>
+
+<!-- 
+    <cstyle id="5-0" name="0" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0"  fname="Lato" fweight="normal" fstyle="normal"
+     underline="0" strike="0"/>
+    
+    <cstyle id="5-1" name="1" size="12.0" rise="0.0" scale="100"
+     colour="1d446c" colid="0" israwchars="1" fname="Lato" fweight="bold" fstyle="normal"
+     underline="1" strike="0"/>
+     -->
+<trans-unit id='p1-5' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>(We also<g id='5-1' ctype='x-cstyle'> </g><g id='5-1' ctype='x-cstyle'>recently surveyed 57</g> unique organizations that switched from PDF.js to a commercial SDK. Read our<g id='5-1' ctype='x-cstyle'> </g><g id='5-1' ctype='x-cstyle'>comprehensive guide to PDF.js</g> to learn more.) </source>
+<target>(לאחרונה גם סקרנו 57 ארגונים ייחודיים שעברו מ-PDF.js ל-SDK מסחרי. קראו את המדריך המקיף שלנו ל-PDF.js למידע נוסף.)</target>
+</trans-unit>
+
+<!-- 
+    <cstyle id="6-0" name="0" size="30.0" rise="0.0" scale="100"
+     colour="0206a8" colid="1" israwchars="1" fname="LatoBlack" fweight="normal" fstyle="normal"
+     underline="0" strike="0"/>
+     -->
+<trans-unit id='p1-6' approved="yes" translate="yes" xml:space="default" datatype="plaintext">
+<source>Overview </source>
+<target>סקירה כללית</target>
+</trans-unit>
+
+</body>
+</file>
+</xliff>

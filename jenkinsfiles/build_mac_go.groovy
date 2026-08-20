@@ -23,6 +23,12 @@ pipeline {
     }
 
     stages {
+        stage ('Checkout') {
+            steps {
+                gitCheckout(repo: "https://github.com/ApryseSDK/PDFNetWrappers", branch: env.BRANCH_NAME, skipTriggerCheck: true)
+            }
+        }
+
         stage ('Build') {
             steps {
                 script {
