@@ -86,7 +86,7 @@ def main():
             highlight.RefreshAppearance()
             page.AnnotPushBack(highlight)
 
-            print(f"[{x1:.2f}, {y1:.2f}, {x2:.2f}, {y2:.2f}]")
+            print("[{:.2f}, {:.2f}, {:.2f}, {:.2f}]".format(x1, y1, x2, y2))
 
         hlts.Next()
 
