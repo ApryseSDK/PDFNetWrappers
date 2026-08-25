@@ -1,5 +1,5 @@
 String cron_default = "0 0 * * *"
-String cron_string = (env.BRANCH_NAME == "master" || getWrappersBranch(env.BRANCH_NAME) == "pre-release") ? cron_default : ""
+String cron_string = (env.BRANCH_NAME == "master" || getJenkinsVersion(env.BRANCH_NAME) == "pre-release") ? cron_default : ""
 
 pipeline {
     agent { label 'Silitron' }
