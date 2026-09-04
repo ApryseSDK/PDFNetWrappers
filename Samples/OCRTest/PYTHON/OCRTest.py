@@ -234,9 +234,10 @@ def main():
 
         page = doc.GetPage(1)
 
-        # C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as True
-        # means an invisible text layer (e.g. from a prior OCR pass) is enough to consider the
-        # page as not needing OCR, while False ignores invisible text and only considers visible content.
+        # C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as False
+        # means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
+        # is considered, while True would treat an existing invisible text layer as sufficient
+        # to consider the page as not needing OCR.
 
         needs_ocr = OCRModule.PageNeedsOCR(doc, page, False)
         print("Example 7: page 1 of german_kids_song.pdf " + ("needs" if needs_ocr else "does not need") + " OCR")

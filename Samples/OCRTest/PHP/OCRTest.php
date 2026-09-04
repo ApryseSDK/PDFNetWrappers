@@ -235,9 +235,10 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 		$page = $doc->GetPage(1);
 
-		// C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as true
-		// means an invisible text layer (e.g. from a prior OCR pass) is enough to consider the
-		// page as not needing OCR, while false ignores invisible text and only considers visible content.
+		// C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as false
+		// means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
+		// is considered, while true would treat an existing invisible text layer as sufficient
+		// to consider the page as not needing OCR.
 
 		$needs_ocr = OCRModule::PageNeedsOCR($doc, $page, false);
 		echo "Example 7: page 1 of german_kids_song.pdf ".($needs_ocr ? "needs" : "does not need")." OCR \n";

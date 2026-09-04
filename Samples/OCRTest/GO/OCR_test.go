@@ -245,9 +245,10 @@ func TestOCR(t *testing.T) {
 
 		page := doc.GetPage(1)
 
-		// C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as true
-		// means an invisible text layer (e.g. from a prior OCR pass) is enough to consider the
-		// page as not needing OCR, while false ignores invisible text and only considers visible content.
+		// C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as false
+		// means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
+		// is considered, while true would treat an existing invisible text layer as sufficient
+		// to consider the page as not needing OCR.
 
 		needsOCR := OCRModulePageNeedsOCR(doc, page, false)
 		if needsOCR {
