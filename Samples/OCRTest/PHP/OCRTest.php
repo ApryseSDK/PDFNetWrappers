@@ -224,6 +224,36 @@ $output_path = getcwd()."/../../TestFiles/Output/";
 
 		echo "Example 6: extracting and applying OCR XML from physics.tif \n";
 
+		//--------------------------------------------------------------------------------
+		// Example 7) Check whether a page needs OCR before running it, to avoid unnecessary OCR processing on pages that already contain extractable text
+
+		// A) Open the .pdf document
+
+		$doc = new PDFDoc($input_path."german_kids_song.pdf");
+
+		// B) Grab the page to be checked
+
+		$page = $doc->GetPage(1);
+
+		// C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as true
+		// means an invisible text layer (e.g. from a prior OCR pass) is enough to consider the
+		// page as not needing OCR, while false ignores invisible text and only considers visible content.
+
+		$needs_ocr = OCRModule::PageNeedsOCR($doc, $page, false);
+		echo "Example 7: page 1 of german_kids_song.pdf ".($needs_ocr ? "needs" : "does not need")." OCR \n";
+
+		// D) Only run OCR if it is actually needed
+
+		if ($needs_ocr) {
+			$opts = new OCROptions();
+			if ($use_iris) {
+				$opts->SetOCREngine("iris");
+			}
+			$opts->AddLang("deu");
+			OCRModule::ProcessPDF($doc, $opts);
+			$doc->Save($output_path."german_kids_song_conditional.pdf", 0);
+		}
+
 		echo "Done. \n";
 
 	}

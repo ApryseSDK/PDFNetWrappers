@@ -233,6 +233,41 @@ func TestOCR(t *testing.T) {
 		doc.Save(outputPath+"physics.pdf", uint(0))
 		fmt.Println("Example 6: extracting and applying OCR XML from physics.tif")
 
+		// Example 7) Check whether a page needs OCR before running it, to avoid unnecessary OCR
+		// processing on pages that already contain extractable text
+		// --------------------------------------------------------------------------------
+
+		// A) Open the .pdf document
+
+		doc = NewPDFDoc(inputPath + "german_kids_song.pdf")
+
+		// B) Grab the page to be checked
+
+		page := doc.GetPage(1)
+
+		// C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as true
+		// means an invisible text layer (e.g. from a prior OCR pass) is enough to consider the
+		// page as not needing OCR, while false ignores invisible text and only considers visible content.
+
+		needsOCR := OCRModulePageNeedsOCR(doc, page, false)
+		if needsOCR {
+			fmt.Println("Example 7: page 1 of german_kids_song.pdf needs OCR")
+		} else {
+			fmt.Println("Example 7: page 1 of german_kids_song.pdf does not need OCR")
+		}
+
+		// D) Only run OCR if it is actually needed
+
+		if needsOCR {
+			opts = NewOCROptions()
+			if use_iris {
+				opts.SetOCREngine("iris")
+			}
+			opts.AddLang("deu")
+			OCRModuleProcessPDF(doc, opts)
+			doc.Save(outputPath+"german_kids_song_conditional.pdf", uint(0))
+		}
+
 		PDFNetTerminate()
 	}
 }
