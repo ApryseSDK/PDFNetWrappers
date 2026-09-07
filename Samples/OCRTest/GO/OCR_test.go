@@ -250,7 +250,7 @@ func TestOCR(t *testing.T) {
 		// is considered, while true would treat an existing invisible text layer as sufficient
 		// to consider the page as not needing OCR.
 
-		needsOCR := OCRModulePageNeedsOCR(doc, page, false)
+		needsOCR := OCRModulePageNeedsOCR(page, false)
 		if needsOCR {
 			fmt.Println("Example 7: page 1 of german_kids_song.pdf needs OCR")
 		} else {

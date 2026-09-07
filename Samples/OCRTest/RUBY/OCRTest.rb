@@ -263,7 +263,7 @@ begin
       # means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
       # is considered, while true would treat an existing invisible text layer as sufficient
       # to consider the page as not needing OCR.
-      needs_ocr = OCRModule.PageNeedsOCR(doc, page, false)
+      needs_ocr = OCRModule.PageNeedsOCR(page, false)
       puts "Example 7: page 1 of german_kids_song.pdf #{needs_ocr ? 'needs' : 'does not need'} OCR"
 
       # D) Only run OCR if it is actually needed

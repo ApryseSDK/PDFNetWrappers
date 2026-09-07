@@ -239,7 +239,7 @@ def main():
         # is considered, while True would treat an existing invisible text layer as sufficient
         # to consider the page as not needing OCR.
 
-        needs_ocr = OCRModule.PageNeedsOCR(doc, page, False)
+        needs_ocr = OCRModule.PageNeedsOCR(page, False)
         print("Example 7: page 1 of german_kids_song.pdf " + ("needs" if needs_ocr else "does not need") + " OCR")
 
         # D) Only run OCR if it is actually needed
