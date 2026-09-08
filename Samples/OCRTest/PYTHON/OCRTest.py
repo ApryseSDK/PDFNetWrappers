@@ -226,31 +226,46 @@ def main():
         # processing on pages that already contain extractable text
         # --------------------------------------------------------------------------------
 
-        # A) Open the .pdf document
+        # A) Positive test: lorem_ipsum.pdf is a scanned document with no extractable text, so it should need OCR.
 
-        doc = PDFDoc(input_path + "german_kids_song.pdf")
+        scanned_doc = PDFDoc(input_path + "lorem_ipsum.pdf")
+        scanned_page = scanned_doc.GetPage(1)
 
-        # B) Grab the page to be checked
-
-        page = doc.GetPage(1)
-
-        # C) Ask OCRModule whether the page needs OCR. Passing process_invisible_text as False
+        # Ask OCRModule whether the page needs OCR. Passing process_invisible_text as False
         # means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
         # is considered, while True would treat an existing invisible text layer as sufficient
         # to consider the page as not needing OCR.
 
-        needs_ocr = OCRModule.PageNeedsOCR(page, False)
-        print("Example 7: page 1 of german_kids_song.pdf " + ("needs" if needs_ocr else "does not need") + " OCR")
+        scanned_needs_ocr = OCRModule.PageNeedsOCR(scanned_page, False)
+        print("Example 7 (positive test): page 1 of lorem_ipsum.pdf " + ("needs" if scanned_needs_ocr else "does not need") + " OCR")
 
-        # D) Only run OCR if it is actually needed
+        # Only run OCR if it is actually needed
 
-        if needs_ocr:
+        if scanned_needs_ocr:
             opts = OCROptions()
             if use_iris:
                 opts.SetOCREngine("iris")
-            opts.AddLang("deu")
-            OCRModule.ProcessPDF(doc, opts)
-            doc.Save(output_path + "german_kids_song_conditional.pdf", 0)
+            opts.AddLang("eng")
+            OCRModule.ProcessPDF(scanned_doc, opts)
+            scanned_doc.Save(output_path + "lorem_ipsum_conditional.pdf", 0)
+
+        # B) Negative test: newsletter.pdf already contains extractable text, so it should not need OCR.
+
+        newsletter_doc = PDFDoc(input_path + "newsletter.pdf")
+        newsletter_page = newsletter_doc.GetPage(1)
+
+        newsletter_needs_ocr = OCRModule.PageNeedsOCR(newsletter_page, False)
+        print("Example 7 (negative test): page 1 of newsletter.pdf " + ("needs" if newsletter_needs_ocr else "does not need") + " OCR")
+
+        # Only run OCR if it is actually needed
+
+        if newsletter_needs_ocr:
+            opts = OCROptions()
+            if use_iris:
+                opts.SetOCREngine("iris")
+            opts.AddLang("eng")
+            OCRModule.ProcessPDF(newsletter_doc, opts)
+            newsletter_doc.Save(output_path + "newsletter_conditional.pdf", 0)
 
         PDFNet.Terminate()
 
