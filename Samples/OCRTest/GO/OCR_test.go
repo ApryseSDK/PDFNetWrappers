@@ -233,6 +233,65 @@ func TestOCR(t *testing.T) {
 		doc.Save(outputPath+"physics.pdf", uint(0))
 		fmt.Println("Example 6: extracting and applying OCR XML from physics.tif")
 
+		// Example 7) Check whether a page needs OCR before running it, to avoid unnecessary OCR
+		// processing on pages that already contain extractable text
+		// --------------------------------------------------------------------------------
+
+		// A) Positive test: lorem_ipsum.pdf is a scanned document with no extractable text, so it should need OCR.
+
+		scannedDoc := NewPDFDoc(inputPath + "lorem_ipsum.pdf")
+
+		scannedPage := scannedDoc.GetPage(1)
+
+		// Ask OCRModule whether the page needs OCR. Passing process_invisible_text as false
+		// means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
+		// is considered, while true would treat an existing invisible text layer as sufficient
+		// to consider the page as not needing OCR.
+
+		scannedNeedsOCR := OCRModulePageNeedsOCR(scannedPage, false)
+		if scannedNeedsOCR {
+			fmt.Println("Example 7 (positive test): page 1 of lorem_ipsum.pdf needs OCR")
+		} else {
+			fmt.Println("Example 7 (positive test): page 1 of lorem_ipsum.pdf does not need OCR")
+		}
+
+		// Only run OCR if it is actually needed
+
+		if scannedNeedsOCR {
+			opts = NewOCROptions()
+			if use_iris {
+				opts.SetOCREngine("iris")
+			}
+			opts.AddLang("eng")
+			OCRModuleProcessPDF(scannedDoc, opts)
+			scannedDoc.Save(outputPath+"lorem_ipsum_conditional.pdf", uint(0))
+		}
+
+		// B) Negative test: newsletter.pdf already contains extractable text, so it should not need OCR.
+
+		newsletterDoc := NewPDFDoc(inputPath + "newsletter.pdf")
+
+		newsletterPage := newsletterDoc.GetPage(1)
+
+		newsletterNeedsOCR := OCRModulePageNeedsOCR(newsletterPage, false)
+		if newsletterNeedsOCR {
+			fmt.Println("Example 7 (negative test): page 1 of newsletter.pdf needs OCR")
+		} else {
+			fmt.Println("Example 7 (negative test): page 1 of newsletter.pdf does not need OCR")
+		}
+
+		// Only run OCR if it is actually needed
+
+		if newsletterNeedsOCR {
+			opts = NewOCROptions()
+			if use_iris {
+				opts.SetOCREngine("iris")
+			}
+			opts.AddLang("eng")
+			OCRModuleProcessPDF(newsletterDoc, opts)
+			newsletterDoc.Save(outputPath+"newsletter_conditional.pdf", uint(0))
+		}
+
 		PDFNetTerminate()
 	}
 }

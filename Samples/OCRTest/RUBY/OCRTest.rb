@@ -249,6 +249,54 @@ begin
 
       doc.Close
 
+      # Example 7) Check whether a page needs OCR before running it, to avoid unnecessary OCR
+      # processing on pages that already contain extractable text
+      # --------------------------------------------------------------------------------
+
+      # A) Positive test: lorem_ipsum.pdf is a scanned document with no extractable text, so it should need OCR.
+      scanned_doc = PDFDoc.new(input_path + "lorem_ipsum.pdf")
+      scanned_page = scanned_doc.GetPage(1)
+
+      # Ask OCRModule whether the page needs OCR. Passing process_invisible_text as false
+      # means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
+      # is considered, while true would treat an existing invisible text layer as sufficient
+      # to consider the page as not needing OCR.
+      scanned_needs_ocr = OCRModule.PageNeedsOCR(scanned_page, false)
+      puts "Example 7 (positive test): page 1 of lorem_ipsum.pdf #{scanned_needs_ocr ? 'needs' : 'does not need'} OCR"
+
+      # Only run OCR if it is actually needed
+      if scanned_needs_ocr
+         opts = OCROptions.new
+         if use_iris
+            opts.SetOCREngine("iris")
+         end
+         opts.AddLang("eng")
+         OCRModule.ProcessPDF(scanned_doc, opts)
+         scanned_doc.Save(output_path + "lorem_ipsum_conditional.pdf", 0)
+      end
+
+      scanned_doc.Close
+
+      # B) Negative test: newsletter.pdf already contains extractable text, so it should not need OCR.
+      newsletter_doc = PDFDoc.new(input_path + "newsletter.pdf")
+      newsletter_page = newsletter_doc.GetPage(1)
+
+      newsletter_needs_ocr = OCRModule.PageNeedsOCR(newsletter_page, false)
+      puts "Example 7 (negative test): page 1 of newsletter.pdf #{newsletter_needs_ocr ? 'needs' : 'does not need'} OCR"
+
+      # Only run OCR if it is actually needed
+      if newsletter_needs_ocr
+         opts = OCROptions.new
+         if use_iris
+            opts.SetOCREngine("iris")
+         end
+         opts.AddLang("eng")
+         OCRModule.ProcessPDF(newsletter_doc, opts)
+         newsletter_doc.Save(output_path + "newsletter_conditional.pdf", 0)
+      end
+
+      newsletter_doc.Close
+
    end
    rescue Exception=>e
       puts e
