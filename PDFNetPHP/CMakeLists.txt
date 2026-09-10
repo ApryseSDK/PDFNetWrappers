@@ -199,13 +199,18 @@ string(REPLACE
     "$c=substr(get_resource_type($r), (strpos(get_resource_type($r), '__') ? strpos(get_resource_type($r), '__') + 2 : 3));"
     "$c=substr(get_resource_type($r), (strrpos(get_resource_type($r), '__') ? strrpos(get_resource_type($r), '__') + 2 : 3));"
     PHP_FILE_CONTENT "${PHP_FILE_CONTENT}")
-# Another workaround. Since List is a reserved keyword in PHP, we had to rename List class to ListElement,
-# but the SWIG type id (SWIGTYPE_p_pdftron__Layout__List) is not renamed. Thus, when PHP is trying to get
-# the class name, it gets "List". As there is no such class, it falls back to the default code, which
-# created the ListRef object. Here, we replace this line of code with the proper object creation.
+# Another workaround. Since List and Float are reserved keywords in PHP, we had to rename those classes
+# to ListContainer and FloatContainer, but the SWIG type ids (SWIGTYPE_p_pdftron__Layout__List and
+# SWIGTYPE_p_pdftron__Layout__Float) are not renamed. Thus, when PHP is trying to get the class name,
+# it gets "List"/"Float". As there is no such class, it falls back to the default code, which creates
+# the ListRef/FloatRef object. Here, we replace those lines of code with the proper object creation.
 string(REPLACE
     "return new ListRef($r);"
     "return new ListContainer($r);"
+    PHP_FILE_CONTENT "${PHP_FILE_CONTENT}")
+string(REPLACE
+    "return new FloatRef($r);"
+    "return new FloatContainer($r);"
     PHP_FILE_CONTENT "${PHP_FILE_CONTENT}")
 file(WRITE ${PDFNetPHP_SourcesDir}/PDFNetPHP.php "${PHP_FILE_CONTENT}")
 

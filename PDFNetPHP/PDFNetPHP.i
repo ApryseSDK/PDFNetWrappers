@@ -13,7 +13,9 @@
 #endif
 
 %rename (OCGConfig) pdftron::PDF::OCG::Config;
+// "list" and "float" are reserved names in PHP and class names are case insensitive.
 %rename(ListContainer) List;
+%rename(FloatContainer) Float;
 
 %include "PDFNet_StdStringPHP.i"
 /**
@@ -843,6 +845,41 @@ namespace pdftron {
     }
 }
 
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::ContentContainer> {
+    if ($1.IsValid()) {
+        pdftron::Layout::ContentContainer* resultobj = new pdftron::Layout::ContentContainer($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__ContentContainer, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::PageNumber> {
+    if ($1.IsValid()) {
+        pdftron::Layout::PageNumber* resultobj = new pdftron::Layout::PageNumber($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__PageNumber, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Shape> {
+    if ($1.IsValid()) {
+        pdftron::Layout::Shape* resultobj = new pdftron::Layout::Shape($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__Shape, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Float> {
+    if ($1.IsValid()) {
+        pdftron::Layout::Float* resultobj = new pdftron::Layout::Float($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__Float, 1);
+    }
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Chart> {
+    if ($1.IsValid()) {
+        pdftron::Layout::Chart* resultobj = new pdftron::Layout::Chart($1.GetElement());
+        SWIG_SetPointerZval(return_value, (void*) resultobj, SWIGTYPE_p_pdftron__Layout__Chart, 1);
+    }
+}
+
 /**
  * Mapping of C++ vector<int> to PHP array
  */
@@ -1159,13 +1196,18 @@ namespace pdftron {
 // The Ref tyoes are not used (automatically converted to either null or the underlying object)
 // but we still need to difine them so they are handled correctly.
 %template (ContentNodeRef) pdftron::Layout::ElementRef<pdftron::Layout::ContentNode>;
+%template (ContentContainerRef) pdftron::Layout::ElementRef<pdftron::Layout::ContentContainer>;
 %template (ParagraphRef) pdftron::Layout::ElementRef<pdftron::Layout::Paragraph>;
 %template (TextRunRef) pdftron::Layout::ElementRef<pdftron::Layout::TextRun>;
+%template (PageNumberRef) pdftron::Layout::ElementRef<pdftron::Layout::PageNumber>;
 %template (TableRef) pdftron::Layout::ElementRef<pdftron::Layout::Table>;
 %template (TableRowRef) pdftron::Layout::ElementRef<pdftron::Layout::TableRow>;
 %template (TableCellRef) pdftron::Layout::ElementRef<pdftron::Layout::TableCell>;
 %template (ListRef) pdftron::Layout::ElementRef<pdftron::Layout::List>;
 %template (ListItemRef) pdftron::Layout::ElementRef<pdftron::Layout::ListItem>;
+%template (ShapeRef) pdftron::Layout::ElementRef<pdftron::Layout::Shape>;
+%template (FloatRef) pdftron::Layout::ElementRef<pdftron::Layout::Float>;
+%template (ChartRef) pdftron::Layout::ElementRef<pdftron::Layout::Chart>;
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{

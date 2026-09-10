@@ -589,25 +589,35 @@ namespace pdftron {
 %enddef
 
 ELEMENT_REF_GOOUT(pdftron::Layout::ContentNode)
+ELEMENT_REF_GOOUT(pdftron::Layout::ContentContainer)
 ELEMENT_REF_GOOUT(pdftron::Layout::Paragraph)
 ELEMENT_REF_GOOUT(pdftron::Layout::TextRun)
+ELEMENT_REF_GOOUT(pdftron::Layout::PageNumber)
 ELEMENT_REF_GOOUT(pdftron::Layout::Table)
 ELEMENT_REF_GOOUT(pdftron::Layout::TableRow)
 ELEMENT_REF_GOOUT(pdftron::Layout::TableCell)
 ELEMENT_REF_GOOUT(pdftron::Layout::List)
 ELEMENT_REF_GOOUT(pdftron::Layout::ListItem)
+ELEMENT_REF_GOOUT(pdftron::Layout::Shape)
+ELEMENT_REF_GOOUT(pdftron::Layout::Float)
+ELEMENT_REF_GOOUT(pdftron::Layout::Chart)
 
 %include "Layout/ContentTree.h"
 %include "Layout/FlowDocument.h"
 
 %template(ContentNodeRef) pdftron::Layout::ElementRef<pdftron::Layout::ContentNode>;
+%template(ContentContainerRef) pdftron::Layout::ElementRef<pdftron::Layout::ContentContainer>;
 %template(ParagraphRef)    pdftron::Layout::ElementRef<pdftron::Layout::Paragraph>;
 %template(TextRunRef)      pdftron::Layout::ElementRef<pdftron::Layout::TextRun>;
+%template(PageNumberRef)   pdftron::Layout::ElementRef<pdftron::Layout::PageNumber>;
 %template(TableRef)        pdftron::Layout::ElementRef<pdftron::Layout::Table>;
 %template(TableRowRef)     pdftron::Layout::ElementRef<pdftron::Layout::TableRow>;
 %template(TableCellRef)    pdftron::Layout::ElementRef<pdftron::Layout::TableCell>;
 %template(ListRef)         pdftron::Layout::ElementRef<pdftron::Layout::List>;
 %template(ListItemRef)     pdftron::Layout::ElementRef<pdftron::Layout::ListItem>;
+%template(ShapeRef)        pdftron::Layout::ElementRef<pdftron::Layout::Shape>;
+%template(FloatRef)        pdftron::Layout::ElementRef<pdftron::Layout::Float>;
+%template(ChartRef)        pdftron::Layout::ElementRef<pdftron::Layout::Chart>;
 
 //Extend Initialize method to call overloaded one internally
 %extend pdftron::PDFNet{

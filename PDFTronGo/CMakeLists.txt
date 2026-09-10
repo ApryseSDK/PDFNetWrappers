@@ -91,13 +91,18 @@ file(GLOB_RECURSE GO_FILES "${BUILD_DIR}/*.go")
 
 set(ELEMENT_REF_TYPES
     ContentNode
+    ContentContainer
     Paragraph
     TextRun
+    PageNumber
     Table
     TableRow
     TableCell
     List
     ListItem
+    Shape
+    Float
+    Chart
 )
 
 file(GLOB_RECURSE GO_FILES "${BUILD_DIR}/*.go")
@@ -106,11 +111,27 @@ foreach(GO_FILE ${GO_FILES})
     file(READ "${GO_FILE}" GO_FILE_CONTENT)
 
     foreach(TYPE ${ELEMENT_REF_TYPES})
-        # Fix function return types:
+        # The ElementRef constructor legitimately returns a '*Ref' value, so hide it from
+        # the blanket return type rewrite below and restore it afterwards.
+        string(REPLACE
+            "func New${TYPE}Ref() (_swig_ret ${TYPE}Ref)"
+            "func New${TYPE}Ref() (_swig_ret @@${TYPE}Ref@@)"
+            GO_FILE_CONTENT
+            "${GO_FILE_CONTENT}"
+        )
+
+        # Fix function return types, for any method returning an ElementRef:
         #   (_swig_ret ContentNodeRef) -> (_swig_ret ContentNode)
         string(REPLACE
-            "As${TYPE}() (_swig_ret ${TYPE}Ref)"
-            "As${TYPE}() (_swig_ret ${TYPE})"
+            "(_swig_ret ${TYPE}Ref)"
+            "(_swig_ret ${TYPE})"
+            GO_FILE_CONTENT
+            "${GO_FILE_CONTENT}"
+        )
+
+        string(REPLACE
+            "(_swig_ret @@${TYPE}Ref@@)"
+            "(_swig_ret ${TYPE}Ref)"
             GO_FILE_CONTENT
             "${GO_FILE_CONTENT}"
         )

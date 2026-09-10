@@ -10,6 +10,9 @@
 
 %module(directors="1") PDFNetRuby
 
+// Ruby's core Float class shadows PDFNetRuby::Float once the module is included.
+%rename(FloatContainer) Float;
+
 /**
  * Includes UString mapping for Ruby
  */
@@ -676,6 +679,61 @@ namespace pdftron {
         VALUE vresult = SWIG_NewPointerObj(
             new pdftron::Layout::ListItem($1.GetElement()),
             SWIGTYPE_p_pdftron__Layout__ListItem,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::ContentContainer> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::ContentContainer($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__ContentContainer,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::PageNumber> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::PageNumber($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__PageNumber,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Shape> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::Shape($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__Shape,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Float> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::Float($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__Float,
+            SWIG_POINTER_OWN | 0);
+        return vresult;
+    }
+    return Qnil;
+}
+
+%typemap(out) pdftron::Layout::ElementRef<pdftron::Layout::Chart> {
+    if ($1.IsValid()) {
+        VALUE vresult = SWIG_NewPointerObj(
+            new pdftron::Layout::Chart($1.GetElement()),
+            SWIGTYPE_p_pdftron__Layout__Chart,
             SWIG_POINTER_OWN | 0);
         return vresult;
     }
