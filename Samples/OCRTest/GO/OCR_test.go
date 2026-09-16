@@ -243,7 +243,7 @@ func TestOCR(t *testing.T) {
 
 		scannedPage := scannedDoc.GetPage(1)
 
-		// Ask OCRModule whether the page needs OCR. Passing process_invisible_text as false
+		// Ask OCRModule whether the page needs OCR. Passing accept_invisible_text as false
 		// means invisible text (e.g. from a prior OCR pass) is ignored and only visible content
 		// is considered, while true would treat an existing invisible text layer as sufficient
 		// to consider the page as not needing OCR.
