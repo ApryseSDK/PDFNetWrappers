@@ -239,7 +239,7 @@ func TestOCR(t *testing.T) {
 
 		// A) Positive test: lorem_ipsum.pdf is a scanned document with no extractable text, so it should need OCR.
 
-		scannedDoc := NewPDFDoc(inputPath + "lorem_ipsum.pdf")
+		scannedDoc := NewPDFDoc(inputPath + "../lorem_ipsum.pdf")
 
 		scannedPage := scannedDoc.GetPage(1)
 
@@ -269,7 +269,7 @@ func TestOCR(t *testing.T) {
 
 		// B) Negative test: newsletter.pdf already contains extractable text, so it should not need OCR.
 
-		newsletterDoc := NewPDFDoc(inputPath + "newsletter.pdf")
+		newsletterDoc := NewPDFDoc(inputPath + "../newsletter.pdf")
 
 		newsletterPage := newsletterDoc.GetPage(1)
 

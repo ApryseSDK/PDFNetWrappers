@@ -254,7 +254,7 @@ begin
       # --------------------------------------------------------------------------------
 
       # A) Positive test: lorem_ipsum.pdf is a scanned document with no extractable text, so it should need OCR.
-      scanned_doc = PDFDoc.new(input_path + "lorem_ipsum.pdf")
+      scanned_doc = PDFDoc.new(input_path + "../lorem_ipsum.pdf")
       scanned_page = scanned_doc.GetPage(1)
 
       # Ask OCRModule whether the page needs OCR. Passing accept_invisible_text as false
@@ -278,7 +278,7 @@ begin
       scanned_doc.Close
 
       # B) Negative test: newsletter.pdf already contains extractable text, so it should not need OCR.
-      newsletter_doc = PDFDoc.new(input_path + "newsletter.pdf")
+      newsletter_doc = PDFDoc.new(input_path + "../newsletter.pdf")
       newsletter_page = newsletter_doc.GetPage(1)
 
       newsletter_needs_ocr = OCRModule.PageNeedsOCR(newsletter_page, false)
