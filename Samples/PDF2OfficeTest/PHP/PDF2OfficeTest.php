@@ -89,6 +89,30 @@ function main()
 	//-----------------------------------------------------------------------------------
 
 	try {
+		// Convert PDF document to Word with OCR options
+		echo(nl2br("Converting PDF to Word with OCR options\n"));
+
+		$outputFile = $outputPath."US061222892-a.docx";
+
+		$wordOutputOptions = new WordOutputOptions(); // Convert::WordOutputOptions();
+
+		// Use the Paddle OCR engine. Note: unlike the default OCR engine, Paddle does not
+		// support automatic language detection, so the OCR language must be set explicitly
+		// (the default is English).
+		$wordOutputOptions->SetPreferredOCREngine(OutputOptionsOCR::e_engine_paddle);
+		$wordOutputOptions->SetCustomOCRLanguage("eng");
+
+		Convert::ToWord($inputPath."US061222892-a.pdf", $outputFile, $wordOutputOptions);
+
+		echo(nl2br("Result saved in " . $outputFile . "\n"));
+	}
+	catch(Exception $e) {
+		echo(nl2br("Unable to convert PDF document to Word, error: " . $e->getMessage() . "\n"));
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	try {
 		// Convert PDF document to Excel
 		echo(nl2br("Converting PDF to Excel\n"));
 

@@ -83,6 +83,28 @@ def main()
 	#-----------------------------------------------------------------------------------
 
 	begin
+		# Convert PDF document to Word with OCR options
+		puts "Converting PDF to Word with OCR options"
+
+		$outputFile = $outputPath + "US061222892-a.docx"
+
+		$wordOutputOptions = Convert::WordOutputOptions.new()
+
+		# Use the Paddle OCR engine. Note: unlike the default OCR engine, Paddle does not
+		# support automatic language detection, so the OCR language must be set explicitly
+		# (the default is English).
+		$wordOutputOptions.SetPreferredOCREngine(OutputOptionsOCR::E_engine_paddle);
+		$wordOutputOptions.SetCustomOCRLanguage("eng");
+
+		Convert.ToWord($inputPath + "US061222892-a.pdf", $outputFile, $wordOutputOptions)
+		puts "Result saved in " + $outputFile
+	rescue => error
+		puts "Unable to convert PDF document to Word, error: " + error.message
+	end
+
+	#-----------------------------------------------------------------------------------
+
+	begin
 		# Convert PDF document to Excel
 		puts "Converting PDF to Excel"
 

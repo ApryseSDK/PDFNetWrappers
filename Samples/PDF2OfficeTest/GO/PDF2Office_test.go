@@ -87,6 +87,32 @@ func ConvertToWordWithOptionsTest() (err error) {
 
 //---------------------------------------------------------------------------------------
 
+func ConvertToWordWithOCROptionsTest() (err error) {
+	defer catch(&err)
+
+	// Convert PDF document to Word with OCR options
+	fmt.Println("Converting PDF to Word with OCR options")
+
+	inputFile := inputPath + "US061222892-a.pdf"
+	outputFile := outputPath + "US061222892-a.docx"
+
+	wordOutputOptions := NewWordOutputOptions()
+
+	// Use the Paddle OCR engine. Note: unlike the default OCR engine, Paddle does not
+	// support automatic language detection, so the OCR language must be set explicitly
+	// (the default is English).
+	wordOutputOptions.SetPreferredOCREngine(OutputOptionsOCRE_engine_paddle)
+	wordOutputOptions.SetCustomOCRLanguage("eng")
+
+	// Convert to Word
+	ConvertToWord(inputFile, outputFile, wordOutputOptions)
+
+	fmt.Println("Result saved in " + outputFile)
+	return nil
+}
+
+//---------------------------------------------------------------------------------------
+
 func ConvertToExcelTest() (err error) {
 	defer catch(&err)
 
@@ -203,6 +229,14 @@ func TestPDF2Office(t *testing.T) {
 
 	// Convert PDF document to Word with options
 	err = ConvertToWordWithOptionsTest()
+	if err != nil {
+		fmt.Println(fmt.Errorf("Unable to convert PDF document to Word, error: %s", err))
+	}
+
+	//-----------------------------------------------------------------------------------
+
+	// Convert PDF document to Word with OCR options
+	err = ConvertToWordWithOCROptionsTest()
 	if err != nil {
 		fmt.Println(fmt.Errorf("Unable to convert PDF document to Word, error: %s", err))
 	}
