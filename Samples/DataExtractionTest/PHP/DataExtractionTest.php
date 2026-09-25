@@ -138,6 +138,20 @@ function main()
 			WriteTextToFile($outputFile, $json);
 
 			echo(nl2br("Result saved in " . $outputFile . "\n"));
+
+			///////////////////////////////////////////////////////
+			// Extract document structure as a Markdown file using the Paddle OCR engine.
+			// Note: unlike the default OCR engine, Paddle does not support automatic language
+			// detection, so the OCR language must be set explicitly (the default is English).
+			echo(nl2br("Extract document structure as a Markdown file using the Paddle OCR engine\n"));
+
+			$outputFile = $outputPath."US061222892-a.md";
+			$options = new DataExtractionOptions();
+			$options->SetLanguage("eng");
+			$options->SetPreferredOCREngine(DataExtractionOptions::e_extract_ocr_paddle);
+			DataExtractionModule::ExtractToMarkdown($inputPath."US061222892-a.pdf", $outputFile, $options);
+
+			echo(nl2br("Result saved in " . $outputFile . "\n"));
 		}
 		catch(Exception $e) {
 			echo(nl2br("Unable to extract document structure data, error: " . $e->getMessage() . "\n"));

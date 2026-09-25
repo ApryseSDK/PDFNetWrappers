@@ -135,6 +135,20 @@ def main():
             WriteTextToFile(outputFile, json)
 
             print("Result saved in " + outputFile)
+
+            #------------------------------------------------------
+            # Extract document structure as a Markdown file using the Paddle OCR engine.
+            # Note: unlike the default OCR engine, Paddle does not support automatic language
+            # detection, so the OCR language must be set explicitly (the default is English).
+            print("Extract document structure as a Markdown file using the Paddle OCR engine")
+
+            outputFile = outputPath + "US061222892-a.md"
+            options = DataExtractionOptions()
+            options.SetLanguage("eng")
+            options.SetPreferredOCREngine(DataExtractionOptions.e_extract_ocr_paddle)
+            DataExtractionModule.ExtractToMarkdown(inputPath + "US061222892-a.pdf", outputFile, options)
+
+            print("Result saved in " + outputFile)
         except Exception as e:
             print("Unable to extract document structure data, error: " + str(e))
 
