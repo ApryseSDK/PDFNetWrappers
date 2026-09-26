@@ -85,6 +85,28 @@ def main():
     #-----------------------------------------------------------------------------------
 
     try:
+        # Convert PDF document to Word with OCR options
+        print("Converting PDF to Word with OCR options")
+
+        outputFile = outputPath + "US061222892-a.docx"
+
+        wordOutputOptions = WordOutputOptions()
+
+        # Use the Paddle OCR engine. Note: unlike the default OCR engine, Paddle does not
+        # support automatic language detection, so the OCR language must be set explicitly
+        # (the default is English).
+        wordOutputOptions.SetPreferredOCREngine(OutputOptionsOCR.e_engine_paddle)
+        wordOutputOptions.SetCustomOCRLanguage("eng")
+
+        Convert.ToWord(inputPath + "US061222892-a.pdf", outputFile, wordOutputOptions)
+
+        print("Result saved in " + outputFile)
+    except Exception as e:
+        print("Unable to convert PDF document to Word, error: " + str(e))
+
+    #-----------------------------------------------------------------------------------
+
+    try:
         # Convert PDF document to Excel
         print("Converting PDF to Excel")
 

@@ -166,6 +166,20 @@ func DocumentStructureTest() (err error) {
 
 	fmt.Println("Result saved in " + outputFile)
 
+	// Extract document structure as a Markdown file using the Paddle OCR engine.
+	// Note: unlike the default OCR engine, Paddle does not support automatic language
+	// detection, so the OCR language must be set explicitly (the default is English).
+	fmt.Println("Extract document structure as a Markdown file using the Paddle OCR engine")
+
+	inputFile = inputPath + "US061222892-a.pdf"
+	outputFile = outputPath + "US061222892-a.md"
+	options := NewDataExtractionOptions()
+	options.SetLanguage("eng")
+	options.SetPreferredOCREngine(DataExtractionOptionsE_extract_ocr_paddle)
+	DataExtractionModuleExtractToMarkdown(inputFile, outputFile, options)
+
+	fmt.Println("Result saved in " + outputFile)
+
 	return nil
 }
 

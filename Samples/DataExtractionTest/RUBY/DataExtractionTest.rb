@@ -125,6 +125,20 @@ def main()
 			File.open(outputFile, 'w') { |file| file.write(json) }
 	
 			puts "Result saved in " + outputFile
+
+			#------------------------------------------------------
+			# Extract document structure as a Markdown file using the Paddle OCR engine.
+			# Note: unlike the default OCR engine, Paddle does not support automatic language
+			# detection, so the OCR language must be set explicitly (the default is English).
+			puts "Extract document structure as a Markdown file using the Paddle OCR engine"
+	
+			outputFile = $outputPath + "US061222892-a.md"
+			options = DataExtractionOptions.new()
+			options.SetLanguage("eng")
+			options.SetPreferredOCREngine(DataExtractionOptions::E_extract_ocr_paddle)
+			DataExtractionModule.ExtractToMarkdown($inputPath + "US061222892-a.pdf", outputFile, options)
+	
+			puts "Result saved in " + outputFile
 		rescue => error
 			puts "Unable to extract document structure data, error: " + error.message
 		end
