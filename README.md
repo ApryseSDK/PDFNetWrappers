@@ -1,8 +1,7 @@
-## NOTE FOR DEVELOPERS
-
-Formerly next_release was used for development, this has now migrated to master to better work with our flow.
-
-If you are using an Apryse SDK you should build PDFNetWrappers with the branch that corresponds to your version of the SDK. `master` may only be used with experimental builds of Apryse SDK.
+> [!NOTE]
+> **NOTE FOR DEVELOPERS**
+> Formerly `next_release` was used for development, this has now migrated to master to better work with our flow.
+> If you are using an Apryse SDK you should build PDFNetWrappers with the branch that corresponds to your version of the SDK. `master` may only be used with experimental builds of Apryse SDK.
 
 # About
 
@@ -119,7 +118,7 @@ Suppose you wanted to build and run the 64-bit `GO` wrappers on `Windows`.  You 
     cd ../Samples # Move to the Samples directory.
     ./runall_go.bat # Run all Go code samples, using the new wrappers.
 
-More information at [PDFTron SDK for Go](https://www.apryse.com/documentation/go)
+More information at [PDFTron SDK for Go](https://docs.apryse.com/core/get-started/languages/go)
 
 ## Linux
 
